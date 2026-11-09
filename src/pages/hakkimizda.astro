@@ -1,0 +1,123 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import { Icon } from 'astro-icon/components';
+import { defaultWhyUs, defaultProcessSteps } from '~/data/services';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: 'Roasist - Hakkımızda - Özelleştirilmiş Dijital Pazarlama Hizmetleri',
+  ignoreTitleTemplate: true,
+  description:
+    'Roasist, dijital pazarlama sektöründe özelleştirilmiş, veri odaklı ve yenilikçi yaklaşımıyla öne çıkan yeni nesil dijital büyüme ajansıdır.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const siteUrl = SITE?.site || 'https://www.roasist.com';
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'Hakkımızda - Roasist',
+    url: `${siteUrl}/hakkimizda/`,
+    mainEntity: {
+      '@id': `${siteUrl}/#organization`,
+    },
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={structuredData} />
+
+  <section class="pt-12 pb-16 md:pt-20 md:pb-24 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 mb-6">
+        <Icon name="tabler:building-community" class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+        <span>Kurumsal Vizyonumuz & Kültürümüz</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
+        Hakkımızda
+      </h1>
+
+      <blockquote class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border-l-4 border-indigo-600 text-base sm:text-lg font-medium text-slate-800 dark:text-slate-200 italic mb-10">
+        “Çoğu insan gerçekte özgürlük istemez, çünkü özgürlük sorumluluk gerektirir ve çoğu insan sorumluluktan korkar.” — Roasist olarak özgürlüğü, şeffaflığı ve markalarımızın büyüme sorumluluğunu üstlenmeyi benimsiyoruz.
+      </blockquote>
+
+      <div class="space-y-5 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+        <p>
+          <strong>Roasist</strong>, dijital pazarlama sektöründe özelleştirilmiş ve yenilikçi yaklaşımıyla öne çıkan bir dijital pazarlama ve büyüme teknolojileri ajansıdır. Müşterilerimize en iyi sonuçları sunmak için kanıtlanmış pazarlama prensiplerini modern veri analitiği ve kendi geliştirdiğimiz yazılım çözümleriyle birleştiriyoruz.
+        </p>
+        <p>
+          Dijital pazarlama endüstrisi hızla değişiyor ve biz bu değişiklikleri yalnızca takip etmekle kalmıyor, geliştirdiğimiz <strong>Roasist Marketing Intelligence OS</strong> altyapısıyla karar süreçlerimizin merkezine gerçek veriyi koyuyoruz. Müşterilerimize en güncel stratejileri sunabilmek için sürekli araştırmaya ve ölçümlemeye yatırım yapıyoruz.
+        </p>
+        <p>
+          Kalite ve süreç odaklı bir yaklaşım benimsiyoruz. Her projede, müşterilerimizin ticari hedeflerine, kâr marjlarına ve hedef kitle dinamiklerine uygun bütünsel bir büyüme planı kurguluyoruz. Aynı zamanda esnekliği ve çevikliği koruyarak, pazar sinyallerine en hızlı refleksi gösteriyoruz.
+        </p>
+        <p>
+          Sonuç olarak; Roasist olarak çalıştığımız her markanın dijital dünyadaki büyüme sorumluluğunu kendi işimiz gibi sahipleniyoruz. Özelleştirilmiş dijital pazarlama çözümleri sunarken şeffaflığı, kaliteyi, esnekliği ve hızı standart haline getiriyoruz.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Temel Değerlerimiz -->
+  <section class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">
+          Bizi Farklı Kılan 6 Temel Değerimiz
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          Tüm kampanya, SEO ve tasarım süreçlerimizde taviz vermediğimiz çalışma ilkelerimiz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          defaultWhyUs.map((item) => (
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-5 h-5" />
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{item.title}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Sürecimiz -->
+  <section class="py-16 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">
+          Nasıl Çalışıyoruz?
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          İlk tanışmadan sürekli optimizasyona kadar 6 adımlı şeffaf büyüme metodolojimiz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          defaultProcessSteps.map((s) => (
+            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+              <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400">
+                Step {s.step}
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-4 mb-2">{s.title}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{s.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

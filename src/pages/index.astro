@@ -1,0 +1,789 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import { Icon } from 'astro-icon/components';
+import { SITE, I18N } from 'astrowind:config';
+import clients from '~/data/clients.json';
+import { defaultProcessSteps, defaultWhyUs } from '~/data/services';
+
+const metadata = {
+  title: 'Roasist - Özelleştirilmiş Dijital Pazarlama Hizmetleri',
+  ignoreTitleTemplate: true,
+  description:
+    'Roasist, özelleştirilmiş dijital pazarlama hizmetleri ve yenilikçi yaklaşımıyla öne çıkan bir dijital pazarlama ajansıdır.',
+};
+
+const siteUrl = SITE?.site || 'https://www.roasist.com';
+const organizationId = `${siteUrl}/#organization`;
+
+const homeFaqs = [
+  {
+    question: 'Roasist hangi dijital pazarlama hizmetlerini sunuyor?',
+    answer:
+      'Roasist; 360° Dijital Pazarlama Yönetimi, Performans Pazarlaması (Google Ads, Instagram, Facebook, TikTok, LinkedIn ve Yandex Reklamları), Arama Motoru Optimizasyonu (SEO), Dönüşüm Odaklı Web Tasarım ve Kreatif Grafik Tasarım hizmetlerini veri odaklı bir yaklaşımla sunar.',
+  },
+  {
+    question: 'Çalışma süreciniz nasıl başlıyor?',
+    answer:
+      'Sürecimiz ücretsiz ön analiz ve strateji görüşmesiyle başlar. Mevcut dijital varlıklarınızı, reklam hesaplarınızı ve sektörünüzdeki gerçek arama hacimlerini inceler; işletmenize özel KPI ve büyüme yol haritasını çıkarırız.',
+  },
+  {
+    question: 'Reklam hesapları ve veriler kimin mülkiyetinde oluyor?',
+    answer:
+      'Şeffaflık ilkemiz gereği tüm reklam hesapları (Google Ads, Meta, TikTok, LinkedIn, Yandex) ve analitik mülkleri doğrudan sizin adınıza açılır ve %100 sizin mülkiyetinizde kalır. Tüm performans verilerini 7/24 canlı olarak takip edebilirsiniz.',
+  },
+  {
+    question: 'Sadece tek bir hizmet (örneğin SEO veya Google Ads) alabilir miyiz?',
+    answer:
+      'Evet. İhtiyacınıza göre yalnızca Google Reklamları, SEO veya Web Tasarım gibi tekil uzmanlık hizmetlerimizden faydalanabileceğiniz gibi, tüm dijital kanallarınızı kapsayan 360° Dijital Pazarlama Yönetimi modelimizle de çalışabilirsiniz.',
+  },
+];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    name: 'Roasist',
+    url: siteUrl,
+    inLanguage: I18N?.language || 'tr',
+    publisher: { '@id': organizationId },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MarketingAgency',
+    '@id': organizationId,
+    name: 'Roasist',
+    url: siteUrl,
+    logo: `${siteUrl}/roasist-logo.svg`,
+    description:
+      'Roasist, özelleştirilmiş dijital pazarlama hizmetleri, performans pazarlaması, SEO, web tasarım ve veri analitiği çözümleri sunan yeni nesil büyüme ajansıdır.',
+    telephone: '+905415075350',
+    sameAs: [
+      'https://www.linkedin.com/company/roasist/',
+      'https://www.instagram.com/roasist/',
+      'https://twitter.com/Roasistt',
+      'https://www.facebook.com/roasistt',
+      'https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: homeFaqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer,
+      },
+    })),
+  },
+];
+
+const mainServices = [
+  {
+    title: 'Performans Pazarlaması',
+    description:
+      'Performans Pazarlaması, dijital pazarlama stratejilerinden biridir ve reklam verenlerin yalnızca gerçek sonuçlar, dönüşümler ve ölçülebilir ROAS için yatırım yaptığı büyüme modelidir.',
+    href: '/hizmetler/performans-pazarlamasi/',
+    icon: 'tabler:chart-arrows-vertical',
+    tag: 'ROAS & Dönüşüm',
+  },
+  {
+    title: '360° Dijital Pazarlama Yönetimi',
+    description:
+      '360 derece dijital pazarlama yönetimi, işletmeyi büyütmek için SEO, PPC, sosyal medya, web ve kreatif dahil tüm dijital pazarlama kampanyalarını planlama, yürütme ve ölçme sürecidir.',
+    href: '/hizmetler/360-derece-dijital-pazarlama-yonetimi/',
+    icon: 'tabler:360-view',
+    tag: 'Tam Entegre Yönetim',
+  },
+  {
+    title: 'Arama Motoru Optimizasyonu (SEO)',
+    description:
+      'Arama Motoru Optimizasyonu (SEO), web sitenizin Google ve yapay zeka arama motorlarındaki sıralamasını iyileştirerek sürdürülebilir organik trafik ve müşteri kazanma uygulamasıdır.',
+    href: '/hizmetler/seo/',
+    icon: 'tabler:search',
+    tag: 'Organik Büyüme',
+  },
+  {
+    title: 'Web Tasarım & Geliştirme',
+    description:
+      'Web tasarım; kullanıcı dostu (UI/UX), mobil öncelikli, yüksek hızlı (Core Web Vitals) ve arama motorlarıyla tam uyumlu, ziyaretçiyi müşteriye dönüştüren web siteleri oluşturmayı içerir.',
+    href: '/hizmetler/web-tasarim/',
+    icon: 'tabler:layout-dashboard',
+    tag: 'Hız & UI/UX',
+  },
+  {
+    title: 'Grafik Tasarım & Kreatif',
+    description:
+      'Grafik tasarım; tipografi, alan ve görüntü kullanımı yoluyla iletişim kurma, kurumsal stil yaratma ve reklam kampanyalarında tıklama oranını (CTR) artıran görsel çözümler üretme sanatıdır.',
+    href: '/hizmetler/grafik-tasarim/',
+    icon: 'tabler:palette',
+    tag: 'Marka & Kreatif',
+  },
+];
+
+const adChannels = [
+  {
+    name: 'Google Reklamları',
+    desc: 'Arama Ağı, Alışveriş, Performance Max, YouTube & GDN yönetimi',
+    href: '/hizmetler/performans-pazarlamasi/google-reklamlari/',
+    icon: 'tabler:brand-google',
+  },
+  {
+    name: 'Instagram Reklamları',
+    desc: 'Reels, Story, Akış ve Dinamik Katalog dönüşüm kampanyaları',
+    href: '/hizmetler/performans-pazarlamasi/instagram-reklamlari/',
+    icon: 'tabler:brand-instagram',
+  },
+  {
+    name: 'Facebook Reklamları',
+    desc: 'Advantage+ alışveriş, CAPI ve gelişmiş yeniden pazarlama',
+    href: '/hizmetler/performans-pazarlamasi/facebook-reklamlari/',
+    icon: 'tabler:brand-facebook',
+  },
+  {
+    name: 'TikTok Reklamları',
+    desc: 'In-Feed, Spark Ads ve yüksek etkileşimli video dönüşüm kurguları',
+    href: '/hizmetler/performans-pazarlamasi/tiktok-reklamlari/',
+    icon: 'tabler:brand-tiktok',
+  },
+  {
+    name: 'LinkedIn Reklamları',
+    desc: 'Şirket, sektör ve unvan odaklı kurumsal B2B Lead Gen kampanyaları',
+    href: '/hizmetler/performans-pazarlamasi/linkedin-reklamlari/',
+    icon: 'tabler:brand-linkedin',
+  },
+  {
+    name: 'Yandex Reklamları',
+    desc: 'Rusya ve BDT pazarlarında Yandex Direct Arama & YAN reklamları',
+    href: '/hizmetler/performans-pazarlamasi/yandex-reklamlari/',
+    icon: 'tabler:world',
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      'Reklam sürecinde projeye yaklaşımları, anlaşmamızın ötesinde sorumluluk alarak aynı zamanda bir grafik tasarımcı katkısı sunmaları, mesai kavramından uzak 7/24 destek ve hassasiyet ile bizim işimiz için en az bizim kadar dertlenen bir dijital pazarlama uzmanıyla çalışma fırsatı yakaladığımız için şanslıyız. Roasist ile teknik konuları dert etmeden dijital dünyada şirketinizi büyütmek için gönül rahatlığıyla çalışabilirsiniz.',
+    name: 'Burak Özhan',
+    role: 'Project Program Coordinator',
+  },
+  {
+    quote:
+      'Roasist ile yaklaşık iki senedir çalışıyoruz. Her sorumuza dürüstlükle yanıt alıyor, tüm sorunlarımızı efektif bir şekilde çözüyorlar. Yaptığımız iş gereği öncesi - sonrası değerlendirmesi yapmam gerekirse kazanç konusunda bize çok katkıları oldu. Nezaketli, dürüst ve profesyonel yaklaşımları için çok teşekkür ederim.',
+    name: 'Gaye Tukar',
+    role: 'Entrepreneur',
+  },
+  {
+    quote:
+      'Mesai kavramı olmaksızın sizin için çalışıyorlar. İşinde profesyonel, şeffaf ve sonuç odaklı bir dijital pazarlama ajansı arıyorsanız kesinlikle tavsiye ederim.',
+    name: 'Celal Kandemir',
+    role: 'Owner',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={structuredData} />
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        <!-- Left Copy -->
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 mb-6">
+            <Icon name="tabler:chart-histogram" class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>Veri & Teknoloji Odaklı Dijital Büyüme Ajansı</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
+            Büyüyen İşletmeler İçin Dijital Pazarlama Çözümleri
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl">
+            Kapsamlı ve özelleştirilmiş dijital pazarlama hizmetlerimizle işinizi bir sonraki seviyeye taşımanıza yardımcı olalım. Kendi geliştirdiğimiz veri analitiği teknolojileriyle reklam bütçenizi ölçülebilir satışa dönüştürüyoruz.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 mb-10">
+            <a
+              href="/iletisim/#analiz-formu"
+              id="home-hero-primary-cta"
+              class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 font-bold text-sm transition shadow-sm"
+            >
+              <span>Ücretsiz Strateji Görüşmesi Planla</span>
+              <Icon name="tabler:arrow-right" class="w-4 h-4" />
+            </a>
+            <a
+              href="#hizmetler"
+              id="home-hero-secondary-cta"
+              class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 font-semibold text-sm transition"
+            >
+              <span>Hizmetlerimizi İncele</span>
+            </a>
+          </div>
+
+          <!-- Key Trust Indicators -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 dark:border-slate-800/80 max-w-xl">
+            <div>
+              <div class="text-2xl font-extrabold text-slate-900 dark:text-white">360°</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Uçtan Uca Dijital Yönetim</div>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-slate-900 dark:text-white">30+</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Ulusal & Küresel Marka</div>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-slate-900 dark:text-white">%100</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Şeffaf Veri & Hesap Mülkiyeti</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Interactive Strategy Matrix Card -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-md">
+            <div class="flex items-center justify-between pb-4 mb-5 border-b border-slate-200 dark:border-slate-800">
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                  Roasist Growth Architecture
+                </div>
+                <div class="text-base font-bold text-slate-900 dark:text-white mt-0.5">
+                  Hedefinize Göre Büyüme Planı Seçin
+                </div>
+              </div>
+              <Icon name="tabler:adjustments-alt" class="w-5 h-5 text-slate-400" />
+            </div>
+
+            <!-- Interactive Tabs -->
+            <div class="grid grid-cols-3 gap-2 p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800 mb-5" role="tablist">
+              <button
+                type="button"
+                id="tab-btn-ecommerce"
+                data-plan-tab="ecommerce"
+                class="plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-bold transition bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-2xs"
+              >
+                E-Ticaret & ROAS
+              </button>
+              <button
+                type="button"
+                id="tab-btn-lead"
+                data-plan-tab="lead"
+                class="plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              >
+                B2B & Hizmet Lead
+              </button>
+              <button
+                type="button"
+                id="tab-btn-export"
+                data-plan-tab="export"
+                class="plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              >
+                İhracat & Turizm
+              </button>
+            </div>
+
+            <!-- Panel 1: E-Commerce -->
+            <div data-plan-panel="ecommerce" class="plan-panel space-y-4">
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Online mağazanızın sepet ortalamasını, dönüşüm oranını (CR) ve reklam harcaması getirisini (ROAS) büyütmek için kurguladığımız tam huni mimarisi:
+              </p>
+              <div class="space-y-2.5">
+                <a href="/hizmetler/performans-pazarlamasi/google-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:brand-google" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">Google Shopping & PMax</div>
+                      <div class="text-[11px] text-slate-500">Satın alma niyeti yüksek ürün aramaları</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+                <a href="/hizmetler/performans-pazarlamasi/instagram-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:brand-instagram" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">Meta Dinamik Katalog & CAPI</div>
+                      <div class="text-[11px] text-slate-500">Reels kreatifleri + sepet terk retargeting</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+                <a href="/hizmetler/seo/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:search" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">Kategori & Ürün SEO</div>
+                      <div class="text-[11px] text-slate-500">Reklamsız sürdürülebilir organik ciro</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Panel 2: B2B & Lead -->
+            <div data-plan-panel="lead" class="plan-panel hidden space-y-4">
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Klinik, eğitim, gayrimenkul, yazılım ve B2B hizmet firmaları için nitelikli talep (MQL/SQL) ve randevu üreten büyüme mimarisi:
+              </p>
+              <div class="space-y-2.5">
+                <a href="/hizmetler/performans-pazarlamasi/google-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:search" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">Google Arama Ağı (Yüksek Niyet)</div>
+                      <div class="text-[11px] text-slate-500">Hizmetinizi tam şu an arayan müşteriler</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+                <a href="/hizmetler/performans-pazarlamasi/linkedin-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:brand-linkedin" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">LinkedIn B2B Lead Gen Forms</div>
+                      <div class="text-[11px] text-slate-500">Şirket, sektör ve unvan bazlı karar vericiler</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+                <a href="/hizmetler/web-tasarim/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:layout-dashboard" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">Yüksek Dönüşümlü Landing Page</div>
+                      <div class="text-[11px] text-slate-500">Form ve WhatsApp dönüşümünü katlayan UX</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Panel 3: Export & Health Tourism -->
+            <div data-plan-panel="export" class="plan-panel hidden space-y-4">
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Sağlık turizmi, uluslararası gayrimenkul ve ihracat markaları için çok dilli ve çok bölgeli küresel müşteri kazanım mimarisi:
+              </p>
+              <div class="space-y-2.5">
+                <a href="/hizmetler/performans-pazarlamasi/yandex-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:world" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">Yandex Direct & YAN (Rusya / BDT)</div>
+                      <div class="text-[11px] text-slate-500">Rusça konuşulan coğrafyada doğrudan erişim</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+                <a href="/hizmetler/performans-pazarlamasi/facebook-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:brand-facebook" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">Avrupa & UK Meta Lead Kurguları</div>
+                      <div class="text-[11px] text-slate-500">Ülke ve dil bazlı uluslararası hasta/yatırımcı</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+                <a href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
+                  <div class="flex items-center gap-3">
+                    <Icon name="tabler:360-view" class="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <div class="text-xs font-bold text-slate-900 dark:text-white">360° Küresel Büyüme Yönetimi</div>
+                      <div class="text-[11px] text-slate-500">Çok kanallı uluslararası pazarlama operasyonu</div>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-500 dark:text-slate-400">Kendi verilerinizle analiz edelim:</span>
+              <a href="/iletisim/#analiz-formu" class="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+                Ücretsiz Ön Denetim Al →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT LOGOS / SOCIAL PROOF -->
+  <section class="py-12 md:py-16 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Referanslarımız & İş Ortaklarımız
+          </h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            Başarılı işbirlikleri sonucunda büyümesine katkı sağladığımız markalardan bazıları.
+          </p>
+        </div>
+        <a
+          href="/referanslar/"
+          class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0"
+        >
+          <span>Tüm Referansları Gör ({clients.length})</span>
+          <Icon name="tabler:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+        {
+          clients.slice(0, 12).map((client) => (
+            <div class="h-20 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 px-4 py-3 flex items-center justify-center hover:border-slate-300 transition">
+              <img
+                src={client.logo}
+                alt={client.alt}
+                loading="lazy"
+                width="140"
+                height="56"
+                class="max-h-11 w-auto object-contain opacity-85 hover:opacity-100 transition dark:brightness-95"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HİZMETLERİMİZ (CORE 5 SERVICES + 6 AD CHANNELS) -->
+  <section id="hizmetler" class="py-20 md:py-28 bg-white dark:bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          Hizmetler
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
+          Markanızı Büyüten Uçtan Uca Dijital Çözümler
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+          Web sitelerinin optimize edilmesinden sosyal medya ve arama motoru reklamlarının yönetimine, teknik SEO’dan dönüşüm odaklı tasarıma kadar her alanda uzman ekibimizle yanınızdayız.
+        </p>
+      </div>
+
+      <!-- 5 Primary Service Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+        {
+          mainServices.map((srv) => (
+            <a
+              href={srv.href}
+              class="group rounded-2xl p-7 bg-slate-50/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 hover:border-slate-900 dark:hover:border-slate-500 hover:bg-white dark:hover:bg-slate-900 transition flex flex-col justify-between shadow-2xs"
+            >
+              <div>
+                <div class="flex items-center justify-between mb-5">
+                  <div class="w-11 h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                    <Icon name={srv.icon} class="w-5 h-5" />
+                  </div>
+                  <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                    {srv.tag}
+                  </span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                  {srv.title}
+                </h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                  {srv.description}
+                </p>
+              </div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                <span>KEŞFET</span>
+                <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </a>
+          ))
+        }
+
+        <!-- 6th Card: Roasist Marketing Intelligence OS Highlight -->
+        <div class="rounded-2xl p-7 bg-slate-900 text-white flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-5">
+              <div class="w-11 h-11 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-indigo-400">
+                <Icon name="tabler:cpu" class="w-5 h-5" />
+              </div>
+              <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                Özel Teknoloji
+              </span>
+            </div>
+            <h3 class="text-xl font-bold mb-2.5">Roasist Marketing Intelligence OS</h3>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              Klasik ajanslardan farklı olarak; resmi Google Ads API entegrasyonlu gerçek arama hacmi, bütçe simülasyonu ve kreatif analiz yazılımımızla kararlarımızı tahmine değil, %100 gerçek veriye dayandırıyoruz.
+            </p>
+          </div>
+          <a
+            href="/iletisim/#analiz-formu"
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-300 hover:text-white transition"
+          >
+            <span>Veri Odaklı Analiz Talep Et</span>
+            <Icon name="tabler:arrow-right" class="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+
+      <!-- 6 Performance Advertising Channels Sub-Grid -->
+      <div class="rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 p-6 sm:p-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+              Performans Pazarlaması Reklam Kanallarımız
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+              Hedef kitlenizin bulunduğu her platformda uzman hesap yönetimi ve dönüşüm optimizasyonu.
+            </p>
+          </div>
+          <a
+            href="/hizmetler/performans-pazarlamasi/"
+            class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0"
+          >
+            Performans Pazarlaması Detayları →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {
+            adChannels.map((ch) => (
+              <a
+                href={ch.href}
+                class="flex items-start gap-3.5 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 hover:border-indigo-500 transition group"
+              >
+                <div class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5">
+                  <Icon name={ch.icon} class="w-5 h-5" />
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                    {ch.name}
+                  </div>
+                  <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">{ch.desc}</div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAZARLAMA GÜCÜNÜZÜ ARTIRIN (STORY & VALUE PROPOSITION) -->
+  <section class="py-20 md:py-24 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            Stratejik Büyüme Ortağınız
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-6">
+            Pazarlama Gücünüzü Artırın
+          </h2>
+          <div class="space-y-4 text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+            <p>
+              Dijital dünya her geçen gün daha da büyüyor ve markaların bu alanda var olmaları ve rekabet edebilmeleri için doğru dijital pazarlama stratejileri oluşturmaları gerekiyor. Biz de burada devreye giriyoruz.
+            </p>
+            <p>
+              Dijital pazarlama alanında uzmanlaşmış ekibimizle birlikte, müşterilerimize kapsamlı ve özelleştirilmiş dijital pazarlama hizmetleri sunuyoruz. Web sitelerinin optimize edilmesinden, sosyal medya hesaplarının yönetimine, arama motoru optimizasyonundan reklam kampanyalarının tasarlanmasına kadar her alanda hizmet veriyoruz.
+            </p>
+            <p>
+              Markaların hedef kitlelerine en iyi şekilde ulaşmaları için stratejik pazarlama planları geliştiriyoruz. Bunun için, her bir müşterimizin ihtiyaçlarını ve hedeflerini anlamak için özel bir çalışma yürütüyoruz. Böylece, her biri özgün bir pazarlama planına sahip oluyor.
+            </p>
+            <p>
+              Dijital pazarlama dünyasının sürekli değişen yapısını takip ederek, müşterilerimizin işlerini büyütmelerine yardımcı oluyoruz. Düzenli raporlama ve analizlerle, kampanyaların performanslarını izliyor ve sürekli olarak iyileştirme fırsatlarını arıyoruz.
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {
+              defaultWhyUs.map((w) => (
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-2xs">
+                  <div class="w-9 h-9 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3.5">
+                    <Icon name={w.icon} class="w-5 h-5" />
+                  </div>
+                  <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">{w.title}</h3>
+                  <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{w.description}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HİZMET SÜRECİMİZ (6 STEPS) -->
+  <section class="py-20 md:py-28 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          Adım Adım Büyüme
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
+          Hizmet Sürecimiz
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          Analizden raporlamaya ve yeni fırsat yaratmaya kadar tüm süreci 6 net adımda şeffaf biçimde yürütüyoruz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          defaultProcessSteps.map((s) => (
+            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400">
+                  Step {s.step}
+                </span>
+                <Icon name="tabler:arrow-up-right" class="w-4 h-4 text-slate-400" />
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{s.title}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{s.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (MÜŞTERİLERİMİZİN DENEYİMLERİNİ KEŞFEDİN) -->
+  <section class="py-20 md:py-24 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          Gerçek Müşteri Yorumları
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
+          Müşterilerimizin Deneyimlerini Keşfedin
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          Uzun soluklu iş ortaklıklarımızda birlikte büyüdüğümüz iş liderlerinin Roasist hakkındaki görüşleri.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {
+          testimonials.map((t) => (
+            <div class="rounded-2xl p-7 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-2xs">
+              <div>
+                <div class="flex items-center gap-1 text-amber-500 mb-4" aria-label="5 Yıldız">
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                </div>
+                <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                  “{t.quote}”
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                <div class="text-sm font-bold text-slate-900 dark:text-white">{t.name}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400">{t.role}</div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME FAQ SECTION -->
+  <section class="py-20 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
+          Sıkça Sorulan Sorular
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          Dijital pazarlama süreçlerimiz ve çalışma modelimiz hakkında merak edilenler.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {
+          homeFaqs.map((faq, index) => (
+            <details
+              class="group rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 transition"
+              open={index === 0}
+            >
+              <summary class="flex items-center justify-between cursor-pointer list-none font-bold text-base text-slate-900 dark:text-white">
+                <span>{faq.question}</span>
+                <Icon
+                  name="tabler:chevron-down"
+                  class="w-5 h-5 text-slate-500 transition-transform duration-200 group-open:rotate-180 shrink-0 ml-4"
+                />
+              </summary>
+              <p class="mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/70 dark:border-slate-800 pt-4">
+                {faq.answer}
+              </p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA BANNER -->
+  <section class="py-20 bg-slate-900 text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <div class="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-3">
+        Daha Fazla Müşteri · Satış · Büyüme
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+        Roasist’in Özelleştirilmiş Pazarlama Yaklaşımlarıyla Markanızın Potansiyelini Ortaya Çıkarın
+      </h2>
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8">
+        Uzman ekibimizle buluşmak ve markanıza özel büyüme yol haritasını konuşmak için randevunuzu hemen planlayın.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/iletisim/#analiz-formu"
+          class="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-slate-100 transition"
+        >
+          <span>Randevunuzu Planlayın</span>
+          <Icon name="tabler:arrow-right" class="w-4 h-4" />
+        </a>
+        <a
+          href="https://wa.me/+905415075350"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-800 text-white border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition"
+        >
+          <Icon name="tabler:brand-whatsapp" class="w-4 h-4 text-emerald-400" />
+          <span>WhatsApp ile İletişime Geçin</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function initPlanTabs() {
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-plan-tab]');
+      const panels = document.querySelectorAll<HTMLElement>('[data-plan-panel]');
+      if (!buttons.length) return;
+
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-plan-tab');
+          buttons.forEach((b) => {
+            const active = b.getAttribute('data-plan-tab') === target;
+            b.className = active
+              ? 'plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-bold transition bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-2xs'
+              : 'plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+          });
+          panels.forEach((p) => {
+            p.classList.toggle('hidden', p.getAttribute('data-plan-panel') !== target);
+          });
+        });
+      });
+    }
+
+    initPlanTabs();
+    document.addEventListener('astro:after-swap', initPlanTabs);
+  </script>
+</Layout>

@@ -1,0 +1,30 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getHomePermalink } from '~/utils/permalinks';
+
+const title = `Sayfa Bulunamadı (404)`;
+---
+
+<Layout metadata={{ title }}>
+  <section class="flex items-center h-full p-16">
+    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
+      <div class="max-w-md text-center">
+        <h1 class="mb-6 font-extrabold text-8xl text-indigo-600 dark:text-indigo-400">
+          <span class="sr-only">Hata</span>
+          <span>404</span>
+        </h1>
+        <p class="text-2xl font-bold md:text-3xl text-slate-900 dark:text-white">Aradığınız sayfayı bulamadık.</p>
+        <p class="mt-4 mb-8 text-base text-slate-600 dark:text-slate-400">
+          Sayfa taşınmış veya kaldırılmış olabilir. Ana sayfamızdan tüm dijital pazarlama hizmetlerimize kolayca ulaşabilirsiniz.
+        </p>
+        <a
+          rel="noopener noreferrer"
+          href={getHomePermalink()}
+          class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold text-sm hover:opacity-90 transition"
+        >
+          Anasayfaya Dön
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

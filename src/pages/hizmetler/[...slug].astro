@@ -1,0 +1,454 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import { Icon } from 'astro-icon/components';
+import { servicesData, defaultWhyUs, type ServicePageData } from '~/data/services';
+import { SITE } from 'astrowind:config';
+
+export function getStaticPaths() {
+  return servicesData.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: ServicePageData;
+}
+
+const { service } = Astro.props;
+
+const metadata = {
+  title: service.seoTitle,
+  ignoreTitleTemplate: true,
+  description: service.seoDescription,
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const siteUrl = SITE?.site || 'https://www.roasist.com';
+const pageUrl = new URL(service.permalink, siteUrl).toString();
+const isSubChannel = service.slug.startsWith('performans-pazarlamasi/');
+
+const breadcrumbItems = [
+  {
+    '@type': 'ListItem',
+    position: 1,
+    name: 'Anasayfa',
+    item: `${siteUrl}/`,
+  },
+  ...(isSubChannel
+    ? [
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Performans Pazarlaması',
+          item: `${siteUrl}/hizmetler/performans-pazarlamasi/`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: service.h1,
+          item: pageUrl,
+        },
+      ]
+    : [
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: service.h1,
+          item: pageUrl,
+        },
+      ]),
+];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${pageUrl}#service`,
+    name: service.h1,
+    description: service.aeoDirectAnswer,
+    url: pageUrl,
+    serviceType: service.h1,
+    provider: {
+      '@type': 'MarketingAgency',
+      '@id': `${siteUrl}/#organization`,
+      name: 'Roasist',
+      url: siteUrl,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'TR',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbItems,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: service.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  },
+];
+
+const otherServices = servicesData.filter((s) => s.slug !== service.slug);
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={structuredData} />
+
+  <!-- Hero & Breadcrumb Section -->
+  <section class="relative pt-10 pb-16 md:pt-16 md:pb-24 border-b border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+          <li>
+            <a href="/" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Anasayfa</a>
+          </li>
+          <li><span class="text-slate-300 dark:text-slate-700">/</span></li>
+          {
+            isSubChannel ? (
+              <>
+                <li>
+                  <a href="/hizmetler/performans-pazarlamasi/" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                    Performans Pazarlaması
+                  </a>
+                </li>
+                <li><span class="text-slate-300 dark:text-slate-700">/</span></li>
+              </>
+            ) : null
+          }
+          <li class="text-slate-900 dark:text-white font-semibold" aria-current="page">{service.h1}</li>
+        </ol>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 mb-5">
+            <Icon name={service.icon} class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>Roasist {service.category} Uzmanlığı</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12] mb-5">
+            {service.h1}
+          </h1>
+
+          <h2 class="text-lg sm:text-xl font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+            {service.heroQuestion}
+          </h2>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <a
+              href="/iletisim/#analiz-formu"
+              id="service-hero-cta-primary"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 font-semibold text-sm transition shadow-sm"
+            >
+              <span>Ücretsiz Strateji Görüşmesi Planla</span>
+              <Icon name="tabler:arrow-right" class="w-4 h-4" />
+            </a>
+            <a
+              href="https://wa.me/+905415075350"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="service-hero-cta-whatsapp"
+              class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-800 font-semibold text-sm transition"
+            >
+              <Icon name="tabler:brand-whatsapp" class="w-4 h-4 text-emerald-600" />
+              <span>Hızlı WhatsApp Hattı</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- AEO Direct Answer & Metrics Card -->
+        <div class="lg:col-span-5">
+          <aside
+            aria-label="Hizmet Özeti ve Temel Göstergeler"
+            class="rounded-2xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-sm"
+          >
+            <div class="flex items-center justify-between mb-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Stratejik Özet
+              </span>
+              <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Veri Odaklı Büyüme</span>
+            </div>
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+              {service.aeoDirectAnswer}
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
+              {
+                service.metrics.map((m) => (
+                  <div class="p-3.5 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800/80 flex items-start justify-between gap-3">
+                    <div>
+                      <div class="text-xs font-semibold text-slate-900 dark:text-white">{m.label}</div>
+                      <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{m.detail}</div>
+                    </div>
+                    <span class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
+                      {m.value}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Overview Content + Service Navigation Sidebar -->
+  <section class="py-16 md:py-24 bg-slate-50/70 dark:bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-8">
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+            {service.overviewHeading}
+          </h2>
+          <div class="space-y-4 text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+            {service.overviewParagraphs.map((para) => <p>{para}</p>)}
+          </div>
+
+          <!-- AEO Comparison Table -->
+          <div class="mt-12">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">
+              Geleneksel Yaklaşım vs. Roasist Yaklaşımı
+            </h3>
+            <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-xs">
+              <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr class="border-b border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900">
+                    <th class="py-3.5 px-4 font-semibold text-slate-900 dark:text-white">Kriter</th>
+                    <th class="py-3.5 px-4 font-semibold text-slate-500 dark:text-slate-400">Standart Ajans</th>
+                    <th class="py-3.5 px-4 font-semibold text-indigo-600 dark:text-indigo-400">Roasist Standardı</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                  {
+                    service.comparisonRows.map((row) => (
+                      <tr>
+                        <td class="py-3.5 px-4 font-semibold text-slate-900 dark:text-white">{row.criteria}</td>
+                        <td class="py-3.5 px-4 text-slate-600 dark:text-slate-400">{row.traditional}</td>
+                        <td class="py-3.5 px-4 font-medium text-slate-900 dark:text-slate-200 bg-indigo-50/30 dark:bg-indigo-950/20">
+                          {row.roasist}
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Navigation for Internal Link Equity -->
+        <aside class="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+          <div class="rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-6 shadow-xs">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">
+              Tüm Büyüme Çözümlerimiz
+            </h3>
+            <ul class="space-y-1.5 text-sm">
+              {
+                otherServices.map((item) => (
+                  <li>
+                    <a
+                      href={item.permalink}
+                      class="flex items-center justify-between py-2 px-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition"
+                    >
+                      <span class="flex items-center gap-2.5">
+                        <Icon name={item.icon} class="w-4 h-4 text-slate-400" />
+                        <span>{item.h1}</span>
+                      </span>
+                      <Icon name="tabler:chevron-right" class="w-4 h-4 text-slate-400" />
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="rounded-2xl bg-slate-900 text-white p-6">
+            <div class="text-xs font-semibold uppercase tracking-wider text-indigo-300 mb-2">
+              Ücretsiz Ön Denetim
+            </div>
+            <h3 class="text-lg font-bold mb-2">Mevcut Hesabınızı İnceleyelim</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              {service.h1} alanında mevcut durumunuzu, bütçe kayıplarınızı ve büyüme fırsatlarınızı uzman ekibimizle birlikte analiz edelim.
+            </p>
+            <a
+              href="/iletisim/#analiz-formu"
+              class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-white text-slate-900 font-semibold text-xs hover:bg-slate-100 transition"
+            >
+              <span>Analiz Randevusu Al</span>
+              <Icon name="tabler:arrow-right" class="w-4 h-4" />
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sub-Features / Capabilities Grid -->
+  <section class="py-16 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">
+          {service.subFeaturesTitle}
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          {service.subFeaturesSubtitle}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          service.subFeatures.map((feat) => (
+            <div class="rounded-2xl p-6 bg-slate-50/80 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition">
+              <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 shadow-2xs">
+                <Icon name={feat.icon} class="w-5 h-5" />
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{feat.title}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{feat.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 6-Step Service Process -->
+  <section class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          Kanıtlanmış Metodoloji
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1 mb-3">
+          {service.processTitle}
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          İlk analizden ölçeklenebilir büyümeye kadar tüm adımları şeffaf ve ölçülebilir bir takvimle yönetiyoruz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          service.processSteps.map((stepItem) => (
+            <div class="rounded-2xl p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 relative">
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300">
+                  Step {stepItem.step}
+                </span>
+                <Icon name="tabler:circle-check" class="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{stepItem.title}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{stepItem.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Work With Us Section -->
+  <section class="py-16 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">
+          Neden Bizimle Çalışmalısınız?
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          İşinizi en az sizin kadar sahiplenen, veriye ve şeffaflığa dayalı çalışma kültürümüz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          defaultWhyUs.map((item) => (
+            <div class="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40">
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">{item.title}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Section (Schema + Accordion) -->
+  <section class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">
+          Sıkça Sorulan Sorular
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          {service.h1} sürecimiz hakkında en çok merak edilen sorular ve yanıtları.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {
+          service.faqs.map((faq, idx) => (
+            <details
+              class="group rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-6 open:shadow-sm transition"
+              open={idx === 0}
+            >
+              <summary class="flex items-center justify-between cursor-pointer list-none font-bold text-base text-slate-900 dark:text-white">
+                <span>{faq.question}</span>
+                <Icon
+                  name="tabler:chevron-down"
+                  class="w-5 h-5 text-slate-500 transition-transform duration-200 group-open:rotate-180 shrink-0 ml-4"
+                />
+              </summary>
+              <p class="mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-800/80 pt-4">
+                {faq.answer}
+              </p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA Banner -->
+  <section class="py-16 md:py-20 bg-slate-900 text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-4">
+        {service.heroQuestion}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8">
+        Roasist’in özelleştirilmiş pazarlama yaklaşımlarıyla markanızın potansiyelini ortaya çıkarın. Uzman ekibimizle buluşmak için randevunuzu hemen planlayın.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/iletisim/#analiz-formu"
+          class="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-slate-100 transition"
+        >
+          <span>Strateji Görüşmesi Planla</span>
+          <Icon name="tabler:arrow-right" class="w-4 h-4" />
+        </a>
+        <a
+          href="https://wa.me/+905415075350"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-800 text-white border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition"
+        >
+          <Icon name="tabler:brand-whatsapp" class="w-4 h-4 text-emerald-400" />
+          <span>WhatsApp (+90 541 507 53 50)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

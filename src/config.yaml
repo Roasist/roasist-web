@@ -1,0 +1,72 @@
+site:
+  name: Roasist
+  site: 'https://www.roasist.com'
+  base: '/'
+  trailingSlash: true
+
+  googleSiteVerificationId: false
+
+# Default SEO metadata
+metadata:
+  title:
+    default: 'Roasist - Özelleştirilmiş Dijital Pazarlama Hizmetleri'
+    template: '%s | Roasist'
+  description: 'Roasist, özelleştirilmiş dijital pazarlama hizmetleri, performans pazarlaması, Google Ads, sosyal medya reklamları, SEO ve web tasarım çözümleriyle öne çıkan yeni nesil dijital büyüme ajansıdır.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Roasist
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+  twitter:
+    handle: '@Roasistt'
+    site: '@Roasistt'
+    cardType: summary_large_image
+
+i18n:
+  language: tr
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 9
+
+    post:
+      isEnabled: true
+      permalink: '/blog/%slug%'
+      robots:
+        index: true
+
+    list:
+      isEnabled: true
+      pathname: 'blog'
+      robots:
+        index: true
+
+    category:
+      isEnabled: true
+      pathname: 'kategori'
+      robots:
+        index: true
+
+    tag:
+      isEnabled: true
+      pathname: 'etiket'
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: true
+    relatedPostsCount: 3
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+
+ui:
+  theme: 'light'

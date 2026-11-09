@@ -1,0 +1,126 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from '~/components/Logo.astro';
+import { getHomePermalink } from '~/utils/permalinks';
+
+interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+}
+
+interface Links {
+  title?: string;
+  links: Array<Link>;
+}
+
+export interface Props {
+  links: Array<Links>;
+  secondaryLinks: Array<Link>;
+  socialLinks: Array<Link>;
+  footNote?: string;
+  theme?: string;
+}
+
+const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme = 'light' } = Astro.props;
+---
+
+<footer class:list={[{ dark: theme === 'dark' }, 'relative border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 not-prose']}>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 dark:text-slate-300">
+    <div class="grid grid-cols-12 gap-6 gap-y-10 sm:gap-8 py-12 md:py-16">
+      <div class="col-span-12 lg:col-span-4 pr-0 lg:pr-8">
+        <div class="mb-4">
+          <a class="inline-block" href={getHomePermalink()} aria-label="Roasist Anasayfa">
+            <Logo />
+          </a>
+        </div>
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
+          Büyüyen işletmeler için veri odaklı performans pazarlaması, teknik SEO, kreatif tasarım ve 360° dijital büyüme yönetimi. Kendi geliştirdiğimiz <strong>Roasist Marketing Intelligence OS</strong> teknolojisiyle reklam bütçenizi gerçek gelire dönüştürüyoruz.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 mb-5">
+          <a
+            href="https://wa.me/+905415075350"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800 transition"
+          >
+            <Icon name="tabler:brand-whatsapp" class="w-4 h-4" />
+            +90 541 507 53 50
+          </a>
+          <a
+            href="/iletisim/"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-lg bg-slate-100 text-slate-800 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition"
+          >
+            <Icon name="tabler:calendar-event" class="w-4 h-4" />
+            Randevu Planla
+          </a>
+        </div>
+        <div class="text-xs text-muted flex flex-wrap gap-2">
+          {
+            secondaryLinks.map(({ text, href }, index) => (
+              <>
+                {index !== 0 ? <span class="text-slate-300 dark:text-slate-700">·</span> : ''}
+                <a
+                  class="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:underline transition duration-150 ease-in-out"
+                  href={href}
+                  set:html={text}
+                />
+              </>
+            ))
+          }
+        </div>
+      </div>
+      {
+        links.map(({ title, links }) => (
+          <div class="col-span-6 md:col-span-3 lg:col-span-2">
+            <div class="text-slate-900 dark:text-white font-semibold text-sm tracking-tight mb-3.5">{title}</div>
+            {links && Array.isArray(links) && links.length > 0 && (
+              <ul class="text-sm space-y-2.5">
+                {links.map(({ text, href, ariaLabel }) => (
+                  <li>
+                    <a
+                      class="text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition duration-150 ease-in-out"
+                      href={href}
+                      aria-label={ariaLabel}
+                    >
+                      <Fragment set:html={text} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      }
+    </div>
+    <div class="border-t border-slate-200/80 dark:border-slate-800/80 md:flex md:items-center md:justify-between py-6">
+      {
+        socialLinks?.length ? (
+          <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0">
+            {socialLinks.map(({ ariaLabel, href, text, icon }) => (
+              <li>
+                <a
+                  class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-lg text-sm p-2.5 inline-flex items-center transition"
+                  aria-label={ariaLabel}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {icon && <Icon name={icon} class="w-5 h-5" />}
+                  <Fragment set:html={text} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          ''
+        )
+      }
+
+      <div class="text-sm text-slate-500 dark:text-slate-400">
+        <Fragment set:html={footNote} />
+      </div>
+    </div>
+  </div>
+</footer>

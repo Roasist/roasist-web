@@ -1,0 +1,46 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Roasist - Gizlilik Politikası ve Kullanım Şartları',
+  ignoreTitleTemplate: true,
+  description: 'Roasist web sitesi gizlilik politikası, kişisel verilerin korunması ve kullanım şartları.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="py-14 md:py-20 bg-white dark:bg-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 prose prose-slate dark:prose-invert">
+      <h1>Gizlilik Politikası ve Kullanım Şartları</h1>
+
+      <h2>Gizlilik Politikası</h2>
+      <p>
+        Roasist, müşteri gizliliğine büyük önem verir. Bu nedenle, web sitemizi ziyaret eden tüm kullanıcıların kişisel bilgilerini korumaya özen gösteririz. Bu politika, Roasist web sitesi üzerinden toplanan bilgilerin nasıl kullanıldığını ve korunduğunu açıklar.
+      </p>
+
+      <h3>Hangi bilgileri topluyoruz?</h3>
+      <p>
+        Roasist web sitesine girdiğinizde; IP adresiniz, tarayıcınızın türü, işletim sistemi, siteye giriş ve çıkış sayfaları ve siteyi gezerken görüntülediğiniz sayfalar gibi anonim analitik bilgileri toplarız. Ayrıca iletişim formlarımızı doldurduğunuzda paylaştığınız ad, telefon, e-posta ve şirket bilgilerini yalnızca talebinize yanıt vermek amacıyla kaydederiz.
+      </p>
+
+      <h3>Neden bu bilgileri topluyoruz?</h3>
+      <p>
+        Topladığımız bilgiler, web sitemizdeki deneyiminizi iyileştirmek, size daha iyi hizmet vermek ve sitemizin performansını izlemek için kullanılır. Kişisel bilgilerinizi, sadece sizinle iletişim kurmak ve talep ettiğiniz dijital pazarlama analiz/teklif süreçlerini yürütmek amacıyla kullanırız.
+      </p>
+
+      <h3>Kişisel bilgilerinizi paylaşıyor muyuz?</h3>
+      <p>
+        Hayır, Roasist olarak müşteri gizliliğine büyük önem veriyoruz. Bu nedenle, topladığımız kişisel bilgileri sizin açık onayınız olmadan herhangi bir üçüncü taraf ile ticari amaçla paylaşmayız.
+      </p>
+
+      <h2>Kullanım Şartları</h2>
+      <p>
+        Web sitemizi ziyaret eden herkes bu kullanım şartlarını kabul etmiş sayılır. Bu web sitesinde yer alan tüm metin, tasarım, logo ve içerikler Roasist’e aittir ve izinsiz kopyalanamaz. Bu gizlilik politikası ve kullanım şartları belgesi, web sitesinin kullanımı hakkında size bilgi vermek için hazırlanmıştır.
+      </p>
+    </div>
+  </section>
+</Layout>

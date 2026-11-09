@@ -1,0 +1,213 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+const metadata = {
+  title: 'Roasist - İletişim ve Ücretsiz Strateji Görüşmesi',
+  ignoreTitleTemplate: true,
+  description:
+    'Dijital pazarlama, performans reklamları, SEO ve web tasarım projeleriniz için Roasist uzman ekibiyle iletişime geçin ve ücretsiz strateji randevunuzu planlayın.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-12 pb-20 md:pt-20 md:pb-28 bg-white dark:bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <!-- Left Info -->
+        <div class="lg:col-span-5">
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            İletişim & Randevu
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
+            Deneyimli Profesyonellerle İşinizi Büyütün!
+          </h1>
+          <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+            Bir proje fikriniz veya büyüme hedefiniz varsa bizimle iletişime geçmekten çekinmeyin. Pazarlama süreçlerinizin her aşamasını planlayabilir ve yönetebiliriz. İhtiyaçlarınıza özel çözümler sunarak markanızı daha da güçlendirmek için buradayız!
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <a
+              href="https://wa.me/+905415075350"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 transition"
+            >
+              <div class="w-11 h-11 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                <Icon name="tabler:brand-whatsapp" class="w-6 h-6" />
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-slate-500 dark:text-slate-400">WhatsApp & Hızlı İletişim Hattı</div>
+                <div class="text-base font-bold text-slate-900 dark:text-white">+90 541 507 53 50</div>
+              </div>
+            </a>
+
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <div class="w-11 h-11 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <Icon name="tabler:clock-hour-4" class="w-6 h-6" />
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-slate-500 dark:text-slate-400">Ortalama Dönüş Süresi</div>
+                <div class="text-base font-bold text-slate-900 dark:text-white">Aynı İş Günü İçinde Ön Analiz</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-900 text-white">
+            <h2 class="text-base font-bold mb-2">Ücretsiz Ön Analizde Neleri İnceliyoruz?</h2>
+            <ul class="space-y-2 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <Icon name="tabler:check" class="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Sektörünüzdeki gerçek Google arama hacimleri ve rekabet durumu</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <Icon name="tabler:check" class="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Mevcut web sitenizin teknik SEO, hız ve dönüşüm (CRO) denetimi</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <Icon name="tabler:check" class="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Aktif reklam hesaplarınızdaki bütçe kayıpları ve ölçekleme fırsatları</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right Interactive Strategy Form -->
+        <div class="lg:col-span-7" id="analiz-formu">
+          <div class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm">
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">
+              Strateji Görüşmesi & Teklif Formu
+            </h2>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+              Bilgilerinizi doldurun; uzman ekibimiz ön hazırlığını yaparak sizinle iletişime geçsin.
+            </p>
+
+            <form id="roasist-contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="full-name" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                    Adınız Soyadınız *
+                  </label>
+                  <input
+                    type="text"
+                    id="full-name"
+                    name="name"
+                    required
+                    placeholder="Örn: Ahmet Yılmaz"
+                    class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-indigo-600 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label for="phone" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                    Telefon Numaranız *
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    placeholder="05XX XXX XX XX"
+                    class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-indigo-600 focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="website" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                    Web Siteniz / Marka Adınız
+                  </label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    placeholder="https://www.sirketiniz.com"
+                    class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-indigo-600 focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label for="service-select" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                    İlgilendiğiniz Hizmet *
+                  </label>
+                  <select
+                    id="service-select"
+                    name="service"
+                    required
+                    class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-indigo-600 focus:outline-none"
+                  >
+                    <option value="360° Dijital Pazarlama Yönetimi">360° Dijital Pazarlama Yönetimi</option>
+                    <option value="Performans Pazarlaması (Google / Meta / TikTok)">Performans Pazarlaması (Google / Meta / TikTok)</option>
+                    <option value="Google Reklamları (Google Ads)">Google Reklamları (Google Ads)</option>
+                    <option value="Instagram & Facebook Reklamları">Instagram & Facebook Reklamları</option>
+                    <option value="Arama Motoru Optimizasyonu (SEO)">Arama Motoru Optimizasyonu (SEO)</option>
+                    <option value="Web Tasarım & Geliştirme">Web Tasarım & Geliştirme</option>
+                    <option value="Kreatif & Grafik Tasarım">Kreatif & Grafik Tasarım</option>
+                    <option value="LinkedIn / Yandex Reklamları">LinkedIn / Yandex Reklamları</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="message" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Hedefleriniz veya Notunuz
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  placeholder="Hedef pazarlarınız, aylık reklam bütçe aralığınız veya beklentileriniz..."
+                  class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-indigo-600 focus:outline-none"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                id="contact-submit-btn"
+                class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 font-bold text-sm transition cursor-pointer"
+              >
+                <span>Talebi Oluştur & Uzmanla Görüş</span>
+                <Icon name="tabler:send" class="w-4 h-4" />
+              </button>
+
+              <p id="contact-feedback" class="hidden text-xs font-semibold text-emerald-600 dark:text-emerald-400 text-center pt-2"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function initContactForm() {
+      const form = document.getElementById('roasist-contact-form') as HTMLFormElement | null;
+      const feedback = document.getElementById('contact-feedback');
+      if (!form) return;
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const name = data.get('name') || '';
+        const phone = data.get('phone') || '';
+        const website = data.get('website') || '-';
+        const service = data.get('service') || '';
+        const message = data.get('message') || '';
+
+        const text = `Merhaba Roasist, web sitenizden strateji görüşmesi talep ediyorum.%0A%0A*Ad Soyad:* ${encodeURIComponent(String(name))}%0A*Telefon:* ${encodeURIComponent(String(phone))}%0A*Web Sitesi/Marka:* ${encodeURIComponent(String(website))}%0A*Hizmet:* ${encodeURIComponent(String(service))}%0A*Not:* ${encodeURIComponent(String(message))}`;
+
+        if (feedback) {
+          feedback.textContent = 'Talebiniz hazırlandı! Hızlı onay için WhatsApp hattımıza yönlendiriliyorsunuz...';
+          feedback.classList.remove('hidden');
+        }
+
+        window.open(`https://wa.me/+905415075350?text=${text}`, '_blank', 'noopener,noreferrer');
+      });
+    }
+
+    initContactForm();
+    document.addEventListener('astro:after-swap', initContactForm);
+  </script>
+</Layout>

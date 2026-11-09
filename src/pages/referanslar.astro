@@ -1,0 +1,112 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import clients from '~/data/clients.json';
+
+const metadata = {
+  title: 'Roasist - Referanslar ve Müşteri Deneyimleri',
+  ignoreTitleTemplate: true,
+  description:
+    'Roasist ile dijital dünyada büyüyen ulusal ve uluslararası markalarımız. Başarılı işbirlikleri sonucunda elde ettiğimiz referanslarımız ve müşteri yorumlarımız.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const testimonials = [
+  {
+    quote:
+      'Reklam sürecinde projeye yaklaşımları, anlaşmamızın ötesinde sorumluluk alarak aynı zamanda bir grafik tasarımcı katkısı sunmaları, mesai kavramından uzak 7/24 destek ve hassasiyet ile bizim işimiz için en az bizim kadar dertlenen bir dijital pazarlama uzmanıyla çalışma fırsatı yakaladığımız için şanslıyız. Roasist ile teknik konuları dert etmeden dijital dünyada şirketinizi büyütmek için gönül rahatlığıyla çalışabilirsiniz. Yeni kampanya dönemlerinde tekrar çalışma dileğiyle, emekleriniz için teşekkür ederim.',
+    name: 'Burak Özhan',
+    role: 'Project Program Coordinator',
+  },
+  {
+    quote:
+      'Roasist ile yaklaşık iki senedir çalışıyoruz. Her sorumuza dürüstlükle yanıt alıyor, tüm sorunlarımızı efektif bir şekilde çözüyorlar. Yaptığımız iş gereği öncesi - sonrası değerlendirmesi yapmam gerekirse kazanç konusunda bize çok katkıları oldu. Nezaketli, dürüst ve profesyonel yaklaşımları için çok teşekkür ederim.',
+    name: 'Gaye Tukar',
+    role: 'Entrepreneur',
+  },
+  {
+    quote:
+      'Mesai kavramı olmaksızın sizin için çalışıyorlar. İşinde profesyonel bir ajans arıyorsanız kesinlikle tavsiye ederim.',
+    name: 'Celal Kandemir',
+    role: 'Owner',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-12 pb-16 md:pt-20 md:pb-24 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          Güven & Başarı Hikayeleri
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
+          Referanslar
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+          Sağlık turizminden e-ticarete, gayrimenkulden eğitime ve teknolojiye kadar farklı sektörlerde başarılı işbirlikleri yürüttüğümüz markalarımızdan bazıları.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+        {
+          clients.map((client) => (
+            <div class="group rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-6 flex flex-col items-center justify-center text-center hover:bg-white dark:hover:bg-slate-800/80 hover:border-slate-300 transition shadow-2xs">
+              <div class="h-14 flex items-center justify-center mb-3">
+                <img
+                  src={client.logo}
+                  alt={client.alt}
+                  loading="lazy"
+                  width="160"
+                  height="64"
+                  class="max-h-12 w-auto object-contain opacity-90 group-hover:opacity-100 transition"
+                />
+              </div>
+              <div class="text-xs font-semibold text-slate-600 dark:text-slate-400">{client.name}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Müşteri Yorumları -->
+  <section class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">
+          Müşterilerimizin Deneyimlerini Keşfedin
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          Birlikte çalıştığımız iş ortaklarımızın süreç ve sonuçlarımız hakkındaki değerlendirmeleri.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {
+          testimonials.map((t) => (
+            <div class="rounded-2xl p-7 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-amber-500 mb-4">
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                </div>
+                <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">“{t.quote}”</p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <div class="text-sm font-bold text-slate-900 dark:text-white">{t.name}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400">{t.role}</div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
