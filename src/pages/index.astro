@@ -1,876 +1,1172 @@
----
-import Layout from '~/layouts/PageLayout.astro';
-import StructuredData from '~/components/common/StructuredData.astro';
-import { Icon } from 'astro-icon/components';
-import { SITE, I18N } from 'astrowind:config';
-import clients from '~/data/clients.json';
-import { defaultProcessSteps, defaultWhyUs } from '~/data/services';
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ROASIST · Performans Pazarlaması, SEO ve 360° Büyüme Mimarisi</title>
+<meta name="description" content="Reklam bütçenizi sezgisel tahminlerden kurtarıp ölçülebilir cirolara dönüştüren 360° dijital pazarlama, performans reklamları ve kurumsal SEO ajansı.">
+<link rel="canonical" href="https://www.roasist.com/">
+<script is:inline type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MarketingAgency","@id":"https://www.roasist.com/#organization","name":"Roasist Dijital Pazarlama ve Performans Ajansı","url":"https://www.roasist.com/","logo":"https://www.roasist.com/roasist-logo.svg","telephone":"+90-532-679-18-86","email":"info@roasist.com","address":{"@type":"PostalAddress","addressLocality":"İstanbul","addressCountry":"TR"}},{"@type":"WebSite","@id":"https://www.roasist.com/#website","url":"https://www.roasist.com/","name":"Roasist","publisher":{"@id":"https://www.roasist.com/#organization"},"inLanguage":"tr-TR"}]}</script>
+<link rel="stylesheet" href="/scrollcraft/scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:      #F2EEE3;
+    --sc-surface:     #E6E0D2;
+    --sc-ink:         #111318;
+    --sc-ink-soft:    #38352E;
+    --sc-accent:      #0C46FF;
+    --sc-accent-ink:  #F8FAFC;
 
-const metadata = {
-  title: 'Roasist - Özelleştirilmiş Dijital Pazarlama Hizmetleri',
-  ignoreTitleTemplate: true,
-  description:
-    'Roasist, özelleştirilmiş dijital pazarlama hizmetleri ve yenilikçi yaklaşımıyla öne çıkan bir dijital pazarlama ajansıdır.',
-};
+    --carbon-bg:      #0A0B0E;
+    --carbon-surface: #13151C;
+    --carbon-ink:     #F4F2EF;
+    --carbon-soft:    #C8CCD6;
+    --vermilion:      #F0492A;
 
-const siteUrl = SITE?.site || 'https://www.roasist.com';
-const organizationId = `${siteUrl}/#organization`;
+    --sc-font-display: "Archivo", "Instrument Sans", system-ui, -apple-system, sans-serif;
+    --sc-font-text:    "Plus Jakarta Sans", "Geist", system-ui, -apple-system, sans-serif;
+    --sc-font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
-const homeFaqs = [
-  {
-    question: 'Roasist hangi dijital pazarlama hizmetlerini sunuyor?',
-    answer:
-      'Roasist; 360° Dijital Pazarlama Yönetimi, Performans Pazarlaması (Google Ads, Instagram, Facebook, TikTok, LinkedIn ve Yandex Reklamları), Arama Motoru Optimizasyonu (SEO), Dönüşüm Odaklı Web Tasarım ve Kreatif Grafik Tasarım hizmetlerini veri odaklı bir yaklaşımla sunar.',
-  },
-  {
-    question: 'Çalışma süreciniz nasıl başlıyor?',
-    answer:
-      'Sürecimiz ücretsiz ön analiz ve strateji görüşmesiyle başlar. Mevcut dijital varlıklarınızı, reklam hesaplarınızı ve sektörünüzdeki gerçek arama hacimlerini inceler; işletmenize özel KPI ve büyüme yol haritasını çıkarırız.',
-  },
-  {
-    question: 'Reklam hesapları ve veriler kimin mülkiyetinde oluyor?',
-    answer:
-      'Şeffaflık ilkemiz gereği tüm reklam hesapları (Google Ads, Meta, TikTok, LinkedIn, Yandex) ve analitik mülkleri doğrudan sizin adınıza açılır ve %100 sizin mülkiyetinizde kalır. Tüm performans verilerini 7/24 canlı olarak takip edebilirsiniz.',
-  },
-  {
-    question: 'Sadece tek bir hizmet (örneğin SEO veya Google Ads) alabilir miyiz?',
-    answer:
-      'Evet. İhtiyacınıza göre yalnızca Google Reklamları, SEO veya Web Tasarım gibi tekil uzmanlık hizmetlerimizden faydalanabileceğiniz gibi, tüm dijital kanallarınızı kapsayan 360° Dijital Pazarlama Yönetimi modelimizle de çalışabilirsiniz.',
-  },
-];
+    --seam: 48%;
+  }
 
-const structuredData = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${siteUrl}/#website`,
-    name: 'Roasist',
-    url: siteUrl,
-    inLanguage: I18N?.language || 'tr',
-    publisher: { '@id': organizationId },
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'MarketingAgency',
-    '@id': organizationId,
-    name: 'Roasist',
-    url: siteUrl,
-    logo: `${siteUrl}/roasist-logo.svg`,
-    description:
-      'Roasist, özelleştirilmiş dijital pazarlama hizmetleri, performans pazarlaması, SEO, web tasarım ve veri analitiği çözümleri sunan yeni nesil büyüme ajansıdır.',
-    telephone: '+905415075350',
-    sameAs: [
-      'https://www.linkedin.com/company/roasist/',
-      'https://www.instagram.com/roasist/',
-      'https://twitter.com/Roasistt',
-      'https://www.facebook.com/roasistt',
-      'https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA',
-    ],
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: homeFaqs.map((f) => ({
-      '@type': 'Question',
-      name: f.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: f.answer,
-      },
-    })),
-  },
-];
+  body {
+    background: var(--sc-canvas);
+    color: var(--sc-ink);
+  }
 
-const adChannels = [
-  {
-    name: 'Google Reklamları',
-    metric: 'Arama · PMax · Shopping · YouTube',
-    desc: 'Satın alma niyeti en yüksek aramalarda en üst sırada yer alarak doğrudan satış ve talep toplayın.',
-    href: '/hizmetler/performans-pazarlamasi/google-reklamlari/',
-    icon: 'tabler:brand-google',
-  },
-  {
-    name: 'Instagram Reklamları',
-    metric: 'Reels · Story · Dinamik Katalog',
-    desc: '52M+ aktif kullanıcıya yüksek etkileşimli dikey videolar ve CAPI destekli dönüşüm kurgularıyla ulaşın.',
-    href: '/hizmetler/performans-pazarlamasi/instagram-reklamlari/',
-    icon: 'tabler:brand-instagram',
-  },
-  {
-    name: 'Facebook Reklamları',
-    metric: 'Advantage+ · CAPI · Retargeting',
-    desc: 'Meta makine öğrenimi ve gelişmiş yeniden pazarlama katmanlarıyla sepet terkleri satışa dönüştürün.',
-    href: '/hizmetler/performans-pazarlamasi/facebook-reklamlari/',
-    icon: 'tabler:brand-facebook',
-  },
-  {
-    name: 'TikTok Reklamları',
-    metric: 'Spark Ads · In-Feed · Events API',
-    desc: 'İlk 3 saniyede yakalayan kreatif kurgularla viral erişim ve düşük maliyetli e-ticaret dönüşümü yakalayın.',
-    href: '/hizmetler/performans-pazarlamasi/tiktok-reklamlari/',
-    icon: 'tabler:brand-tiktok',
-  },
-  {
-    name: 'LinkedIn Reklamları',
-    metric: 'B2B Lead Gen · ABM · Karar Vericiler',
-    desc: 'Şirket büyüklüğü, sektör ve C-Level unvan hedeflemesiyle kurumsal B2B satış fırsatları yaratın.',
-    href: '/hizmetler/performans-pazarlamasi/linkedin-reklamlari/',
-    icon: 'tabler:brand-linkedin',
-  },
-  {
-    name: 'Yandex Reklamları',
-    metric: 'Rusya & BDT · Direct & YAN · Metrica',
-    desc: 'Sağlık turizmi, gayrimenkul ve ihracat için Rusça konuşulan pazarların #1 arama motorunda lider olun.',
-    href: '/hizmetler/performans-pazarlamasi/yandex-reklamlari/',
-    icon: 'tabler:world',
-  },
-];
+  @media (max-width: 700px) {
+    .sc-display--xl { font-size: var(--sc-t-2xl); }
+    .sc-display--lg { font-size: var(--sc-t-xl); }
+    .sc-display--md { font-size: var(--sc-t-lg); }
+  }
 
-const testimonials = [
-  {
-    quote:
-      'Reklam sürecinde projeye yaklaşımları, anlaşmamızın ötesinde sorumluluk alarak aynı zamanda bir grafik tasarımcı katkısı sunmaları, mesai kavramından uzak 7/24 destek ve hassasiyet ile bizim işimiz için en az bizim kadar dertlenen bir dijital pazarlama uzmanıyla çalışma fırsatı yakaladığımız için şanslıyız. Roasist ile teknik konuları dert etmeden dijital dünyada şirketinizi büyütmek için gönül rahatlığıyla çalışabilirsiniz.',
-    name: 'Burak Özhan',
-    role: 'Project Program Coordinator',
-    tag: '360° Büyüme & Kreatif',
-  },
-  {
-    quote:
-      'Roasist ile yaklaşık iki senedir çalışıyoruz. Her sorumuza dürüstlükle yanıt alıyor, tüm sorunlarımızı efektif bir şekilde çözüyorlar. Yaptığımız iş gereği öncesi - sonrası değerlendirmesi yapmam gerekirse kazanç konusunda bize çok katkıları oldu. Nezaketli, dürüst ve profesyonel yaklaşımları için çok teşekkür ederim.',
-    name: 'Gaye Tukar',
-    role: 'Entrepreneur',
-    tag: 'Performans & ROAS Yönetimi',
-  },
-  {
-    quote:
-      'Mesai kavramı olmaksızın sizin için çalışıyorlar. İşinde profesyonel, şeffaf ve sonuç odaklı bir dijital pazarlama ajansı arıyorsanız kesinlikle tavsiye ederim.',
-    name: 'Celal Kandemir',
-    role: 'Owner',
-    tag: 'Performans Pazarlaması',
-  },
-];
----
+  /* THE DIVIDER IS THE CHROME */
+  .seam-chrome {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: var(--seam);
+    width: 2px;
+    background: var(--sc-accent);
+    z-index: var(--sc-z-chrome);
+    pointer-events: none;
+  }
+  .seam-chrome__head {
+    position: fixed;
+    top: 1rem;
+    left: clamp(8.5rem, var(--seam), calc(100vw - 11.5rem));
+    transform: translateX(-50%);
+    z-index: calc(var(--sc-z-chrome) + 2);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: #111318;
+    color: #F4F2EF;
+    padding: 0.42rem 0.75rem;
+    border-radius: var(--sc-r-sm);
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow: var(--sc-e2);
+    font-family: var(--sc-font-mono);
+    font-size: var(--sc-t-xs);
+    letter-spacing: 0.03em;
+    pointer-events: auto;
+    white-space: nowrap;
+  }
+  .seam-chrome__brand {
+    font-family: var(--sc-font-display);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding-right: 0.45rem;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .seam-chrome__side--left { color: #FF8A70; font-weight: 600; }
+  .seam-chrome__side--right { color: #8AB0FF; font-weight: 600; }
+  .seam-chrome__pct {
+    background: var(--sc-accent);
+    color: #FFFFFF;
+    padding: 0.12rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
 
-<Layout metadata={metadata}>
-  <StructuredData slot="head" schema={structuredData} />
+  .seam-rail {
+    position: fixed;
+    top: 50%;
+    left: clamp(2rem, var(--seam), calc(100vw - 2rem));
+    transform: translate(-50%, -50%);
+    z-index: calc(var(--sc-z-chrome) + 1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    pointer-events: auto;
+    background: rgba(17, 19, 24, 0.92);
+    padding: 0.55rem 0.35rem;
+    border-radius: var(--sc-r-sm);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .seam-tick {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.45);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 160ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out);
+  }
+  .seam-tick:hover { transform: scale(1.25); }
+  .seam-tick[aria-current="true"] {
+    background: var(--sc-accent);
+    border-color: #FFFFFF;
+    transform: scale(1.25);
+  }
 
-  <!-- CINEMATIC HERO SECTION -->
-  <section class="relative overflow-hidden bg-slate-950 text-white pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-slate-800">
-    <!-- Subtle Ambient Illumination -->
-    <div
-      class="pointer-events-none absolute -top-40 left-1/4 w-[38rem] h-[38rem] rounded-full bg-indigo-600/15 blur-[130px]"
-      aria-hidden="true"
-    ></div>
-    <div
-      class="pointer-events-none absolute bottom-0 right-10 w-[30rem] h-[30rem] rounded-full bg-emerald-500/10 blur-[120px]"
-      aria-hidden="true"
-    ></div>
+  .index-trigger {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: calc(var(--sc-z-chrome) + 3);
+    background: #111318;
+    color: #F4F2EF;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: var(--sc-r-sm);
+    padding: 0.45rem 0.75rem;
+    font-family: var(--sc-font-mono);
+    font-size: var(--sc-t-xs);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--sc-e1);
+  }
+  .index-trigger:hover { background: var(--sc-accent); color: #FFFFFF; }
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-        <!-- Left Column: High-Impact Positioning -->
-        <div class="lg:col-span-6">
-          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6 backdrop-blur-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Roasist Growth & Marketing Intelligence</span>
+  .index-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(10, 11, 14, 0.96);
+    color: #F4F2EF;
+    padding: clamp(2rem, 5vw, 4rem);
+    overflow-y: auto;
+    display: none;
+  }
+  .index-drawer.is-open { display: block; }
+  .index-drawer__grid {
+    max-width: 76rem;
+    margin: 2rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .index-drawer__link {
+    display: block;
+    padding: 1rem 1.15rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--sc-r-sm);
+    text-decoration: none;
+    color: #F4F2EF;
+    background: #13151C;
+  }
+
+  /* SPLIT STAGE LAYOUT & PLANES */
+  .split-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: clip;
+    background: var(--sc-canvas);
+  }
+  .world-left {
+    position: absolute;
+    inset: 0;
+    background: var(--carbon-bg);
+    color: var(--carbon-ink);
+    clip-path: inset(0 calc(100% - var(--seam)) 0 0);
+    z-index: 2;
+    overflow: clip;
+  }
+  .world-right {
+    position: absolute;
+    inset: 0;
+    background: var(--sc-canvas);
+    color: var(--sc-ink);
+    z-index: 1;
+    overflow: clip;
+  }
+
+  .plane-bg {
+    position: absolute;
+    inset: -8% 0;
+    width: 100%;
+    height: 116%;
+    object-fit: cover;
+    max-width: none;
+    opacity: 0.36;
+  }
+  .plane-bg--right { opacity: 0.26; }
+  .plane-prism {
+    position: absolute;
+    right: 5%;
+    top: 14%;
+    width: clamp(200px, 25vw, 380px);
+    height: clamp(200px, 25vw, 380px);
+    object-fit: cover;
+    border-radius: var(--sc-r-md);
+    box-shadow: var(--sc-e3);
+    border: 1px solid rgba(12, 70, 255, 0.28);
+    z-index: 2;
+  }
+  .plane-foreground-ledge {
+    position: absolute;
+    right: 4%;
+    bottom: 6%;
+    z-index: 4;
+    background: #111318;
+    color: #F4F2EF;
+    padding: 0.85rem 1.15rem;
+    border-radius: var(--sc-r-sm);
+    border-top: 2px solid var(--sc-accent);
+    box-shadow: var(--sc-e2);
+    max-width: 21rem;
+  }
+
+  .split-grid, .compare-stage-grid, .ledger-head-grid {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    max-width: var(--sc-maxw);
+    margin-inline: auto;
+    padding-inline: var(--sc-gutter);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+    gap: var(--sc-5);
+  }
+  .ledger-head-grid {
+    height: auto;
+    padding-inline: 0;
+    align-items: end;
+    margin-bottom: var(--sc-7);
+  }
+
+  .hero-col-left { grid-column: 1 / 6; }
+  .hero-col-right { grid-column: 7 / 13; }
+  .ledger-head-left { grid-column: span 7; }
+  .ledger-head-right { grid-column: span 5; }
+
+  .plate-dark {
+    background: #0D0F14;
+    color: #F4F2EF;
+    border: 1px solid rgba(240, 73, 42, 0.42);
+    padding: clamp(1.1rem, 2.2vw, 2rem);
+    border-radius: var(--sc-r-md);
+    box-shadow: var(--sc-e2);
+  }
+  .plate-dark p, .plate-dark .sc-body { color: #D0D4DF; }
+
+  .plate-light {
+    background: #F7F4EC;
+    color: #111318;
+    border: 1px solid rgba(17, 19, 24, 0.16);
+    border-left: 3px solid var(--sc-accent);
+    padding: clamp(1.1rem, 2.2vw, 2rem);
+    border-radius: var(--sc-r-md);
+    box-shadow: var(--sc-e2);
+  }
+  .plate-light p, .plate-light .sc-body { color: #2D2A24; }
+
+  .compare-well-left {
+    grid-column: 1 / 6;
+    position: relative;
+    min-height: 270px;
+    display: flex;
+    align-items: center;
+  }
+  .compare-well-right {
+    grid-column: 7 / 13;
+    position: relative;
+    min-height: 270px;
+    display: flex;
+    align-items: center;
+  }
+  .cue-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(1rem, 2.2vw, 2rem);
+  }
+
+  /* SEPARATE MOBILE ART DIRECTION (hero-depth.md & approved-collection.md §6) */
+  @media (max-width: 860px) {
+    .seam-rail, .plane-prism, .plane-foreground-ledge, .seam-chrome__side--left {
+      display: none;
+    }
+    .seam-chrome__head {
+      left: 0.75rem;
+      transform: none;
+      top: 0.75rem;
+      padding: 0.35rem 0.6rem;
+    }
+    .index-trigger {
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.35rem 0.6rem;
+    }
+    .split-grid, .compare-stage-grid, .ledger-head-grid {
+      grid-template-columns: 1fr;
+      align-content: center;
+      gap: 0.85rem;
+      padding-top: 2.5rem;
+    }
+    .hero-col-left, .hero-col-right,
+    .compare-well-left, .compare-well-right,
+    .ledger-head-left, .ledger-head-right {
+      grid-column: 1 / -1;
+    }
+    .compare-well-left, .compare-well-right {
+      min-height: 185px;
+    }
+  }
+
+  /* ACT 3: ARCHITECTURAL SERVICE LEDGER */
+  .ledger-section {
+    background: var(--sc-canvas);
+    color: var(--sc-ink);
+    position: relative;
+    z-index: 5;
+    border-top: 1px solid rgba(17,19,24,0.12);
+    border-bottom: 1px solid rgba(17,19,24,0.12);
+  }
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 3.5rem 1.4fr 1fr 2fr auto;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid rgba(17,19,24,0.12);
+    text-decoration: none;
+    color: var(--sc-ink);
+    transition: padding-left 180ms var(--sc-ease-out), background-color 180ms var(--sc-ease-out);
+  }
+  .ledger-row:hover {
+    background: rgba(12, 70, 255, 0.05);
+    padding-left: 0.75rem;
+  }
+  .ledger-row__num {
+    font-family: var(--sc-font-mono);
+    font-size: var(--sc-t-xs);
+    color: var(--sc-accent);
+    font-weight: 700;
+  }
+  .ledger-row__title {
+    font-family: var(--sc-font-display);
+    font-weight: 800;
+    font-size: var(--sc-t-lg);
+    letter-spacing: -0.02em;
+    color: #111318;
+  }
+  .ledger-row__metric {
+    font-family: var(--sc-font-mono);
+    font-size: var(--sc-t-xs);
+    color: #0C46FF;
+    font-weight: 700;
+  }
+  .ledger-row__desc {
+    font-size: var(--sc-t-sm);
+    color: #2D2A24;
+  }
+  .ledger-row__arrow {
+    font-family: var(--sc-font-mono);
+    font-weight: 700;
+    color: var(--sc-accent);
+  }
+  @media (max-width: 860px) {
+    .ledger-row {
+      grid-template-columns: 2.5rem 1fr auto;
+      gap: 0.4rem;
+    }
+    .ledger-row__metric, .ledger-row__desc {
+      grid-column: 2 / 4;
+    }
+  }
+
+  /* ACT 4: AUTHORED SILENCE */
+  .silence-section {
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0A0B0E;
+    color: #F4F2EF;
+    padding-inline: var(--sc-gutter);
+    position: relative;
+    z-index: 6;
+  }
+
+  /* ACT 5: THE ENGINEERED PEAK */
+  .peak-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--sc-canvas);
+    color: var(--sc-ink);
+    overflow: clip;
+  }
+  .peak-carbon-curtain {
+    position: absolute;
+    inset: 0;
+    background: #0A0B0E;
+    color: #F4F2EF;
+    clip-path: inset(0 calc(100% - var(--peak-seam, 20%)) 0 0);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    padding-left: var(--sc-gutter);
+    pointer-events: none;
+  }
+  .peak-clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    gap: 0.55rem;
+    margin-top: 1.1rem;
+  }
+  @media (max-width: 700px) {
+    .peak-clients-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+    }
+    .peak-client-cell:nth-child(n+13) {
+      display: none;
+    }
+  }
+  .peak-client-cell {
+    background: #FFFFFF;
+    border: 1px solid rgba(17,19,24,0.12);
+    border-radius: var(--sc-r-sm);
+    height: 2.9rem;
+    padding: 0.35rem 0.55rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .peak-client-cell img {
+    max-height: 1.75rem;
+    max-width: 5.2rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* ACT 6: COMMITMENT */
+  .close-stage {
+    background: #111318;
+    color: #F4F2EF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-block: clamp(2.5rem, 5vw, 4.2rem);
+  }
+  .audit-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .audit-input {
+    background: #1A1D26;
+    color: #F4F2EF;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: var(--sc-r-sm);
+    padding: 0.8rem 0.95rem;
+    font-size: var(--sc-t-sm);
+  }
+  .audit-input::placeholder { color: #9CA1AE; }
+  .audit-btn {
+    background: var(--sc-accent);
+    color: #FFFFFF;
+    border: 0;
+    border-radius: var(--sc-r-sm);
+    padding: 0.85rem 1.35rem;
+    font-family: var(--sc-font-display);
+    font-weight: 800;
+    font-size: var(--sc-t-sm);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<div class="seam-chrome" id="seam-line" aria-hidden="true"></div>
+
+<nav class="seam-chrome__head" aria-label="Sahne Durumu">
+  <a href="#top" class="seam-chrome__brand">ROASIST</a>
+  <span class="seam-chrome__side--left" id="seam-label-left">TAHMİN %48</span>
+  <span aria-hidden="true">·</span>
+  <span class="seam-chrome__side--right" id="seam-label-right">ROAS MİMARİSİ %52</span>
+  <span class="seam-chrome__pct" id="seam-stage-tag">SAHNE I</span>
+</nav>
+
+<div class="seam-rail" role="navigation" aria-label="Bölüm Geçişleri">
+  <button class="seam-tick" aria-current="true" onclick="jumpAct(0)" title="I. Karşılaşma"></button>
+  <button class="seam-tick" onclick="jumpAct(1)" title="II. Kayıp Maliyet"></button>
+  <button class="seam-tick" onclick="jumpAct(2)" title="III. 11 Uzmanlık Disiplini"></button>
+  <button class="seam-tick" onclick="jumpAct(3)" title="IV. Karar Eşiği"></button>
+  <button class="seam-tick" onclick="jumpAct(4)" title="V. Perde Çöküşü & 29 Marka"></button>
+  <button class="seam-tick" onclick="jumpAct(5)" title="VI. Ücretsiz Büyüme Analizi"></button>
+</div>
+
+<button class="index-trigger" onclick="toggleDrawer()" aria-expanded="false" id="drawer-btn">
+  11 HİZMET &amp; DİZİN +
+</button>
+
+<aside class="index-drawer" id="seo-drawer" aria-label="Roasist Hizmet ve Kurumsal Sayfa Dizini">
+  <div style="max-width: 76rem; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <div class="sc-label" style="color: #8AB0FF;">%100 KORUNAN URL &amp; SİTE HARİTASI MİMARİSİ</div>
+      <h2 class="sc-display sc-display--md" style="color: #FFFFFF; margin-top: 0.35rem;">11 Uzmanlık Disiplini ve Kurumsal Sayfalar</h2>
+    </div>
+    <button onclick="toggleDrawer()" class="audit-btn" style="background: #262A36;">KAPAT ✕</button>
+  </div>
+  <div class="index-drawer__grid">
+    
+      <a href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>01</span>
+          <span>Tam Kanal Sinerjisi</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">360° Dijital Pazarlama Yönetimi</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Arama, sosyal, içerik ve dönüşüm hunisinin tek merkezden yönetimi.</div>
+      </a>
+    
+      <a href="/hizmetler/performans-pazarlamasi/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>02</span>
+          <span>ROAS & CPA Odaklı</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Performans Pazarlaması</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Veri bilimi ve gerçek zamanlı teklif algoritmalarıyla ölçeklenen kampanya mimarisi.</div>
+      </a>
+    
+      <a href="/hizmetler/performans-pazarlamasi/google-reklamlari/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>03</span>
+          <span>Arama · PMax · YouTube</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Google Reklamları (Ads)</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Satın alma niyeti en yüksek kullanıcıları yakalayan Google Premier stratejileri.</div>
+      </a>
+    
+      <a href="/hizmetler/performans-pazarlamasi/instagram-reklamlari/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>04</span>
+          <span>Reels · Katalog · Satış</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Instagram Reklamları</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Kreatif test matrisleri ve Advantage+ kataloglarla yüksek dönüşümlü sosyal ticaret.</div>
+      </a>
+    
+      <a href="/hizmetler/performans-pazarlamasi/facebook-reklamlari/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>05</span>
+          <span>CAPI & Dinamik Retargeting</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Facebook Reklamları</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Server-side dönüşüm API entegrasyonuyla kayıpsız hedefleme ve yeniden pazarlama.</div>
+      </a>
+    
+      <a href="/hizmetler/performans-pazarlamasi/tiktok-reklamlari/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>06</span>
+          <span>Spark Ads & UGC Kreatif</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">TikTok Reklamları</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Dikkat ekonomisinde ilk 2 saniyede yakalayan performans odaklı kısa video kurguları.</div>
+      </a>
+    
+      <a href="/hizmetler/performans-pazarlamasi/linkedin-reklamlari/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>07</span>
+          <span>B2B Karar Verici Hunisi</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">LinkedIn Reklamları</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Üst düzey yöneticilere ve kurumsal satın almacılara doğrudan ulaşan ABM kampanyaları.</div>
+      </a>
+    
+      <a href="/hizmetler/performans-pazarlamasi/yandex-reklamlari/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>08</span>
+          <span>Global & BDT İhracat</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Yandex Reklamları</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Rusya ve Orta Asya pazarlarında ihracat odaklı arama ve görüntülü reklam ağı.</div>
+      </a>
+    
+      <a href="/hizmetler/seo/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>09</span>
+          <span>Google + AI Overviews</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Kurumsal SEO & AEO Hizmeti</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Teknik SEO, semantik içerik otoritesi ve ChatGPT/Gemini görünürlük mühendisliği.</div>
+      </a>
+    
+      <a href="/hizmetler/web-tasarim/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>10</span>
+          <span>99/100 Core Web Vitals</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Web Tasarım & Geliştirme</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Milisaniyeler içinde açılan, sıfır SEO kayıplı ve dönüşüm odaklı web mimarisi.</div>
+      </a>
+    
+      <a href="/hizmetler/grafik-tasarim/" class="index-drawer__link">
+        <div style="display:flex; justify-content:space-between; font-family:var(--sc-font-mono); font-size:0.75rem; color:#8AB0FF;">
+          <span>11</span>
+          <span>Yüksek CTR Kreatif Stüdyo</span>
+        </div>
+        <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.35rem; color:#FFFFFF;">Grafik & Kreatif Tasarım</div>
+        <div style="font-size:0.82rem; color:#C8CCD6; margin-top:0.25rem;">Reklam yorgunluğunu kıran, tıklama ve dönüşüm oranlarını artıran görsel sistemler.</div>
+      </a>
+    
+  </div>
+</aside>
+
+<main id="top" data-sc-verify-state="seam:48|act:0">
+
+  <!-- ACT 1 · RECOGNITION: Multi-Plane Layered Split-Stage Hero -->
+  <section class="act-node" data-sc-act="flow" style="min-height: 155vh; position: relative;">
+    <div style="position: sticky; top: 0; height: 100vh; height: 100svh; overflow: clip;">
+      <div class="split-stage">
+        <div class="world-left" aria-hidden="true">
+          <img class="plane-bg" src="/images/scrollcraft/01-carbon-chaos.webp" width="1440" height="810" alt="" data-sc-parallax="-0.45">
+        </div>
+        <div class="world-right">
+          <img class="plane-bg plane-bg--right" src="/images/scrollcraft/01-bone-arch.webp" width="1440" height="810" alt="Roasist Mimari Büyüme Stüdyosu" data-sc-parallax="-1.15">
+          <img class="plane-prism" src="/images/scrollcraft/01-prism-plane.webp" width="680" height="680" alt="Kobalt Optik Veri Prizması" data-sc-parallax="-0.45">
+          <div class="plane-foreground-ledge" data-sc-parallax="0.35">
+            <div class="sc-label" style="color: #8AB0FF;">DOĞRULANMIŞ BÜYÜME OTOPSİSİ</div>
+            <div style="font-family:var(--sc-font-display); font-weight:800; font-size:1.05rem; margin-top:0.25rem; color:#FFFFFF;">
+              Google Premier &amp; Meta Business Partner
+            </div>
+            <div style="font-size:0.8rem; color:#D0D4DF; margin-top:0.2rem;">
+              11 uzmanlık disiplini, 29 ulusal ve global referans marka.
+            </div>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div class="hero-col-left plate-dark">
+            <div class="sc-label" style="color: #FF8A70;">KLASİK AJANS DÖNGÜSÜ</div>
+            <p style="font-family:var(--sc-font-display); font-weight:800; font-size:var(--sc-t-xl); line-height:1.08; margin:0.4rem 0 0; color:#FFFFFF;">
+              Tıklama var, ciro yok. Rapor var, izleme yok.
+            </p>
+            <p class="sc-body" style="margin-top:0.6rem; font-size:var(--sc-t-sm); color:#D0D4DF;">
+              Kayıp pikseller, birbirinden kopuk kanallar ve ay sonunda gelen bahanelerle eriyen reklam bütçesi.
+            </p>
           </div>
 
-          <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-white leading-[1.08] mb-6">
-            Büyüyen İşletmeler İçin Dijital Pazarlama Çözümleri
-          </h1>
+          <div class="hero-col-right plate-light">
+            <div class="sc-label" style="color: #0C46FF;">ROASIST BÜYÜME MİMARİSİ</div>
+            <h1 class="sc-display sc-display--lg" style="color: #111318; margin-top: 0.4rem;">
+              Reklam bütçenizi tahminden kurtarıp ölçülebilir ciroya dönüştürüyoruz.
+            </h1>
+            <p class="sc-body" style="margin-top: 0.7rem; color: #2D2A24;">
+              Server-Side GTM, yapay zeka teklif algoritmaları ve 360° kanal sinerjisiyle her kuruşun getirisini kanıtlayan performans ajansı.
+            </p>
+            <div style="margin-top: 1.15rem; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;">
+              <a href="#analiz" class="audit-btn" style="text-decoration:none; display:inline-block;">Ücretsiz Büyüme Analizi Alın</a>
+              <a href="/hizmetler/performans-pazarlamasi/" style="font-family:var(--sc-font-mono); font-size:var(--sc-t-xs); font-weight:700; color:#0C46FF;">
+                11 Hizmet Mimarisi →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
-            Kapsamlı ve özelleştirilmiş dijital pazarlama hizmetlerimizle işinizi bir sonraki seviyeye taşımanıza yardımcı olalım. Kendi geliştirdiğimiz <strong class="text-white">Roasist Marketing Intelligence OS</strong> veri altyapısıyla reklam bütçenizi ölçülebilir gelire dönüştürüyoruz.
+  <!-- ACT 2 · TENSION: Pinned 3-Stage Comparison (Crisp non-colliding plateaus) -->
+  <section class="act-node" data-sc-act="pin" data-sc-span="2.8">
+    <div data-sc-stage class="split-stage">
+      <div class="world-left" aria-hidden="true"></div>
+      <div class="world-right" aria-hidden="true"></div>
+
+      <div class="compare-stage-grid">
+        <div class="compare-well-left plate-dark">
+          <div class="cue-layer" data-sc-cue="0 0.32 0 0.03">
+            <div class="sc-label" style="color: #FF8A70;">KAYIP 01 · KÖR VERİ</div>
+            <h2 class="sc-display sc-display--md" style="color:#FFFFFF; margin-top:0.35rem;">
+              Çerez engelleriyle %40 eksik ölçülen dönüşümler.
+            </h2>
+            <p class="sc-body" style="margin-top:0.55rem; color:#D0D4DF;">
+              Tarayıcı kısıtlamaları yüzünden hangi kelimenin veya kreatifin gerçek satış getirdiğini bilmeden bütçe artırımı yapılır.
+            </p>
+          </div>
+          <div class="cue-layer" data-sc-cue="0.34 0.66 0.03 0.03">
+            <div class="sc-label" style="color: #FF8A70;">KAYIP 02 · KOPUK KANALLAR</div>
+            <h2 class="sc-display sc-display--md" style="color:#FFFFFF; margin-top:0.35rem;">
+              Birbirinden habersiz Google, Meta ve SEO ekipleri.
+            </h2>
+            <p class="sc-body" style="margin-top:0.55rem; color:#D0D4DF;">
+              Arama reklamları organik trafiği yamyamlaştırır, sosyal medya kreatifleri açılış sayfasıyla uyuşmaz.
+            </p>
+          </div>
+          <div class="cue-layer" data-sc-cue="0.68 1 0.03 0">
+            <div class="sc-label" style="color: #FF8A70;">KAYIP 03 · GEÇMİŞİ ANLATAN PDF</div>
+            <h2 class="sc-display sc-display--md" style="color:#FFFFFF; margin-top:0.35rem;">
+              Bütçe bittikten sonra gelen aylık gösterim tabloları.
+            </h2>
+            <p class="sc-body" style="margin-top:0.55rem; color:#D0D4DF;">
+              Gösterim ve tıklama sayılarıyla süslenen ama kasadaki net karlılığa dokunmayan pasif hesap yönetimi.
+            </p>
+          </div>
+        </div>
+
+        <div class="compare-well-right plate-light">
+          <div class="cue-layer" data-sc-cue="0 0.32 0 0.03">
+            <div class="sc-label" style="color: #0C46FF;">ÇÖZÜM 01 · TAM İZLEME OMURGASI</div>
+            <h2 class="sc-display sc-display--md" style="color:#111318; margin-top:0.35rem;">
+              Server-Side GTM, GA4 ve CAPI ile sıfır veri kaybı.
+            </h2>
+            <p class="sc-body" style="margin-top:0.55rem; color:#2D2A24;">
+              Reklam algoritmalarını sahte tıklamalarla değil, CRM ve kasa onaylı gerçek ciro sinyalleriyle besliyoruz.
+            </p>
+          </div>
+          <div class="cue-layer" data-sc-cue="0.34 0.66 0.03 0.03">
+            <div class="sc-label" style="color: #0C46FF;">ÇÖZÜM 02 · 360° KANAL SİNERJİSİ</div>
+            <h2 class="sc-display sc-display--md" style="color:#111318; margin-top:0.35rem;">
+              Google, Meta, TikTok, LinkedIn, Yandex ve SEO tek masada.
+            </h2>
+            <p class="sc-body" style="margin-top:0.55rem; color:#2D2A24;">
+              Tüm ücretli ve organik kanalları tek bir birleşik ROAS ve müşteri edinme maliyeti (CPA) hedefinde hizalıyoruz.
+            </p>
+          </div>
+          <div class="cue-layer" data-sc-cue="0.68 1 0.03 0">
+            <div class="sc-label" style="color: #0C46FF;">ÇÖZÜM 03 · CANLI KARLILIK MÜHENDİSLİĞİ</div>
+            <h2 class="sc-display sc-display--md" style="color:#111318; margin-top:0.35rem;">
+              Günlük teklif, kreatif ve dönüşüm oranı (CRO) müdahalesi.
+            </h2>
+            <p class="sc-body" style="margin-top:0.55rem; color:#2D2A24;">
+              Açılış sayfası hızından sepet terk hunisine kadar satışa giden her adımı gerçek zamanlı optimize ediyoruz.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 3 · TURN: The 11-Discipline Architectural Ledger -->
+  <section class="sc-section ledger-section act-node" data-sc-act="flow">
+    <div class="sc-wrap">
+      <div class="ledger-head-grid">
+        <div class="ledger-head-left" data-sc-in data-sc-stagger="60">
+          <div class="sc-label" style="color: #0C46FF;">MİMARİ HİZMET ENVANTERİ</div>
+          <h2 class="sc-display sc-display--lg" style="color: #111318; margin-top: 0.4rem;">
+            Tek kanal değil, birbirini çarpan <span data-sc-count="0 11">11</span> uzmanlık disiplini.
+          </h2>
+        </div>
+        <div class="ledger-head-right" data-sc-reveal="up" data-sc-reveal-at="0.08 0.48">
+          <p class="sc-body" style="color: #2D2A24;">
+            Mevcut <strong style="color:#111318;">www.roasist.com</strong> adresindeki tüm hizmet sayfalarınız sıfır URL kaybı, tam Schema.org yapısal verisi ve anlık açılış hızıyla inşa edildi.
+          </p>
+        </div>
+      </div>
+
+      <div role="list" aria-label="Roasist 11 Hizmet Disiplini">
+        
+          <a href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">01</span>
+            <span class="ledger-row__title">360° Dijital Pazarlama Yönetimi</span>
+            <span class="ledger-row__metric">Tam Kanal Sinerjisi</span>
+            <span class="ledger-row__desc">Arama, sosyal, içerik ve dönüşüm hunisinin tek merkezden yönetimi.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/performans-pazarlamasi/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">02</span>
+            <span class="ledger-row__title">Performans Pazarlaması</span>
+            <span class="ledger-row__metric">ROAS & CPA Odaklı</span>
+            <span class="ledger-row__desc">Veri bilimi ve gerçek zamanlı teklif algoritmalarıyla ölçeklenen kampanya mimarisi.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/performans-pazarlamasi/google-reklamlari/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">03</span>
+            <span class="ledger-row__title">Google Reklamları (Ads)</span>
+            <span class="ledger-row__metric">Arama · PMax · YouTube</span>
+            <span class="ledger-row__desc">Satın alma niyeti en yüksek kullanıcıları yakalayan Google Premier stratejileri.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/performans-pazarlamasi/instagram-reklamlari/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">04</span>
+            <span class="ledger-row__title">Instagram Reklamları</span>
+            <span class="ledger-row__metric">Reels · Katalog · Satış</span>
+            <span class="ledger-row__desc">Kreatif test matrisleri ve Advantage+ kataloglarla yüksek dönüşümlü sosyal ticaret.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/performans-pazarlamasi/facebook-reklamlari/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">05</span>
+            <span class="ledger-row__title">Facebook Reklamları</span>
+            <span class="ledger-row__metric">CAPI & Dinamik Retargeting</span>
+            <span class="ledger-row__desc">Server-side dönüşüm API entegrasyonuyla kayıpsız hedefleme ve yeniden pazarlama.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/performans-pazarlamasi/tiktok-reklamlari/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">06</span>
+            <span class="ledger-row__title">TikTok Reklamları</span>
+            <span class="ledger-row__metric">Spark Ads & UGC Kreatif</span>
+            <span class="ledger-row__desc">Dikkat ekonomisinde ilk 2 saniyede yakalayan performans odaklı kısa video kurguları.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/performans-pazarlamasi/linkedin-reklamlari/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">07</span>
+            <span class="ledger-row__title">LinkedIn Reklamları</span>
+            <span class="ledger-row__metric">B2B Karar Verici Hunisi</span>
+            <span class="ledger-row__desc">Üst düzey yöneticilere ve kurumsal satın almacılara doğrudan ulaşan ABM kampanyaları.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/performans-pazarlamasi/yandex-reklamlari/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">08</span>
+            <span class="ledger-row__title">Yandex Reklamları</span>
+            <span class="ledger-row__metric">Global & BDT İhracat</span>
+            <span class="ledger-row__desc">Rusya ve Orta Asya pazarlarında ihracat odaklı arama ve görüntülü reklam ağı.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/seo/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">09</span>
+            <span class="ledger-row__title">Kurumsal SEO & AEO Hizmeti</span>
+            <span class="ledger-row__metric">Google + AI Overviews</span>
+            <span class="ledger-row__desc">Teknik SEO, semantik içerik otoritesi ve ChatGPT/Gemini görünürlük mühendisliği.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/web-tasarim/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">10</span>
+            <span class="ledger-row__title">Web Tasarım & Geliştirme</span>
+            <span class="ledger-row__metric">99/100 Core Web Vitals</span>
+            <span class="ledger-row__desc">Milisaniyeler içinde açılan, sıfır SEO kayıplı ve dönüşüm odaklı web mimarisi.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+          <a href="/hizmetler/grafik-tasarim/" class="ledger-row" role="listitem">
+            <span class="ledger-row__num">11</span>
+            <span class="ledger-row__title">Grafik & Kreatif Tasarım</span>
+            <span class="ledger-row__metric">Yüksek CTR Kreatif Stüdyo</span>
+            <span class="ledger-row__desc">Reklam yorgunluğunu kıran, tıklama ve dönüşüm oranlarını artıran görsel sistemler.</span>
+            <span class="ledger-row__arrow">İNCELE →</span>
+          </a>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 4 · AUTHORED SILENCE -->
+  <section class="silence-section act-node" data-sc-act="flow">
+    <div style="max-width: 48rem; text-align: left;" data-sc-in>
+      <p class="sc-display sc-display--md" style="color: #F4F2EF;">
+        Şimdi bütçenizdeki bulanıklığı tamamen sildiğimizde geriye ne kaldığına bakın.
+      </p>
+    </div>
+  </section>
+
+  <!-- ACT 5 · THE ENGINEERED PEAK: Seam Collapse & 29 Real Client Brands -->
+  <section class="act-node" id="peak-act" data-sc-act="pin" data-sc-span="3.5" data-sc-dwell="0.35">
+    <div data-sc-stage class="peak-stage" id="peak-stage">
+      <img src="/images/scrollcraft/05-cobalt-macro.webp" width="1440" height="810" alt="Kobalt Prizma Odaklanmış Büyüme Işığı" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.22; pointer-events:none;">
+
+      <div class="peak-carbon-curtain" id="peak-curtain" aria-hidden="true">
+        <div class="plate-dark" style="max-width: 22rem;">
+          <div class="sc-label" style="color: #FF8A70;">ESKİ DÜZEN SİLİNİYOR</div>
+          <p style="font-family:var(--sc-font-display); font-weight:800; font-size:1.35rem; color:#FFFFFF; margin-top:0.4rem;">
+            Tahmin ve bütçe kaybı sahneden çekiliyor.
+          </p>
+        </div>
+      </div>
+
+      <div class="sc-wrap" style="position:relative; z-index:5; height:100%; display:flex; flex-direction:column; justify-content:center;">
+        <div class="plate-light" style="background: #F7F4EC;">
+          <div data-sc-cue="0 1 0 0">
+            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:0.75rem; border-bottom:1px solid rgba(17,19,24,0.12); padding-bottom:0.85rem;">
+              <div>
+                <div class="sc-label" style="color: #0C46FF;">PERDE ÇÖKTÜ · %100 ROASIST NETLİĞİ</div>
+                <h2 class="sc-display sc-display--md" style="color: #111318; margin-top: 0.25rem;">
+                  Türkiye ve dünyadan <span data-sc-count="0 29">29</span> markanın büyüme mimarı.
+                </h2>
+              </div>
+              <div style="font-family:var(--sc-font-mono); font-size:var(--sc-t-xs); color:#0C46FF; font-weight:700;">
+                [İmleci sola yaklaştırarak eski düzenle farkı test edin]
+              </div>
+            </div>
+
+            <div class="peak-clients-grid">
+              
+                <div class="peak-client-cell" title="Hair Academy">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-22.webp" width="110" height="36" alt="Hair Academy">
+                </div>
+              
+                <div class="peak-client-cell" title="Op.Dr.Özgür Demirtaş">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-21.webp" width="110" height="36" alt="Op.Dr.Özgür Demirtaş">
+                </div>
+              
+                <div class="peak-client-cell" title="Kitapbilgini">
+                  <img src="/images/clients/Calisma-Yuzeyi-28_4x.webp" width="110" height="36" alt="Kitapbilgini">
+                </div>
+              
+                <div class="peak-client-cell" title="İstanbul Medya Akademisi">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya_4x.webp" width="110" height="36" alt="İstanbul Medya Akademisi">
+                </div>
+              
+                <div class="peak-client-cell" title="SFK">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-20_4x.webp" width="110" height="36" alt="SFK">
+                </div>
+              
+                <div class="peak-client-cell" title="Center of Surgeons">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-19_4x.webp" width="110" height="36" alt="Center of Surgeons">
+                </div>
+              
+                <div class="peak-client-cell" title="Cosy Life Consulting">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-18_4x.webp" width="110" height="36" alt="Cosy Life Consulting">
+                </div>
+              
+                <div class="peak-client-cell" title="Doctor Bircan">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-17_4x.webp" width="110" height="36" alt="Doctor Bircan">
+                </div>
+              
+                <div class="peak-client-cell" title="Lefior">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-16_4x.webp" width="110" height="36" alt="Lefior">
+                </div>
+              
+                <div class="peak-client-cell" title="Mobile Game Factory">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-15_4x.webp" width="110" height="36" alt="Mobile Game Factory">
+                </div>
+              
+                <div class="peak-client-cell" title="DermaDerm">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-14_4x.webp" width="110" height="36" alt="DermaDerm">
+                </div>
+              
+                <div class="peak-client-cell" title="Elose">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-13_4x.webp" width="110" height="36" alt="Elose">
+                </div>
+              
+                <div class="peak-client-cell" title="Yoloo">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-7_4x.webp" width="110" height="36" alt="Yoloo">
+                </div>
+              
+                <div class="peak-client-cell" title="Hyundai">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-8_4x.webp" width="110" height="36" alt="Hyundai">
+                </div>
+              
+                <div class="peak-client-cell" title="ACC">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-9_4x.webp" width="110" height="36" alt="ACC">
+                </div>
+              
+                <div class="peak-client-cell" title="Urla Balık">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-10_4x.webp" width="110" height="36" alt="Urla Balık">
+                </div>
+              
+                <div class="peak-client-cell" title="Natural Dukkan">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-11_4x.webp" width="110" height="36" alt="Natural Dukkan">
+                </div>
+              
+                <div class="peak-client-cell" title="3E İlaçlama">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-12_4x.webp" width="110" height="36" alt="3E İlaçlama">
+                </div>
+              
+                <div class="peak-client-cell" title="Yengeç">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-6_4x.webp" width="110" height="36" alt="Yengeç">
+                </div>
+              
+                <div class="peak-client-cell" title="Pedalbox">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-5_4x.webp" width="110" height="36" alt="Pedalbox">
+                </div>
+              
+                <div class="peak-client-cell" title="GekoO">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-4_4x.webp" width="110" height="36" alt="GekoO">
+                </div>
+              
+                <div class="peak-client-cell" title="DecorEvi">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-3_4x.webp" width="110" height="36" alt="DecorEvi">
+                </div>
+              
+                <div class="peak-client-cell" title="Kodlab">
+                  <img src="/images/clients/Calisma-Yuzeyi-28-kopya-2_4x.webp" width="110" height="36" alt="Kodlab">
+                </div>
+              
+                <div class="peak-client-cell" title="Sekiz Oniki">
+                  <img src="/images/clients/Website-Reference-Logo-1.png" width="110" height="36" alt="Sekiz Oniki">
+                </div>
+              
+            </div>
+
+            <div style="margin-top: 0.85rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.5rem;">
+              <span style="font-size:var(--sc-t-xs); color:#2D2A24; font-weight:600;">
+                + Düş Bahçesi Okulları, Marmara Kurs, Summer Home, Turkey House, Medistate Hospital ve 50+ aktif büyüme projesi.
+              </span>
+              <a href="/referanslar/" style="font-family:var(--sc-font-mono); font-size:var(--sc-t-xs); font-weight:700; color:#0C46FF;">
+                Tüm Referans Portföyünü Aç →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 6 · COMMITMENT: Resolved Full-Width Stage & Audit Ledger -->
+  <section id="analiz" class="act-node" data-sc-act="pin" data-sc-span="1.35">
+    <div data-sc-stage class="close-stage">
+      <div class="sc-wrap" data-sc-cue="0 1 0 0" style="margin-block: auto;">
+        <div style="max-width: 56rem;">
+          <div class="sc-label" style="color: #8AB0FF;">KARAR ANI · ÜCRETSİZ BÜYÜME &amp; ROAS OTOPSİSİ</div>
+          <h2 class="sc-display sc-display--lg" style="color: #FFFFFF; margin-top: 0.4rem;">
+            Reklam hesaplarınızı ve SEO potansiyelinizi 24 saat içinde inceleyelim.
+          </h2>
+          <p class="sc-body" style="color: #D0D4DF; margin-top: 0.65rem;">
+            Mevcut kampanyalarınızdaki bütçe kaçaklarını, izleme eksiklerini ve büyüme fırsatlarını gösteren özel yol haritanızı hazırlayalım.
           </p>
 
-          <div class="flex flex-wrap items-center gap-4 mb-12">
-            <a
-              href="/iletisim/#analiz-formu"
-              id="home-hero-primary-cta"
-              class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-sm transition shadow-lg shadow-white/5"
-            >
-              <span>Ücretsiz Strateji Görüşmesi Planla</span>
-              <Icon name="tabler:arrow-right" class="w-4 h-4" />
-            </a>
-            <a
-              href="https://wa.me/+905415075350"
-              target="_blank"
-              rel="noopener noreferrer"
-              id="home-hero-whatsapp-cta"
-              class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700/80 font-semibold text-sm transition"
-            >
-              <Icon name="tabler:brand-whatsapp" class="w-4 h-4 text-emerald-400" />
-              <span>Hızlı WhatsApp Hattı</span>
-            </a>
-          </div>
-
-          <!-- Precision Telemetry Strip -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-800/90">
-            <div>
-              <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">360°</div>
-              <div class="text-xs text-slate-400 mt-1">Bütünsel Büyüme Mimarisi</div>
-            </div>
-            <div>
-              <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight">29+</div>
-              <div class="text-xs text-slate-400 mt-1">Ulusal & Global Referans</div>
-            </div>
-            <div>
-              <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">6 Kanal</div>
-              <div class="text-xs text-slate-400 mt-1">Performans Reklam Ağı</div>
-            </div>
-            <div>
-              <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 tracking-tight">%100</div>
-              <div class="text-xs text-slate-400 mt-1">Şeffaf Veri & Hesap</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column: 3D Optical Glass Showcase + Interactive Simulator -->
-        <div class="lg:col-span-6">
-          <div class="relative rounded-3xl bg-slate-900/90 border border-slate-800 p-4 sm:p-6 shadow-2xl">
-            <!-- Top Visual Showcase with 3D Prism Art & Floating Live Telemetry -->
-            <div class="relative rounded-2xl overflow-hidden border border-slate-800/80 mb-5 bg-slate-950">
-              <img
-                src="/images/hero-prism.webp"
-                alt="Roasist Veri Odaklı Büyüme ve Performans Analitiği"
-                width="960"
-                height="540"
-                loading="eager"
-                fetchpriority="high"
-                class="w-full h-56 sm:h-64 object-cover opacity-90"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent"></div>
-
-              <!-- Floating Live Telemetry Cards over the 3D Art -->
-              <div class="absolute top-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2">
-                <span class="px-3 py-1 rounded-lg bg-slate-950/85 border border-white/10 backdrop-blur-md text-xs font-mono text-emerald-400 flex items-center gap-1.5">
-                  <Icon name="tabler:trending-up" class="w-3.5 h-3.5" />
-                  ROAS Odaklı Optimizasyon Aktif
-                </span>
-                <span class="px-3 py-1 rounded-lg bg-slate-950/85 border border-white/10 backdrop-blur-md text-xs font-mono text-slate-300">
-                  GA4 · GTM · Meta CAPI · Google Ads API
-                </span>
-              </div>
-
-              <div class="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-2.5">
-                <div class="p-2.5 rounded-xl bg-slate-950/85 border border-white/10 backdrop-blur-md">
-                  <div class="text-xs text-slate-400">Arama & PMax</div>
-                  <div class="text-sm sm:text-base font-extrabold text-white mt-0.5">Yüksek Niyet</div>
-                </div>
-                <div class="p-2.5 rounded-xl bg-slate-950/85 border border-white/10 backdrop-blur-md">
-                  <div class="text-xs text-slate-400">SEO + AEO</div>
-                  <div class="text-sm sm:text-base font-extrabold text-emerald-400 mt-0.5">Organik Otorite</div>
-                </div>
-                <div class="p-2.5 rounded-xl bg-slate-950/85 border border-white/10 backdrop-blur-md">
-                  <div class="text-xs text-slate-400">Kreatif & UX</div>
-                  <div class="text-sm sm:text-base font-extrabold text-indigo-300 mt-0.5">Maksimum CR</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Interactive Sector & Channel Simulator -->
-            <div class="rounded-2xl bg-slate-950/90 border border-slate-800/90 p-4 sm:p-5">
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                <div>
-                  <div class="text-xs font-bold uppercase tracking-wider text-indigo-400">
-                    İnteraktif Büyüme Simülatörü
-                  </div>
-                  <div class="text-sm font-bold text-white">Sektörünüze Göre Önerilen Kanal Dağılımı</div>
-                </div>
-                <div class="flex gap-1.5" role="tablist">
-                  <button
-                    type="button"
-                    data-sim-sector="ecom"
-                    class="sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white cursor-pointer transition"
-                  >
-                    E-Ticaret
-                  </button>
-                  <button
-                    type="button"
-                    data-sim-sector="health"
-                    class="sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 cursor-pointer transition"
-                  >
-                    Sağlık & İhracat
-                  </button>
-                  <button
-                    type="button"
-                    data-sim-sector="b2b"
-                    class="sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 cursor-pointer transition"
-                  >
-                    B2B & Kurumsal
-                  </button>
-                </div>
-              </div>
-
-              <!-- Animated Channel Bars -->
-              <div id="sim-bars-container" class="space-y-3 mt-4">
-                <div>
-                  <div class="flex justify-between text-xs mb-1">
-                    <span class="font-medium text-slate-200" id="sim-label-1">Google Shopping, Arama & PMax</span>
-                    <span class="font-mono font-bold text-indigo-400" id="sim-val-1">%45 Pay</span>
-                  </div>
-                  <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-                    <div id="sim-bar-1" class="h-full bg-indigo-500 rounded-full transition-all duration-500" style="width: 45%"></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-xs mb-1">
-                    <span class="font-medium text-slate-200" id="sim-label-2">Instagram, Facebook & Dinamik Katalog (CAPI)</span>
-                    <span class="font-mono font-bold text-emerald-400" id="sim-val-2">%35 Pay</span>
-                  </div>
-                  <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-                    <div id="sim-bar-2" class="h-full bg-emerald-500 rounded-full transition-all duration-500" style="width: 35%"></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-xs mb-1">
-                    <span class="font-medium text-slate-200" id="sim-label-3">Teknik SEO, Kategori İçeriği & TikTok Kreatif</span>
-                    <span class="font-mono font-bold text-sky-400" id="sim-val-3">%20 Pay</span>
-                  </div>
-                  <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-                    <div id="sim-bar-3" class="h-full bg-sky-400 rounded-full transition-all duration-500" style="width: 20%"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                <span id="sim-kpi-note" class="text-slate-400">Odak: Sepet Ortalaması (AOV), ROAS ve Sepet Terk Dönüşümü</span>
-                <a href="/iletisim/#analiz-formu" class="font-bold text-white hover:text-indigo-300 shrink-0 ml-2">
-                  Bütçemi Planla →
-                </a>
-              </div>
-            </div>
-          </div>
+          <form class="audit-form" action="/iletisim/" method="post" onsubmit="event.preventDefault(); document.getElementById('form-status').textContent = 'Talebiniz kaydedildi. Roasist büyüme ekibi 24 saat içinde sizinle iletişime geçecektir.';">
+            <input class="audit-input" type="text" name="name" required placeholder="Adınız Soyadınız" aria-label="Adınız Soyadınız">
+            <input class="audit-input" type="url" name="website" required placeholder="Web Siteniz (https://...)" aria-label="Web Siteniz">
+            <input class="audit-input" type="tel" name="phone" required placeholder="Telefon Numaranız" aria-label="Telefon Numaranız">
+            <button class="audit-btn" type="submit">Ücretsiz Büyüme Analizi Alın</button>
+          </form>
+          <p id="form-status" style="font-family:var(--sc-font-mono); font-size:var(--sc-t-xs); color:#34D399; margin-top:0.65rem; min-height:1.1rem;" aria-live="polite"></p>
         </div>
       </div>
+
+      <footer class="sc-wrap" style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; font-size: var(--sc-t-xs); color: #C8CCD6;">
+        <div>
+          <strong style="color: #FFFFFF;">ROASIST</strong> · Dijital Pazarlama &amp; Performans Ajansı · İstanbul · <a href="tel:+905326791886" style="color:#FFFFFF;">+90 532 679 18 86</a> · <a href="mailto:info@roasist.com" style="color:#FFFFFF;">info@roasist.com</a>
+        </div>
+        <div style="display: flex; gap: 1.1rem; flex-wrap: wrap;">
+          <a href="/hakkimizda/" style="color:#D0D4DF;">Hakkımızda</a>
+          <a href="/referanslar/" style="color:#D0D4DF;">Referanslar</a>
+          <a href="/blog/" style="color:#D0D4DF;">Blog</a>
+          <a href="/iletisim/" style="color:#D0D4DF;">İletişim</a>
+          <a href="/gizlilik-politikasi-ve-kullanim-sartlari/" style="color:#D0D4DF;">Gizlilik Politikası</a>
+        </div>
+      </footer>
     </div>
   </section>
 
-  <!-- INFINITE CLIENT LOGO MARQUEE (29 REAL BRANDS) -->
-  <section class="py-10 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-      <div class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-        Büyüme Yolculuğuna Eşlik Ettiğimiz 29+ Ulusal ve Küresel Marka
-      </div>
-      <a href="/referanslar/" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
-        Tüm Referansları ve Başarı Hikayelerini İncele →
-      </a>
-    </div>
+</main>
 
-    <div class="relative flex overflow-x-hidden group">
-      <div class="flex animate-marquee gap-5 whitespace-nowrap py-2">
-        {
-          [...clients, ...clients].map((client) => (
-            <div class="w-40 h-16 shrink-0 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 px-4 py-2.5 flex items-center justify-center hover:border-indigo-500 transition">
-              <img
-                src={client.logo}
-                alt={client.alt}
-                loading="lazy"
-                width="130"
-                height="48"
-                class="max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition"
-              />
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+<script is:inline src="/scrollcraft/scrollcraft.js"></script>
+<script is:inline>
+  ScrollCraft.mount(document.body);
 
-  <!-- BENTO ARCHITECTURE: 5 CORE SERVICES + ROASIST INTELLIGENCE OS -->
-  <section id="hizmetler" class="py-20 md:py-28 bg-slate-50 dark:bg-slate-950">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-6">
-        <div class="max-w-2xl">
-          <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
-            360° Büyüme Ekosistemi
-          </div>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-            Sadece Reklam Değil, Ölçülebilir Ticari Sonuç Üretiyoruz
-          </h2>
-        </div>
-        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-md">
-          Web sitenizin teknik altyapısından arama motoru otoritesine, performans kampanyalarından kreatif tasarıma kadar her adımı veriye dayalı yönetiyoruz.
-        </p>
-      </div>
+  (function () {
+    var root = document.documentElement;
+    var mainEl = document.getElementById('top');
+    var acts = Array.prototype.slice.call(document.querySelectorAll('.act-node'));
+    var ticks = Array.prototype.slice.call(document.querySelectorAll('.seam-tick'));
+    var labelLeft = document.getElementById('seam-label-left');
+    var labelRight = document.getElementById('seam-label-right');
+    var stageTag = document.getElementById('seam-stage-tag');
+    var peakStage = document.getElementById('peak-stage');
+    var pointerPeel = null;
 
-      <!-- Bento Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
-        <!-- Bento 1: Performans Pazarlaması (Large 7-col) -->
-        <a
-          href="/hizmetler/performans-pazarlamasi/"
-          class="lg:col-span-7 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 sm:p-9 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
-        >
-          <div>
-            <div class="flex items-center justify-between gap-4 mb-6">
-              <span class="px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
-                Performans Pazarlaması · PPC & ROAS
-              </span>
-              <span class="text-xs font-bold text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-                KEŞFET →
-              </span>
-            </div>
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Performans Pazarlaması Yönetimi
-            </h3>
-            <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              Performans Pazarlaması, reklam verenlerin yalnızca gerçek sonuçlar için yatırım yaptığı veri odaklı büyüme disiplinidir. Google, Instagram, Facebook, TikTok, LinkedIn ve Yandex kanallarında bütçenizi maksimum yatırım getirisi (ROAS) ile ölçeklendiriyoruz.
-            </p>
-          </div>
-
-          <!-- Visual Telemetry Mini-Dashboard inside Bento Card -->
-          <div class="rounded-2xl bg-slate-950 text-white p-5 border border-slate-800">
-            <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
-              <span>Çok Kanallı Dönüşüm Mimarisi</span>
-              <span class="text-emerald-400 font-mono font-bold">● Canlı Optimizasyon</span>
-            </div>
-            <div class="grid grid-cols-3 gap-3">
-              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div class="text-xs text-slate-400">Hedefleme</div>
-                <div class="text-sm font-bold text-white mt-0.5">Arama + Sosyal</div>
-              </div>
-              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div class="text-xs text-slate-400">Sinyal Kalitesi</div>
-                <div class="text-sm font-bold text-emerald-400 mt-0.5">GTM + CAPI</div>
-              </div>
-              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                <div class="text-xs text-slate-400">Bütçe Odağı</div>
-                <div class="text-sm font-bold text-indigo-300 mt-0.5">Net ROAS / CPA</div>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <!-- Bento 2: 360° Dijital Pazarlama Yönetimi (5-col) -->
-        <a
-          href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/"
-          class="lg:col-span-5 group rounded-3xl bg-slate-900 text-white border border-slate-800 p-7 sm:p-9 hover:border-indigo-400 transition flex flex-col justify-between"
-        >
-          <div>
-            <div class="flex items-center justify-between gap-4 mb-6">
-              <span class="px-3 py-1 rounded-lg bg-white/10 text-indigo-300 text-xs font-bold">
-                Tek Merkezden Yönetim
-              </span>
-              <span class="text-xs font-bold text-slate-400 group-hover:text-white transition">KEŞFET →</span>
-            </div>
-            <h3 class="text-2xl sm:text-3xl font-extrabold mb-3">
-              360° Dijital Pazarlama Yönetimi
-            </h3>
-            <p class="text-sm text-slate-300 leading-relaxed mb-6">
-              İşletmenizi büyütmek için SEO, PPC reklamları, sosyal medya, web deneyimi ve kreatif süreçlerin tamamını tek bir entegre strateji altında planlama, yürütme ve ölçme sürecidir.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5 pt-4 border-t border-slate-800 text-xs">
-            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
-              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Bütünsel Strateji</span>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
-              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Çok Kanallı Sinerji</span>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
-              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Dönüşüm (CRO)</span>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
-              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Birleşik Raporlama</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Bento 3: SEO & AEO (4-col) -->
-        <a
-          href="/hizmetler/seo/"
-          class="lg:col-span-4 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
-        >
-          <div>
-            <div class="w-11 h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-5">
-              <Icon name="tabler:search" class="w-5 h-5" />
-            </div>
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Arama Motoru Optimizasyonu (SEO & AEO)
-            </h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              Web sitenizin Google ve yapay zeka arama motorlarındaki (ChatGPT, Perplexity, AI Overviews) sıralamasını teknik SEO ve semantik içerikle zirveye taşıyın.
-            </p>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-xs flex items-center justify-between">
-            <span class="font-semibold text-slate-700 dark:text-slate-300">Teknik SEO + Schema.org</span>
-            <span class="font-bold text-indigo-600 dark:text-indigo-400">KEŞFET →</span>
-          </div>
-        </a>
-
-        <!-- Bento 4: Web Tasarım & UI/UX (4-col) -->
-        <a
-          href="/hizmetler/web-tasarim/"
-          class="lg:col-span-4 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
-        >
-          <div>
-            <div class="w-11 h-11 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-5">
-              <Icon name="tabler:layout-dashboard" class="w-5 h-5" />
-            </div>
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Web Tasarım & Geliştirme
-            </h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              Kullanıcı dostu (UI/UX), %100 mobil uyumlu, şimşek hızında açılan (Core Web Vitals) ve ziyaretçileri müşteriye dönüştüren modern web siteleri.
-            </p>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-xs flex items-center justify-between">
-            <span class="font-semibold text-slate-700 dark:text-slate-300">100/100 Performans & UX</span>
-            <span class="font-bold text-indigo-600 dark:text-indigo-400">KEŞFET →</span>
-          </div>
-        </a>
-
-        <!-- Bento 5: Grafik Tasarım & Kreatif (4-col) -->
-        <a
-          href="/hizmetler/grafik-tasarim/"
-          class="lg:col-span-4 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
-        >
-          <div>
-            <div class="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-5">
-              <Icon name="tabler:palette" class="w-5 h-5" />
-            </div>
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Kreatif & Grafik Tasarım
-            </h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              Tipografi, alan ve görüntü kullanımıyla kurumsal kimliğinizi güçlendiren ve reklam kampanyalarında tıklama oranını (CTR) katlayan görsel çözümler.
-            </p>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-xs flex items-center justify-between">
-            <span class="font-semibold text-slate-700 dark:text-slate-300">Yüksek CTR Kreatifler</span>
-            <span class="font-bold text-indigo-600 dark:text-indigo-400">KEŞFET →</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- 6 ADVERTISING CHANNELS GRID -->
-      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 sm:p-10 shadow-xs">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-              Uzman Reklam Yönetimi
-            </span>
-            <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">
-              6 Küresel Reklam Kanalında Tam Hakimiyet
-            </h3>
-          </div>
-          <a
-            href="/hizmetler/performans-pazarlamasi/"
-            class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
-          >
-            Tüm Performans Kanallarını Gör →
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {
-            adChannels.map((ch) => (
-              <a
-                href={ch.href}
-                class="group rounded-2xl p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between"
-              >
-                <div>
-                  <div class="flex items-center justify-between mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                      <Icon name={ch.icon} class="w-5 h-5" />
-                    </div>
-                    <span class="text-xs font-mono text-slate-500 dark:text-slate-400">{ch.metric}</span>
-                  </div>
-                  <h4 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition mb-1.5">
-                    {ch.name}
-                  </h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{ch.desc}</p>
-                </div>
-                <span class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
-                  Kanal Stratejisini İncele →
-                </span>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PAZARLAMA GÜCÜNÜZÜ ARTIRIN & NEDEN BİZ -->
-  <section class="py-20 md:py-28 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        <div class="lg:col-span-5">
-          <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
-            Neden Bizimle Çalışmalısınız?
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
-            Pazarlama Gücünüzü Artırın
-          </h2>
-          <div class="space-y-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-            <p>
-              Dijital dünya her geçen gün daha da büyüyor ve markaların bu alanda var olmaları ve rekabet edebilmeleri için doğru dijital pazarlama stratejileri oluşturmaları gerekiyor. Biz de burada devreye giriyoruz.
-            </p>
-            <p>
-              Markaların hedef kitlelerine en iyi şekilde ulaşmaları için stratejik pazarlama planları geliştiriyoruz. Her bir müşterimizin ihtiyaçlarını ve hedeflerini anlamak için özel bir çalışma yürütüyor, düzenli raporlama ve analizlerle sürekli iyileştirme fırsatları yaratıyoruz.
-            </p>
-          </div>
-        </div>
-
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {
-            defaultWhyUs.map((w) => (
-              <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4">
-                  <Icon name={w.icon} class="w-5 h-5" />
-                </div>
-                <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">{w.title}</h3>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{w.description}</p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6-STEP PROCESS -->
-  <section class="py-20 md:py-28 bg-slate-950 text-white border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="max-w-3xl mb-14">
-        <div class="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2">
-          Kanıtlanmış Metodoloji
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
-          6 Adımda Hizmet Sürecimiz
-        </h2>
-        <p class="text-base text-slate-400">
-          İlk denetimden ölçeklenebilir büyümeye kadar tüm süreci şeffaf KPI hedefleriyle yönetiyoruz.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {
-          defaultProcessSteps.map((s) => (
-            <div class="p-7 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition">
-              <div class="flex items-center justify-between mb-5">
-                <span class="text-xs font-mono font-bold px-3 py-1 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
-                  Step {s.step}
-                </span>
-                <Icon name="tabler:circle-check" class="w-5 h-5 text-emerald-400" />
-              </div>
-              <h3 class="text-lg font-bold text-white mb-2">{s.title}</h3>
-              <p class="text-sm text-slate-400 leading-relaxed">{s.description}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="py-20 md:py-28 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="max-w-3xl mb-14">
-        <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
-          Gerçek Müşteri Deneyimleri
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
-          Müşterilerimizin Deneyimlerini Keşfedin
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {
-          testimonials.map((t) => (
-            <div class="rounded-3xl p-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-xs">
-              <div>
-                <div class="flex items-center justify-between mb-5">
-                  <div class="flex items-center gap-1 text-amber-500">
-                    <Icon name="tabler:star-filled" class="w-4 h-4" />
-                    <Icon name="tabler:star-filled" class="w-4 h-4" />
-                    <Icon name="tabler:star-filled" class="w-4 h-4" />
-                    <Icon name="tabler:star-filled" class="w-4 h-4" />
-                    <Icon name="tabler:star-filled" class="w-4 h-4" />
-                  </div>
-                  <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                    {t.tag}
-                  </span>
-                </div>
-                <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">“{t.quote}”</p>
-              </div>
-              <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-                <div class="text-sm font-bold text-slate-900 dark:text-white">{t.name}</div>
-                <div class="text-xs text-slate-500 dark:text-slate-400">{t.role}</div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQs -->
-  <section class="py-20 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
-          Sıkça Sorulan Sorular
-        </h2>
-        <p class="text-base text-slate-600 dark:text-slate-400">
-          Dijital pazarlama süreçlerimiz ve çalışma modelimiz hakkında merak edilenler.
-        </p>
-      </div>
-
-      <div class="space-y-4">
-        {
-          homeFaqs.map((faq, index) => (
-            <details
-              class="group rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 transition"
-              open={index === 0}
-            >
-              <summary class="flex items-center justify-between cursor-pointer list-none font-bold text-base text-slate-900 dark:text-white">
-                <span>{faq.question}</span>
-                <Icon
-                  name="tabler:chevron-down"
-                  class="w-5 h-5 text-slate-500 transition-transform duration-200 group-open:rotate-180 shrink-0 ml-4"
-                />
-              </summary>
-              <p class="mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/70 dark:border-slate-800 pt-4">
-                {faq.answer}
-              </p>
-            </details>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="py-20 bg-slate-950 text-white border-t border-slate-800">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-      <div class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">
-        Daha Fazla Müşteri · Satış · Büyüme
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
-        Roasist’in Özelleştirilmiş Pazarlama Yaklaşımlarıyla Markanızın Potansiyelini Ortaya Çıkarın
-      </h2>
-      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8">
-        Uzman ekibimizle buluşmak ve markanıza özel büyüme yol haritasını konuşmak için randevunuzu hemen planlayın.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a
-          href="/iletisim/#analiz-formu"
-          class="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white text-slate-950 font-bold text-sm hover:bg-slate-100 transition"
-        >
-          <span>Randevunuzu Planlayın</span>
-          <Icon name="tabler:arrow-right" class="w-4 h-4" />
-        </a>
-        <a
-          href="https://wa.me/+905415075350"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 text-white border border-slate-700 font-semibold text-sm hover:bg-slate-800 transition"
-        >
-          <Icon name="tabler:brand-whatsapp" class="w-4 h-4 text-emerald-400" />
-          <span>WhatsApp (+90 541 507 53 50)</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    @keyframes marquee {
-      0% {
-        transform: translateX(0%);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-    .animate-marquee {
-      animation: marquee 38s linear infinite;
-    }
-    .group:hover .animate-marquee {
-      animation-play-state: paused;
-    }
-  </style>
-
-  <script>
-    const sectorPresets: Record<string, { l1: string; v1: number; l2: string; v2: number; l3: string; v3: number; note: string }> = {
-      ecom: {
-        l1: 'Google Shopping, Arama & PMax',
-        v1: 45,
-        l2: 'Instagram, Facebook & Dinamik Katalog (CAPI)',
-        v2: 35,
-        l3: 'Teknik SEO, Kategori İçeriği & TikTok Kreatif',
-        v3: 20,
-        note: 'Odak: Sepet Ortalaması (AOV), ROAS ve Sepet Terk Dönüşümü',
-      },
-      health: {
-        l1: 'Uluslararası Google Ads & Yandex Direct (Rusya/BDT/Avrupa)',
-        v1: 50,
-        l2: 'Meta Lead Gen & WhatsApp Konsültasyon Kampanyaları',
-        v2: 35,
-        l3: 'Çok Dilli SEO & Yüksek Dönüşümlü Klinik Landing Page',
-        v3: 15,
-        note: 'Odak: Nitelikli Hasta/Yatırımcı Formu (CPL) ve Uluslararası Erişim',
-      },
-      b2b: {
-        l1: 'Google Yüksek Niyetli Arama Ağı (Ticari Sorgular)',
-        v1: 45,
-        l2: 'LinkedIn B2B Lead Gen Forms & Şirket (ABM) Hedefleme',
-        v2: 35,
-        l3: 'Kurumsal SEO, AEO & Dönüşüm Odaklı Web Deneyimi',
-        v3: 20,
-        note: 'Odak: Doğrulanmış Kurumsal Talep (MQL/SQL) ve Toplantı Randevusu',
-      },
-    };
-
-    function initSectorSim() {
-      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-sim-sector]');
-      if (!buttons.length) return;
-
-      buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const key = btn.getAttribute('data-sim-sector') || 'ecom';
-          const preset = sectorPresets[key];
-          if (!preset) return;
-
-          buttons.forEach((b) => {
-            const active = b.getAttribute('data-sim-sector') === key;
-            b.className = active
-              ? 'sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white cursor-pointer transition'
-              : 'sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 cursor-pointer transition';
-          });
-
-          const l1 = document.getElementById('sim-label-1');
-          const v1 = document.getElementById('sim-val-1');
-          const b1 = document.getElementById('sim-bar-1');
-          const l2 = document.getElementById('sim-label-2');
-          const v2 = document.getElementById('sim-val-2');
-          const b2 = document.getElementById('sim-bar-2');
-          const l3 = document.getElementById('sim-label-3');
-          const v3 = document.getElementById('sim-val-3');
-          const b3 = document.getElementById('sim-bar-3');
-          const note = document.getElementById('sim-kpi-note');
-
-          if (l1) l1.textContent = preset.l1;
-          if (v1) v1.textContent = `%${preset.v1} Pay`;
-          if (b1) b1.style.width = `${preset.v1}%`;
-          if (l2) l2.textContent = preset.l2;
-          if (v2) v2.textContent = `%${preset.v2} Pay`;
-          if (b2) b2.style.width = `${preset.v2}%`;
-          if (l3) l3.textContent = preset.l3;
-          if (v3) v3.textContent = `%${preset.v3} Pay`;
-          if (b3) b3.style.width = `${preset.v3}%`;
-          if (note) note.textContent = preset.note;
-        });
+    if (peakStage && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      peakStage.addEventListener('pointermove', function (e) {
+        var r = peakStage.getBoundingClientRect();
+        var relX = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+        pointerPeel = relX < 0.45 ? Math.round(relX * 100) : null;
+      });
+      peakStage.addEventListener('pointerleave', function () {
+        pointerPeel = null;
       });
     }
 
-    initSectorSim();
-    document.addEventListener('astro:after-swap', initSectorSim);
-  </script>
-</Layout>
+    var roman = ['SAHNE I', 'SAHNE II', 'SAHNE III', 'SAHNE IV', 'ZİRVE V', 'KARAR VI'];
+
+    function updateSeam() {
+      var maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      var globalP = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+
+      var activeIdx = 0;
+      var midY = window.scrollY + window.innerHeight * 0.45;
+      for (var i = 0; i < acts.length; i++) {
+        var top = acts[i].getBoundingClientRect().top + window.scrollY;
+        if (midY >= top) activeIdx = i;
+      }
+
+      ticks.forEach(function (t, idx) {
+        if (idx === activeIdx) t.setAttribute('aria-current', 'true');
+        else t.removeAttribute('aria-current');
+      });
+
+      var seamPct = 48;
+      if (globalP < 0.50) {
+        seamPct = Math.round(48 - (globalP / 0.50) * 6);
+      } else if (globalP < 0.86) {
+        var collapseP = (globalP - 0.50) / 0.36;
+        seamPct = Math.max(0, Math.round(42 * (1 - collapseP)));
+      } else {
+        seamPct = 0;
+      }
+
+      if (pointerPeel !== null && activeIdx === 4) {
+        seamPct = pointerPeel;
+      }
+
+      root.style.setProperty('--seam', seamPct + '%');
+      root.style.setProperty('--peak-seam', seamPct + '%');
+
+      var rightPct = 100 - seamPct;
+      if (labelLeft) labelLeft.textContent = seamPct > 0 ? ('TAHMİN %' + seamPct) : 'TAHMİN SİLİNDİ';
+      if (labelRight) labelRight.textContent = 'ROAS MİMARİSİ %' + rightPct;
+      if (stageTag) stageTag.textContent = roman[activeIdx] || 'SAHNE';
+
+      if (mainEl) {
+        mainEl.setAttribute('data-sc-verify-state', 'seam:' + seamPct + '|act:' + activeIdx);
+        if (activeIdx === 5 && seamPct === 0) {
+          mainEl.setAttribute('data-sc-verify-hold', 'true');
+        } else {
+          mainEl.removeAttribute('data-sc-verify-hold');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', updateSeam, { passive: true });
+    window.addEventListener('resize', updateSeam, { passive: true });
+    requestAnimationFrame(function tick() {
+      updateSeam();
+      requestAnimationFrame(tick);
+    });
+  })();
+
+  function jumpAct(idx) {
+    var acts = document.querySelectorAll('.act-node');
+    if (acts[idx]) {
+      var top = acts[idx].getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: top + 10, behavior: 'smooth' });
+    }
+  }
+
+  function toggleDrawer() {
+    var d = document.getElementById('seo-drawer');
+    var b = document.getElementById('drawer-btn');
+    var open = d.classList.toggle('is-open');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+</script>
+</body>
+</html>

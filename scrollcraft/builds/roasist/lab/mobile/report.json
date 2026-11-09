@@ -1,0 +1,616 @@
+{
+  "doc": {
+    "height": 11366,
+    "vh": 844,
+    "acts": [
+      "flow",
+      "pin",
+      "flow",
+      "flow",
+      "pin",
+      "pin"
+    ],
+    "world": null
+  },
+  "report": [
+    {
+      "i": 0,
+      "y": 0,
+      "pct": 0,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "flow",
+      "stages": [
+        1308,
+        7273,
+        10227
+      ],
+      "segs": [],
+      "custom": [
+        "seam:48|act:0"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 1,
+      "y": 232,
+      "pct": 2,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "flow",
+      "stages": [
+        1076,
+        7041,
+        9995
+      ],
+      "segs": [],
+      "custom": [
+        "seam:48|act:0"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 2,
+      "y": 1265,
+      "pct": 12,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        43,
+        6008,
+        8962
+      ],
+      "segs": [],
+      "custom": [
+        "seam:47|act:1"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 3,
+      "y": 1339,
+      "pct": 13,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        -31,
+        5934,
+        8888
+      ],
+      "segs": [],
+      "custom": [
+        "seam:46|act:1"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 4,
+      "y": 2068,
+      "pct": 20,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "KAYIP 02 · KOPUK KANALLAR Birbirinden ha",
+          "dir": "light-on-dark",
+          "worst": 13.32,
+          "mean": 17.13
+        },
+        {
+          "t": "ÇÖZÜM 02 · 360° KANAL SİNERJİSİ Google, ",
+          "dir": "dark-on-light",
+          "worst": 14.18,
+          "mean": 16.87
+        }
+      ],
+      "cues": [
+        {
+          "t": "KAYIP 02 · KOPUK KANALLAR Birbirinden habersiz",
+          "o": 1
+        },
+        {
+          "t": "ÇÖZÜM 02 · 360° KANAL SİNERJİSİ Google, Meta, ",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "none"
+      ],
+      "act": "pin",
+      "stages": [
+        -760,
+        5205,
+        8159
+      ],
+      "segs": [],
+      "custom": [
+        "seam:46|act:1"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 5,
+      "y": 2797,
+      "pct": 27,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 100%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -1489,
+        4476,
+        7430
+      ],
+      "segs": [],
+      "custom": [
+        "seam:45|act:1"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 6,
+      "y": 2904,
+      "pct": 28,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 100%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -1596,
+        4369,
+        7323
+      ],
+      "segs": [],
+      "custom": [
+        "seam:45|act:1"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 7,
+      "y": 4734,
+      "pct": 45,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "flow",
+      "stages": [
+        -3426,
+        2539,
+        5493
+      ],
+      "segs": [],
+      "custom": [
+        "seam:43|act:2"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 8,
+      "y": 5825,
+      "pct": 55,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "flow",
+      "stages": [
+        -4517,
+        1448,
+        4402
+      ],
+      "segs": [],
+      "custom": [
+        "seam:36|act:2"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 9,
+      "y": 6534,
+      "pct": 62,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "flow",
+      "stages": [
+        -5226,
+        739,
+        3693
+      ],
+      "segs": [],
+      "custom": [
+        "seam:28|act:3"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 10,
+      "y": 6564,
+      "pct": 62,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "flow",
+      "stages": [
+        -5256,
+        709,
+        3663
+      ],
+      "segs": [],
+      "custom": [
+        "seam:28|act:3"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 11,
+      "y": 7243,
+      "pct": 69,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -5935,
+        30,
+        2984
+      ],
+      "segs": [],
+      "custom": [
+        "seam:20|act:4"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 12,
+      "y": 7315,
+      "pct": 70,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -6007,
+        -42,
+        2912
+      ],
+      "segs": [],
+      "custom": [
+        "seam:19|act:4"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 13,
+      "y": 8328,
+      "pct": 79,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "PERDE ÇÖKTÜ · %100 ROASIST NETLİĞİ Türki",
+          "dir": "dark-on-light",
+          "worst": 16.9,
+          "mean": 16.9
+        }
+      ],
+      "cues": [
+        {
+          "t": "PERDE ÇÖKTÜ · %100 ROASIST NETLİĞİ Türkiye ve ",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -7020,
+        -1055,
+        1899
+      ],
+      "segs": [],
+      "custom": [
+        "seam:8|act:4"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 14,
+      "y": 9341,
+      "pct": 89,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -8033,
+        -2068,
+        886
+      ],
+      "segs": [],
+      "custom": [
+        "seam:0|act:4"
+      ],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 15,
+      "y": 10233,
+      "pct": 97,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPS",
+          "dir": "light-on-dark",
+          "worst": 16.6,
+          "mean": 16.6
+        }
+      ],
+      "cues": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPSİSİ Re",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -8925,
+        -2960,
+        0
+      ],
+      "segs": [],
+      "custom": [
+        "seam:0|act:5"
+      ],
+      "customHold": true,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 16,
+      "y": 10374,
+      "pct": 99,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPS",
+          "dir": "light-on-dark",
+          "worst": 16.6,
+          "mean": 16.6
+        }
+      ],
+      "cues": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPSİSİ Re",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -9066,
+        -3101,
+        0
+      ],
+      "segs": [],
+      "custom": [
+        "seam:0|act:5"
+      ],
+      "customHold": true,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 17,
+      "y": 10516,
+      "pct": 100,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPS",
+          "dir": "light-on-dark",
+          "worst": 16.6,
+          "mean": 16.6
+        }
+      ],
+      "cues": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPSİSİ Re",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -9208,
+        -3243,
+        0
+      ],
+      "segs": [],
+      "custom": [
+        "seam:0|act:5"
+      ],
+      "customHold": true,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    },
+    {
+      "i": 18,
+      "y": 10522,
+      "pct": 100,
+      "settled": true,
+      "contrast": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPS",
+          "dir": "light-on-dark",
+          "worst": 16.6,
+          "mean": 16.6
+        }
+      ],
+      "cues": [
+        {
+          "t": "KARAR ANI · ÜCRETSİZ BÜYÜME & ROAS OTOPSİSİ Re",
+          "o": 1
+        }
+      ],
+      "clips": [],
+      "rails": [],
+      "wipes": [
+        "inset(0px 0px 0%)"
+      ],
+      "act": "pin",
+      "stages": [
+        -9214,
+        -3249,
+        0
+      ],
+      "segs": [],
+      "custom": [
+        "seam:0|act:5"
+      ],
+      "customHold": true,
+      "seg": null,
+      "segp": null,
+      "bg": "#F2EEE3"
+    }
+  ],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failed": []
+}
