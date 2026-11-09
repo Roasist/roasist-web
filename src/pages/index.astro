@@ -81,83 +81,46 @@ const structuredData = [
   },
 ];
 
-const mainServices = [
-  {
-    title: 'Performans Pazarlaması',
-    description:
-      'Performans Pazarlaması, dijital pazarlama stratejilerinden biridir ve reklam verenlerin yalnızca gerçek sonuçlar, dönüşümler ve ölçülebilir ROAS için yatırım yaptığı büyüme modelidir.',
-    href: '/hizmetler/performans-pazarlamasi/',
-    icon: 'tabler:chart-arrows-vertical',
-    tag: 'ROAS & Dönüşüm',
-  },
-  {
-    title: '360° Dijital Pazarlama Yönetimi',
-    description:
-      '360 derece dijital pazarlama yönetimi, işletmeyi büyütmek için SEO, PPC, sosyal medya, web ve kreatif dahil tüm dijital pazarlama kampanyalarını planlama, yürütme ve ölçme sürecidir.',
-    href: '/hizmetler/360-derece-dijital-pazarlama-yonetimi/',
-    icon: 'tabler:360-view',
-    tag: 'Tam Entegre Yönetim',
-  },
-  {
-    title: 'Arama Motoru Optimizasyonu (SEO)',
-    description:
-      'Arama Motoru Optimizasyonu (SEO), web sitenizin Google ve yapay zeka arama motorlarındaki sıralamasını iyileştirerek sürdürülebilir organik trafik ve müşteri kazanma uygulamasıdır.',
-    href: '/hizmetler/seo/',
-    icon: 'tabler:search',
-    tag: 'Organik Büyüme',
-  },
-  {
-    title: 'Web Tasarım & Geliştirme',
-    description:
-      'Web tasarım; kullanıcı dostu (UI/UX), mobil öncelikli, yüksek hızlı (Core Web Vitals) ve arama motorlarıyla tam uyumlu, ziyaretçiyi müşteriye dönüştüren web siteleri oluşturmayı içerir.',
-    href: '/hizmetler/web-tasarim/',
-    icon: 'tabler:layout-dashboard',
-    tag: 'Hız & UI/UX',
-  },
-  {
-    title: 'Grafik Tasarım & Kreatif',
-    description:
-      'Grafik tasarım; tipografi, alan ve görüntü kullanımı yoluyla iletişim kurma, kurumsal stil yaratma ve reklam kampanyalarında tıklama oranını (CTR) artıran görsel çözümler üretme sanatıdır.',
-    href: '/hizmetler/grafik-tasarim/',
-    icon: 'tabler:palette',
-    tag: 'Marka & Kreatif',
-  },
-];
-
 const adChannels = [
   {
     name: 'Google Reklamları',
-    desc: 'Arama Ağı, Alışveriş, Performance Max, YouTube & GDN yönetimi',
+    metric: 'Arama · PMax · Shopping · YouTube',
+    desc: 'Satın alma niyeti en yüksek aramalarda en üst sırada yer alarak doğrudan satış ve talep toplayın.',
     href: '/hizmetler/performans-pazarlamasi/google-reklamlari/',
     icon: 'tabler:brand-google',
   },
   {
     name: 'Instagram Reklamları',
-    desc: 'Reels, Story, Akış ve Dinamik Katalog dönüşüm kampanyaları',
+    metric: 'Reels · Story · Dinamik Katalog',
+    desc: '52M+ aktif kullanıcıya yüksek etkileşimli dikey videolar ve CAPI destekli dönüşüm kurgularıyla ulaşın.',
     href: '/hizmetler/performans-pazarlamasi/instagram-reklamlari/',
     icon: 'tabler:brand-instagram',
   },
   {
     name: 'Facebook Reklamları',
-    desc: 'Advantage+ alışveriş, CAPI ve gelişmiş yeniden pazarlama',
+    metric: 'Advantage+ · CAPI · Retargeting',
+    desc: 'Meta makine öğrenimi ve gelişmiş yeniden pazarlama katmanlarıyla sepet terkleri satışa dönüştürün.',
     href: '/hizmetler/performans-pazarlamasi/facebook-reklamlari/',
     icon: 'tabler:brand-facebook',
   },
   {
     name: 'TikTok Reklamları',
-    desc: 'In-Feed, Spark Ads ve yüksek etkileşimli video dönüşüm kurguları',
+    metric: 'Spark Ads · In-Feed · Events API',
+    desc: 'İlk 3 saniyede yakalayan kreatif kurgularla viral erişim ve düşük maliyetli e-ticaret dönüşümü yakalayın.',
     href: '/hizmetler/performans-pazarlamasi/tiktok-reklamlari/',
     icon: 'tabler:brand-tiktok',
   },
   {
     name: 'LinkedIn Reklamları',
-    desc: 'Şirket, sektör ve unvan odaklı kurumsal B2B Lead Gen kampanyaları',
+    metric: 'B2B Lead Gen · ABM · Karar Vericiler',
+    desc: 'Şirket büyüklüğü, sektör ve C-Level unvan hedeflemesiyle kurumsal B2B satış fırsatları yaratın.',
     href: '/hizmetler/performans-pazarlamasi/linkedin-reklamlari/',
     icon: 'tabler:brand-linkedin',
   },
   {
     name: 'Yandex Reklamları',
-    desc: 'Rusya ve BDT pazarlarında Yandex Direct Arama & YAN reklamları',
+    metric: 'Rusya & BDT · Direct & YAN · Metrica',
+    desc: 'Sağlık turizmi, gayrimenkul ve ihracat için Rusça konuşulan pazarların #1 arama motorunda lider olun.',
     href: '/hizmetler/performans-pazarlamasi/yandex-reklamlari/',
     icon: 'tabler:world',
   },
@@ -169,18 +132,21 @@ const testimonials = [
       'Reklam sürecinde projeye yaklaşımları, anlaşmamızın ötesinde sorumluluk alarak aynı zamanda bir grafik tasarımcı katkısı sunmaları, mesai kavramından uzak 7/24 destek ve hassasiyet ile bizim işimiz için en az bizim kadar dertlenen bir dijital pazarlama uzmanıyla çalışma fırsatı yakaladığımız için şanslıyız. Roasist ile teknik konuları dert etmeden dijital dünyada şirketinizi büyütmek için gönül rahatlığıyla çalışabilirsiniz.',
     name: 'Burak Özhan',
     role: 'Project Program Coordinator',
+    tag: '360° Büyüme & Kreatif',
   },
   {
     quote:
       'Roasist ile yaklaşık iki senedir çalışıyoruz. Her sorumuza dürüstlükle yanıt alıyor, tüm sorunlarımızı efektif bir şekilde çözüyorlar. Yaptığımız iş gereği öncesi - sonrası değerlendirmesi yapmam gerekirse kazanç konusunda bize çok katkıları oldu. Nezaketli, dürüst ve profesyonel yaklaşımları için çok teşekkür ederim.',
     name: 'Gaye Tukar',
     role: 'Entrepreneur',
+    tag: 'Performans & ROAS Yönetimi',
   },
   {
     quote:
       'Mesai kavramı olmaksızın sizin için çalışıyorlar. İşinde profesyonel, şeffaf ve sonuç odaklı bir dijital pazarlama ajansı arıyorsanız kesinlikle tavsiye ederim.',
     name: 'Celal Kandemir',
     role: 'Owner',
+    tag: 'Performans Pazarlaması',
   },
 ];
 ---
@@ -188,225 +154,191 @@ const testimonials = [
 <Layout metadata={metadata}>
   <StructuredData slot="head" schema={structuredData} />
 
-  <!-- HERO SECTION -->
-  <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+  <!-- CINEMATIC HERO SECTION -->
+  <section class="relative overflow-hidden bg-slate-950 text-white pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-slate-800">
+    <!-- Subtle Ambient Illumination -->
+    <div
+      class="pointer-events-none absolute -top-40 left-1/4 w-[38rem] h-[38rem] rounded-full bg-indigo-600/15 blur-[130px]"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="pointer-events-none absolute bottom-0 right-10 w-[30rem] h-[30rem] rounded-full bg-emerald-500/10 blur-[120px]"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-        <!-- Left Copy -->
-        <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 mb-6">
-            <Icon name="tabler:chart-histogram" class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-            <span>Veri & Teknoloji Odaklı Dijital Büyüme Ajansı</span>
+        <!-- Left Column: High-Impact Positioning -->
+        <div class="lg:col-span-6">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6 backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Roasist Growth & Marketing Intelligence</span>
           </div>
 
-          <h1 class="text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-white leading-[1.08] mb-6">
             Büyüyen İşletmeler İçin Dijital Pazarlama Çözümleri
           </h1>
 
-          <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl">
-            Kapsamlı ve özelleştirilmiş dijital pazarlama hizmetlerimizle işinizi bir sonraki seviyeye taşımanıza yardımcı olalım. Kendi geliştirdiğimiz veri analitiği teknolojileriyle reklam bütçenizi ölçülebilir satışa dönüştürüyoruz.
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
+            Kapsamlı ve özelleştirilmiş dijital pazarlama hizmetlerimizle işinizi bir sonraki seviyeye taşımanıza yardımcı olalım. Kendi geliştirdiğimiz <strong class="text-white">Roasist Marketing Intelligence OS</strong> veri altyapısıyla reklam bütçenizi ölçülebilir gelire dönüştürüyoruz.
           </p>
 
-          <div class="flex flex-wrap items-center gap-4 mb-10">
+          <div class="flex flex-wrap items-center gap-4 mb-12">
             <a
               href="/iletisim/#analiz-formu"
               id="home-hero-primary-cta"
-              class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 font-bold text-sm transition shadow-sm"
+              class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-sm transition shadow-lg shadow-white/5"
             >
               <span>Ücretsiz Strateji Görüşmesi Planla</span>
               <Icon name="tabler:arrow-right" class="w-4 h-4" />
             </a>
             <a
-              href="#hizmetler"
-              id="home-hero-secondary-cta"
-              class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 font-semibold text-sm transition"
+              href="https://wa.me/+905415075350"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="home-hero-whatsapp-cta"
+              class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white border border-slate-700/80 font-semibold text-sm transition"
             >
-              <span>Hizmetlerimizi İncele</span>
+              <Icon name="tabler:brand-whatsapp" class="w-4 h-4 text-emerald-400" />
+              <span>Hızlı WhatsApp Hattı</span>
             </a>
           </div>
 
-          <!-- Key Trust Indicators -->
-          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 dark:border-slate-800/80 max-w-xl">
+          <!-- Precision Telemetry Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-800/90">
             <div>
-              <div class="text-2xl font-extrabold text-slate-900 dark:text-white">360°</div>
-              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Uçtan Uca Dijital Yönetim</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">360°</div>
+              <div class="text-xs text-slate-400 mt-1">Bütünsel Büyüme Mimarisi</div>
             </div>
             <div>
-              <div class="text-2xl font-extrabold text-slate-900 dark:text-white">30+</div>
-              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Ulusal & Küresel Marka</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight">29+</div>
+              <div class="text-xs text-slate-400 mt-1">Ulusal & Global Referans</div>
             </div>
             <div>
-              <div class="text-2xl font-extrabold text-slate-900 dark:text-white">%100</div>
-              <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Şeffaf Veri & Hesap Mülkiyeti</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">6 Kanal</div>
+              <div class="text-xs text-slate-400 mt-1">Performans Reklam Ağı</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 tracking-tight">%100</div>
+              <div class="text-xs text-slate-400 mt-1">Şeffaf Veri & Hesap</div>
             </div>
           </div>
         </div>
 
-        <!-- Right Interactive Strategy Matrix Card -->
-        <div class="lg:col-span-5">
-          <div class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-md">
-            <div class="flex items-center justify-between pb-4 mb-5 border-b border-slate-200 dark:border-slate-800">
-              <div>
-                <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                  Roasist Growth Architecture
+        <!-- Right Column: 3D Optical Glass Showcase + Interactive Simulator -->
+        <div class="lg:col-span-6">
+          <div class="relative rounded-3xl bg-slate-900/90 border border-slate-800 p-4 sm:p-6 shadow-2xl">
+            <!-- Top Visual Showcase with 3D Prism Art & Floating Live Telemetry -->
+            <div class="relative rounded-2xl overflow-hidden border border-slate-800/80 mb-5 bg-slate-950">
+              <img
+                src="/images/hero-prism.webp"
+                alt="Roasist Veri Odaklı Büyüme ve Performans Analitiği"
+                width="960"
+                height="540"
+                loading="eager"
+                fetchpriority="high"
+                class="w-full h-56 sm:h-64 object-cover opacity-90"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent"></div>
+
+              <!-- Floating Live Telemetry Cards over the 3D Art -->
+              <div class="absolute top-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2">
+                <span class="px-3 py-1 rounded-lg bg-slate-950/85 border border-white/10 backdrop-blur-md text-xs font-mono text-emerald-400 flex items-center gap-1.5">
+                  <Icon name="tabler:trending-up" class="w-3.5 h-3.5" />
+                  ROAS Odaklı Optimizasyon Aktif
+                </span>
+                <span class="px-3 py-1 rounded-lg bg-slate-950/85 border border-white/10 backdrop-blur-md text-xs font-mono text-slate-300">
+                  GA4 · GTM · Meta CAPI · Google Ads API
+                </span>
+              </div>
+
+              <div class="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-2.5">
+                <div class="p-2.5 rounded-xl bg-slate-950/85 border border-white/10 backdrop-blur-md">
+                  <div class="text-xs text-slate-400">Arama & PMax</div>
+                  <div class="text-sm sm:text-base font-extrabold text-white mt-0.5">Yüksek Niyet</div>
                 </div>
-                <div class="text-base font-bold text-slate-900 dark:text-white mt-0.5">
-                  Hedefinize Göre Büyüme Planı Seçin
+                <div class="p-2.5 rounded-xl bg-slate-950/85 border border-white/10 backdrop-blur-md">
+                  <div class="text-xs text-slate-400">SEO + AEO</div>
+                  <div class="text-sm sm:text-base font-extrabold text-emerald-400 mt-0.5">Organik Otorite</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-950/85 border border-white/10 backdrop-blur-md">
+                  <div class="text-xs text-slate-400">Kreatif & UX</div>
+                  <div class="text-sm sm:text-base font-extrabold text-indigo-300 mt-0.5">Maksimum CR</div>
                 </div>
               </div>
-              <Icon name="tabler:adjustments-alt" class="w-5 h-5 text-slate-400" />
             </div>
 
-            <!-- Interactive Tabs -->
-            <div class="grid grid-cols-3 gap-2 p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800 mb-5" role="tablist">
-              <button
-                type="button"
-                id="tab-btn-ecommerce"
-                data-plan-tab="ecommerce"
-                class="plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-bold transition bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-2xs"
-              >
-                E-Ticaret & ROAS
-              </button>
-              <button
-                type="button"
-                id="tab-btn-lead"
-                data-plan-tab="lead"
-                class="plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-              >
-                B2B & Hizmet Lead
-              </button>
-              <button
-                type="button"
-                id="tab-btn-export"
-                data-plan-tab="export"
-                class="plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-              >
-                İhracat & Turizm
-              </button>
-            </div>
+            <!-- Interactive Sector & Channel Simulator -->
+            <div class="rounded-2xl bg-slate-950/90 border border-slate-800/90 p-4 sm:p-5">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div>
+                  <div class="text-xs font-bold uppercase tracking-wider text-indigo-400">
+                    İnteraktif Büyüme Simülatörü
+                  </div>
+                  <div class="text-sm font-bold text-white">Sektörünüze Göre Önerilen Kanal Dağılımı</div>
+                </div>
+                <div class="flex gap-1.5" role="tablist">
+                  <button
+                    type="button"
+                    data-sim-sector="ecom"
+                    class="sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white cursor-pointer transition"
+                  >
+                    E-Ticaret
+                  </button>
+                  <button
+                    type="button"
+                    data-sim-sector="health"
+                    class="sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 cursor-pointer transition"
+                  >
+                    Sağlık & İhracat
+                  </button>
+                  <button
+                    type="button"
+                    data-sim-sector="b2b"
+                    class="sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 cursor-pointer transition"
+                  >
+                    B2B & Kurumsal
+                  </button>
+                </div>
+              </div>
 
-            <!-- Panel 1: E-Commerce -->
-            <div data-plan-panel="ecommerce" class="plan-panel space-y-4">
-              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Online mağazanızın sepet ortalamasını, dönüşüm oranını (CR) ve reklam harcaması getirisini (ROAS) büyütmek için kurguladığımız tam huni mimarisi:
-              </p>
-              <div class="space-y-2.5">
-                <a href="/hizmetler/performans-pazarlamasi/google-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:brand-google" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">Google Shopping & PMax</div>
-                      <div class="text-[11px] text-slate-500">Satın alma niyeti yüksek ürün aramaları</div>
-                    </div>
+              <!-- Animated Channel Bars -->
+              <div id="sim-bars-container" class="space-y-3 mt-4">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-medium text-slate-200" id="sim-label-1">Google Shopping, Arama & PMax</span>
+                    <span class="font-mono font-bold text-indigo-400" id="sim-val-1">%45 Pay</span>
                   </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-                <a href="/hizmetler/performans-pazarlamasi/instagram-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:brand-instagram" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">Meta Dinamik Katalog & CAPI</div>
-                      <div class="text-[11px] text-slate-500">Reels kreatifleri + sepet terk retargeting</div>
-                    </div>
+                  <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div id="sim-bar-1" class="h-full bg-indigo-500 rounded-full transition-all duration-500" style="width: 45%"></div>
                   </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-                <a href="/hizmetler/seo/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:search" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">Kategori & Ürün SEO</div>
-                      <div class="text-[11px] text-slate-500">Reklamsız sürdürülebilir organik ciro</div>
-                    </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-medium text-slate-200" id="sim-label-2">Instagram, Facebook & Dinamik Katalog (CAPI)</span>
+                    <span class="font-mono font-bold text-emerald-400" id="sim-val-2">%35 Pay</span>
                   </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
+                  <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div id="sim-bar-2" class="h-full bg-emerald-500 rounded-full transition-all duration-500" style="width: 35%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-medium text-slate-200" id="sim-label-3">Teknik SEO, Kategori İçeriği & TikTok Kreatif</span>
+                    <span class="font-mono font-bold text-sky-400" id="sim-val-3">%20 Pay</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div id="sim-bar-3" class="h-full bg-sky-400 rounded-full transition-all duration-500" style="width: 20%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                <span id="sim-kpi-note" class="text-slate-400">Odak: Sepet Ortalaması (AOV), ROAS ve Sepet Terk Dönüşümü</span>
+                <a href="/iletisim/#analiz-formu" class="font-bold text-white hover:text-indigo-300 shrink-0 ml-2">
+                  Bütçemi Planla →
                 </a>
               </div>
-            </div>
-
-            <!-- Panel 2: B2B & Lead -->
-            <div data-plan-panel="lead" class="plan-panel hidden space-y-4">
-              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Klinik, eğitim, gayrimenkul, yazılım ve B2B hizmet firmaları için nitelikli talep (MQL/SQL) ve randevu üreten büyüme mimarisi:
-              </p>
-              <div class="space-y-2.5">
-                <a href="/hizmetler/performans-pazarlamasi/google-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:search" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">Google Arama Ağı (Yüksek Niyet)</div>
-                      <div class="text-[11px] text-slate-500">Hizmetinizi tam şu an arayan müşteriler</div>
-                    </div>
-                  </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-                <a href="/hizmetler/performans-pazarlamasi/linkedin-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:brand-linkedin" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">LinkedIn B2B Lead Gen Forms</div>
-                      <div class="text-[11px] text-slate-500">Şirket, sektör ve unvan bazlı karar vericiler</div>
-                    </div>
-                  </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-                <a href="/hizmetler/web-tasarim/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:layout-dashboard" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">Yüksek Dönüşümlü Landing Page</div>
-                      <div class="text-[11px] text-slate-500">Form ve WhatsApp dönüşümünü katlayan UX</div>
-                    </div>
-                  </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Panel 3: Export & Health Tourism -->
-            <div data-plan-panel="export" class="plan-panel hidden space-y-4">
-              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Sağlık turizmi, uluslararası gayrimenkul ve ihracat markaları için çok dilli ve çok bölgeli küresel müşteri kazanım mimarisi:
-              </p>
-              <div class="space-y-2.5">
-                <a href="/hizmetler/performans-pazarlamasi/yandex-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:world" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">Yandex Direct & YAN (Rusya / BDT)</div>
-                      <div class="text-[11px] text-slate-500">Rusça konuşulan coğrafyada doğrudan erişim</div>
-                    </div>
-                  </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-                <a href="/hizmetler/performans-pazarlamasi/facebook-reklamlari/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:brand-facebook" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">Avrupa & UK Meta Lead Kurguları</div>
-                      <div class="text-[11px] text-slate-500">Ülke ve dil bazlı uluslararası hasta/yatırımcı</div>
-                    </div>
-                  </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-                <a href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/" class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition">
-                  <div class="flex items-center gap-3">
-                    <Icon name="tabler:360-view" class="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div class="text-xs font-bold text-slate-900 dark:text-white">360° Küresel Büyüme Yönetimi</div>
-                      <div class="text-[11px] text-slate-500">Çok kanallı uluslararası pazarlama operasyonu</div>
-                    </div>
-                  </div>
-                  <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">İncele →</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="mt-5 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
-              <span class="text-slate-500 dark:text-slate-400">Kendi verilerinizle analiz edelim:</span>
-              <a href="/iletisim/#analiz-formu" class="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
-                Ücretsiz Ön Denetim Al →
-              </a>
             </div>
           </div>
         </div>
@@ -414,38 +346,29 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- CLIENT LOGOS / SOCIAL PROOF -->
-  <section class="py-12 md:py-16 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-        <div>
-          <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            Referanslarımız & İş Ortaklarımız
-          </h2>
-          <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-            Başarılı işbirlikleri sonucunda büyümesine katkı sağladığımız markalardan bazıları.
-          </p>
-        </div>
-        <a
-          href="/referanslar/"
-          class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0"
-        >
-          <span>Tüm Referansları Gör ({clients.length})</span>
-          <Icon name="tabler:arrow-right" class="w-4 h-4" />
-        </a>
+  <!-- INFINITE CLIENT LOGO MARQUEE (29 REAL BRANDS) -->
+  <section class="py-10 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        Büyüme Yolculuğuna Eşlik Ettiğimiz 29+ Ulusal ve Küresel Marka
       </div>
+      <a href="/referanslar/" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+        Tüm Referansları ve Başarı Hikayelerini İncele →
+      </a>
+    </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+    <div class="relative flex overflow-x-hidden group">
+      <div class="flex animate-marquee gap-5 whitespace-nowrap py-2">
         {
-          clients.slice(0, 12).map((client) => (
-            <div class="h-20 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 px-4 py-3 flex items-center justify-center hover:border-slate-300 transition">
+          [...clients, ...clients].map((client) => (
+            <div class="w-40 h-16 shrink-0 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 px-4 py-2.5 flex items-center justify-center hover:border-indigo-500 transition">
               <img
                 src={client.logo}
                 alt={client.alt}
                 loading="lazy"
-                width="140"
-                height="56"
-                class="max-h-11 w-auto object-contain opacity-85 hover:opacity-100 transition dark:brightness-95"
+                width="130"
+                height="48"
+                class="max-h-10 w-auto object-contain opacity-85 hover:opacity-100 transition"
               />
             </div>
           ))
@@ -454,114 +377,218 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- HİZMETLERİMİZ (CORE 5 SERVICES + 6 AD CHANNELS) -->
-  <section id="hizmetler" class="py-20 md:py-28 bg-white dark:bg-slate-950">
+  <!-- BENTO ARCHITECTURE: 5 CORE SERVICES + ROASIST INTELLIGENCE OS -->
+  <section id="hizmetler" class="py-20 md:py-28 bg-slate-50 dark:bg-slate-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="max-w-3xl mb-14">
-        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-          Hizmetler
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
-          Markanızı Büyüten Uçtan Uca Dijital Çözümler
-        </h2>
-        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-          Web sitelerinin optimize edilmesinden sosyal medya ve arama motoru reklamlarının yönetimine, teknik SEO’dan dönüşüm odaklı tasarıma kadar her alanda uzman ekibimizle yanınızdayız.
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-6">
+        <div class="max-w-2xl">
+          <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+            360° Büyüme Ekosistemi
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+            Sadece Reklam Değil, Ölçülebilir Ticari Sonuç Üretiyoruz
+          </h2>
+        </div>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-md">
+          Web sitenizin teknik altyapısından arama motoru otoritesine, performans kampanyalarından kreatif tasarıma kadar her adımı veriye dayalı yönetiyoruz.
         </p>
       </div>
 
-      <!-- 5 Primary Service Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-        {
-          mainServices.map((srv) => (
-            <a
-              href={srv.href}
-              class="group rounded-2xl p-7 bg-slate-50/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 hover:border-slate-900 dark:hover:border-slate-500 hover:bg-white dark:hover:bg-slate-900 transition flex flex-col justify-between shadow-2xs"
-            >
-              <div>
-                <div class="flex items-center justify-between mb-5">
-                  <div class="w-11 h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                    <Icon name={srv.icon} class="w-5 h-5" />
-                  </div>
-                  <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                    {srv.tag}
-                  </span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-                  {srv.title}
-                </h3>
-                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                  {srv.description}
-                </p>
-              </div>
-              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
-                <span>KEŞFET</span>
-                <Icon name="tabler:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </div>
-            </a>
-          ))
-        }
-
-        <!-- 6th Card: Roasist Marketing Intelligence OS Highlight -->
-        <div class="rounded-2xl p-7 bg-slate-900 text-white flex flex-col justify-between">
+      <!-- Bento Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
+        <!-- Bento 1: Performans Pazarlaması (Large 7-col) -->
+        <a
+          href="/hizmetler/performans-pazarlamasi/"
+          class="lg:col-span-7 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 sm:p-9 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
+        >
           <div>
-            <div class="flex items-center justify-between mb-5">
-              <div class="w-11 h-11 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-indigo-400">
-                <Icon name="tabler:cpu" class="w-5 h-5" />
-              </div>
-              <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
-                Özel Teknoloji
+            <div class="flex items-center justify-between gap-4 mb-6">
+              <span class="px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
+                Performans Pazarlaması · PPC & ROAS
+              </span>
+              <span class="text-xs font-bold text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                KEŞFET →
               </span>
             </div>
-            <h3 class="text-xl font-bold mb-2.5">Roasist Marketing Intelligence OS</h3>
-            <p class="text-sm text-slate-300 leading-relaxed mb-6">
-              Klasik ajanslardan farklı olarak; resmi Google Ads API entegrasyonlu gerçek arama hacmi, bütçe simülasyonu ve kreatif analiz yazılımımızla kararlarımızı tahmine değil, %100 gerçek veriye dayandırıyoruz.
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Performans Pazarlaması Yönetimi
+            </h3>
+            <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+              Performans Pazarlaması, reklam verenlerin yalnızca gerçek sonuçlar için yatırım yaptığı veri odaklı büyüme disiplinidir. Google, Instagram, Facebook, TikTok, LinkedIn ve Yandex kanallarında bütçenizi maksimum yatırım getirisi (ROAS) ile ölçeklendiriyoruz.
             </p>
           </div>
-          <a
-            href="/iletisim/#analiz-formu"
-            class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-300 hover:text-white transition"
-          >
-            <span>Veri Odaklı Analiz Talep Et</span>
-            <Icon name="tabler:arrow-right" class="w-4 h-4" />
-          </a>
-        </div>
+
+          <!-- Visual Telemetry Mini-Dashboard inside Bento Card -->
+          <div class="rounded-2xl bg-slate-950 text-white p-5 border border-slate-800">
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+              <span>Çok Kanallı Dönüşüm Mimarisi</span>
+              <span class="text-emerald-400 font-mono font-bold">● Canlı Optimizasyon</span>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="text-xs text-slate-400">Hedefleme</div>
+                <div class="text-sm font-bold text-white mt-0.5">Arama + Sosyal</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="text-xs text-slate-400">Sinyal Kalitesi</div>
+                <div class="text-sm font-bold text-emerald-400 mt-0.5">GTM + CAPI</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <div class="text-xs text-slate-400">Bütçe Odağı</div>
+                <div class="text-sm font-bold text-indigo-300 mt-0.5">Net ROAS / CPA</div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Bento 2: 360° Dijital Pazarlama Yönetimi (5-col) -->
+        <a
+          href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/"
+          class="lg:col-span-5 group rounded-3xl bg-slate-900 text-white border border-slate-800 p-7 sm:p-9 hover:border-indigo-400 transition flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-4 mb-6">
+              <span class="px-3 py-1 rounded-lg bg-white/10 text-indigo-300 text-xs font-bold">
+                Tek Merkezden Yönetim
+              </span>
+              <span class="text-xs font-bold text-slate-400 group-hover:text-white transition">KEŞFET →</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold mb-3">
+              360° Dijital Pazarlama Yönetimi
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              İşletmenizi büyütmek için SEO, PPC reklamları, sosyal medya, web deneyimi ve kreatif süreçlerin tamamını tek bir entegre strateji altında planlama, yürütme ve ölçme sürecidir.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 pt-4 border-t border-slate-800 text-xs">
+            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
+              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Bütünsel Strateji</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
+              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Çok Kanallı Sinerji</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
+              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Dönüşüm (CRO)</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center gap-2">
+              <Icon name="tabler:circle-check" class="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Birleşik Raporlama</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Bento 3: SEO & AEO (4-col) -->
+        <a
+          href="/hizmetler/seo/"
+          class="lg:col-span-4 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
+        >
+          <div>
+            <div class="w-11 h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-5">
+              <Icon name="tabler:search" class="w-5 h-5" />
+            </div>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Arama Motoru Optimizasyonu (SEO & AEO)
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Web sitenizin Google ve yapay zeka arama motorlarındaki (ChatGPT, Perplexity, AI Overviews) sıralamasını teknik SEO ve semantik içerikle zirveye taşıyın.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-xs flex items-center justify-between">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Teknik SEO + Schema.org</span>
+            <span class="font-bold text-indigo-600 dark:text-indigo-400">KEŞFET →</span>
+          </div>
+        </a>
+
+        <!-- Bento 4: Web Tasarım & UI/UX (4-col) -->
+        <a
+          href="/hizmetler/web-tasarim/"
+          class="lg:col-span-4 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
+        >
+          <div>
+            <div class="w-11 h-11 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-5">
+              <Icon name="tabler:layout-dashboard" class="w-5 h-5" />
+            </div>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Web Tasarım & Geliştirme
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Kullanıcı dostu (UI/UX), %100 mobil uyumlu, şimşek hızında açılan (Core Web Vitals) ve ziyaretçileri müşteriye dönüştüren modern web siteleri.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-xs flex items-center justify-between">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">100/100 Performans & UX</span>
+            <span class="font-bold text-indigo-600 dark:text-indigo-400">KEŞFET →</span>
+          </div>
+        </a>
+
+        <!-- Bento 5: Grafik Tasarım & Kreatif (4-col) -->
+        <a
+          href="/hizmetler/grafik-tasarim/"
+          class="lg:col-span-4 group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between shadow-xs"
+        >
+          <div>
+            <div class="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-5">
+              <Icon name="tabler:palette" class="w-5 h-5" />
+            </div>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Kreatif & Grafik Tasarım
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Tipografi, alan ve görüntü kullanımıyla kurumsal kimliğinizi güçlendiren ve reklam kampanyalarında tıklama oranını (CTR) katlayan görsel çözümler.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-xs flex items-center justify-between">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Yüksek CTR Kreatifler</span>
+            <span class="font-bold text-indigo-600 dark:text-indigo-400">KEŞFET →</span>
+          </div>
+        </a>
       </div>
 
-      <!-- 6 Performance Advertising Channels Sub-Grid -->
-      <div class="rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 p-6 sm:p-8">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+      <!-- 6 ADVERTISING CHANNELS GRID -->
+      <div class="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-7 sm:p-10 shadow-xs">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-              Performans Pazarlaması Reklam Kanallarımız
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Uzman Reklam Yönetimi
+            </span>
+            <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">
+              6 Küresel Reklam Kanalında Tam Hakimiyet
             </h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
-              Hedef kitlenizin bulunduğu her platformda uzman hesap yönetimi ve dönüşüm optimizasyonu.
-            </p>
           </div>
           <a
             href="/hizmetler/performans-pazarlamasi/"
-            class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0"
+            class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
           >
-            Performans Pazarlaması Detayları →
+            Tüm Performans Kanallarını Gör →
           </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {
             adChannels.map((ch) => (
               <a
                 href={ch.href}
-                class="flex items-start gap-3.5 p-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 hover:border-indigo-500 transition group"
+                class="group rounded-2xl p-5 bg-slate-50 dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 hover:border-indigo-600 dark:hover:border-indigo-500 transition flex flex-col justify-between"
               >
-                <div class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5">
-                  <Icon name={ch.icon} class="w-5 h-5" />
-                </div>
                 <div>
-                  <div class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-                    {ch.name}
+                  <div class="flex items-center justify-between mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                      <Icon name={ch.icon} class="w-5 h-5" />
+                    </div>
+                    <span class="text-xs font-mono text-slate-500 dark:text-slate-400">{ch.metric}</span>
                   </div>
-                  <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">{ch.desc}</div>
+                  <h4 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition mb-1.5">
+                    {ch.name}
+                  </h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{ch.desc}</p>
                 </div>
+                <span class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                  Kanal Stratejisini İncele →
+                </span>
               </a>
             ))
           }
@@ -570,79 +597,71 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- PAZARLAMA GÜCÜNÜZÜ ARTIRIN (STORY & VALUE PROPOSITION) -->
-  <section class="py-20 md:py-24 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200/80 dark:border-slate-800/80">
+  <!-- PAZARLAMA GÜCÜNÜZÜ ARTIRIN & NEDEN BİZ -->
+  <section class="py-20 md:py-28 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-6">
-          <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-            Stratejik Büyüme Ortağınız
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5">
+          <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+            Neden Bizimle Çalışmalısınız?
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
             Pazarlama Gücünüzü Artırın
           </h2>
-          <div class="space-y-4 text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+          <div class="space-y-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             <p>
               Dijital dünya her geçen gün daha da büyüyor ve markaların bu alanda var olmaları ve rekabet edebilmeleri için doğru dijital pazarlama stratejileri oluşturmaları gerekiyor. Biz de burada devreye giriyoruz.
             </p>
             <p>
-              Dijital pazarlama alanında uzmanlaşmış ekibimizle birlikte, müşterilerimize kapsamlı ve özelleştirilmiş dijital pazarlama hizmetleri sunuyoruz. Web sitelerinin optimize edilmesinden, sosyal medya hesaplarının yönetimine, arama motoru optimizasyonundan reklam kampanyalarının tasarlanmasına kadar her alanda hizmet veriyoruz.
-            </p>
-            <p>
-              Markaların hedef kitlelerine en iyi şekilde ulaşmaları için stratejik pazarlama planları geliştiriyoruz. Bunun için, her bir müşterimizin ihtiyaçlarını ve hedeflerini anlamak için özel bir çalışma yürütüyoruz. Böylece, her biri özgün bir pazarlama planına sahip oluyor.
-            </p>
-            <p>
-              Dijital pazarlama dünyasının sürekli değişen yapısını takip ederek, müşterilerimizin işlerini büyütmelerine yardımcı oluyoruz. Düzenli raporlama ve analizlerle, kampanyaların performanslarını izliyor ve sürekli olarak iyileştirme fırsatlarını arıyoruz.
+              Markaların hedef kitlelerine en iyi şekilde ulaşmaları için stratejik pazarlama planları geliştiriyoruz. Her bir müşterimizin ihtiyaçlarını ve hedeflerini anlamak için özel bir çalışma yürütüyor, düzenli raporlama ve analizlerle sürekli iyileştirme fırsatları yaratıyoruz.
             </p>
           </div>
         </div>
 
-        <div class="lg:col-span-6">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {
-              defaultWhyUs.map((w) => (
-                <div class="p-6 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-2xs">
-                  <div class="w-9 h-9 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3.5">
-                    <Icon name={w.icon} class="w-5 h-5" />
-                  </div>
-                  <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">{w.title}</h3>
-                  <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{w.description}</p>
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {
+            defaultWhyUs.map((w) => (
+              <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4">
+                  <Icon name={w.icon} class="w-5 h-5" />
                 </div>
-              ))
-            }
-          </div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">{w.title}</h3>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{w.description}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HİZMET SÜRECİMİZ (6 STEPS) -->
-  <section class="py-20 md:py-28 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+  <!-- 6-STEP PROCESS -->
+  <section class="py-20 md:py-28 bg-slate-950 text-white border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="max-w-3xl mb-14">
-        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-          Adım Adım Büyüme
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
-          Hizmet Sürecimiz
+        <div class="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2">
+          Kanıtlanmış Metodoloji
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+          6 Adımda Hizmet Sürecimiz
         </h2>
-        <p class="text-base text-slate-600 dark:text-slate-400">
-          Analizden raporlamaya ve yeni fırsat yaratmaya kadar tüm süreci 6 net adımda şeffaf biçimde yürütüyoruz.
+        <p class="text-base text-slate-400">
+          İlk denetimden ölçeklenebilir büyümeye kadar tüm süreci şeffaf KPI hedefleriyle yönetiyoruz.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {
           defaultProcessSteps.map((s) => (
-            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400">
+            <div class="p-7 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition">
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-xs font-mono font-bold px-3 py-1 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
                   Step {s.step}
                 </span>
-                <Icon name="tabler:arrow-up-right" class="w-4 h-4 text-slate-400" />
+                <Icon name="tabler:circle-check" class="w-5 h-5 text-emerald-400" />
               </div>
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{s.title}</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{s.description}</p>
+              <h3 class="text-lg font-bold text-white mb-2">{s.title}</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">{s.description}</p>
             </div>
           ))
         }
@@ -650,38 +669,38 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- TESTIMONIALS (MÜŞTERİLERİMİZİN DENEYİMLERİNİ KEŞFEDİN) -->
-  <section class="py-20 md:py-24 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200/80 dark:border-slate-800/80">
+  <!-- TESTIMONIALS -->
+  <section class="py-20 md:py-28 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="max-w-3xl mb-14">
-        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-          Gerçek Müşteri Yorumları
-        </span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
+          Gerçek Müşteri Deneyimleri
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
           Müşterilerimizin Deneyimlerini Keşfedin
         </h2>
-        <p class="text-base text-slate-600 dark:text-slate-400">
-          Uzun soluklu iş ortaklıklarımızda birlikte büyüdüğümüz iş liderlerinin Roasist hakkındaki görüşleri.
-        </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {
           testimonials.map((t) => (
-            <div class="rounded-2xl p-7 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-2xs">
+            <div class="rounded-3xl p-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-xs">
               <div>
-                <div class="flex items-center gap-1 text-amber-500 mb-4" aria-label="5 Yıldız">
-                  <Icon name="tabler:star-filled" class="w-4 h-4" />
-                  <Icon name="tabler:star-filled" class="w-4 h-4" />
-                  <Icon name="tabler:star-filled" class="w-4 h-4" />
-                  <Icon name="tabler:star-filled" class="w-4 h-4" />
-                  <Icon name="tabler:star-filled" class="w-4 h-4" />
+                <div class="flex items-center justify-between mb-5">
+                  <div class="flex items-center gap-1 text-amber-500">
+                    <Icon name="tabler:star-filled" class="w-4 h-4" />
+                    <Icon name="tabler:star-filled" class="w-4 h-4" />
+                    <Icon name="tabler:star-filled" class="w-4 h-4" />
+                    <Icon name="tabler:star-filled" class="w-4 h-4" />
+                    <Icon name="tabler:star-filled" class="w-4 h-4" />
+                  </div>
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                    {t.tag}
+                  </span>
                 </div>
-                <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                  “{t.quote}”
-                </p>
+                <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6">“{t.quote}”</p>
               </div>
-              <div class="pt-4 border-t border-slate-100 dark:border-slate-800/80">
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
                 <div class="text-sm font-bold text-slate-900 dark:text-white">{t.name}</div>
                 <div class="text-xs text-slate-500 dark:text-slate-400">{t.role}</div>
               </div>
@@ -692,8 +711,8 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- HOME FAQ SECTION -->
-  <section class="py-20 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+  <!-- FAQs -->
+  <section class="py-20 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
@@ -728,10 +747,10 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- FINAL CTA BANNER -->
-  <section class="py-20 bg-slate-900 text-white">
+  <!-- FINAL CTA -->
+  <section class="py-20 bg-slate-950 text-white border-t border-slate-800">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-      <div class="text-xs font-bold uppercase tracking-widest text-indigo-300 mb-3">
+      <div class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-3">
         Daha Fazla Müşteri · Satış · Büyüme
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
@@ -752,38 +771,106 @@ const testimonials = [
           href="https://wa.me/+905415075350"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-800 text-white border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition"
+          class="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-900 text-white border border-slate-700 font-semibold text-sm hover:bg-slate-800 transition"
         >
           <Icon name="tabler:brand-whatsapp" class="w-4 h-4 text-emerald-400" />
-          <span>WhatsApp ile İletişime Geçin</span>
+          <span>WhatsApp (+90 541 507 53 50)</span>
         </a>
       </div>
     </div>
   </section>
 
+  <style>
+    @keyframes marquee {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    .animate-marquee {
+      animation: marquee 38s linear infinite;
+    }
+    .group:hover .animate-marquee {
+      animation-play-state: paused;
+    }
+  </style>
+
   <script>
-    function initPlanTabs() {
-      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-plan-tab]');
-      const panels = document.querySelectorAll<HTMLElement>('[data-plan-panel]');
+    const sectorPresets: Record<string, { l1: string; v1: number; l2: string; v2: number; l3: string; v3: number; note: string }> = {
+      ecom: {
+        l1: 'Google Shopping, Arama & PMax',
+        v1: 45,
+        l2: 'Instagram, Facebook & Dinamik Katalog (CAPI)',
+        v2: 35,
+        l3: 'Teknik SEO, Kategori İçeriği & TikTok Kreatif',
+        v3: 20,
+        note: 'Odak: Sepet Ortalaması (AOV), ROAS ve Sepet Terk Dönüşümü',
+      },
+      health: {
+        l1: 'Uluslararası Google Ads & Yandex Direct (Rusya/BDT/Avrupa)',
+        v1: 50,
+        l2: 'Meta Lead Gen & WhatsApp Konsültasyon Kampanyaları',
+        v2: 35,
+        l3: 'Çok Dilli SEO & Yüksek Dönüşümlü Klinik Landing Page',
+        v3: 15,
+        note: 'Odak: Nitelikli Hasta/Yatırımcı Formu (CPL) ve Uluslararası Erişim',
+      },
+      b2b: {
+        l1: 'Google Yüksek Niyetli Arama Ağı (Ticari Sorgular)',
+        v1: 45,
+        l2: 'LinkedIn B2B Lead Gen Forms & Şirket (ABM) Hedefleme',
+        v2: 35,
+        l3: 'Kurumsal SEO, AEO & Dönüşüm Odaklı Web Deneyimi',
+        v3: 20,
+        note: 'Odak: Doğrulanmış Kurumsal Talep (MQL/SQL) ve Toplantı Randevusu',
+      },
+    };
+
+    function initSectorSim() {
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-sim-sector]');
       if (!buttons.length) return;
 
       buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
-          const target = btn.getAttribute('data-plan-tab');
+          const key = btn.getAttribute('data-sim-sector') || 'ecom';
+          const preset = sectorPresets[key];
+          if (!preset) return;
+
           buttons.forEach((b) => {
-            const active = b.getAttribute('data-plan-tab') === target;
+            const active = b.getAttribute('data-sim-sector') === key;
             b.className = active
-              ? 'plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-bold transition bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-2xs'
-              : 'plan-tab-btn py-2 px-2.5 rounded-lg text-xs font-semibold transition text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white';
+              ? 'sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white cursor-pointer transition'
+              : 'sim-sector-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 cursor-pointer transition';
           });
-          panels.forEach((p) => {
-            p.classList.toggle('hidden', p.getAttribute('data-plan-panel') !== target);
-          });
+
+          const l1 = document.getElementById('sim-label-1');
+          const v1 = document.getElementById('sim-val-1');
+          const b1 = document.getElementById('sim-bar-1');
+          const l2 = document.getElementById('sim-label-2');
+          const v2 = document.getElementById('sim-val-2');
+          const b2 = document.getElementById('sim-bar-2');
+          const l3 = document.getElementById('sim-label-3');
+          const v3 = document.getElementById('sim-val-3');
+          const b3 = document.getElementById('sim-bar-3');
+          const note = document.getElementById('sim-kpi-note');
+
+          if (l1) l1.textContent = preset.l1;
+          if (v1) v1.textContent = `%${preset.v1} Pay`;
+          if (b1) b1.style.width = `${preset.v1}%`;
+          if (l2) l2.textContent = preset.l2;
+          if (v2) v2.textContent = `%${preset.v2} Pay`;
+          if (b2) b2.style.width = `${preset.v2}%`;
+          if (l3) l3.textContent = preset.l3;
+          if (v3) v3.textContent = `%${preset.v3} Pay`;
+          if (b3) b3.style.width = `${preset.v3}%`;
+          if (note) note.textContent = preset.note;
         });
       });
     }
 
-    initPlanTabs();
-    document.addEventListener('astro:after-swap', initPlanTabs);
+    initSectorSim();
+    document.addEventListener('astro:after-swap', initSectorSim);
   </script>
 </Layout>
