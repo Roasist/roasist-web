@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="175" height="38" viewBox="0 0 175 38" fill="none">
+  <path d="M10 23c0-5 3.5-9 7-9 2.5 0 4.5 2 6.5 5 2-3 4-5 6.5-5 3.5 0 7 4 7 9 0 3-1.8 5-4.2 5-2.2 0-4-1.5-5.8-4.2L25.5 21l-1.5 2.8C22.2 26.5 20.4 28 18.2 28 11.8 28 10 26 10 23z" stroke="#000" stroke-width="2.4"/>
+  <text x="46" y="17" font-family="sans-serif" font-size="10.5" font-weight="800" letter-spacing="0.08em" fill="#000">META</text>
+  <text x="46" y="28" font-family="sans-serif" font-size="9.5" font-weight="600" letter-spacing="0.06em" fill="#222">BUSINESS PARTNER</text>
+</svg>
