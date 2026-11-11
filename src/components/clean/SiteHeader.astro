@@ -1,0 +1,466 @@
+---
+const performanceServices = [
+  { title: 'Performans Pazarlaması (Genel)', href: '/hizmetler/performans-pazarlamasi/', desc: 'Çok kanallı ROAS ve dönüşüm mimarisi' },
+  { title: 'Google Reklamları (Google Ads)', href: '/hizmetler/performans-pazarlamasi/google-reklamlari/', desc: 'Arama, PMax, Alışveriş ve YouTube' },
+  { title: 'Facebook Reklamları (Meta Ads)', href: '/hizmetler/performans-pazarlamasi/facebook-reklamlari/', desc: 'CAPI destekli katalog ve dönüşüm' },
+  { title: 'Instagram Reklamları', href: '/hizmetler/performans-pazarlamasi/instagram-reklamlari/', desc: 'Reels, Story ve görsel satış hunileri' },
+  { title: 'TikTok Reklamları', href: '/hizmetler/performans-pazarlamasi/tiktok-reklamlari/', desc: 'Kısa video ve Spark Ads büyümesi' },
+  { title: 'LinkedIn Reklamları', href: '/hizmetler/performans-pazarlamasi/linkedin-reklamlari/', desc: 'B2B karar verici ve kurumsal lead' },
+  { title: 'Yandex Reklamları', href: '/hizmetler/performans-pazarlamasi/yandex-reklamlari/', desc: 'Uluslararası pazar ve Yandex Direct' },
+];
+
+const growthServices = [
+  { title: 'SEO & Yapay Zeka Aramaları (AEO)', href: '/hizmetler/seo/', desc: 'Teknik SEO, içerik otoritesi ve organik büyüme' },
+  { title: '360° Dijital Pazarlama Yönetimi', href: '/hizmetler/360-derece-dijital-pazarlama-yonetimi/', desc: 'Tüm dijital kanalların tek merkezden yönetimi' },
+  { title: 'Web Tasarım & Dönüşüm Mimarisi', href: '/hizmetler/web-tasarim/', desc: 'Hızlı, mobil ve SEO uyumlu kurumsal web siteleri' },
+  { title: 'Grafik Tasarım & Reklam Kreatifi', href: '/hizmetler/grafik-tasarim/', desc: 'Performans odaklı reklam görselleri ve kimlik' },
+];
+---
+
+<header class="ro-header" id="ro-site-header">
+  <div class="ro-header-inner">
+    <a href="/" class="ro-brand" aria-label="Roasist Anasayfa">
+      <span class="ro-brand-mark" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M5 18L11 6L15.5 14.5L19 10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="19" cy="10" r="2.2" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="ro-brand-text">Roasist</span>
+    </a>
+
+    <nav class="ro-nav" aria-label="Ana Menü">
+      <div class="ro-nav-dropdown">
+        <button type="button" class="ro-nav-link ro-dropdown-trigger" aria-expanded="false">
+          <span>Hizmetlerimiz</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="ro-mega-menu" role="region" aria-label="Hizmetler Alt Menüsü">
+          <div class="ro-mega-grid">
+            <div class="ro-mega-col">
+              <div class="ro-mega-heading">Performans Pazarlaması (7 Kanal)</div>
+              <ul class="ro-mega-list">
+                {performanceServices.map((item) => (
+                  <li>
+                    <a href={item.href} class="ro-mega-item">
+                      <span class="ro-mega-title">{item.title}</span>
+                      <span class="ro-mega-desc">{item.desc}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="ro-mega-col">
+              <div class="ro-mega-heading">Organik Büyüme, 360° & Kreatif</div>
+              <ul class="ro-mega-list">
+                {growthServices.map((item) => (
+                  <li>
+                    <a href={item.href} class="ro-mega-item">
+                      <span class="ro-mega-title">{item.title}</span>
+                      <span class="ro-mega-desc">{item.desc}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div class="ro-mega-cta-box">
+                <div>
+                  <strong>Hangi kanaldan başlamalısınız?</strong>
+                  <p>Mevcut reklam ve SEO yapınızı ücretsiz inceleyip yol haritası çıkaralım.</p>
+                </div>
+                <a href="/iletisim/" class="ro-btn ro-btn-primary ro-btn-sm">Ücretsiz Ön Analiz →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="/#yontem" class="ro-nav-link">Nasıl Çalışıyoruz?</a>
+      <a href="/referanslar/" class="ro-nav-link">Referanslar</a>
+      <a href="/hakkimizda/" class="ro-nav-link">Hakkımızda</a>
+      <a href="/blog/" class="ro-nav-link">Blog</a>
+      <a href="/iletisim/" class="ro-nav-link">İletişim</a>
+    </nav>
+
+    <div class="ro-header-actions">
+      <a href="/iletisim/" class="ro-btn ro-btn-primary">Ücretsiz Büyüme Analizi</a>
+      <button type="button" class="ro-mobile-toggle" id="ro-mobile-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="ro-mobile-drawer" id="ro-mobile-drawer" hidden>
+    <div class="ro-mobile-section">
+      <div class="ro-mobile-label">Performans Pazarlaması</div>
+      {performanceServices.map((item) => (
+        <a href={item.href} class="ro-mobile-link">{item.title}</a>
+      ))}
+    </div>
+    <div class="ro-mobile-section">
+      <div class="ro-mobile-label">Bütünsel Büyüme & Tasarım</div>
+      {growthServices.map((item) => (
+        <a href={item.href} class="ro-mobile-link">{item.title}</a>
+      ))}
+    </div>
+    <div class="ro-mobile-section">
+      <div class="ro-mobile-label">Kurumsal</div>
+      <a href="/referanslar/" class="ro-mobile-link">Referanslar (29+ Marka)</a>
+      <a href="/hakkimizda/" class="ro-mobile-link">Hakkımızda</a>
+      <a href="/blog/" class="ro-mobile-link">Blog & Rehberler</a>
+      <a href="/iletisim/" class="ro-mobile-link">İletişim</a>
+    </div>
+    <div style="padding-top: 12px;">
+      <a href="/iletisim/" class="ro-btn ro-btn-primary" style="width: 100%; justify-content: center;">Ücretsiz Büyüme Analizi Alın</a>
+    </div>
+  </div>
+</header>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --ro-bg-white: #FFFFFF;
+    --ro-bg-sand: #F8FAFC;
+    --ro-bg-soft: #F1F5F9;
+    --ro-ink: #0B1120;
+    --ro-ink-secondary: #334155;
+    --ro-ink-muted: #64748B;
+    --ro-cobalt: #0F52FF;
+    --ro-cobalt-hover: #0A3ECC;
+    --ro-cobalt-tint: #EEF4FF;
+    --ro-border: rgba(15, 23, 42, 0.08);
+    --ro-border-strong: rgba(15, 23, 42, 0.14);
+    --ro-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(15, 23, 42, 0.02);
+    --ro-shadow-md: 0 18px 40px -12px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.03);
+    --ro-shadow-lg: 0 28px 65px -16px rgba(15, 23, 42, 0.10), 0 4px 12px rgba(15, 23, 42, 0.04);
+    --ro-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ro-font-serif: 'Instrument Serif', Georgia, serif;
+  }
+
+  html {
+    background-color: #FFFFFF !important;
+    color: var(--ro-ink) !important;
+    font-family: var(--ro-font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FFFFFF !important;
+    color: var(--ro-ink) !important;
+    font-family: var(--ro-font-sans);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .ro-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--ro-border);
+  }
+
+  .ro-header-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .ro-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+    color: var(--ro-ink);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+  }
+
+  .ro-brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--ro-cobalt);
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(15, 82, 255, 0.22);
+  }
+
+  .ro-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ro-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size: 0.925rem;
+    font-weight: 500;
+    color: var(--ro-ink-secondary);
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.18s ease, background-color 0.18s ease;
+  }
+
+  .ro-nav-link:hover {
+    color: var(--ro-ink);
+    background: var(--ro-bg-sand);
+  }
+
+  .ro-nav-dropdown {
+    position: relative;
+  }
+
+  .ro-mega-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -120px;
+    width: 780px;
+    background: #FFFFFF;
+    border: 1px solid var(--ro-border-strong);
+    border-radius: 20px;
+    box-shadow: var(--ro-shadow-lg);
+    padding: 28px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    pointer-events: none;
+  }
+
+  .ro-nav-dropdown:hover .ro-mega-menu,
+  .ro-nav-dropdown:focus-within .ro-mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .ro-mega-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 28px;
+  }
+
+  .ro-mega-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ro-ink-muted);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ro-border);
+  }
+
+  .ro-mega-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ro-mega-item {
+    display: flex;
+    flex-direction: column;
+    padding: 9px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.16s ease;
+  }
+
+  .ro-mega-item:hover {
+    background: var(--ro-bg-sand);
+  }
+
+  .ro-mega-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ro-ink);
+  }
+
+  .ro-mega-desc {
+    font-size: 0.78rem;
+    color: var(--ro-ink-muted);
+    margin-top: 2px;
+  }
+
+  .ro-mega-cta-box {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--ro-cobalt-tint);
+    border: 1px solid rgba(15, 82, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ro-mega-cta-box strong {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--ro-ink);
+  }
+
+  .ro-mega-cta-box p {
+    margin: 3px 0 0;
+    font-size: 0.78rem;
+    color: var(--ro-ink-secondary);
+    line-height: 1.45;
+  }
+
+  .ro-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ro-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: var(--ro-font-sans);
+  }
+
+  .ro-btn-primary {
+    background: var(--ro-cobalt);
+    color: #FFFFFF !important;
+    box-shadow: 0 8px 20px -4px rgba(15, 82, 255, 0.32);
+  }
+
+  .ro-btn-primary:hover {
+    background: var(--ro-cobalt-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px -4px rgba(15, 82, 255, 0.42);
+  }
+
+  .ro-btn-secondary {
+    background: #FFFFFF;
+    color: var(--ro-ink) !important;
+    border-color: var(--ro-border-strong);
+    box-shadow: var(--ro-shadow-sm);
+  }
+
+  .ro-btn-secondary:hover {
+    background: var(--ro-bg-sand);
+    border-color: rgba(15, 23, 42, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .ro-btn-sm {
+    padding: 8px 15px;
+    font-size: 0.82rem;
+    align-self: flex-start;
+  }
+
+  .ro-mobile-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--ro-border-strong);
+    background: #FFFFFF;
+    color: var(--ro-ink);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .ro-mobile-drawer {
+    border-top: 1px solid var(--ro-border);
+    background: #FFFFFF;
+    padding: 20px 24px 28px;
+    max-height: calc(100vh - 76px);
+    overflow-y: auto;
+  }
+
+  .ro-mobile-section {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--ro-border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ro-mobile-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ro-ink-muted);
+    margin-bottom: 4px;
+  }
+
+  .ro-mobile-link {
+    padding: 7px 0;
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--ro-ink);
+    text-decoration: none;
+  }
+
+  @media (max-width: 960px) {
+    .ro-nav {
+      display: none;
+    }
+    .ro-header-actions .ro-btn {
+      display: none;
+    }
+    .ro-mobile-toggle {
+      display: inline-flex;
+    }
+    .ro-header-inner {
+      padding: 0 20px;
+      height: 68px;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('ro-mobile-toggle');
+    const drawer = document.getElementById('ro-mobile-drawer');
+    if (toggle && drawer) {
+      toggle.addEventListener('click', () => {
+        const isHidden = drawer.hasAttribute('hidden');
+        if (isHidden) {
+          drawer.removeAttribute('hidden');
+          toggle.setAttribute('aria-expanded', 'true');
+        } else {
+          drawer.setAttribute('hidden', '');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  });
+</script>
