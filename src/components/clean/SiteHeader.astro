@@ -17,263 +17,351 @@ const growthServices = [
 ];
 ---
 
-<header class="ro-header" id="ro-site-header">
-  <div class="ro-header-inner">
-    <a href="/" class="ro-brand" aria-label="Roasist Anasayfa">
-      <span class="ro-brand-mark" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M5 18L11 6L15.5 14.5L19 10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="19" cy="10" r="2.2" fill="currentColor"/>
-        </svg>
-      </span>
-      <span class="ro-brand-text">Roasist</span>
+<header class="kota-header" id="ro-site-header">
+  <div class="kota-header-inner">
+    <a href="/" class="kota-logo" aria-label="Roasist Anasayfa">
+      <span class="kota-logo-word">ROASIST</span>
+      <span class="kota-logo-dot" aria-hidden="true"></span>
     </a>
 
-    <nav class="ro-nav" aria-label="Ana Menü">
-      <div class="ro-nav-dropdown">
-        <button type="button" class="ro-nav-link ro-dropdown-trigger" aria-expanded="false">
-          <span>Hizmetlerimiz</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="ro-mega-menu" role="region" aria-label="Hizmetler Alt Menüsü">
-          <div class="ro-mega-grid">
-            <div class="ro-mega-col">
-              <div class="ro-mega-heading">Performans Pazarlaması (7 Kanal)</div>
-              <ul class="ro-mega-list">
-                {performanceServices.map((item) => (
-                  <li>
-                    <a href={item.href} class="ro-mega-item">
-                      <span class="ro-mega-title">{item.title}</span>
-                      <span class="ro-mega-desc">{item.desc}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="ro-mega-col">
-              <div class="ro-mega-heading">Organik Büyüme, 360° & Kreatif</div>
-              <ul class="ro-mega-list">
-                {growthServices.map((item) => (
-                  <li>
-                    <a href={item.href} class="ro-mega-item">
-                      <span class="ro-mega-title">{item.title}</span>
-                      <span class="ro-mega-desc">{item.desc}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <div class="ro-mega-cta-box">
-                <div>
-                  <strong>Hangi kanaldan başlamalısınız?</strong>
-                  <p>Mevcut reklam ve SEO yapınızı ücretsiz inceleyip yol haritası çıkaralım.</p>
+    <!-- KOTA Floating Center-Right Pill Nav -->
+    <div class="kota-nav-shell">
+      <nav class="kota-nav" aria-label="Ana Menü">
+        <a href="/#calismalar" class="kota-nav-link">Çalışmalar</a>
+        <a href="/hakkimizda/" class="kota-nav-link">Ajans</a>
+
+        <div class="kota-nav-dropdown">
+          <button type="button" class="kota-nav-link kota-dropdown-trigger" aria-expanded="false">
+            <span>Hizmetler</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="kota-mega-menu" role="region" aria-label="Hizmetler Alt Menüsü">
+            <div class="kota-mega-grid">
+              <div class="kota-mega-col">
+                <div class="kota-mega-heading">Performans Pazarlaması (7 Kanal)</div>
+                <ul class="kota-mega-list">
+                  {performanceServices.map((item) => (
+                    <li>
+                      <a href={item.href} class="kota-mega-item">
+                        <span class="kota-mega-title">{item.title}</span>
+                        <span class="kota-mega-desc">{item.desc}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="kota-mega-col">
+                <div class="kota-mega-heading">SEO / AEO, 360° & Kreatif Stüdyo</div>
+                <ul class="kota-mega-list">
+                  {growthServices.map((item) => (
+                    <li>
+                      <a href={item.href} class="kota-mega-item">
+                        <span class="kota-mega-title">{item.title}</span>
+                        <span class="kota-mega-desc">{item.desc}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div class="kota-mega-cta">
+                  <div>
+                    <strong>Markanızı büyütecek doğru mimariyi kuralım.</strong>
+                    <p>Mevcut reklam, SEO ve dönüşüm yapınızı ücretsiz analiz edelim.</p>
+                  </div>
+                  <a href="/iletisim/" class="kota-pill-btn kota-pill-btn-violet kota-pill-btn-sm">
+                    <span>Ücretsiz Analiz</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
                 </div>
-                <a href="/iletisim/" class="ro-btn ro-btn-primary ro-btn-sm">Ücretsiz Ön Analiz →</a>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <a href="/#yontem" class="ro-nav-link">Nasıl Çalışıyoruz?</a>
-      <a href="/referanslar/" class="ro-nav-link">Referanslar</a>
-      <a href="/hakkimizda/" class="ro-nav-link">Hakkımızda</a>
-      <a href="/blog/" class="ro-nav-link">Blog</a>
-      <a href="/iletisim/" class="ro-nav-link">İletişim</a>
-    </nav>
+        <a href="/#sonuclar" class="kota-nav-link">Sonuçlar</a>
+        <a href="/referanslar/" class="kota-nav-link">Referanslar</a>
+        <a href="/blog/" class="kota-nav-link">Blog</a>
+      </nav>
 
-    <div class="ro-header-actions">
-      <a href="/iletisim/" class="ro-btn ro-btn-primary">Ücretsiz Büyüme Analizi</a>
-      <button type="button" class="ro-mobile-toggle" id="ro-mobile-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M4 7h16M4 12h16M4 17h16"/>
-        </svg>
+      <a href="/iletisim/" class="kota-cta-pill">
+        <span class="kota-cta-pill-text">Projeye Başla</span>
+        <span class="kota-cta-pill-icon" aria-hidden="true">↗</span>
+      </a>
+
+      <button type="button" class="kota-burger" id="ro-mobile-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
+        <span></span>
+        <span></span>
       </button>
     </div>
   </div>
 
-  <!-- Mobile Drawer -->
-  <div class="ro-mobile-drawer" id="ro-mobile-drawer" hidden>
-    <div class="ro-mobile-section">
-      <div class="ro-mobile-label">Performans Pazarlaması</div>
-      {performanceServices.map((item) => (
-        <a href={item.href} class="ro-mobile-link">{item.title}</a>
-      ))}
-    </div>
-    <div class="ro-mobile-section">
-      <div class="ro-mobile-label">Bütünsel Büyüme & Tasarım</div>
-      {growthServices.map((item) => (
-        <a href={item.href} class="ro-mobile-link">{item.title}</a>
-      ))}
-    </div>
-    <div class="ro-mobile-section">
-      <div class="ro-mobile-label">Kurumsal</div>
-      <a href="/referanslar/" class="ro-mobile-link">Referanslar (29+ Marka)</a>
-      <a href="/hakkimizda/" class="ro-mobile-link">Hakkımızda</a>
-      <a href="/blog/" class="ro-mobile-link">Blog & Rehberler</a>
-      <a href="/iletisim/" class="ro-mobile-link">İletişim</a>
-    </div>
-    <div style="padding-top: 12px;">
-      <a href="/iletisim/" class="ro-btn ro-btn-primary" style="width: 100%; justify-content: center;">Ücretsiz Büyüme Analizi Alın</a>
+  <!-- Mobile Fullscreen Drawer -->
+  <div class="kota-mobile-drawer" id="ro-mobile-drawer" hidden>
+    <div class="kota-mobile-drawer-inner">
+      <div class="kota-mobile-group">
+        <div class="kota-mobile-eyebrow">Menü</div>
+        <a href="/#calismalar" class="kota-mobile-biglink">Çalışmalar</a>
+        <a href="/hakkimizda/" class="kota-mobile-biglink">Ajans Hakkında</a>
+        <a href="/referanslar/" class="kota-mobile-biglink">Referanslar (29+)</a>
+        <a href="/blog/" class="kota-mobile-biglink">Güncel Yazılar</a>
+        <a href="/iletisim/" class="kota-mobile-biglink">İletişim</a>
+      </div>
+
+      <div class="kota-mobile-group">
+        <div class="kota-mobile-eyebrow">Performans Pazarlaması Hizmetleri</div>
+        <div class="kota-mobile-pills">
+          {performanceServices.map((item) => (
+            <a href={item.href} class="kota-mobile-service-pill">{item.title}</a>
+          ))}
+        </div>
+      </div>
+
+      <div class="kota-mobile-group">
+        <div class="kota-mobile-eyebrow">SEO, 360° & Web Tasarım</div>
+        <div class="kota-mobile-pills">
+          {growthServices.map((item) => (
+            <a href={item.href} class="kota-mobile-service-pill">{item.title}</a>
+          ))}
+        </div>
+      </div>
+
+      <div class="kota-mobile-footer">
+        <a href="/iletisim/" class="kota-pill-btn kota-pill-btn-violet" style="width:100%; justify-content:center;">
+          <span>Projeye Başla — Ücretsiz Büyüme Analizi</span>
+          <span>↗</span>
+        </a>
+      </div>
     </div>
   </div>
 </header>
 
+<!-- KOTA Signature Floating Human Badge (Bottom-Right) -->
+<a href="/iletisim/" class="kota-human-badge" aria-label="İnsanlar tarafından üretildi. Biriyle konuşun">
+  <span class="kota-human-pulse" aria-hidden="true"></span>
+  <span class="kota-human-text">İnsanlar tarafından üretildi. <strong>Biriyle konuşun</strong></span>
+  <span class="kota-human-arrow" aria-hidden="true">→</span>
+</a>
+
+<!-- KOTA Custom Magnetic Cursor Follower -->
+<div class="kota-cursor-follower" id="kota-cursor" aria-hidden="true">
+  <span id="kota-cursor-label">İncele ↗</span>
+</div>
+
 <style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap');
 
   :root {
-    --ro-bg-white: #FFFFFF;
-    --ro-bg-sand: #F8FAFC;
-    --ro-bg-soft: #F1F5F9;
-    --ro-ink: #0B1120;
-    --ro-ink-secondary: #334155;
-    --ro-ink-muted: #64748B;
-    --ro-cobalt: #0F52FF;
-    --ro-cobalt-hover: #0A3ECC;
-    --ro-cobalt-tint: #EEF4FF;
-    --ro-border: rgba(15, 23, 42, 0.08);
-    --ro-border-strong: rgba(15, 23, 42, 0.14);
-    --ro-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(15, 23, 42, 0.02);
-    --ro-shadow-md: 0 18px 40px -12px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.03);
-    --ro-shadow-lg: 0 28px 65px -16px rgba(15, 23, 42, 0.10), 0 4px 12px rgba(15, 23, 42, 0.04);
-    --ro-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --kota-bg: #F4F3EF;
+    --kota-bg-alt: #EAE8E1;
+    --kota-surface: #FFFFFF;
+    --kota-dark: #0D0D10;
+    --kota-dark-card: #15151B;
+    --kota-ink: #0D0D10;
+    --kota-ink-secondary: #3F3F46;
+    --kota-ink-muted: #71717A;
+    --kota-violet: #7602FF;
+    --kota-violet-bright: #8F2BFF;
+    --kota-violet-deep: #5200B8;
+    --kota-violet-tint: #F3E8FF;
+    --kota-magenta: #C800FF;
+    --kota-border: rgba(13, 13, 16, 0.1);
+    --kota-border-strong: rgba(13, 13, 16, 0.18);
+    --kota-radius-xl: 36px;
+    --kota-radius-lg: 24px;
+    --kota-radius-pill: 999px;
+
+    /* Backward compatibility aliases for subpages */
+    --ro-bg-white: #F4F3EF;
+    --ro-bg-sand: #EAE8E1;
+    --ro-bg-soft: #E4E2DA;
+    --ro-ink: #0D0D10;
+    --ro-ink-secondary: #3F3F46;
+    --ro-ink-muted: #71717A;
+    --ro-cobalt: #7602FF;
+    --ro-cobalt-hover: #5200B8;
+    --ro-cobalt-tint: #F3E8FF;
+    --ro-border: rgba(13, 13, 16, 0.1);
+    --ro-border-strong: rgba(13, 13, 16, 0.18);
+    --ro-shadow-sm: 0 4px 14px rgba(13, 13, 16, 0.04);
+    --ro-shadow-md: 0 20px 50px -12px rgba(13, 13, 16, 0.08);
+    --ro-shadow-lg: 0 32px 80px -16px rgba(13, 13, 16, 0.14);
+    --ro-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --ro-font-display: 'Syne', 'Plus Jakarta Sans', sans-serif;
     --ro-font-serif: 'Instrument Serif', Georgia, serif;
   }
 
   html {
-    background-color: #FFFFFF !important;
-    color: var(--ro-ink) !important;
+    background-color: var(--kota-bg) !important;
+    color: var(--kota-ink) !important;
     font-family: var(--ro-font-sans);
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: #FFFFFF !important;
-    color: var(--ro-ink) !important;
+    background-color: var(--kota-bg) !important;
+    color: var(--kota-ink) !important;
     font-family: var(--ro-font-sans);
     margin: 0;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  .ro-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--ro-border);
+  #main-content {
+    background-color: var(--kota-bg) !important;
+    color: var(--kota-ink) !important;
   }
 
-  .ro-header-inner {
-    max-width: 1240px;
+  /* KOTA Floating Top Header */
+  .kota-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 120;
+    padding: 20px 32px;
+    pointer-events: none;
+    transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .kota-header.is-scrolled {
+    padding: 12px 32px;
+  }
+
+  .kota-header-inner {
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 28px;
-    height: 76px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
   }
 
-  .ro-brand {
+  .kota-logo {
+    pointer-events: auto;
     display: inline-flex;
     align-items: center;
-    gap: 11px;
+    gap: 4px;
     text-decoration: none;
-    color: var(--ro-ink);
-    font-weight: 700;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(13, 13, 16, 0.08);
+    padding: 12px 22px;
+    border-radius: 999px;
+    box-shadow: 0 8px 30px rgba(13, 13, 16, 0.05);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  }
+
+  .kota-logo:hover {
+    transform: scale(1.03);
+    border-color: var(--kota-violet);
+  }
+
+  .kota-logo-word {
+    font-family: var(--ro-font-display);
+    font-weight: 800;
     font-size: 1.25rem;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
+    color: var(--kota-ink);
+    line-height: 1;
   }
 
-  .ro-brand-mark {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: var(--ro-cobalt);
-    color: #FFFFFF;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 16px rgba(15, 82, 255, 0.22);
+  .kota-logo-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--kota-violet);
+    box-shadow: 0 0 12px var(--kota-violet);
   }
 
-  .ro-nav {
+  .kota-nav-shell {
+    pointer-events: auto;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(13, 13, 16, 0.09);
+    padding: 7px 8px 7px 18px;
+    border-radius: 999px;
+    box-shadow: 0 12px 36px rgba(13, 13, 16, 0.06);
   }
 
-  .ro-nav-link {
+  .kota-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .kota-nav-link {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 9px 14px;
+    padding: 9px 15px;
     border-radius: 999px;
-    font-size: 0.925rem;
-    font-weight: 500;
-    color: var(--ro-ink-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--kota-ink);
     text-decoration: none;
     background: transparent;
     border: none;
     cursor: pointer;
-    font-family: inherit;
-    transition: color 0.18s ease, background-color 0.18s ease;
+    font-family: var(--ro-font-sans);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .ro-nav-link:hover {
-    color: var(--ro-ink);
-    background: var(--ro-bg-sand);
+  .kota-nav-link:hover {
+    background: rgba(118, 2, 255, 0.08);
+    color: var(--kota-violet);
   }
 
-  .ro-nav-dropdown {
+  .kota-nav-dropdown {
     position: relative;
   }
 
-  .ro-mega-menu {
+  .kota-mega-menu {
     position: absolute;
-    top: calc(100% + 10px);
-    left: -120px;
-    width: 780px;
+    top: calc(100% + 16px);
+    right: -140px;
+    width: 820px;
     background: #FFFFFF;
-    border: 1px solid var(--ro-border-strong);
-    border-radius: 20px;
-    box-shadow: var(--ro-shadow-lg);
-    padding: 28px;
+    border: 1px solid rgba(13, 13, 16, 0.12);
+    border-radius: 28px;
+    box-shadow: 0 36px 90px -16px rgba(13, 13, 16, 0.18);
+    padding: 30px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    transform: translateY(10px) scale(0.98);
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
   }
 
-  .ro-nav-dropdown:hover .ro-mega-menu,
-  .ro-nav-dropdown:focus-within .ro-mega-menu {
+  .kota-nav-dropdown:hover .kota-mega-menu,
+  .kota-nav-dropdown:focus-within .kota-mega-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     pointer-events: auto;
   }
 
-  .ro-mega-grid {
+  .kota-mega-grid {
     display: grid;
     grid-template-columns: 1.05fr 0.95fr;
     gap: 28px;
   }
 
-  .ro-mega-heading {
-    font-size: 0.75rem;
-    font-weight: 700;
+  .kota-mega-heading {
+    font-size: 0.72rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ro-ink-muted);
+    letter-spacing: 0.1em;
+    color: var(--kota-violet);
     margin-bottom: 12px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--ro-border);
+    border-bottom: 1px solid var(--kota-border);
   }
 
-  .ro-mega-list {
+  .kota-mega-list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -282,174 +370,353 @@ const growthServices = [
     gap: 4px;
   }
 
-  .ro-mega-item {
+  .kota-mega-item {
     display: flex;
     flex-direction: column;
     padding: 9px 12px;
-    border-radius: 12px;
+    border-radius: 14px;
     text-decoration: none;
-    transition: background-color 0.16s ease;
+    transition: background-color 0.18s ease, transform 0.18s ease;
   }
 
-  .ro-mega-item:hover {
-    background: var(--ro-bg-sand);
+  .kota-mega-item:hover {
+    background: var(--kota-violet-tint);
+    transform: translateX(4px);
   }
 
-  .ro-mega-title {
+  .kota-mega-title {
     font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--ro-ink);
+    font-weight: 700;
+    color: var(--kota-ink);
   }
 
-  .ro-mega-desc {
-    font-size: 0.78rem;
-    color: var(--ro-ink-muted);
+  .kota-mega-desc {
+    font-size: 0.77rem;
+    color: var(--kota-ink-muted);
     margin-top: 2px;
   }
 
-  .ro-mega-cta-box {
+  .kota-mega-cta {
     margin-top: 16px;
-    padding: 16px;
-    border-radius: 14px;
-    background: var(--ro-cobalt-tint);
-    border: 1px solid rgba(15, 82, 255, 0.12);
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--kota-dark);
+    color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
-
-  .ro-mega-cta-box strong {
-    display: block;
-    font-size: 0.88rem;
-    color: var(--ro-ink);
-  }
-
-  .ro-mega-cta-box p {
-    margin: 3px 0 0;
-    font-size: 0.78rem;
-    color: var(--ro-ink-secondary);
-    line-height: 1.45;
-  }
-
-  .ro-header-actions {
-    display: flex;
-    align-items: center;
     gap: 12px;
   }
 
-  .ro-btn {
+  .kota-mega-cta strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+  }
+
+  .kota-mega-cta p {
+    margin: 4px 0 0;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.45;
+  }
+
+  .kota-cta-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 22px;
+    padding: 11px 22px;
     border-radius: 999px;
-    font-size: 0.92rem;
-    font-weight: 600;
+    background: var(--kota-dark);
+    color: #FFFFFF !important;
+    font-size: 0.88rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .kota-cta-pill:hover {
+    background: var(--kota-violet);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(118, 2, 255, 0.38);
+  }
+
+  .kota-cta-pill-icon {
+    display: inline-flex;
+    transition: transform 0.25s ease;
+  }
+
+  .kota-cta-pill:hover .kota-cta-pill-icon {
+    transform: translate(2px, -2px);
+  }
+
+  /* Reusable KOTA Pill Buttons */
+  .kota-pill-btn,
+  .ro-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 0.94rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1.5px solid transparent;
     font-family: var(--ro-font-sans);
   }
 
+  .kota-pill-btn-violet,
   .ro-btn-primary {
-    background: var(--ro-cobalt);
+    background: var(--kota-violet);
     color: #FFFFFF !important;
-    box-shadow: 0 8px 20px -4px rgba(15, 82, 255, 0.32);
+    box-shadow: 0 10px 30px -6px rgba(118, 2, 255, 0.45);
   }
 
+  .kota-pill-btn-violet:hover,
   .ro-btn-primary:hover {
-    background: var(--ro-cobalt-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 12px 26px -4px rgba(15, 82, 255, 0.42);
+    background: var(--kota-dark);
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px -6px rgba(13, 13, 16, 0.32);
   }
 
+  .kota-pill-btn-dark {
+    background: var(--kota-dark);
+    color: #FFFFFF !important;
+  }
+
+  .kota-pill-btn-dark:hover {
+    background: var(--kota-violet);
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(118, 2, 255, 0.36);
+  }
+
+  .kota-pill-btn-outline,
   .ro-btn-secondary {
-    background: #FFFFFF;
-    color: var(--ro-ink) !important;
-    border-color: var(--ro-border-strong);
-    box-shadow: var(--ro-shadow-sm);
+    background: transparent;
+    color: var(--kota-ink) !important;
+    border-color: var(--kota-border-strong);
   }
 
+  .kota-pill-btn-outline:hover,
   .ro-btn-secondary:hover {
-    background: var(--ro-bg-sand);
-    border-color: rgba(15, 23, 42, 0.25);
-    transform: translateY(-1px);
+    background: var(--kota-dark);
+    color: #FFFFFF !important;
+    border-color: var(--kota-dark);
+    transform: translateY(-2px);
   }
 
-  .ro-btn-sm {
-    padding: 8px 15px;
+  .kota-pill-btn-sm {
+    padding: 9px 18px;
     font-size: 0.82rem;
     align-self: flex-start;
   }
 
-  .ro-mobile-toggle {
+  /* KOTA Burger */
+  .kota-burger {
     display: none;
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    border: 1px solid var(--ro-border-strong);
-    background: #FFFFFF;
-    color: var(--ro-ink);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--kota-border-strong);
+    background: var(--kota-dark);
+    color: #FFFFFF;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 5px;
     cursor: pointer;
   }
 
-  .ro-mobile-drawer {
-    border-top: 1px solid var(--ro-border);
+  .kota-burger span {
+    display: block;
+    width: 18px;
+    height: 2px;
     background: #FFFFFF;
-    padding: 20px 24px 28px;
-    max-height: calc(100vh - 76px);
-    overflow-y: auto;
+    transition: transform 0.25s ease;
   }
 
-  .ro-mobile-section {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--ro-border);
+  /* Mobile Drawer */
+  .kota-mobile-drawer {
+    pointer-events: auto;
+    margin-top: 12px;
+    background: #0D0D10;
+    color: #FFFFFF;
+    border-radius: 28px;
+    padding: 28px 24px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .kota-mobile-drawer-inner {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 24px;
   }
 
-  .ro-mobile-label {
+  .kota-mobile-eyebrow {
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ro-ink-muted);
-    margin-bottom: 4px;
+    letter-spacing: 0.1em;
+    color: #A78BFA;
+    margin-bottom: 10px;
   }
 
-  .ro-mobile-link {
-    padding: 7px 0;
-    font-size: 0.94rem;
-    font-weight: 500;
-    color: var(--ro-ink);
+  .kota-mobile-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .kota-mobile-biglink {
+    font-family: var(--ro-font-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 4px 0;
+  }
+
+  .kota-mobile-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .kota-mobile-service-pill {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    font-size: 0.82rem;
+    font-weight: 600;
     text-decoration: none;
   }
 
-  @media (max-width: 960px) {
-    .ro-nav {
+  /* KOTA Floating Human Badge */
+  .kota-human-badge {
+    position: fixed;
+    bottom: 24px;
+    right: 28px;
+    z-index: 110;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    background: rgba(13, 13, 16, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #FFFFFF;
+    font-size: 0.83rem;
+    text-decoration: none;
+    box-shadow: 0 16px 40px rgba(13, 13, 16, 0.25);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .kota-human-badge:hover {
+    background: var(--kota-violet);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 44px rgba(118, 2, 255, 0.45);
+  }
+
+  .kota-human-pulse {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #A855F7;
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7);
+    animation: kotaPulse 2s infinite;
+  }
+
+  @keyframes kotaPulse {
+    0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); }
+    70% { box-shadow: 0 0 0 9px rgba(168, 85, 247, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+  }
+
+  /* Custom Magnetic Cursor Follower */
+  .kota-cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--kota-violet);
+    color: #FFFFFF;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 12px 30px rgba(118, 2, 255, 0.45);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .kota-cursor-follower.is-active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  @media (max-width: 1024px) {
+    .kota-header {
+      padding: 14px 16px;
+    }
+    .kota-nav {
       display: none;
     }
-    .ro-header-actions .ro-btn {
-      display: none;
+    .kota-nav-shell {
+      padding: 6px;
     }
-    .ro-mobile-toggle {
+    .kota-burger {
       display: inline-flex;
     }
-    .ro-header-inner {
-      padding: 0 20px;
-      height: 68px;
+    .kota-human-badge {
+      bottom: 16px;
+      right: 16px;
+      padding: 10px 16px;
+      font-size: 0.78rem;
+    }
+    .kota-cursor-follower {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .kota-cta-pill {
+      display: none;
     }
   }
 </style>
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('ro-site-header');
     const toggle = document.getElementById('ro-mobile-toggle');
     const drawer = document.getElementById('ro-mobile-drawer');
+    const cursor = document.getElementById('kota-cursor');
+    const cursorLabel = document.getElementById('kota-cursor-label');
+
+    window.addEventListener('scroll', () => {
+      if (!header) return;
+      if (window.scrollY > 40) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    }, { passive: true });
+
     if (toggle && drawer) {
       toggle.addEventListener('click', () => {
         const isHidden = drawer.hasAttribute('hidden');
@@ -460,6 +727,31 @@ const growthServices = [
           drawer.setAttribute('hidden', '');
           toggle.setAttribute('aria-expanded', 'false');
         }
+      });
+
+      drawer.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          drawer.setAttribute('hidden', '');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    if (cursor && window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      }, { passive: true });
+
+      document.querySelectorAll('[data-cursor]').forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          const text = el.getAttribute('data-cursor') || 'İncele ↗';
+          if (cursorLabel) cursorLabel.textContent = text;
+          cursor.classList.add('is-active');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('is-active');
+        });
       });
     }
   });
