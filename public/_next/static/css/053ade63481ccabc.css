@@ -5,3 +5,87 @@ body.dark .Header_header__KwdYD .Header_logo____uDV{color:#fff!important;}
 @media (min-width:769px){.Header_header__KwdYD .Header_logo____uDV svg{width:10.5rem!important;}}
 .Footer_logo__fUEOF{width:9.5rem!important;height:auto!important;}
 @media (min-width:769px){.Footer_logo__fUEOF{width:12.5rem!important;}}
+
+/* Roasist Liquid Glass Navigation Bar */
+.Header_header__KwdYD {
+  top: 0.75rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 1.75rem) !important;
+  max-width: 2440px !important;
+  padding: 0.85rem 1.25rem !important;
+  border-radius: 999px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.28) 45%,
+    rgba(245, 238, 255, 0.48) 100%
+  ) !important;
+  backdrop-filter: blur(22px) saturate(190%) contrast(104%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(190%) contrast(104%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+  box-shadow:
+    0 10px 32px -6px rgba(18, 12, 38, 0.10),
+    0 2px 8px rgba(118, 2, 255, 0.06),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.92),
+    inset 0 -1px 1.5px rgba(118, 2, 255, 0.08) !important;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+body.dark .Header_header__KwdYD {
+  background: linear-gradient(
+    135deg,
+    rgba(28, 22, 46, 0.58) 0%,
+    rgba(18, 14, 30, 0.36) 50%,
+    rgba(52, 18, 96, 0.44) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow:
+    0 12px 36px -6px rgba(0, 0, 0, 0.42),
+    0 2px 12px rgba(118, 2, 255, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.28),
+    inset 0 -1px 1.5px rgba(118, 2, 255, 0.22) !important;
+}
+@media (min-width: 769px) {
+  .PrimaryNavigation_icon__qAQCe {
+    top: 1.55rem !important;
+    right: 2.15rem !important;
+  }
+}
+@media (max-width: 768px) {
+  .Header_header__KwdYD {
+    top: 0.5rem !important;
+    width: calc(100% - 1rem) !important;
+    padding: 0.7rem 1rem !important;
+  }
+  .PrimaryNavigation_icon__qAQCe {
+    top: 1.15rem !important;
+    right: 1.5rem !important;
+  }
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 {
+    position: fixed !important;
+    z-index: 12 !important;
+    top: 1.15rem !important;
+    left: 10.25rem !important;
+    pointer-events: none !important;
+  }
+}
+@media (min-width: 769px) and (max-width: 1919px) {
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 {
+    position: fixed !important;
+    z-index: 12 !important;
+    left: 13.75rem !important;
+    top: 2.3rem !important;
+    pointer-events: none !important;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 {
+    position: fixed !important;
+    z-index: 12 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    padding: 0 13.75rem !important;
+    top: 2.3rem !important;
+    pointer-events: none !important;
+  }
+}
