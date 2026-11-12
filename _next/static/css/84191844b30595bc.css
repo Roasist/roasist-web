@@ -393,3 +393,29 @@ section video {
     max-height: 26px !important;
   }
 }
+
+/* ROASIST_APPROACH_TYPOGRAPHY */
+.Approach_headingRow__9igcA h2 {
+  line-height: 1.08 !important;
+  letter-spacing: -0.02em !important;
+}
+@media (min-width: 850px) {
+  .Approach_headingRow__9igcA h2 {
+    max-width: 58% !important;
+  }
+}
+@media (max-width: 768px) {
+  .Approach_headingRow__9igcA {
+    align-items: flex-start !important;
+  }
+}
+.Approach_headingRow__9igcA p {
+  line-height: 1.35 !important;
+}
+.Approach_item__5N2E6 h3 {
+  line-height: 1.04 !important;
+}
+.Approach_item__5N2E6 p {
+  line-height: 1.35 !important;
+}
+
