@@ -384,6 +384,7 @@ window.__KOTA_HYDRATE_PATH__ = __HYDRATE_PATH_JSON__;
 :root {
   --color-primary: #7602FF !important;
 }
+/* Roasist Desktop Scroll-Only Liquid Glass Navigation Bar */
 @media (max-width: 768px) {
   .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: calc(7vw + 9.75rem) !important; }
 }
@@ -392,6 +393,54 @@ window.__KOTA_HYDRATE_PATH__ = __HYDRATE_PATH_JSON__;
 }
 @media screen and (min-width: 1920px) {
   .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: 50% !important; transform: translateX(-50%) !important; padding: 0 13.5rem !important; top: 2.55rem !important; }
+}
+@media (min-width: 769px) {
+  .Header_header__KwdYD::before {
+    content: "";
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(255, 255, 255, 0.28) 45%,
+      rgba(245, 238, 255, 0.48) 100%
+    );
+    backdrop-filter: blur(22px) saturate(190%) contrast(104%);
+    -webkit-backdrop-filter: blur(22px) saturate(190%) contrast(104%);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    box-shadow:
+      0 10px 32px -6px rgba(18, 12, 38, 0.10),
+      0 2px 8px rgba(118, 2, 255, 0.06),
+      inset 0 1.5px 1px rgba(255, 255, 255, 0.92),
+      inset 0 -1px 1.5px rgba(118, 2, 255, 0.08);
+  }
+  body.roasist-scrolled .Header_header__KwdYD::before {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  body.dark.roasist-scrolled .Header_header__KwdYD::before {
+    background: linear-gradient(
+      135deg,
+      rgba(28, 22, 46, 0.58) 0%,
+      rgba(18, 14, 30, 0.36) 50%,
+      rgba(52, 18, 96, 0.44) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 12px 36px -6px rgba(0, 0, 0, 0.42),
+      0 2px 12px rgba(118, 2, 255, 0.18),
+      inset 0 1px 1px rgba(255, 255, 255, 0.28),
+      inset 0 -1px 1.5px rgba(118, 2, 255, 0.22);
+  }
 }
 </style>"""
 
