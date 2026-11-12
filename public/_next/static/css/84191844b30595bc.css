@@ -193,3 +193,69 @@
 .Partners_logo__eDI8e:hover img {
   transform: scale(1.08) !important;
 }
+/* ROASIST_SECTION_4_CUSTOM */
+/* Section 4A: Testimonials (Müşterilerimiz ne diyor?) -> Dark logos on Roasist Lavender cards + #7602FF border accent */
+.TestimonialsPanel_panel__QSk4x {
+  border: 1.5px solid rgba(118, 2, 255, 0.22) !important;
+  box-shadow: 0 24px 60px -18px rgba(118, 2, 255, 0.25) !important;
+}
+.TestimonialsPanel_logo__m6tmz img {
+  filter: brightness(0) !important;
+  height: 56px !important;
+  width: auto !important;
+  max-width: 190px !important;
+  object-fit: contain !important;
+}
+
+/* Section 4B: Güncel yazılar (Articles / Blog) -> #7602FF Filter + Glass Category Pills */
+.Articles_article__3ZS4Y {
+  border-radius: 0.75rem 5rem 0.75rem 0.75rem !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(118, 2, 255, 0.32) !important;
+  box-shadow: 0 20px 50px -16px rgba(118, 2, 255, 0.22) !important;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease !important;
+}
+.Articles_article__3ZS4Y:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 28px 64px -14px rgba(118, 2, 255, 0.38) !important;
+}
+.Articles_article__3ZS4Y .Articles_image__Cvgsi {
+  position: relative !important;
+  overflow: hidden !important;
+}
+.Articles_article__3ZS4Y .Articles_image__Cvgsi img {
+  filter: hue-rotate(-28deg) saturate(1.25) contrast(1.06) !important;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.Articles_article__3ZS4Y:hover .Articles_image__Cvgsi img {
+  transform: scale(1.04) !important;
+}
+.Articles_article__3ZS4Y .Articles_image__Cvgsi::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(118, 2, 255, 0.32) 0%, rgba(49, 46, 129, 0.38) 100%);
+  mix-blend-mode: color;
+  pointer-events: none;
+  z-index: 2;
+}
+.Articles_filterNames__mCWt8 {
+  display: inline-block !important;
+  background: rgba(118, 2, 255, 0.10) !important;
+  border: 1px solid rgba(118, 2, 255, 0.32) !important;
+  color: #7602FF !important;
+  font-weight: 600 !important;
+  border-radius: 2rem !important;
+  padding: 5px 12px !important;
+  margin-bottom: 0.9rem !important;
+}
+
+/* Section 4C: S.S.S. (FaqsList) & Showreel -> #7602FF accents */
+.FaqsList_question__6fKon:hover .FaqsList_icon__54ODy svg path,
+.FaqsList_question__6fKon:has(:checked) .FaqsList_icon__54ODy svg path {
+  fill: #7602FF !important;
+}
+.Showreel_showreel__abc12 video,
+section video {
+  filter: hue-rotate(-28deg) saturate(1.2) !important;
+}
