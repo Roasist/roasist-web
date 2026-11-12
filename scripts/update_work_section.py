@@ -73,7 +73,9 @@ SVG_ARROW_OBJ = [
     },
 ]
 
-# 5 Featured Roasist Client Brands (preserving existing media slots until custom videos are chosen)
+CDN_PROJECTS = "https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0d7291a9465534ac6697cc747fb33955f0a5d480/public/images/projects"
+
+# 5 Featured Roasist Client Brands with custom sector-specific loop MP4 videos & poster images
 PROJECTS = [
     {
         "key": "6084",
@@ -87,11 +89,11 @@ PROJECTS = [
             "Büyüme Stratejisi",
             "Web Analitik",
         ],
-        "img_srcset": "https://kota-content.b-cdn.net/app/uploads/2025/04/upp-featured-mobile-1400x788.jpg 1400w, https://kota-content.b-cdn.net/app/uploads/2025/04/upp-featured-mobile-500x281.jpg 500w, https://kota-content.b-cdn.net/app/uploads/2025/04/upp-featured-mobile-768x432.jpg 768w, https://kota-content.b-cdn.net/app/uploads/2025/04/upp-featured-mobile.jpg 1440w",
-        "img_src": "https://kota-content.b-cdn.net/app/uploads/2025/04/upp-featured-mobile.jpg",
+        "img_srcset": f"{CDN_PROJECTS}/23-projects.jpg 1440w",
+        "img_src": f"{CDN_PROJECTS}/23-projects.jpg",
         "img_w": 1440,
         "img_h": 810,
-        "video": "https://kota-content.b-cdn.net/app/uploads/2025/04/Featured2-Compressed.mp4",
+        "video": f"{CDN_PROJECTS}/23-projects.mp4",
     },
     {
         "key": "8692",
@@ -108,11 +110,11 @@ PROJECTS = [
             "Büyüme Stratejisi",
             "Web Analitik",
         ],
-        "img_srcset": "https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-1400x788.png 1400w, https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-2000x1125.png 2000w, https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-500x281.png 500w, https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-768x432.png 768w, https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-1536x864.png 1536w, https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-2048x1152.png 2048w",
-        "img_src": "https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-2560x1440.png",
-        "img_w": 2880,
-        "img_h": 1620,
-        "video": "https://kota-content.b-cdn.net/app/uploads/2026/07/Copper-Feature-V3.mp4",
+        "img_srcset": f"{CDN_PROJECTS}/summer-homes.jpg 1440w",
+        "img_src": f"{CDN_PROJECTS}/summer-homes.jpg",
+        "img_w": 1440,
+        "img_h": 810,
+        "video": f"{CDN_PROJECTS}/summer-homes.mp4",
     },
     {
         "key": "8166",
@@ -126,11 +128,11 @@ PROJECTS = [
             "Büyüme Stratejisi",
             "Kreatif İletişim",
         ],
-        "img_srcset": "https://kota-content.b-cdn.net/app/uploads/2026/06/Featured-Image-1400x788.png 1400w, https://kota-content.b-cdn.net/app/uploads/2026/06/Featured-Image-500x281.png 500w, https://kota-content.b-cdn.net/app/uploads/2026/06/Featured-Image-768x432.png 768w, https://kota-content.b-cdn.net/app/uploads/2026/06/Featured-Image-1536x864.png 1536w, https://kota-content.b-cdn.net/app/uploads/2026/06/Featured-Image.png 1920w",
-        "img_src": "https://kota-content.b-cdn.net/app/uploads/2026/06/Featured-Image.png",
-        "img_w": 1920,
-        "img_h": 1080,
-        "video": "https://kota-content.b-cdn.net/app/uploads/2026/06/Featured-Video.mp4",
+        "img_srcset": f"{CDN_PROJECTS}/dental-art.jpg 1440w",
+        "img_src": f"{CDN_PROJECTS}/dental-art.jpg",
+        "img_w": 1440,
+        "img_h": 810,
+        "video": f"{CDN_PROJECTS}/dental-art.mp4",
     },
     {
         "key": "7814",
@@ -145,11 +147,11 @@ PROJECTS = [
             "Web Analitik",
             "Kreatif İletişim",
         ],
-        "img_srcset": "https://kota-content.b-cdn.net/app/uploads/2026/01/finura-logo-still.png 1174w, https://kota-content.b-cdn.net/app/uploads/2026/01/finura-logo-still-500x282.png 500w, https://kota-content.b-cdn.net/app/uploads/2026/01/finura-logo-still-768x432.png 768w",
-        "img_src": "https://kota-content.b-cdn.net/app/uploads/2026/01/finura-logo-still.png",
-        "img_w": 1174,
-        "img_h": 661,
-        "video": "https://kota-content.b-cdn.net/app/uploads/2026/01/Finura_Logo_Animation.mp4",
+        "img_srcset": f"{CDN_PROJECTS}/medistate.jpg 1440w",
+        "img_src": f"{CDN_PROJECTS}/medistate.jpg",
+        "img_w": 1440,
+        "img_h": 810,
+        "video": f"{CDN_PROJECTS}/medistate.mp4",
     },
     {
         "key": "7018",
@@ -164,11 +166,11 @@ PROJECTS = [
             "Web Analitik",
             "Kreatif İletişim",
         ],
-        "img_srcset": "https://kota-content.b-cdn.net/app/uploads/2025/08/GOAT-FeaturedImage-1400x788.png 1400w, https://kota-content.b-cdn.net/app/uploads/2025/08/GOAT-FeaturedImage-500x281.png 500w, https://kota-content.b-cdn.net/app/uploads/2025/08/GOAT-FeaturedImage-768x432.png 768w, https://kota-content.b-cdn.net/app/uploads/2025/08/GOAT-FeaturedImage-1536x864.png 1536w, https://kota-content.b-cdn.net/app/uploads/2025/08/GOAT-FeaturedImage.png 1920w",
-        "img_src": "https://kota-content.b-cdn.net/app/uploads/2025/08/GOAT-FeaturedImage.png",
-        "img_w": 1920,
-        "img_h": 1080,
-        "video": "https://kota-content.b-cdn.net/app/uploads/2025/08/GOAT-FeatureVideo.mp4",
+        "img_srcset": f"{CDN_PROJECTS}/bonus-vip.jpg 1440w",
+        "img_src": f"{CDN_PROJECTS}/bonus-vip.jpg",
+        "img_w": 1440,
+        "img_h": 810,
+        "video": f"{CDN_PROJECTS}/bonus-vip.mp4",
     },
 ]
 

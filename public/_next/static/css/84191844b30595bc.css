@@ -129,8 +129,8 @@
 }
 .ProjectCard_projectImage__Nfx9I img,
 .ProjectCard_video__AheFz {
-  filter: hue-rotate(-25deg) saturate(1.22) contrast(1.06) !important;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease !important;
+  filter: none !important;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 .ProjectCard_project__d1wbY:hover .ProjectCard_projectImage__Nfx9I img,
 .ProjectCard_project__d1wbY:hover .ProjectCard_video__AheFz {
