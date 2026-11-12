@@ -259,3 +259,25 @@
 section video {
   filter: hue-rotate(-28deg) saturate(1.2) !important;
 }
+/* ROASIST_PARTNER_BADGES_CUSTOM */
+.Hero_logosInner__D4sWL {
+  gap: 2.5rem !important;
+  align-items: center !important;
+}
+.Hero_logosInner__D4sWL img,
+.Footer_logos__jFNys img {
+  height: 38px !important;
+  width: auto !important;
+  max-height: 38px !important;
+  object-fit: contain !important;
+}
+@media (max-width: 768px) {
+  .Hero_logosInner__D4sWL {
+    gap: 1.25rem !important;
+  }
+  .Hero_logosInner__D4sWL img,
+  .Footer_logos__jFNys img {
+    height: 28px !important;
+    max-height: 28px !important;
+  }
+}
