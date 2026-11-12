@@ -2,8 +2,8 @@
 .HeroVideo_video__OoWDY video{background:url(https://kota-content.b-cdn.net/app/uploads/2024/05/Homepage-Header-Image-1200x800.jpg) center/cover no-repeat #7602FF;}
 
 .HeroVideo_video__OoWDY{display:none!important;}
-.Hero_splitText__diMTw .Hero_mobile__VkWXK{display:none!important;}
-.HeroSplitTextDesktop_desktop__Bey7n{display:block!important;}
+
+
 .Hero_logos__jC9k_ .FadeIn_container__bjQVL{opacity:1!important;}
 /* ROASIST_SECTION_2_CUSTOM */
 /* Hero intro paragraph clean alignment on desktop */
@@ -260,24 +260,136 @@ section video {
   filter: hue-rotate(-28deg) saturate(1.2) !important;
 }
 /* ROASIST_PARTNER_BADGES_CUSTOM */
-.Hero_logosInner__D4sWL {
-  gap: 2.5rem !important;
-  align-items: center !important;
+@font-face {
+  font-family: "RoasistSyne";
+  src: url(../media/54252e86b97de34f-s.p.woff2) format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
 }
-.Hero_logosInner__D4sWL img,
+
+/* Desktop vs Mobile Hero SVG visibility (1:1 KOTA) */
+@media (max-width: 849px) {
+  .HeroSplitTextDesktop_desktop__Bey7n {
+    display: none !important;
+  }
+  .Hero_splitText__diMTw .Hero_mobile__VkWXK {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+}
+@media (min-width: 850px) {
+  .Hero_splitText__diMTw .Hero_mobile__VkWXK {
+    display: none !important;
+  }
+  .HeroSplitTextDesktop_desktop__Bey7n {
+    display: block !important;
+    overflow: visible !important;
+  }
+}
+
+/* Mobile & Tablet Hero Layout (<= 849px): exact 1:1 proportions with KOTA reference */
+@media (max-width: 849px) {
+  .Hero_hero__IrR3f {
+    min-height: 100svh !important;
+    height: auto !important;
+    align-items: flex-end !important;
+    padding-top: clamp(6rem, 18svh, 11rem) !important;
+    padding-bottom: clamp(5.25rem, 15.5svh, 8.75rem) !important;
+    position: relative !important;
+  }
+  .Hero_hero__IrR3f .container {
+    width: 100% !important;
+    padding: 0 7% !important;
+    align-items: stretch !important;
+    margin: auto 0 0 0 !important;
+  }
+  .Hero_splitText__diMTw {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    padding-top: 0 !important;
+  }
+  .Hero_introText__wboFn {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: clamp(1.35rem, 4.5vw, 2rem) 0 0 0 !important;
+    font-size: clamp(1.0625rem, 4.35vw, 1.35rem) !important;
+    line-height: 1.36 !important;
+    letter-spacing: -0.012em !important;
+  }
+  .Hero_logos__jC9k_ {
+    position: absolute !important;
+    bottom: clamp(1.25rem, 2.8svh, 2rem) !important;
+    left: 7% !important;
+    right: 7% !important;
+    width: 86% !important;
+    padding: 0 !important;
+    transform: none !important;
+  }
+  .Hero_logosInner__D4sWL {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: clamp(0.3rem, 1.6vw, 0.85rem) !important;
+  }
+  .Hero_logosInner__D4sWL img {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: 24% !important;
+    height: clamp(24px, 6.4vw, 36px) !important;
+    max-height: 36px !important;
+    object-fit: contain !important;
+    flex: 0 1 auto !important;
+  }
+}
+
+/* Desktop Hero Intro & Partner Logos (>= 850px) */
+@media (min-width: 1100px) {
+  .Hero_introText__wboFn {
+    right: -2% !important;
+    width: 28% !important;
+    max-width: 27ch !important;
+    transform: translate(20%, -26%) !important;
+  }
+}
+@media (min-width: 850px) {
+  .Hero_logos__jC9k_ {
+    bottom: 1.65rem !important;
+  }
+  .Hero_logosInner__D4sWL {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: clamp(2.25rem, 3.4vw, 3.75rem) !important;
+  }
+  .Hero_logosInner__D4sWL img {
+    padding: 0 !important;
+    height: clamp(34px, 2.55vw, 40px) !important;
+    max-height: 40px !important;
+    width: auto !important;
+    object-fit: contain !important;
+  }
+}
+
 .Footer_logos__jFNys img {
-  height: 38px !important;
+  padding: 0 !important;
+  height: 34px !important;
+  max-height: 34px !important;
   width: auto !important;
-  max-height: 38px !important;
   object-fit: contain !important;
 }
 @media (max-width: 768px) {
-  .Hero_logosInner__D4sWL {
-    gap: 1.25rem !important;
-  }
-  .Hero_logosInner__D4sWL img,
   .Footer_logos__jFNys img {
-    height: 28px !important;
-    max-height: 28px !important;
+    height: 26px !important;
+    max-height: 26px !important;
   }
 }
