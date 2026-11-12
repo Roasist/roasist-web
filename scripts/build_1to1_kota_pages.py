@@ -384,7 +384,7 @@ window.__KOTA_HYDRATE_PATH__ = __HYDRATE_PATH_JSON__;
 :root {
   --color-primary: #7602FF !important;
 }
-/* Roasist Desktop Scroll-Only Liquid Glass Navigation Bar */
+/* Roasist Creative Kinetic Logo Scroll Animation */
 @media (max-width: 768px) {
   .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: calc(7vw + 9.75rem) !important; }
 }
@@ -394,53 +394,73 @@ window.__KOTA_HYDRATE_PATH__ = __HYDRATE_PATH_JSON__;
 @media screen and (min-width: 1920px) {
   .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: 50% !important; transform: translateX(-50%) !important; padding: 0 13.5rem !important; top: 2.55rem !important; }
 }
-@media (min-width: 769px) {
-  .Header_header__KwdYD::before {
-    content: "";
-    position: absolute;
-    top: 0.85rem;
-    left: 0.85rem;
-    right: 0.85rem;
-    bottom: 0.85rem;
-    border-radius: 999px;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.62) 0%,
-      rgba(255, 255, 255, 0.28) 45%,
-      rgba(245, 238, 255, 0.48) 100%
-    );
-    backdrop-filter: blur(22px) saturate(190%) contrast(104%);
-    -webkit-backdrop-filter: blur(22px) saturate(190%) contrast(104%);
-    border: 1px solid rgba(255, 255, 255, 0.78);
-    box-shadow:
-      0 10px 32px -6px rgba(18, 12, 38, 0.10),
-      0 2px 8px rgba(118, 2, 255, 0.06),
-      inset 0 1.5px 1px rgba(255, 255, 255, 0.92),
-      inset 0 -1px 1.5px rgba(118, 2, 255, 0.08);
-  }
-  body.roasist-scrolled .Header_header__KwdYD::before {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  body.dark.roasist-scrolled .Header_header__KwdYD::before {
-    background: linear-gradient(
-      135deg,
-      rgba(28, 22, 46, 0.58) 0%,
-      rgba(18, 14, 30, 0.36) 50%,
-      rgba(52, 18, 96, 0.44) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow:
-      0 12px 36px -6px rgba(0, 0, 0, 0.42),
-      0 2px 12px rgba(118, 2, 255, 0.18),
-      inset 0 1px 1px rgba(255, 255, 255, 0.28),
-      inset 0 -1px 1.5px rgba(118, 2, 255, 0.22);
-  }
+
+.Header_header__KwdYD .Header_logo____uDV {
+  position: relative !important;
+  transform-origin: left center !important;
+  will-change: transform, opacity, filter, clip-path !important;
+  clip-path: inset(-20% -20% -20% -20%) !important;
+  transform: perspective(600px) translate3d(0, 0, 0) rotateX(0deg) skewX(0deg) scale(1) !important;
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+  transition:
+    transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+    clip-path 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.52s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.Header_header__KwdYD .Header_logo____uDV::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 10% !important;
+  bottom: 10% !important;
+  left: 0 !important;
+  width: 3px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, #c084fc 0%, #7602FF 50%, #ff34f3 100%) !important;
+  box-shadow: 0 0 16px 3px rgba(118, 2, 255, 0.75) !important;
+  opacity: 0 !important;
+  transform: translateX(170px) scaleY(0.2) !important;
+  transition:
+    transform 0.62s cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 0.35s ease !important;
+  pointer-events: none !important;
+}
+
+body.roasist-scrolled .Header_header__KwdYD .Header_logo____uDV {
+  pointer-events: none !important;
+  clip-path: inset(-20% 100% -20% -20%) !important;
+  transform: perspective(600px) translate3d(-24px, -12px, 0) rotateX(42deg) skewX(-16deg) scale(0.84) !important;
+  opacity: 0 !important;
+  filter: blur(7px) !important;
+  transition:
+    transform 0.56s cubic-bezier(0.76, 0, 0.24, 1),
+    clip-path 0.54s cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 0.42s cubic-bezier(0.76, 0, 0.24, 1) 0.08s,
+    filter 0.45s cubic-bezier(0.76, 0, 0.24, 1) !important;
+}
+
+body.roasist-scrolled .Header_header__KwdYD .Header_logo____uDV::after {
+  transform: translateX(0px) scaleY(1) !important;
+  opacity: 0 !important;
+  animation: roasistLogoLaserSweep 0.55s cubic-bezier(0.76, 0, 0.24, 1) forwards !important;
+}
+
+body:not(.roasist-scrolled) .Header_header__KwdYD .Header_logo____uDV::after {
+  animation: roasistLogoLaserReveal 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes roasistLogoLaserSweep {
+  0% { opacity: 0.95; transform: translateX(168px) scaleY(1.1); }
+  75% { opacity: 1; transform: translateX(6px) scaleY(0.9); }
+  100% { opacity: 0; transform: translateX(-8px) scaleY(0.1); }
+}
+
+@keyframes roasistLogoLaserReveal {
+  0% { opacity: 0.95; transform: translateX(0px) scaleY(0.3); }
+  65% { opacity: 1; transform: translateX(168px) scaleY(1.1); }
+  100% { opacity: 0; transform: translateX(176px) scaleY(0.1); }
 }
 </style>"""
 
