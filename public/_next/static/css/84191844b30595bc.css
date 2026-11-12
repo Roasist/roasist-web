@@ -143,7 +143,7 @@
 .ProjectCard_imageOverlay__OCawr {
   opacity: 0 !important;
   pointer-events: none;
-  background: rgba(8, 4, 20, 0.8) !important;
+  background: rgba(0, 0, 0, 0.88) !important;
   transition: opacity 0.35s ease !important;
   z-index: 6 !important;
 }

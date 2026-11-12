@@ -83,7 +83,7 @@ PROJECTS = [
         "name": "23 Projects",
         "href": "https://www.23projects.net/",
         "year": "2026",
-        "heading": "Prestijli gayrimenkul ve yaşam projeleri için uluslararası yatırımcı odaklı dijital büyüme ve performans mimarisi.",
+        "heading": "Lüks gayrimenkul projeleri için yatırımcı odaklı büyüme.",
         "tags": [
             "Performans Pazarlaması",
             "Büyüme Stratejisi",
@@ -101,7 +101,7 @@ PROJECTS = [
         "name": "Summer Homes",
         "href": "https://www.summerhomes.com/",
         "year": "2025",
-        "heading": "Uluslararası gayrimenkul lideri için çok dilli performans pazarlaması, kreatif tasarım ve 360° dijital yönetim.",
+        "heading": "Uluslararası gayrimenkul lideri için 360° dijital büyüme.",
         "tags": [
             "Performans Pazarlaması",
             "360° Dijital Pazarlama",
@@ -122,7 +122,7 @@ PROJECTS = [
         "name": "Dental Art",
         "href": "https://www.dentalartalanya.com/",
         "year": "2026",
-        "heading": "Avrupa sağlık turizmi pazarında hasta edinimini ölçekleyen çok kanallı performans ve kreatif iletişim stratejisi.",
+        "heading": "Sağlık turizminde hasta edinimini ölçekleyen performans.",
         "tags": [
             "Performans Pazarlaması",
             "Büyüme Stratejisi",
@@ -140,7 +140,7 @@ PROJECTS = [
         "name": "Medistate",
         "href": "https://www.medistateinternational.com/",
         "year": "2024",
-        "heading": "Uluslararası sağlık grubu için veri odaklı hasta edinimi, web analitik altyapısı ve kreatif iletişim yönetimi.",
+        "heading": "Uluslararası sağlık grubu için veri odaklı hasta edinimi.",
         "tags": [
             "Performans Pazarlaması",
             "Büyüme Stratejisi",
@@ -159,7 +159,7 @@ PROJECTS = [
         "name": "Bonus Vip",
         "href": "https://bonus-vip.com/",
         "year": "2026",
-        "heading": "Türkiye genelinde 13 şubeli sektör lideri için yetenek kazanımı ve kurumsal büyümeyi hızlandıran performans stratejisi.",
+        "heading": "Sektör lideri çağrı merkezi için yetenek kazanımı.",
         "tags": [
             "Performans Pazarlaması",
             "Büyüme Stratejisi",
