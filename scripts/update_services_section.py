@@ -72,6 +72,17 @@ REPLACEMENTS = [
         r'{\"id\":\"cG9zdDo4ODY=\",\"slug\":\"tone-of-voice\",\"title\":\"Kreatif İletişim\"}',
         r'{\"id\":\"cG9zdDo4ODY=\",\"slug\":\"tone-of-voice\",\"title\":\"TikTok Ads\"}',
     ),
+    # 2b. Append "Yandex Ads" tag button right after "TikTok Ads" (SSR + Flight JSON)
+    (
+        '<a class="ServicesPanel_tag__JYwRk" href="/hizmetler/performans-pazarlamasi/tiktok-reklamlari">TikTok Ads</a></div>',
+        '<a class="ServicesPanel_tag__JYwRk" href="/hizmetler/performans-pazarlamasi/tiktok-reklamlari">TikTok Ads</a>'
+        '<a class="ServicesPanel_tag__JYwRk" href="/hizmetler/performans-pazarlamasi/yandex-reklamlari">Yandex Ads</a></div>',
+    ),
+    (
+        r'{\"id\":\"cG9zdDo4ODY=\",\"slug\":\"tone-of-voice\",\"title\":\"TikTok Ads\"}]',
+        r'{\"id\":\"cG9zdDo4ODY=\",\"slug\":\"tone-of-voice\",\"title\":\"TikTok Ads\"},'
+        r'{\"id\":\"cG9zdDo4ODc=\",\"slug\":\"yandex-reklamlari\",\"title\":\"Yandex Ads\"}]',
+    ),
     # 3. Panel 1 Description with "Bing" added (SSR + Flight JSON)
     (OLD_MAIN_TEXT, NEW_MAIN_TEXT),
 ]
