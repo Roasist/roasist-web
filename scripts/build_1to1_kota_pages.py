@@ -384,12 +384,14 @@ window.__KOTA_HYDRATE_PATH__ = __HYDRATE_PATH_JSON__;
 :root {
   --color-primary: #7602FF !important;
 }
-a[class*="Header_logo"] svg { width: 158px !important; height: 38px !important; display: block !important; }
-@media (min-width: 769px) {
-  .Hero_hero__18Xqo > h1 { left: calc(7vw + 11.75rem) !important; }
-}
 @media (max-width: 768px) {
-  .Hero_hero__18Xqo > h1 { left: 10.5rem !important; }
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: calc(7vw + 9.75rem) !important; }
+}
+@media (min-width: 769px) and (max-width: 1919px) {
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: 13.5rem !important; top: 2.55rem !important; }
+}
+@media screen and (min-width: 1920px) {
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: 50% !important; transform: translateX(-50%) !important; padding: 0 13.5rem !important; top: 2.55rem !important; }
 }
 </style>"""
 
