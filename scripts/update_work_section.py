@@ -73,7 +73,7 @@ SVG_ARROW_OBJ = [
     },
 ]
 
-CDN_PROJECTS = "https://cdn.jsdelivr.net/gh/Roasist/roasist-web@2339d60b705457a08a0f8ea860be260e0d57d83b/public/images/projects"
+CDN_PROJECTS = "https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c5086ba54cdb4220c5cc1d24a132a69d1627c029/public/images/projects"
 
 # 5 Featured Roasist Client Brands with custom sector-specific loop MP4 videos & poster images
 PROJECTS = [
