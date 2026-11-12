@@ -5,3 +5,105 @@
 .Hero_splitText__diMTw .Hero_mobile__VkWXK{display:none!important;}
 .HeroSplitTextDesktop_desktop__Bey7n{display:block!important;}
 .Hero_logos__jC9k_ .FadeIn_container__bjQVL{opacity:1!important;}
+/* ROASIST_SECTION_2_CUSTOM */
+/* Hero intro paragraph clean alignment on desktop */
+@media (min-width:1100px){
+  .Hero_introText__wboFn{
+    right:-2%!important;
+    width:28%!important;
+    max-width:27ch!important;
+  }
+}
+
+/* Section 2: Video Color Grading -> Roasist Electric Violet (#7602FF) & Deep Indigo */
+.ServiceMedia_mediaContainer__WGgZa,
+.CarouselSlides_carouselMedia__aqYWx {
+  position: relative !important;
+  box-shadow: 0 20px 45px -15px rgba(118, 2, 255, 0.22) !important;
+}
+.ServiceMedia_mediaContainer__WGgZa video,
+.CarouselSlides_carouselMedia__aqYWx video,
+.Sphere_particle__E2OB8 canvas,
+.Sphere_lottie__kYkK_ {
+  filter: hue-rotate(-34deg) saturate(1.3) contrast(1.06) !important;
+}
+.ServiceMedia_mediaContainer__WGgZa::after,
+.CarouselSlides_carouselMedia__aqYWx::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(118, 2, 255, 0.24) 0%, rgba(49, 46, 129, 0.30) 100%);
+  mix-blend-mode: color;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Section 2: 360 Hizmetler Glassmorphic Cards with 12.5rem top-right curve & #7602FF accents */
+.ServicesPanel_panelBackground__O9mDV {
+  background: rgba(255, 255, 255, 0.84) !important;
+  backdrop-filter: blur(24px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+  border: 1.5px solid rgba(118, 2, 255, 0.24) !important;
+  box-shadow: 0 28px 64px -16px rgba(118, 2, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Service Tag Pills (/hizmetler/...) with Roasist Violet Glassmorphism */
+.ServicesPanel_tag__JYwRk {
+  border: 1.5px solid rgba(118, 2, 255, 0.26) !important;
+  background: rgba(118, 2, 255, 0.045) !important;
+  color: #160933 !important;
+  font-weight: 500 !important;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.ServicesPanel_tag__JYwRk:hover {
+  border-color: #7602FF !important;
+  background: linear-gradient(135deg, #7602FF 0%, #4F46E5 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 22px -4px rgba(118, 2, 255, 0.40) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Service Card CTA Button (#7602FF accent) */
+.ServicesPanel_panelText__iyjwZ .Button_border__hirH2 {
+  border-color: #7602FF !important;
+}
+.ServicesPanel_panelText__iyjwZ .Button_inner__fnyH6,
+.ServicesPanel_panelText__iyjwZ .Button_buttonArrow__0W9XI {
+  color: #7602FF !important;
+}
+
+/* Approach Cards (01 / 02 / 03) & 5-Stage Methodology Carousel Glassmorphism */
+.Approach_item__5N2E6 {
+  background: rgba(255, 255, 255, 0.68) !important;
+  backdrop-filter: blur(20px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+  border: 1.5px solid rgba(118, 2, 255, 0.22) !important;
+  box-shadow: 0 20px 48px -14px rgba(118, 2, 255, 0.10) !important;
+}
+.Approach_step__HEa5K {
+  color: #7602FF !important;
+  font-weight: 600 !important;
+}
+.CarouselSlides_carouselSlide__gJ_Hz {
+  background: rgba(255, 255, 255, 0.76) !important;
+  backdrop-filter: blur(22px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(140%) !important;
+  border: 1.5px solid rgba(118, 2, 255, 0.24) !important;
+  box-shadow: 0 24px 56px -16px rgba(118, 2, 255, 0.12) !important;
+}
+.CarouselSlides_carouselNavigationButton__PEeuA {
+  border: 1.5px solid rgba(118, 2, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.70) !important;
+  color: #160933 !important;
+  transition: all 0.25s ease !important;
+}
+.CarouselSlides_carouselNavigationButton__PEeuA:hover {
+  border-color: #7602FF !important;
+  background: rgba(118, 2, 255, 0.10) !important;
+}
+.CarouselSlides_carouselNavigationButton__PEeuA.active {
+  background: linear-gradient(135deg, #7602FF 0%, #4F46E5 100%) !important;
+  border-color: #7602FF !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px -4px rgba(118, 2, 255, 0.38) !important;
+}
