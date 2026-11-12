@@ -107,3 +107,89 @@
   color: #ffffff !important;
   box-shadow: 0 8px 20px -4px rgba(118, 2, 255, 0.38) !important;
 }
+/* ROASIST_SECTION_3_CUSTOM */
+/* Hide header tagline next to logo */
+.Celebrating_celebrating__MdmnM {
+  display: none !important;
+}
+
+/* Section 3A: SEÇİLMİŞ PROJELER (ProjectCard) -> Roasist Violet (#7602FF) Filter & Glass Tags */
+.ProjectCard_projectText__o770X {
+  border-color: rgba(118, 2, 255, 0.45) !important;
+  background: linear-gradient(90deg, rgba(118, 2, 255, 0.12) 0%, rgba(30, 27, 75, 0.18) 100%) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+.ProjectCard_projectImage__Nfx9I {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 1.125rem !important;
+  border: 1px solid rgba(118, 2, 255, 0.32) !important;
+  box-shadow: 0 24px 60px -18px rgba(118, 2, 255, 0.25) !important;
+}
+.ProjectCard_projectImage__Nfx9I img,
+.ProjectCard_video__AheFz {
+  filter: hue-rotate(-25deg) saturate(1.22) contrast(1.06) !important;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease !important;
+}
+.ProjectCard_project__d1wbY:hover .ProjectCard_projectImage__Nfx9I img,
+.ProjectCard_project__d1wbY:hover .ProjectCard_video__AheFz {
+  transform: scale(1.03) !important;
+}
+.ProjectCard_projectImage__Nfx9I::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(118, 2, 255, 0.30) 0%, rgba(49, 46, 129, 0.38) 55%, rgba(12, 6, 28, 0.65) 100%);
+  mix-blend-mode: color;
+  pointer-events: none;
+  z-index: 3;
+}
+/* Keep glassmorphic tags visible at bottom of ProjectCard and intensify overlay on hover */
+.ProjectCard_imageOverlay__OCawr {
+  opacity: 1 !important;
+  background: linear-gradient(180deg, rgba(10, 5, 24, 0.05) 0%, rgba(18, 8, 42, 0.35) 55%, rgba(10, 4, 26, 0.86) 100%) !important;
+  transition: background 0.35s ease !important;
+  z-index: 6 !important;
+}
+.ProjectCard_project__d1wbY:hover .ProjectCard_imageOverlay__OCawr {
+  background: linear-gradient(180deg, rgba(118, 2, 255, 0.28) 0%, rgba(18, 8, 46, 0.82) 55%, rgba(8, 3, 22, 0.94) 100%) !important;
+}
+.ProjectCard_tags__XdVcf li {
+  background: rgba(118, 2, 255, 0.28) !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  border: 1px solid rgba(168, 85, 247, 0.65) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(118, 2, 255, 0.28) !important;
+}
+
+/* Section 3B: ÖLÇÜLEBİLİR SONUÇLAR (StatisticsCarousel) & MARKA ORTAKLARIMIZ (Partners) */
+.StatisticsPanel_panel__5YHtR {
+  border-color: rgba(118, 2, 255, 0.45) !important;
+  box-shadow: 0 24px 64px -18px rgba(118, 2, 255, 0.25) !important;
+}
+.StatisticsPanel_heading__UrLlt {
+  background: linear-gradient(90deg, #7602FF, #00D2FF, #A855F7, #7602FF) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+.StatisticsPanel_logo__Y5wQT img {
+  height: 68px !important;
+  max-width: 210px !important;
+  object-fit: contain !important;
+}
+.Partners_logo__eDI8e {
+  opacity: 1 !important;
+}
+.Partners_logo__eDI8e img {
+  max-height: 3.4rem !important;
+  max-width: 82% !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 2px 10px rgba(118, 2, 255, 0.18)) !important;
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
+}
+.Partners_logo__eDI8e:hover img {
+  transform: scale(1.08) !important;
+}
