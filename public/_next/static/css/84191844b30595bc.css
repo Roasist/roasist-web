@@ -419,3 +419,30 @@ section video {
   line-height: 1.35 !important;
 }
 
+/* ROASIST_WORK_HEADING_FIX */
+.Work_heading__pbv4g {
+  font-size: clamp(2.35rem, 5.6vw, 5.5rem) !important;
+  line-height: 0.96 !important;
+  white-space: nowrap !important;
+}
+.Work_heading__pbv4g.Work_bottom__rzrzH {
+  padding-left: 10% !important;
+  margin-top: 0.55rem !important;
+}
+@media (max-width: 768px) {
+  .Work_heading__pbv4g {
+    font-size: clamp(2.2rem, 10.2vw, 4rem) !important;
+  }
+}
+.StatisticsHeading_heading__3C_3F {
+  font-size: clamp(2.1rem, 7.4vw, 7.25rem) !important;
+  line-height: 0.98 !important;
+  white-space: nowrap !important;
+}
+@media (max-width: 768px) {
+  .StatisticsHeading_heading__3C_3F {
+    font-size: clamp(1.9rem, 8.8vw, 3.5rem) !important;
+  }
+}
+
+
