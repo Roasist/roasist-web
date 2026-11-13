@@ -198,12 +198,10 @@ def patch_chunk():
 
 
 def strip_hero_video(html: str) -> str:
-    target_ssr = """<div class="Hero_video__rzcbe"><span class="ScaleFadeIn_container__cK78G" data-fill="true"><span class="ScaleFadeIn_inner__y4reT" data-fill="true"><video src="https://kota-content.b-cdn.net/app/uploads/2025/10/Short-Preview-homepage.mp4" class="Hero_video__rzcbe" autoPlay="" muted="" loop="" playsInline=""></video></span></span></div>"""
-    target_flight = r""",[\"$\",\"div\",null,{\"className\":\"Hero_video__rzcbe\",\"children\":[\"$\",\"$L29\",null,{\"fill\":true,\"delay\":1,\"children\":[\"$\",\"video\",null,{\"src\":\"https://kota-content.b-cdn.net/app/uploads/2025/10/Short-Preview-homepage.mp4\",\"className\":\"Hero_video__rzcbe\",\"autoPlay\":true,\"muted\":true,\"loop\":true,\"playsInline\":true}]}]}]]"""
-    html = html.replace(target_ssr, "")
-    html = html.replace(target_flight, "")
-    if ".Hero_video__rzcbe{display:none" not in html:
-        html = html.replace("</head>", "<style>.Hero_video__rzcbe{display:none!important;}</style></head>")
+    # Safely hide the hero video element without breaking React hydration / flight AST
+    style = '<style id="hide-hero-video">.Hero_video__rzcbe{display:none!important;visibility:hidden!important;width:0!important;height:0!important;pointer-events:none!important;}</style>'
+    if "hide-hero-video" not in html:
+        html = html.replace("</head>", style + "</head>")
     return html
 
 
