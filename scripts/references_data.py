@@ -56,9 +56,14 @@ REFERENCES = [
     ("natural-dukkan", "Natural Dukkan", "Calisma-Yuzeyi-28-kopya-11_4x.webp", None, None),
     ("3e-ilaclama", "3E İlaçlama", "Calisma-Yuzeyi-28-kopya-12_4x.webp", None, None),
     ("yengec", "Yengeç", "Calisma-Yuzeyi-28-kopya-6_4x.webp", None, None),
-    ("pedalbox", "Pedalbox", "Calisma-Yuzeyi-28-kopya-5_4x.webp", None, None),
+    ("pedalbox", "Pedalbox", "Calisma-Yuzeyi-28-kopya-5_4x.webp", None, "pedalbox.mp4"),
     ("gekoo", "GekoO", "Calisma-Yuzeyi-28-kopya-4_4x.webp", None, None),
     ("decorevi", "DecorEvi", "Calisma-Yuzeyi-28-kopya-3_4x.webp", None, None),
     ("sekiz-oniki", "Sekiz Oniki", "Website-Reference-Logo-1.png", "egitim", None),
     ("cordelia", "Cordelia", "cordelia.webp", "gayrimenkul-turizm", None),
 ]
+
+# Card details per reference slug: year of work, services we delivered, optional hover heading.
+DETAILS = {
+    "pedalbox": {"year": "2020", "services": ["Performans Pazarlaması", "Web Analitiği"]},
+}

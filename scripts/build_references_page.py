@@ -52,7 +52,9 @@ def make_poster(logo_path: pathlib.Path, out: pathlib.Path):
 
 
 def cmd_posters():
-    for slug, title, logo, *_ in R.REFERENCES:
+    for slug, title, logo, _sector, video in R.REFERENCES:
+        if video:  # poster is a frame of the video, keep it
+            continue
         make_poster(CLIENTS / logo, POSTERS / f"{slug}.jpg")
     print(f"posters: {len(R.REFERENCES)} -> {POSTERS}")
 
@@ -101,11 +103,16 @@ def build_payload(sha):
                 R.FEATURED_SECTORS.get(p["name"]),
             )
         )
-    # 2) the rest of the references (logo posters, videos added one by one)
-    for slug, title, _logo, sector, video in R.REFERENCES:
+    # 2) the rest of the references; those with a video come first, logo-only cards after
+    refs = sorted(R.REFERENCES, key=lambda r: r[4] is None)
+    for slug, title, _logo, sector, video in refs:
         db_id += 1
+        d = R.DETAILS.get(slug, {})
         vid = f"{base}/{video}" if video else None
-        projects.append(project_node(db_id, title, slug, None, f"{base}/{slug}.jpg", vid, None, [], sector))
+        projects.append(project_node(
+            db_id, title, slug, d.get("year"), f"{base}/{slug}.jpg", vid,
+            d.get("heading"), d.get("services", []), sector,
+        ))
 
     counts = {}
     for pr in projects:
