@@ -198,9 +198,24 @@ def patch_chunk():
 
 
 def strip_hero_video(html: str) -> str:
-    # Safely hide the hero video element without breaking React hydration / flight AST
-    style = '<style id="hide-hero-video">.Hero_video__rzcbe{display:none!important;visibility:hidden!important;width:0!important;height:0!important;pointer-events:none!important;}</style>'
-    if "hide-hero-video" not in html:
+    # Safely hide the hero video element and reduce excessive vertical spacing
+    # caused by removing the video (which previously stretched the hero to 100svh).
+    style = (
+        '<style id="hide-hero-video">'
+        '.Hero_video__rzcbe{display:none!important;visibility:hidden!important;width:0!important;height:0!important;pointer-events:none!important;}'
+        '.Hero_hero__Oyf4n{height:auto!important;min-height:0!important;max-height:none!important;padding-bottom:3.5rem!important;}'
+        '.Hero_top__RRkYH{align-self:auto!important;}'
+        '.Hero_hero__Oyf4n h2{margin-top:0.5rem!important;margin-bottom:2.5rem!important;}'
+        '.Hero_bottom__ktiOH{align-self:auto!important;margin-top:1rem!important;}'
+        '@media (max-width:768px){'
+        '.Hero_hero__Oyf4n .container{height:auto!important;padding-top:6rem!important;padding-bottom:2rem!important;}'
+        '.Hero_bottom__ktiOH{flex:none!important;margin-top:1.5rem!important;}'
+        '}'
+        '</style>'
+    )
+    if '<style id="hide-hero-video">' in html:
+        html = re.sub(r'<style id="hide-hero-video">.*?</style>', style, html, flags=re.DOTALL)
+    else:
         html = html.replace("</head>", style + "</head>")
     return html
 
