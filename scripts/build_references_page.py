@@ -169,7 +169,7 @@ def patch_chunk():
     m = re.search(r'\(0,n\.jsxs\)\("button",\{className:\(0,a\.cn\)\(s\(\)\.trigger,u\?s\(\)\.active:""\),onClick:\(\)=>\{d\(!u\),o&&c\(!1\)\},children:\["Services",', t)
     if m:
         i, depth = m.start(), 0
-        j = i
+        j = i + len("(0,n.jsxs)")  # match the call's argument list, not the callee parens
         while True:
             c = t[j]
             if c == "(":
