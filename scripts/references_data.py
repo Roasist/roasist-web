@@ -42,7 +42,7 @@ REFERENCES = [
     ("mobile-game-factory", "Mobile Game Factory", "Calisma-Yuzeyi-28-kopya-15_4x.webp", "oyun", None),
     ("istanbul-medya-akademisi", "İstanbul Medya Akademisi", "Calisma-Yuzeyi-28-kopya_4x.webp", "egitim", "istanbul-medya-akademisi.mp4"),
     ("kodlab", "Kodlab", "Calisma-Yuzeyi-28-kopya-2_4x.webp", None, None),
-    ("dus-bahcesi-okullari", "Düş Bahçesi Okulları", "Website-Reference-Logo-2.png", "egitim", None),
+    ("dus-bahcesi-okullari", "Düş Bahçesi Okulları", "Website-Reference-Logo-2.png", "egitim", "dus-bahcesi-okullari.mp4"),
     ("marmara-kurs", "Marmara Kurs", "Website-Reference-Logo-3.png", "egitim", None),
     ("bessekiz-ortaokullari", "Beşsekiz Ortaokulları", "besseKiz.png", "egitim", None),
     ("urla-balik", "Urla Balık", "Calisma-Yuzeyi-28-kopya-10_4x.webp", "yeme-icme", None),
@@ -91,5 +91,8 @@ DETAILS = {
     },
     "izmir-balik-restaurant": {
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım", "Kreatif İletişim"],
+    },
+    "dus-bahcesi-okullari": {
+        "services": ["Performans Pazarlaması", "Web Analitiği"],
     },
 }
