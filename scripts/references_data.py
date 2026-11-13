@@ -46,7 +46,7 @@ REFERENCES = [
     ("marmara-kurs", "Marmara Kurs", "Website-Reference-Logo-3.png", "egitim", None),
     ("bessekiz-ortaokullari", "Beşsekiz Ortaokulları", "besseKiz.png", "egitim", None),
     ("urla-balik", "Urla Balık", "Calisma-Yuzeyi-28-kopya-10_4x.webp", "yeme-icme", None),
-    ("izmir-balik-restaurant", "İzmir Balık Restaurant", "izmir-balik.png", "yeme-icme", None),
+    ("izmir-balik-restaurant", "İzmir Balık Restaurant", "izmir-balik.png", "yeme-icme", "izmir-balik-restaurant.mp4"),
     ("kitapbilgini", "Kitapbilgini", "Calisma-Yuzeyi-28_4x.webp", None, None),
     ("sfk", "SFK", "Calisma-Yuzeyi-28-kopya-20_4x.webp", None, None),
     ("cosy-life-consulting", "Cosy Life Consulting", "Calisma-Yuzeyi-28-kopya-18_4x.webp", None, None),
@@ -88,5 +88,8 @@ DETAILS = {
     },
     "istanbul-medya-akademisi": {
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
+    },
+    "izmir-balik-restaurant": {
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım", "Kreatif İletişim"],
     },
 }
