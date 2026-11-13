@@ -98,7 +98,7 @@ def build_payload(sha):
         db_id += 1
         projects.append(
             project_node(
-                db_id, p["name"], re.sub(r"\W+", "-", p["name"].lower()), p["year"],
+                db_id, p["name"], re.sub(r"\W+", "-", p["name"].lower()), None,
                 p["img_src"], p.get("video"), p["heading"], p["tags"],
                 R.FEATURED_SECTORS.get(p["name"]),
             )
@@ -110,7 +110,7 @@ def build_payload(sha):
         d = R.DETAILS.get(slug, {})
         vid = f"{base}/{video}" if video else None
         projects.append(project_node(
-            db_id, title, slug, d.get("year"), f"{base}/{slug}.jpg", vid,
+            db_id, title, slug, None, f"{base}/{slug}.jpg", vid,
             d.get("heading"), d.get("services", []), sector,
         ))
 

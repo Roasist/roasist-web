@@ -63,51 +63,138 @@ REFERENCES = [
     ("cordelia", "Cordelia", "cordelia.webp", "gayrimenkul-turizm", "cordelia.mp4"),
 ]
 
-# Card details per reference slug: year of work, services we delivered, optional hover heading.
+# Card details per reference slug: hover heading and delivered services.
 DETAILS = {
-    "pedalbox": {"year": "2020", "services": ["Performans Pazarlaması", "Web Analitiği"]},
     "op-dr-ozgur-demirtas": {
-        "year": "2022",
+        "heading": "Estetik ve cerrahide hasta odaklı dijital büyüme.",
         "services": ["Performans Pazarlaması", "Web Analitik", "Büyüme Stratejisi", "Grafik Tasarım"],
     },
-    "doctor-bircan": {
-        "year": "2022",
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
+    "turkey-hair-academy": {
+        "heading": "Sağlık turizminde global hasta kazanımı ve ölçekleme.",
+        "services": ["Performans Pazarlaması", "Büyüme Stratejisi"],
     },
-    "center-of-surgeons": {
-        "year": "2022",
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
-    },
-    "turkey-house": {
-        "year": "2025",
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
-    },
-    "livaneli-group": {
-        "year": "2025",
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
-    },
-    "istanbul-medya-akademisi": {
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
+    "autarke-call-center": {
+        "heading": "Çok dilli çağrı merkezleri için kurumsal müşteri edinimi.",
+        "services": ["Performans Pazarlaması", "Dijital Strateji"],
     },
     "izmir-balik-restaurant": {
+        "heading": "Gastronomide yerel marka bilinirliği ve masa rezervasyonu.",
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım", "Kreatif İletişim"],
     },
-    "dus-bahcesi-okullari": {
+    "bbg-call-center": {
+        "heading": "Çağrı merkezi sektöründe nitelikli lead ve yetenek kazanımı.",
+        "services": ["Performans Pazarlaması", "Büyüme Stratejisi"],
+    },
+    "loyalcall": {
+        "heading": "Müşteri iletişim merkezleri için veri odaklı büyüme stratejisi.",
         "services": ["Performans Pazarlaması", "Web Analitiği"],
+    },
+    "doctor-bircan": {
+        "heading": "Uluslararası saç ekimi ve estetikte yüksek dönüşümlü hasta edinimi.",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
+    },
+    "hyundai": {
+        "heading": "Otomotiv dünyasında test sürüşü ve satış odaklı kampanyalar.",
+        "services": ["Performans Pazarlaması", "Kampanya Yönetimi"],
+    },
+    "mobile-game-factory": {
+        "heading": "Mobil oyun ekosisteminde kullanıcı edinimi ve küresel ölçeklenme.",
+        "services": ["Performans Pazarlaması", "Büyüme Stratejisi"],
     },
     "yengec": {
+        "heading": "E-ticaret entegrasyonu yazılımında SaaS büyüme ve müşteri edinimi.",
         "services": ["Performans Pazarlaması", "Web Analitiği"],
     },
-    "gekoo": {
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
+    "kodlab": {
+        "heading": "Yazılım ve teknoloji yayıncılığında e-ticaret odaklı satış artışı.",
+        "services": ["Performans Pazarlaması", "E-Ticaret Büyüme"],
     },
-    "sekiz-oniki": {
+    "marmara-kurs": {
+        "heading": "Eğitim sektöründe hedef kitle odaklı öğrenci kayıt dönüşümü.",
+        "services": ["Performans Pazarlaması", "Kayıt Stratejisi"],
+    },
+    "turkey-house": {
+        "heading": "Yabancı yatırımcı odaklı lüks gayrimenkul portföy pazarlaması.",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
+    },
+    "bessekiz-ortaokullari": {
+        "heading": "Özel okul eğitiminde veli etkileşimi ve yeni dönem kayıt başarısı.",
+        "services": ["Performans Pazarlaması", "Kurumsal İletişim"],
+    },
+    "urla-balik": {
+        "heading": "Ege gastronomisinde marka konumlandırma ve ziyaretçi trafiği.",
+        "services": ["Performans Pazarlaması", "Kreatif İletişim"],
+    },
+    "livaneli-group": {
+        "heading": "Prestijli gayrimenkul ve turizm yatırımlarında küresel büyüme.",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
+    },
+    "kitapbilgini": {
+        "heading": "Online kitap satışında sepet dönüşüm oranı ve ROAS optimizasyonu.",
+        "services": ["Performans Pazarlaması", "E-Ticaret Büyüme"],
+    },
+    "sfk": {
+        "heading": "B2B sektöründe uluslararası pazar payı ve nitelikli talep oluşturma.",
+        "services": ["Performans Pazarlaması", "B2B Strateji"],
+    },
+    "istanbul-medya-akademisi": {
+        "heading": "Medya ve iletişim eğitimlerinde sektör profesyonellerine erişim.",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
+    },
+    "cosy-life-consulting": {
+        "heading": "Yatırım ve yaşam danışmanlığında nitelikli müşteri portföyü.",
+        "services": ["Performans Pazarlaması", "Büyüme Stratejisi"],
+    },
+    "dus-bahcesi-okullari": {
+        "heading": "Erken çocukluk eğitiminde güven ve veli odaklı kayıt stratejisi.",
         "services": ["Performans Pazarlaması", "Web Analitiği"],
     },
-    "cordelia": {
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
+    "lefior": {
+        "heading": "Premium dermokozmetikte e-ticaret satış hacmi ve marka sadakati.",
+        "services": ["Performans Pazarlaması", "E-Ticaret Büyüme"],
+    },
+    "center-of-surgeons": {
+        "heading": "Cerrahi uzmanlık alanlarında küresel hasta iletişimi ve randevu hacmi.",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
+    },
+    "elose-laboratories": {
+        "heading": "Dermokozmetik laboratuvar ürünlerinde pazaryeri ve web satışı.",
+        "services": ["Performans Pazarlaması", "E-Ticaret Stratejisi"],
     },
     "dermaderm": {
+        "heading": "Bitkisel cilt ve saç bakımında doğrudan tüketiciye satış ölçekleme.",
         "services": ["Performans Pazarlaması"],
+    },
+    "yoloo": {
+        "heading": "Mobil ulaşım teknolojisinde aktif kullanıcı edinimi ve büyüme.",
+        "services": ["Performans Pazarlaması", "Uygulama Büyüme"],
+    },
+    "pedalbox": {
+        "heading": "Otomotiv performans teknolojisinde e-ticaret satış ve lead artışı.",
+        "services": ["Performans Pazarlaması", "Web Analitiği"],
+    },
+    "natural-dukkan": {
+        "heading": "Organik ve doğal yaşam ürünlerinde sürdürülebilir e-ticaret geliri.",
+        "services": ["Performans Pazarlaması", "E-Ticaret Büyüme"],
+    },
+    "gekoo": {
+        "heading": "Organik bebek ve çocuk beslenmesinde güven odaklı satış dönüşümü.",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
+    },
+    "3e-ilaclama": {
+        "heading": "Kurumsal ve bireysel çevre sağlığında hızlı yerel çağrı dönüşümü.",
+        "services": ["Performans Pazarlaması", "Yerel Reklamlar"],
+    },
+    "sekiz-oniki": {
+        "heading": "Sınav hazırlık eğitiminde hedefli veli iletişimi ve şube kayıtları.",
+        "services": ["Performans Pazarlaması", "Web Analitiği"],
+    },
+    "decorevi": {
+        "heading": "Ev dekorasyonunda ortalama sepet tutarı ve e-ticaret ROAS artışı.",
+        "services": ["Performans Pazarlaması", "E-Ticaret Reklamları"],
+    },
+    "cordelia": {
+        "heading": "Butik tatil ve gayrimenkul konseptinde yüksek etkileşimli doluluk.",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
     },
 }
