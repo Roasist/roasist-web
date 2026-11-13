@@ -43,9 +43,9 @@ REFERENCES = [
     ("turkey-house", "Turkey House", "Website-Reference-Logo-5.png", "gayrimenkul-turizm", "turkey-house.mp4"),
     ("bessekiz-ortaokullari", "Beşsekiz Ortaokulları", "besseKiz.png", "egitim", "bessekiz-ortaokullari.mp4"),
     ("urla-balik", "Urla Balık", "Calisma-Yuzeyi-28-kopya-10_4x.webp", "yeme-icme", "urla-balik.mp4"),
-    ("livaneli-group", "Livaneli Group", "livaneli.png", "gayrimenkul-turizm", "livaneli-group.mp4"),
+    ("livaneli-group", "Livaneli Hotels", "livaneli.png", "gayrimenkul-turizm", "livaneli-group.mp4"),
     ("kitapbilgini", "Kitapbilgini", "Calisma-Yuzeyi-28_4x.webp", None, "kitapbilgini.mp4"),
-    ("sfk", "SFK", "Calisma-Yuzeyi-28-kopya-20_4x.webp", None, "sfk.mp4"),
+    ("sfk", "SFK", "Calisma-Yuzeyi-28-kopya-20_4x.webp", "egitim", "sfk.mp4"),
     ("istanbul-medya-akademisi", "İstanbul Medya Akademisi", "Calisma-Yuzeyi-28-kopya_4x.webp", "egitim", "istanbul-medya-akademisi.mp4"),
     ("cosy-life-consulting", "Cosy Life Consulting", "Calisma-Yuzeyi-28-kopya-18_4x.webp", None, "cosy-life-consulting.mp4"),
     ("dus-bahcesi-okullari", "Düş Bahçesi Okulları", "Website-Reference-Logo-2.png", "egitim", "dus-bahcesi-okullari.mp4"),
@@ -74,8 +74,8 @@ DETAILS = {
         "services": ["Performans Pazarlaması", "Büyüme Stratejisi"],
     },
     "autarke-call-center": {
-        "heading": "Çok dilli çağrı merkezleri için kurumsal müşteri edinimi.",
-        "services": ["Performans Pazarlaması", "Dijital Strateji"],
+        "heading": "Çok dilli çağrı merkezi operasyonları için nitelikli yetenek kazanımı.",
+        "services": ["Yetenek Kazanımı", "Performans Pazarlaması"],
     },
     "izmir-balik-restaurant": {
         "heading": "Gastronomide yerel marka bilinirliği ve masa rezervasyonu.",
@@ -94,8 +94,8 @@ DETAILS = {
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
     },
     "hyundai": {
-        "heading": "Otomotiv dünyasında test sürüşü ve satış odaklı kampanyalar.",
-        "services": ["Performans Pazarlaması", "Kampanya Yönetimi"],
+        "heading": "Evsel ve kurumsal su arıtma sistemlerinde talep ve satış dönüşümü.",
+        "services": ["Performans Pazarlaması", "Talep Oluşturma"],
     },
     "mobile-game-factory": {
         "heading": "Mobil oyun ekosisteminde kullanıcı edinimi ve küresel ölçeklenme.",
@@ -126,16 +126,16 @@ DETAILS = {
         "services": ["Performans Pazarlaması", "Kreatif İletişim"],
     },
     "livaneli-group": {
-        "heading": "Prestijli gayrimenkul ve turizm yatırımlarında küresel büyüme.",
-        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
+        "heading": "Lokal butik otel konseptinde doğrudan rezervasyon ve doluluk artışı.",
+        "services": ["Performans Pazarlaması", "Web Tasarım", "Rezervasyon Büyümesi"],
     },
     "kitapbilgini": {
         "heading": "Online kitap satışında sepet dönüşüm oranı ve ROAS optimizasyonu.",
         "services": ["Performans Pazarlaması", "E-Ticaret Büyüme"],
     },
     "sfk": {
-        "heading": "B2B sektöründe uluslararası pazar payı ve nitelikli talep oluşturma.",
-        "services": ["Performans Pazarlaması", "B2B Strateji"],
+        "heading": "Almanya'da çocuk kitabı yayıncılığında marka bilinirliği ve kültürel erişim.",
+        "services": ["Performans Pazarlaması", "Yayıncılık İletişimi", "Marka Bilinirliği"],
     },
     "istanbul-medya-akademisi": {
         "heading": "Medya ve iletişim eğitimlerinde sektör profesyonellerine erişim.",
@@ -182,8 +182,8 @@ DETAILS = {
         "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
     },
     "3e-ilaclama": {
-        "heading": "Kurumsal ve bireysel çevre sağlığında hızlı yerel çağrı dönüşümü.",
-        "services": ["Performans Pazarlaması", "Yerel Reklamlar"],
+        "heading": "Lokal böcek ve haşere ilaçlama hizmetinde anlık çağrı dönüşümü.",
+        "services": ["Performans Pazarlaması", "Lokal Arama Reklamları"],
     },
     "sekiz-oniki": {
         "heading": "Sınav hazırlık eğitiminde hedefli veli iletişimi ve şube kayıtları.",
