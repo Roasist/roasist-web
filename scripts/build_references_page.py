@@ -103,8 +103,8 @@ def build_payload(sha):
                 R.FEATURED_SECTORS.get(p["name"]),
             )
         )
-    # 2) the rest of the references; those with a video come first, logo-only cards after
-    refs = sorted(R.REFERENCES, key=lambda r: r[4] is None)
+    # 2) the rest of the references; curated order (max 2 video-less cards consecutively)
+    refs = R.REFERENCES
     for slug, title, _logo, sector, video in refs:
         db_id += 1
         d = R.DETAILS.get(slug, {})
