@@ -57,7 +57,7 @@ REFERENCES = [
     ("3e-ilaclama", "3E İlaçlama", "Calisma-Yuzeyi-28-kopya-12_4x.webp", None, None),
     ("yengec", "Yengeç", "Calisma-Yuzeyi-28-kopya-6_4x.webp", None, "yengec.mp4"),
     ("pedalbox", "Pedalbox", "Calisma-Yuzeyi-28-kopya-5_4x.webp", None, "pedalbox.mp4"),
-    ("gekoo", "GekoO", "Calisma-Yuzeyi-28-kopya-4_4x.webp", None, None),
+    ("gekoo", "GekoO", "Calisma-Yuzeyi-28-kopya-4_4x.webp", None, "gekoo.mp4"),
     ("decorevi", "DecorEvi", "Calisma-Yuzeyi-28-kopya-3_4x.webp", None, None),
     ("sekiz-oniki", "Sekiz Oniki", "Website-Reference-Logo-1.png", "egitim", None),
     ("cordelia", "Cordelia", "cordelia.webp", "gayrimenkul-turizm", None),
@@ -97,5 +97,8 @@ DETAILS = {
     },
     "yengec": {
         "services": ["Performans Pazarlaması", "Web Analitiği"],
+    },
+    "gekoo": {
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
     },
 }
