@@ -31,7 +31,7 @@ REFERENCES = [
     ("op-dr-ozgur-demirtas", "Op. Dr. Özgür Demirtaş", "Calisma-Yuzeyi-28-kopya-21.webp", "saglik", "op-dr-ozgur-demirtas.mp4"),
     ("center-of-surgeons", "Center of Surgeons", "Calisma-Yuzeyi-28-kopya-19_4x.webp", "saglik", "center-of-surgeons.mp4"),
     ("doctor-bircan", "Doctor Bircan", "Calisma-Yuzeyi-28-kopya-17_4x.webp", "saglik", "doctor-bircan.mp4"),
-    ("dermaderm", "DermaDerm", "Calisma-Yuzeyi-28-kopya-14_4x.webp", "saglik", None),
+    ("dermaderm", "DermaDerm", "Calisma-Yuzeyi-28-kopya-14_4x.webp", "saglik", "dermaderm.mp4"),
     ("turkey-hair-academy", "Turkey Hair Academy", "Calisma-Yuzeyi-28-kopya-22.webp", "saglik", None),
     ("autarke-call-center", "Autarke Call Center", "Calisma-Yuzeyi-28-kopya-9_4x.webp", "cagri-merkezi", None),
     ("bbg-call-center", "BBG Call Center", "bbg-call-center.png", "cagri-merkezi", None),
@@ -106,5 +106,8 @@ DETAILS = {
     },
     "cordelia": {
         "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
+    },
+    "dermaderm": {
+        "services": ["Performans Pazarlaması"],
     },
 }
