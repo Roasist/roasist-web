@@ -55,7 +55,7 @@ REFERENCES = [
     ("yoloo", "Yoloo", "Calisma-Yuzeyi-28-kopya-7_4x.webp", None, None),
     ("natural-dukkan", "Natural Dukkan", "Calisma-Yuzeyi-28-kopya-11_4x.webp", None, None),
     ("3e-ilaclama", "3E İlaçlama", "Calisma-Yuzeyi-28-kopya-12_4x.webp", None, None),
-    ("yengec", "Yengeç", "Calisma-Yuzeyi-28-kopya-6_4x.webp", None, None),
+    ("yengec", "Yengeç", "Calisma-Yuzeyi-28-kopya-6_4x.webp", None, "yengec.mp4"),
     ("pedalbox", "Pedalbox", "Calisma-Yuzeyi-28-kopya-5_4x.webp", None, "pedalbox.mp4"),
     ("gekoo", "GekoO", "Calisma-Yuzeyi-28-kopya-4_4x.webp", None, None),
     ("decorevi", "DecorEvi", "Calisma-Yuzeyi-28-kopya-3_4x.webp", None, None),
@@ -93,6 +93,9 @@ DETAILS = {
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım", "Kreatif İletişim"],
     },
     "dus-bahcesi-okullari": {
+        "services": ["Performans Pazarlaması", "Web Analitiği"],
+    },
+    "yengec": {
         "services": ["Performans Pazarlaması", "Web Analitiği"],
     },
 }
