@@ -60,7 +60,7 @@ REFERENCES = [
     ("gekoo", "GekoO", "Calisma-Yuzeyi-28-kopya-4_4x.webp", None, "gekoo.mp4"),
     ("decorevi", "DecorEvi", "Calisma-Yuzeyi-28-kopya-3_4x.webp", None, None),
     ("sekiz-oniki", "Sekiz Oniki", "Website-Reference-Logo-1.png", "egitim", "sekiz-oniki.mp4"),
-    ("cordelia", "Cordelia", "cordelia.webp", "gayrimenkul-turizm", None),
+    ("cordelia", "Cordelia", "cordelia.webp", "gayrimenkul-turizm", "cordelia.mp4"),
 ]
 
 # Card details per reference slug: year of work, services we delivered, optional hover heading.
@@ -103,5 +103,8 @@ DETAILS = {
     },
     "sekiz-oniki": {
         "services": ["Performans Pazarlaması", "Web Analitiği"],
+    },
+    "cordelia": {
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Kreatif İletişim"],
     },
 }
