@@ -29,7 +29,7 @@ FEATURED_SECTORS = {
 # Sector is only set where the brand's sector is clear; None = shown under "Tümü" only.
 REFERENCES = [
     ("op-dr-ozgur-demirtas", "Op. Dr. Özgür Demirtaş", "Calisma-Yuzeyi-28-kopya-21.webp", "saglik", "op-dr-ozgur-demirtas.mp4"),
-    ("center-of-surgeons", "Center of Surgeons", "Calisma-Yuzeyi-28-kopya-19_4x.webp", "saglik", None),
+    ("center-of-surgeons", "Center of Surgeons", "Calisma-Yuzeyi-28-kopya-19_4x.webp", "saglik", "center-of-surgeons.mp4"),
     ("doctor-bircan", "Doctor Bircan", "Calisma-Yuzeyi-28-kopya-17_4x.webp", "saglik", "doctor-bircan.mp4"),
     ("dermaderm", "DermaDerm", "Calisma-Yuzeyi-28-kopya-14_4x.webp", "saglik", None),
     ("turkey-hair-academy", "Turkey Hair Academy", "Calisma-Yuzeyi-28-kopya-22.webp", "saglik", None),
@@ -71,6 +71,10 @@ DETAILS = {
         "services": ["Performans Pazarlaması", "Web Analitik", "Büyüme Stratejisi", "Grafik Tasarım"],
     },
     "doctor-bircan": {
+        "year": "2022",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
+    },
+    "center-of-surgeons": {
         "year": "2022",
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
     },
