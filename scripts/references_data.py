@@ -37,7 +37,7 @@ REFERENCES = [
     ("bbg-call-center", "BBG Call Center", "bbg-call-center.png", "cagri-merkezi", None),
     ("loyalcall", "LoyalCall", "loyalcall.png", "cagri-merkezi", None),
     ("turkey-house", "Turkey House", "Website-Reference-Logo-5.png", "gayrimenkul-turizm", "turkey-house.mp4"),
-    ("livaneli-group", "Livaneli Group", "livaneli.png", "gayrimenkul-turizm", None),
+    ("livaneli-group", "Livaneli Group", "livaneli.png", "gayrimenkul-turizm", "livaneli-group.mp4"),
     ("hyundai", "Hyundai", "Calisma-Yuzeyi-28-kopya-8_4x.webp", None, None),
     ("mobile-game-factory", "Mobile Game Factory", "Calisma-Yuzeyi-28-kopya-15_4x.webp", "oyun", None),
     ("istanbul-medya-akademisi", "İstanbul Medya Akademisi", "Calisma-Yuzeyi-28-kopya_4x.webp", "egitim", None),
@@ -81,5 +81,9 @@ DETAILS = {
     "turkey-house": {
         "year": "2025",
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
+    },
+    "livaneli-group": {
+        "year": "2025",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
     },
 }
