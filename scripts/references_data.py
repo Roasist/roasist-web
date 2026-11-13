@@ -30,7 +30,7 @@ FEATURED_SECTORS = {
 REFERENCES = [
     ("op-dr-ozgur-demirtas", "Op. Dr. Özgür Demirtaş", "Calisma-Yuzeyi-28-kopya-21.webp", "saglik", "op-dr-ozgur-demirtas.mp4"),
     ("center-of-surgeons", "Center of Surgeons", "Calisma-Yuzeyi-28-kopya-19_4x.webp", "saglik", None),
-    ("doctor-bircan", "Doctor Bircan", "Calisma-Yuzeyi-28-kopya-17_4x.webp", "saglik", None),
+    ("doctor-bircan", "Doctor Bircan", "Calisma-Yuzeyi-28-kopya-17_4x.webp", "saglik", "doctor-bircan.mp4"),
     ("dermaderm", "DermaDerm", "Calisma-Yuzeyi-28-kopya-14_4x.webp", "saglik", None),
     ("turkey-hair-academy", "Turkey Hair Academy", "Calisma-Yuzeyi-28-kopya-22.webp", "saglik", None),
     ("autarke-call-center", "Autarke Call Center", "Calisma-Yuzeyi-28-kopya-9_4x.webp", "cagri-merkezi", None),
@@ -69,5 +69,9 @@ DETAILS = {
     "op-dr-ozgur-demirtas": {
         "year": "2022",
         "services": ["Performans Pazarlaması", "Web Analitik", "Büyüme Stratejisi", "Grafik Tasarım"],
+    },
+    "doctor-bircan": {
+        "year": "2022",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
     },
 }
