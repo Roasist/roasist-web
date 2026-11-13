@@ -40,7 +40,7 @@ REFERENCES = [
     ("livaneli-group", "Livaneli Group", "livaneli.png", "gayrimenkul-turizm", "livaneli-group.mp4"),
     ("hyundai", "Hyundai", "Calisma-Yuzeyi-28-kopya-8_4x.webp", None, None),
     ("mobile-game-factory", "Mobile Game Factory", "Calisma-Yuzeyi-28-kopya-15_4x.webp", "oyun", None),
-    ("istanbul-medya-akademisi", "İstanbul Medya Akademisi", "Calisma-Yuzeyi-28-kopya_4x.webp", "egitim", None),
+    ("istanbul-medya-akademisi", "İstanbul Medya Akademisi", "Calisma-Yuzeyi-28-kopya_4x.webp", "egitim", "istanbul-medya-akademisi.mp4"),
     ("kodlab", "Kodlab", "Calisma-Yuzeyi-28-kopya-2_4x.webp", None, None),
     ("dus-bahcesi-okullari", "Düş Bahçesi Okulları", "Website-Reference-Logo-2.png", "egitim", None),
     ("marmara-kurs", "Marmara Kurs", "Website-Reference-Logo-3.png", "egitim", None),
@@ -84,6 +84,9 @@ DETAILS = {
     },
     "livaneli-group": {
         "year": "2025",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
+    },
+    "istanbul-medya-akademisi": {
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi", "Grafik Tasarım", "Web Tasarım"],
     },
 }
