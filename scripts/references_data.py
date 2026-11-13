@@ -28,7 +28,7 @@ FEATURED_SECTORS = {
 # (slug, title, logo file in public/images/clients, sector slug or None, video or None)
 # Sector is only set where the brand's sector is clear; None = shown under "Tümü" only.
 REFERENCES = [
-    ("op-dr-ozgur-demirtas", "Op. Dr. Özgür Demirtaş", "Calisma-Yuzeyi-28-kopya-21.webp", "saglik", None),
+    ("op-dr-ozgur-demirtas", "Op. Dr. Özgür Demirtaş", "Calisma-Yuzeyi-28-kopya-21.webp", "saglik", "op-dr-ozgur-demirtas.mp4"),
     ("center-of-surgeons", "Center of Surgeons", "Calisma-Yuzeyi-28-kopya-19_4x.webp", "saglik", None),
     ("doctor-bircan", "Doctor Bircan", "Calisma-Yuzeyi-28-kopya-17_4x.webp", "saglik", None),
     ("dermaderm", "DermaDerm", "Calisma-Yuzeyi-28-kopya-14_4x.webp", "saglik", None),
@@ -66,4 +66,8 @@ REFERENCES = [
 # Card details per reference slug: year of work, services we delivered, optional hover heading.
 DETAILS = {
     "pedalbox": {"year": "2020", "services": ["Performans Pazarlaması", "Web Analitiği"]},
+    "op-dr-ozgur-demirtas": {
+        "year": "2022",
+        "services": ["Performans Pazarlaması", "Web Analitik", "Büyüme Stratejisi", "Grafik Tasarım"],
+    },
 }
