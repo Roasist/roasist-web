@@ -220,6 +220,44 @@ def strip_hero_video(html: str) -> str:
     return html
 
 
+def inject_scroll_to_top(html: str) -> str:
+    script = (
+        '<script id="always-scroll-to-top">'
+        '(function(){'
+        'if(typeof window==="undefined")return;'
+        'if("scrollRestoration" in history){history.scrollRestoration="manual";}'
+        'window.scrollTo(0,0);'
+        'if(document.documentElement)document.documentElement.scrollTop=0;'
+        'if(document.body)document.body.scrollTop=0;'
+        'window.addEventListener("beforeunload",function(){window.scrollTo(0,0);});'
+        'window.addEventListener("pageshow",function(){window.scrollTo(0,0);if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0;});'
+        'document.addEventListener("DOMContentLoaded",function(){window.scrollTo(0,0);});'
+        'window.addEventListener("load",function(){'
+        'window.scrollTo(0,0);'
+        '[10,50,100,200,300].forEach(function(d){'
+        'setTimeout(function(){'
+        'if(window.scrollY>0&&!window.__userScrolled){'
+        'window.scrollTo(0,0);'
+        'if(document.documentElement)document.documentElement.scrollTop=0;'
+        'if(document.body)document.body.scrollTop=0;'
+        '}'
+        '},d);'
+        '});'
+        '});'
+        'window.__userScrolled=false;'
+        'window.addEventListener("wheel",function(){window.__userScrolled=true;},{passive:true,once:true});'
+        'window.addEventListener("touchmove",function(){window.__userScrolled=true;},{passive:true,once:true});'
+        'window.addEventListener("keydown",function(e){if([32,33,34,35,36,38,40].indexOf(e.keyCode)!==-1){window.__userScrolled=true;}},{passive:true,once:true});'
+        '})();'
+        '</script>'
+    )
+    if '<script id="always-scroll-to-top">' in html:
+        html = re.sub(r'<script id="always-scroll-to-top">.*?</script>', script, html, flags=re.DOTALL)
+    else:
+        html = html.replace("<head>", "<head>" + script)
+    return html
+
+
 def cmd_patch(sha):
     html = PAGE.read_text(encoding="utf-8")
     sectors, projects = build_payload(sha)
@@ -227,9 +265,10 @@ def cmd_patch(sha):
     html, _ = replace_array(html, "sectors", sectors)
     html, _ = replace_array(html, "services", [])
     html = strip_hero_video(html)
+    html = inject_scroll_to_top(html)
     PAGE.write_text(html, encoding="utf-8")
     patch_chunk()
-    print(f"patched {PAGE.relative_to(ROOT)}: {len(projects)} projects, {len(sectors)} sectors (hero video stripped)")
+    print(f"patched {PAGE.relative_to(ROOT)}: {len(projects)} projects, {len(sectors)} sectors (hero video stripped, scroll-to-top injected)")
 
 
 if __name__ == "__main__":
