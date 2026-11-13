@@ -73,7 +73,7 @@ SVG_ARROW_OBJ = [
     },
 ]
 
-CDN_PROJECTS = "https://cdn.jsdelivr.net/gh/Roasist/roasist-web@af1b02c4bbdb0a6c08d078f892ba5a667b920530/public/images/projects"
+CDN_PROJECTS = "https://cdn.jsdelivr.net/gh/Roasist/roasist-web@b70bc8c43ee0a8b38f1efd99b4d0ea5bc0d08f40/public/images/projects"
 
 # 5 Featured Roasist Client Brands with custom sector-specific loop MP4 videos & poster images
 PROJECTS = [
@@ -166,11 +166,11 @@ PROJECTS = [
             "Web Analitik",
             "Kreatif İletişim",
         ],
-        "img_srcset": f"{CDN_PROJECTS}/bonus-vip.jpg 1440w",
-        "img_src": f"{CDN_PROJECTS}/bonus-vip.jpg",
+        "img_srcset": f"{CDN_PROJECTS}/bonus-vip-office.jpg 1440w",
+        "img_src": f"{CDN_PROJECTS}/bonus-vip-office.jpg",
         "img_w": 1440,
         "img_h": 810,
-        "video": f"{CDN_PROJECTS}/bonus-vip.mp4",
+        "video": f"{CDN_PROJECTS}/bonus-vip-office.mp4",
     },
 ]
 
