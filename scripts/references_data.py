@@ -1,0 +1,64 @@
+"""Roasist reference list for the /referanslar page.
+
+Single source of truth. Add `video` (file name inside public/images/references/)
+to a reference to give its card a short loop video; the poster is generated from
+the logo until then. Featured projects (those that already have a video on the
+homepage) are pulled from scripts/update_work_section.py PROJECTS.
+"""
+
+# sector slug -> label (a filter only appears for sectors that have >= 1 reference)
+SECTORS = {
+    "saglik": "Sağlık",
+    "egitim": "Eğitim",
+    "gayrimenkul-turizm": "Gayrimenkul ve Turizm",
+    "cagri-merkezi": "Çağrı Merkezi",
+    "yeme-icme": "Yeme İçme",
+    "oyun": "Oyun",
+}
+
+# Sector of the featured homepage projects (keyed by PROJECTS["name"]).
+FEATURED_SECTORS = {
+    "23 Projects": "gayrimenkul-turizm",
+    "Summer Homes": "gayrimenkul-turizm",
+    "Dental Art": "saglik",
+    "Medistate": "saglik",
+    "Bonus Vip": "cagri-merkezi",
+}
+
+# (slug, title, logo file in public/images/clients, sector slug or None, video or None)
+# Sector is only set where the brand's sector is clear; None = shown under "Tümü" only.
+REFERENCES = [
+    ("op-dr-ozgur-demirtas", "Op. Dr. Özgür Demirtaş", "Calisma-Yuzeyi-28-kopya-21.webp", "saglik", None),
+    ("center-of-surgeons", "Center of Surgeons", "Calisma-Yuzeyi-28-kopya-19_4x.webp", "saglik", None),
+    ("doctor-bircan", "Doctor Bircan", "Calisma-Yuzeyi-28-kopya-17_4x.webp", "saglik", None),
+    ("dermaderm", "DermaDerm", "Calisma-Yuzeyi-28-kopya-14_4x.webp", "saglik", None),
+    ("turkey-hair-academy", "Turkey Hair Academy", "Calisma-Yuzeyi-28-kopya-22.webp", "saglik", None),
+    ("autarke-call-center", "Autarke Call Center", "Calisma-Yuzeyi-28-kopya-9_4x.webp", "cagri-merkezi", None),
+    ("bbg-call-center", "BBG Call Center", "bbg-call-center.png", "cagri-merkezi", None),
+    ("loyalcall", "LoyalCall", "loyalcall.png", "cagri-merkezi", None),
+    ("turkey-house", "Turkey House", "Website-Reference-Logo-5.png", "gayrimenkul-turizm", None),
+    ("livaneli-group", "Livaneli Group", "livaneli.png", "gayrimenkul-turizm", None),
+    ("hyundai", "Hyundai", "Calisma-Yuzeyi-28-kopya-8_4x.webp", None, None),
+    ("mobile-game-factory", "Mobile Game Factory", "Calisma-Yuzeyi-28-kopya-15_4x.webp", "oyun", None),
+    ("istanbul-medya-akademisi", "İstanbul Medya Akademisi", "Calisma-Yuzeyi-28-kopya_4x.webp", "egitim", None),
+    ("kodlab", "Kodlab", "Calisma-Yuzeyi-28-kopya-2_4x.webp", None, None),
+    ("dus-bahcesi-okullari", "Düş Bahçesi Okulları", "Website-Reference-Logo-2.png", "egitim", None),
+    ("marmara-kurs", "Marmara Kurs", "Website-Reference-Logo-3.png", "egitim", None),
+    ("bessekiz-ortaokullari", "Beşsekiz Ortaokulları", "besseKiz.png", "egitim", None),
+    ("urla-balik", "Urla Balık", "Calisma-Yuzeyi-28-kopya-10_4x.webp", "yeme-icme", None),
+    ("izmir-balik-restaurant", "İzmir Balık Restaurant", "izmir-balik.png", "yeme-icme", None),
+    ("kitapbilgini", "Kitapbilgini", "Calisma-Yuzeyi-28_4x.webp", None, None),
+    ("sfk", "SFK", "Calisma-Yuzeyi-28-kopya-20_4x.webp", None, None),
+    ("cosy-life-consulting", "Cosy Life Consulting", "Calisma-Yuzeyi-28-kopya-18_4x.webp", None, None),
+    ("lefior", "Lefior", "Calisma-Yuzeyi-28-kopya-16_4x.webp", None, None),
+    ("elose-laboratories", "Elose Laboratories", "Calisma-Yuzeyi-28-kopya-13_4x.webp", None, None),
+    ("yoloo", "Yoloo", "Calisma-Yuzeyi-28-kopya-7_4x.webp", None, None),
+    ("natural-dukkan", "Natural Dukkan", "Calisma-Yuzeyi-28-kopya-11_4x.webp", None, None),
+    ("3e-ilaclama", "3E İlaçlama", "Calisma-Yuzeyi-28-kopya-12_4x.webp", None, None),
+    ("yengec", "Yengeç", "Calisma-Yuzeyi-28-kopya-6_4x.webp", None, None),
+    ("pedalbox", "Pedalbox", "Calisma-Yuzeyi-28-kopya-5_4x.webp", None, None),
+    ("gekoo", "GekoO", "Calisma-Yuzeyi-28-kopya-4_4x.webp", None, None),
+    ("decorevi", "DecorEvi", "Calisma-Yuzeyi-28-kopya-3_4x.webp", None, None),
+    ("sekiz-oniki", "Sekiz Oniki", "Website-Reference-Logo-1.png", "egitim", None),
+    ("cordelia", "Cordelia", "cordelia.webp", "gayrimenkul-turizm", None),
+]
