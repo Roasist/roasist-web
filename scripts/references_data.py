@@ -36,7 +36,7 @@ REFERENCES = [
     ("autarke-call-center", "Autarke Call Center", "Calisma-Yuzeyi-28-kopya-9_4x.webp", "cagri-merkezi", None),
     ("bbg-call-center", "BBG Call Center", "bbg-call-center.png", "cagri-merkezi", None),
     ("loyalcall", "LoyalCall", "loyalcall.png", "cagri-merkezi", None),
-    ("turkey-house", "Turkey House", "Website-Reference-Logo-5.png", "gayrimenkul-turizm", None),
+    ("turkey-house", "Turkey House", "Website-Reference-Logo-5.png", "gayrimenkul-turizm", "turkey-house.mp4"),
     ("livaneli-group", "Livaneli Group", "livaneli.png", "gayrimenkul-turizm", None),
     ("hyundai", "Hyundai", "Calisma-Yuzeyi-28-kopya-8_4x.webp", None, None),
     ("mobile-game-factory", "Mobile Game Factory", "Calisma-Yuzeyi-28-kopya-15_4x.webp", "oyun", None),
@@ -76,6 +76,10 @@ DETAILS = {
     },
     "center-of-surgeons": {
         "year": "2022",
+        "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
+    },
+    "turkey-house": {
+        "year": "2025",
         "services": ["Performans Pazarlaması", "Web Analitiği", "Büyüme Stratejisi"],
     },
 }
