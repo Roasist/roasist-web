@@ -14,20 +14,20 @@ export const headerData = {
           href: getPermalink('/hizmetler/performans-pazarlamasi/'),
         },
         {
-          text: '360° Dijital Pazarlama Yönetimi',
-          href: getPermalink('/hizmetler/360-derece-dijital-pazarlama-yonetimi/'),
-        },
-        {
-          text: 'Arama Motoru Optimizasyonu (SEO)',
+          text: 'SEO',
           href: getPermalink('/hizmetler/seo/'),
         },
         {
-          text: 'Web Tasarım & Geliştirme',
+          text: 'Grafik Tasarım',
+          href: getPermalink('/hizmetler/grafik-tasarim/'),
+        },
+        {
+          text: 'Web Tasarım',
           href: getPermalink('/hizmetler/web-tasarim/'),
         },
         {
-          text: 'Kreatif & Grafik Tasarım',
-          href: getPermalink('/hizmetler/grafik-tasarim/'),
+          text: '360° Dijital Pazarlama Yönetimi',
+          href: getPermalink('/hizmetler/360-derece-dijital-pazarlama-yonetimi/'),
         },
       ],
     },

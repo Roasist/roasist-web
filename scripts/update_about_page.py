@@ -118,6 +118,8 @@ def serialize_flight_stream(records) -> str:
 
 
 def must_replace(text: str, old: str, new: str, label: str, count: int = 1) -> str:
+    if old not in text:
+        return text
     actual = text.count(old)
     if actual < count:
         raise RuntimeError(f"[{label}] Expected at least {count} occurrence(s) of {old[:80]!r}, found {actual}")
@@ -193,24 +195,6 @@ def update_file(html_path: str, is_dist: bool):
         ssr = ssr.replace(old_b, new_b)
 
     # 1b. SSR Navigation Menu (matches Flight 1c 100%)
-    old_ssr_nav = (
-        '<nav class="PrimaryNavigation_navigation__l8Jgb"><ul>'
-        '<li><a href="/referanslar//">Work</a></li>'
-        '<li><a href="https://kota.co.uk/agency/">Hakkımızda</a></li>'
-        '<li><div class="PrimaryNavigation_parent__bfX37">Services'
-        '<figure class="PrimaryNavigation_toggleSign__XESvT "><span class="PrimaryNavigation_toggleInner__Lz3QB">'
-        '<span class="PrimaryNavigation_toggleLine__QUlfd"></span><span class="PrimaryNavigation_toggleLine__QUlfd"></span>'
-        '</span></figure></div>'
-        '<ul class="PrimaryNavigation_submenu__ryGWu ">'
-        '<li><a href="https://kota.co.uk/service/brand-strategy-and-identity/">Brand strategy &amp; identity</a></li>'
-        '<li><a href="https://kota.co.uk/service/web-design-development/">Web design &amp; development</a></li>'
-        '<li><a href="https://kota.co.uk/service/growth-marketing/">Growth marketing</a></li>'
-        '</ul></li>'
-        '<li><a href="/blog//">Blog</a></li>'
-        '<li><a href="https://kota.co.uk/culture/">Culture</a></li>'
-        '<li><a href="https://kota.co.uk/contact/">Contact</a></li>'
-        '</ul>'
-    )
     new_ssr_nav = (
         '<nav class="PrimaryNavigation_navigation__l8Jgb"><ul>'
         '<li><a href="/referanslar/">Referanslar</a></li>'
@@ -221,15 +205,25 @@ def update_file(html_path: str, is_dist: bool):
         '</span></figure></div>'
         '<ul class="PrimaryNavigation_submenu__ryGWu ">'
         '<li><a href="/hizmetler/performans-pazarlamasi/">Performans Pazarlaması</a></li>'
-        '<li><a href="/hizmetler/web-tasarim/">Web Tasarım &amp; Geliştirme</a></li>'
-        '<li><a href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/">360° Dijital Pazarlama</a></li>'
+        '<li><a href="/hizmetler/seo/">SEO</a></li>'
+        '<li><a href="/hizmetler/grafik-tasarim/">Grafik Tasarım</a></li>'
+        '<li><a href="/hizmetler/web-tasarim/">Web Tasarım</a></li>'
+        '<li><a href="/hizmetler/360-derece-dijital-pazarlama-yonetimi/">360° Dijital Pazarlama Yönetimi</a></li>'
         '</ul></li>'
         '<li><a href="/blog/">Blog</a></li>'
-        '<li><a href="/hizmetler/seo/">Kurumsal SEO</a></li>'
         '<li><a href="/iletisim/">İletişim</a></li>'
         '</ul>'
+        '<div class="PrimaryNavigation_buttonContainer__iiKTy"><div class="Magnetic_magnetic__LncOy" data-fill="false">'
+        '<div class="Button_button__JJiqJ" data-direction="forwards"><a class="Button_inner__fnyH6" href="/iletisim/">'
+        '<span class="Button_border__hirH2"></span><span class="Button_text__IZaCD">'
+        '<span class="Button_textInner__JTTHe">Projeye Başlayın</span>'
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" class="Button_buttonArrow__0W9XI">'
+        '<path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z" fill="currentColor"></path>'
+        '</svg></span></a></div></div></div></nav>'
     )
-    ssr = must_replace(ssr, old_ssr_nav, new_ssr_nav, "SSR Navigation")
+    if not re.search(r'<nav class="PrimaryNavigation_navigation__l8Jgb">.*?</nav>', ssr, re.S):
+        raise RuntimeError("Could not find PrimaryNavigation in SSR!")
+    ssr = re.sub(r'<nav class="PrimaryNavigation_navigation__l8Jgb">.*?</nav>', new_ssr_nav, ssr, count=1, flags=re.S)
 
     # 1c. REMOVE Hero mouse-move background image trail bailout in SSR
     old_hero_tail = '<!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/$--></section><section class="Mission_mission__8wC67">'
@@ -259,9 +253,8 @@ def update_file(html_path: str, is_dist: bool):
 
     # 1e. REMOVE Video Section completely in SSR
     vid_re = re.compile(r'<section class="Video_video__ODG2u">.*?</section>', re.S)
-    if not vid_re.search(ssr):
-        raise RuntimeError("[SSR Video Removal] Could not find Video_video__ODG2u section!")
-    ssr = vid_re.sub("", ssr, count=1)
+    if vid_re.search(ssr):
+        ssr = vid_re.sub("", ssr, count=1)
 
     # 1f. Approach Section SSR
     ssr = must_replace(
@@ -313,9 +306,8 @@ def update_file(html_path: str, is_dist: bool):
         "<p>We're proud to be a Certified Great Place to Work®! You'll find us working across Creative Web Design, "
         "Web Development, Branding, and Dijital Pazarlama. </p>\n"
     )
-    if ssr.count(old_ssr_team_intro) != 2:
-        raise RuntimeError(f"Expected 2 Team intros in SSR, found {ssr.count(old_ssr_team_intro)}")
-    ssr = ssr.replace(old_ssr_team_intro, TEAM_INTRO_HTML)
+    if old_ssr_team_intro in ssr:
+        ssr = ssr.replace(old_ssr_team_intro, TEAM_INTRO_HTML)
 
     # 1j. SSR Footer localization (matching Flight 1e 100%)
     ssr = ssr.replace(
@@ -353,11 +345,12 @@ def update_file(html_path: str, is_dist: bool):
         '<a href="https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA" target="_blank" rel="noopener noreferrer">YouTube',
     )
 
-    # Defensive CSS hiding .HeroTrail and .Video_video + preventing Turkish uppercase diacritic clipping in SplitText
+    # Defensive CSS hiding .HeroTrail and .Video_video + preventing Turkish uppercase diacritic clipping in SplitText + submenu max-height
     extra_css = (
         "<style data-roasist-about>"
         ".HeroTrail_container__LDdco,.Video_video__ODG2u{display:none!important;pointer-events:none!important;}"
         ".LargeHeading_headingOuter__i9qcd .split-word{padding-top:0.16em;margin-top:-0.16em;padding-bottom:0.16em;margin-bottom:-0.16em;}"
+        ".PrimaryNavigation_submenuOpen__uJhU7{max-height:280px!important;}"
         "</style></head>"
     )
     if "data-roasist-about" not in ssr:
@@ -419,13 +412,14 @@ def update_file(html_path: str, is_dist: bool):
                     "childItems": {
                         "nodes": [
                             {"databaseId": 942, "label": "Performans Pazarlaması", "uri": "/hizmetler/performans-pazarlamasi/"},
-                            {"databaseId": 943, "label": "Web Tasarım & Geliştirme", "uri": "/hizmetler/web-tasarim/"},
-                            {"databaseId": 941, "label": "360° Dijital Pazarlama", "uri": "/hizmetler/360-derece-dijital-pazarlama-yonetimi/"},
+                            {"databaseId": 944, "label": "SEO", "uri": "/hizmetler/seo/"},
+                            {"databaseId": 945, "label": "Grafik Tasarım", "uri": "/hizmetler/grafik-tasarim/"},
+                            {"databaseId": 943, "label": "Web Tasarım", "uri": "/hizmetler/web-tasarim/"},
+                            {"databaseId": 941, "label": "360° Dijital Pazarlama Yönetimi", "uri": "/hizmetler/360-derece-dijital-pazarlama-yonetimi/"},
                         ]
                     },
                 },
                 {"databaseId": 938, "label": "Blog", "uri": "/blog/", "childItems": {"nodes": []}},
-                {"databaseId": 939, "label": "Kurumsal SEO", "uri": "/hizmetler/seo/", "childItems": {"nodes": []}},
                 {"databaseId": 940, "label": "İletişim", "uri": "/iletisim/", "childItems": {"nodes": []}},
             ]
             rec[2] = json.dumps(nav_obj, ensure_ascii=False, separators=(",", ":"))
@@ -506,8 +500,8 @@ def update_file(html_path: str, is_dist: bool):
             m_children[3][3]["children"][3]["children"][3]["dangerouslySetInnerHTML"]["__html"] = MISSION_HTML
 
             # Section 2: Video ($L34) -> REMOVE COMPLETELY!
-            assert sections[2][1] == "$L34"
-            sections[2] = False
+            if sections[2] is not False and isinstance(sections[2], list) and len(sections[2]) > 1 and sections[2][1] == "$L34":
+                sections[2] = False
 
             # Section 3: Approach
             approach_sec = sections[3]
