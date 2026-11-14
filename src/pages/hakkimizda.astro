@@ -6,10 +6,10 @@ import { defaultWhyUs, defaultProcessSteps } from '~/data/services';
 import { SITE } from 'astrowind:config';
 
 const metadata = {
-  title: 'Roasist - Hakkımızda - Özelleştirilmiş Dijital Pazarlama Hizmetleri',
+  title: 'Hakkımızda | Roasist - Özelleştirilmiş Dijital Pazarlama ve Büyüme Ajansı',
   ignoreTitleTemplate: true,
   description:
-    'Roasist, dijital pazarlama sektöründe özelleştirilmiş, veri odaklı ve yenilikçi yaklaşımıyla öne çıkan yeni nesil dijital büyüme ajansıdır.',
+    'Roasist; kanıtlanmış pazarlama prensiplerini modern veri analitiğiyle harmanlayan, markaların büyüme ve kârlılık sorumluluğunu üstlenen yeni nesil dijital büyüme ajansıdır.',
   robots: {
     index: true,
     follow: true,
@@ -23,9 +23,57 @@ const structuredData = [
     '@type': 'AboutPage',
     name: 'Hakkımızda - Roasist',
     url: `${siteUrl}/hakkimizda/`,
+    description:
+      'Roasist; kanıtlanmış pazarlama prensiplerini modern veri analitiğiyle harmanlayan, markaların büyüme ve kârlılık sorumluluğunu üstlenen yeni nesil dijital büyüme ajansıdır.',
     mainEntity: {
       '@id': `${siteUrl}/#organization`,
     },
+  },
+];
+
+const partners = [
+  {
+    name: 'Google Partner',
+    desc: 'Resmi Performans & Arama Ağı Partneri',
+    icon: 'tabler:brand-google',
+  },
+  {
+    name: 'Meta Business Partner',
+    desc: 'Sertifikalı Dönüşüm & Reklam Uzmanlığı',
+    icon: 'tabler:brand-meta',
+  },
+  {
+    name: 'TikTok Marketing Partner',
+    desc: 'Dinamik Video & Viral Büyüme Partneri',
+    icon: 'tabler:brand-tiktok',
+  },
+  {
+    name: 'Yandex Ads Partner',
+    desc: 'Global Pazarlar & Direct Yetkinliği',
+    icon: 'tabler:world',
+  },
+];
+
+const pillars = [
+  {
+    num: '01',
+    title: 'Geleneksel Prensipler & Modern Veri Analitiği',
+    body: 'Müşterilerimize en iyi ticari sonuçları sunmak için köklü pazarlama prensiplerini en güncel veri analitiği ve kendi geliştirdiğimiz Roasist Marketing OS altyapısıyla birleştiriyoruz. Reklam kararlarımızı içgüdülere veya varsayımlara değil, doğrudan pazar sinyallerine dayandırıyoruz.',
+  },
+  {
+    num: '02',
+    title: 'Dinamik Değişim & Sürekli Araştırma',
+    body: 'Dijital pazarlama dünyası ve reklam algoritmaları hızla değişiyor. Bu dinamizmi yalnızca takip etmekle yetinmiyor; araştırma ve ölçümlemeye sürekli yatırım yaparak markalarımıza her zaman en güncel stratejileri ve yapay zeka arama görünürlüğünü (AEO) sunuyoruz.',
+  },
+  {
+    num: '03',
+    title: 'Kalite, Süreç ve Bütüncül Çözüm Mimarisi',
+    body: 'Her projenin birim ekonomisi, kâr marjı ve hedef kitlesi kendine özgüdür. Standart şablonlar yerine, markanızın ticari gerçeklerine uygun terzi usulü büyüme modelleri kurguluyoruz. Müşterilerimizle yakın ilişkiler kuruyor ve uzun vadeli bir ortaklık kültürü benimsiyoruz.',
+  },
+  {
+    num: '04',
+    title: 'Hız, Çeviklik ve Büyüme Sorumluluğu',
+    body: 'Dijital dünyada hız belirleyici faktördür. Acil kampanya gereksinimlerine, algoritma değişimlerine ve pazar fırsatlarına çevik sprintlerle yanıt veriyoruz. Birlikte çalıştığımız her markanın dijitaldeki büyüme sorumluluğunu kendi işimiz gibi sahipleniyoruz.',
   },
 ];
 ---
@@ -33,58 +81,103 @@ const structuredData = [
 <Layout metadata={metadata}>
   <StructuredData slot="head" schema={structuredData} />
 
-  <section class="pt-12 pb-16 md:pt-20 md:pb-24 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
+  <!-- Hero & Kurumsal Felsefe -->
+  <section class="pt-16 pb-16 md:pt-24 md:pb-20 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 mb-6">
-        <Icon name="tabler:building-community" class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-        <span>Kurumsal Vizyonumuz & Kültürümüz</span>
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 mb-6">
+        <Icon name="tabler:shield-check" class="w-4 h-4 text-violet-600 dark:text-violet-400" />
+        <span>Kurumsal Vizyonumuz & Büyüme Felsefemiz</span>
       </div>
 
-      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
-        Hakkımızda
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12] mb-8">
+        Veriyle büyüyen markaların <br class="hidden sm:inline" />
+        <span class="text-violet-600 dark:text-violet-400">stratejik iş ortağıyız.</span>
       </h1>
 
-      <blockquote class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border-l-4 border-indigo-600 text-base sm:text-lg font-medium text-slate-800 dark:text-slate-200 italic mb-10">
-        “Çoğu insan gerçekte özgürlük istemez, çünkü özgürlük sorumluluk gerektirir ve çoğu insan sorumluluktan korkar.” — Roasist olarak özgürlüğü, şeffaflığı ve markalarımızın büyüme sorumluluğunu üstlenmeyi benimsiyoruz.
-      </blockquote>
+      <!-- Sigmund Freud Alıntısı & Roasist Anlayışı -->
+      <div class="p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200/90 dark:border-slate-800 mb-12">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0">
+            <Icon name="tabler:quote" class="w-5 h-5" />
+          </div>
+          <div>
+            <blockquote class="text-base sm:text-xl font-medium text-slate-900 dark:text-slate-100 italic leading-relaxed mb-3">
+              “Çoğu insan gerçekte özgürlük istemez, çünkü özgürlük sorumluluk gerektirir ve çoğu insan sorumluluktan korkar.”
+            </blockquote>
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+              — Sigmund Freud
+            </p>
+            <p class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+              Roasist olarak biz; şeffaflığı, hesap verebilirliği ve markalarımızın büyüme sorumluluğunu üstlenmeyi en temel ajans ilkesi olarak benimsiyoruz. Tıklama ve gösterim gibi soyut metriklerin arkasına sığınmadan; reklam bütçenizi ölçülebilir ciroya ve kârlı bir büyüme motoruna dönüştürüyoruz.
+            </p>
+          </div>
+        </div>
+      </div>
 
+      <!-- Giriş Metni -->
       <div class="space-y-5 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
         <p>
-          <strong>Roasist</strong>, dijital pazarlama sektöründe özelleştirilmiş ve yenilikçi yaklaşımıyla öne çıkan bir dijital pazarlama ve büyüme teknolojileri ajansıdır. Müşterilerimize en iyi sonuçları sunmak için kanıtlanmış pazarlama prensiplerini modern veri analitiği ve kendi geliştirdiğimiz yazılım çözümleriyle birleştiriyoruz.
+          <strong>Roasist</strong>, dijital pazarlama sektöründe özelleştirilmiş, veri odaklı ve yenilikçi yaklaşımıyla öne çıkan yeni nesil bir dijital büyüme ve performans ajansıdır. Müşterilerimize en yüksek ticari geri dönüşü sunmak için kanıtlanmış pazarlama prensiplerini modern analitik ve ileri büyüme teknolojileriyle buluşturuyoruz.
         </p>
         <p>
-          Dijital pazarlama endüstrisi hızla değişiyor ve biz bu değişiklikleri yalnızca takip etmekle kalmıyor, geliştirdiğimiz <strong>Roasist Marketing Intelligence OS</strong> altyapısıyla karar süreçlerimizin merkezine gerçek veriyi koyuyoruz. Müşterilerimize en güncel stratejileri sunabilmek için sürekli araştırmaya ve ölçümlemeye yatırım yapıyoruz.
-        </p>
-        <p>
-          Kalite ve süreç odaklı bir yaklaşım benimsiyoruz. Her projede, müşterilerimizin ticari hedeflerine, kâr marjlarına ve hedef kitle dinamiklerine uygun bütünsel bir büyüme planı kurguluyoruz. Aynı zamanda esnekliği ve çevikliği koruyarak, pazar sinyallerine en hızlı refleksi gösteriyoruz.
-        </p>
-        <p>
-          Sonuç olarak; Roasist olarak çalıştığımız her markanın dijital dünyadaki büyüme sorumluluğunu kendi işimiz gibi sahipleniyoruz. Özelleştirilmiş dijital pazarlama çözümleri sunarken şeffaflığı, kaliteyi, esnekliği ve hızı standart haline getiriyoruz.
+          Dijital dünya hızla dönüşürken, bu dinamizmi yalnızca izlemekle yetinmiyor; kararlarımızın merkezine gerçek veriyi, doğru sinyal mimarisini ve birim kârlılığı (ROAS/CPA) koyuyoruz. Müşterilerimize en güncel stratejileri sunabilmek için araştırmaya, optimizasyon disiplinine ve teknolojiye sürekli yatırım yapıyoruz.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Temel Değerlerimiz -->
-  <section class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/50">
+  <!-- 4 Temel Sütunumuz (Hikayemiz & Yaklaşımımız) -->
+  <section class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
+          Yaklaşımımızın 4 Temel Sütunu
+        </h2>
+        <p class="text-base text-slate-600 dark:text-slate-400">
+          Kuruluşumuzdan bu yana taviz vermediğimiz çalışma disiplinimiz ve büyüme standartlarımız.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          pillars.map((item) => (
+            <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+              <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-900 text-violet-600 dark:text-violet-400 border border-slate-200 dark:border-slate-800">
+                {item.num}
+              </span>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-4 mb-2 tracking-tight">
+                {item.title}
+              </h3>
+              <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+                {item.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Bizi Farklı Kılan 6 Temel Değer -->
+  <section class="py-16 md:py-24 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="max-w-3xl mb-12">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
           Bizi Farklı Kılan 6 Temel Değerimiz
         </h2>
         <p class="text-base text-slate-600 dark:text-slate-400">
-          Tüm kampanya, SEO ve tasarım süreçlerimizde taviz vermediğimiz çalışma ilkelerimiz.
+          Tüm reklam kampanyası, SEO ve tasarım süreçlerimizde taviz vermediğimiz ilkelerimiz.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {
           defaultWhyUs.map((item) => (
-            <div class="p-6 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-              <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4">
+            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+              <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-950/70 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
                 <Icon name={item.icon} class="w-5 h-5" />
               </div>
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{item.title}</h3>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight">{item.title}</h3>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.description}</p>
             </div>
           ))
@@ -93,30 +186,88 @@ const structuredData = [
     </div>
   </section>
 
-  <!-- Sürecimiz -->
-  <section class="py-16 md:py-24 bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80">
+  <!-- 6 Adımlı Büyüme Metodolojimiz -->
+  <section class="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="max-w-3xl mb-12">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">
-          Nasıl Çalışıyoruz?
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
+          6 Adımlı Şeffaf Metodolojimiz
         </h2>
         <p class="text-base text-slate-600 dark:text-slate-400">
-          İlk tanışmadan sürekli optimizasyona kadar 6 adımlı şeffaf büyüme metodolojimiz.
+          İlk hesap denetiminden ölçeklenebilir ciro üretimine kadar disiplinle işlettiğimiz yol haritası.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {
           defaultProcessSteps.map((s) => (
-            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
-              <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400">
-                Step {s.step}
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+              <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-violet-600 dark:text-violet-400">
+                Adım {s.step}
               </span>
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-4 mb-2">{s.title}</h3>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-4 mb-2 tracking-tight">{s.title}</h3>
               <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{s.description}</p>
             </div>
           ))
         }
+      </div>
+    </div>
+  </section>
+
+  <!-- Resmi Partnerliklerimiz -->
+  <section class="py-16 md:py-20 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
+          Resmi Partnerliklerimiz
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          Dünyanın lider reklam ve teknoloji platformlarında sertifikalı uzmanlığımızla çalışıyoruz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {
+          partners.map((p) => (
+            <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-center">
+              <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-950/80 text-violet-600 dark:text-violet-400 flex items-center justify-center mx-auto mb-4">
+                <Icon name={p.icon} class="w-6 h-6" />
+              </div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">{p.name}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">{p.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Sonuç Çağrısı (CTA) -->
+  <section class="py-16 md:py-24 bg-slate-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <span class="inline-block px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-xs font-semibold uppercase tracking-wider mb-6">
+        Büyüme Sorumluluğunu Üstleniyoruz
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+        Daha Fazla Müşteri, Satış ve Kârlı Büyüme.
+      </h2>
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+        Roasist’in özelleştirilmiş pazarlama yaklaşımlarıyla markanızın gerçek potansiyelini ortaya çıkarın. Mevcut hesaplarınızı ve büyüme hedeflerinizi uzman ekibimizle birlikte değerlendirelim.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/iletisim/"
+          class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-slate-900 font-bold text-sm tracking-tight hover:bg-slate-100 transition-colors"
+        >
+          <span>Ücretsiz Ön Analiz Talep Edin</span>
+          <Icon name="tabler:arrow-right" class="w-4 h-4 ml-2" />
+        </a>
+        <a
+          href="/referanslar/"
+          class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl border border-slate-700 text-white font-medium text-sm tracking-tight hover:bg-slate-800 transition-colors"
+        >
+          Başarı Hikayelerimizi İnceleyin
+        </a>
       </div>
     </div>
   </section>
