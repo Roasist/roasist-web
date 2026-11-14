@@ -28,10 +28,14 @@ REPLACEMENTS = [
         r'\"media\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@7ed44a2dd6acce892090ef487c9b1d9e76008128/public/images/methodology/01-veri-ve-strateji.mp4\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@7ed44a2dd6acce892090ef487c9b1d9e76008128/public/images/methodology/01-veri-ve-strateji.jpg\"},\"title\":\"Önce veri ve strateji.\"',
         rf'\"media\":{{\"mediaItemUrl\":\"{PAGES_BASE}/01-veri-ve-strateji.mp4\",\"mimeType\":\"video/mp4\"}},\"image\":{{\"mediaItemUrl\":\"{PAGES_BASE}/01-veri-ve-strateji.jpg\"}},\"title\":\"Önce veri ve strateji.\"',
     ),
-    # Slide 2 ("Yaratıcı ve cesur fikir.") — Custom 3D Particle Sphere, Tilted Bento Grid, Roasist Identity & Client Creative Deck
+    # Slide 2 ("Yaratıcı ve cesur fikir.") — Custom 3D Particle Sphere, Tilted Bento Grid, Roasist Identity (#7601FF) & Client Creative Deck
     (
         r'\"media\":{\"mediaItemUrl\":\"https://kota-content.b-cdn.net/app/uploads/2026/07/Find-The-Bold-Idea-compressed.mp4\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://kota-content.b-cdn.net/app/uploads/2026/07/find-the-bold-idea.jpg\"},\"title\":\"Yaratıcı ve cesur fikir.\"',
+        rf'\"media\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.mp4?v=2\",\"mimeType\":\"video/mp4\"}},\"image\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.jpg?v=2\"}},\"title\":\"Yaratıcı ve cesur fikir.\"',
+    ),
+    (
         rf'\"media\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.mp4\",\"mimeType\":\"video/mp4\"}},\"image\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.jpg\"}},\"title\":\"Yaratıcı ve cesur fikir.\"',
+        rf'\"media\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.mp4?v=2\",\"mimeType\":\"video/mp4\"}},\"image\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.jpg?v=2\"}},\"title\":\"Yaratıcı ve cesur fikir.\"',
     ),
 ]
 

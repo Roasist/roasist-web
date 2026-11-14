@@ -264,48 +264,34 @@ await renderPng('headline-2.png', 1200, 260, `
   </div>
 `, true);
 
-// 4. Beat 3 Brand Reveal Assets (1020 x 788)
+// 4. Beat 3 Brand Reveal Assets (1020 x 788) — Exact official #7601ff brand color, zero color modification
 await renderPng('brand-icon.png', 1020, 788, `
   <div style="width:1020px;height:788px;display:flex;align-items:center;justify-content:center;">
-    <svg viewBox="0 0 185 210" style="width:230px;height:auto;filter:drop-shadow(0 20px 50px rgba(118,1,255,0.45));">
-      <defs>
-        <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#9333ea"/>
-          <stop offset="50%" stop-color="#7601ff"/>
-          <stop offset="100%" stop-color="#2563eb"/>
-        </linearGradient>
-      </defs>
-      <path d="${rIconPath}" fill="url(#rg)"/>
+    <svg viewBox="0 0 185 210" style="width:230px;height:auto;filter:drop-shadow(0 18px 44px rgba(118,1,255,0.36));">
+      <path d="${rIconPath}" fill="#7601ff"/>
     </svg>
   </div>
 `, true);
 
 await renderPng('brand-lockup.png', 1020, 788, `
   <div style="width:1020px;height:788px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;">
-    <svg viewBox="0 0 819.98 200" style="width:500px;height:auto;filter:drop-shadow(0 20px 50px rgba(37,99,235,0.38));">
-      <defs>
-        <linearGradient id="rg2" x1="0" y1="0" x2="1" y2="0.6">
-          <stop offset="0%" stop-color="#a855f7"/>
-          <stop offset="45%" stop-color="#7601ff"/>
-          <stop offset="100%" stop-color="#3b82f6"/>
-        </linearGradient>
-      </defs>
-      ${fullPaths.map(d => `<path d="${d}" fill="url(#rg2)"/>`).join('')}
+    <svg viewBox="0 0 819.98 200" style="width:500px;height:auto;filter:drop-shadow(0 18px 44px rgba(118,1,255,0.32));">
+      ${fullPaths.map(d => `<path d="${d}" fill="#7601ff"/>`).join('')}
     </svg>
-    <div style="font-size:24px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;">
+    <div style="font-size:24px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:#a1a1aa;">
       Kreatif &amp; Performans Stüdyosu
     </div>
   </div>
 `, true);
 
-// 5. Beat 4 — 9 Real Roasist Client Creative Ad Cards (560 x 360 RGBA)
+// 5. Beat 4 — 9 Real Roasist Client Creative Ad Cards (580 x 380 RGBA)
 const CARDS = [
   {
     slug: 'card-01.png', bg: '#7601ff', text: '#ffffff', tag: 'LÜKS KONAKLAMA', metric: '7.4x ROAS',
     title: 'Akdeniz’de Butik Tatil Deneyimi', brand: 'Livaneli Hotels', img: webLivaneli
   },
   {
-    slug: 'card-02.png', bg: '#1d4ed8', text: '#ffffff', tag: 'GAYRİMENKUL LANSMAN', metric: '+186% Talep',
+    slug: 'card-02.png', bg: '#18181b', text: '#ffffff', tag: 'GAYRİMENKUL LANSMAN', metric: '+186% Talep',
     title: 'Kıbrıs’ta Prestijli Yaşam Projesi', brand: 'Cordelia Cyprus', img: webCordelia
   },
   {
@@ -313,19 +299,19 @@ const CARDS = [
     title: 'Avrupa’dan Doğrudan Yatırımcı Hunisi', brand: 'Summer Homes', img: webSummer
   },
   {
-    slug: 'card-04.png', bg: '#6d28d9', text: '#ffffff', tag: 'YETENEK KAZANIMI', metric: '-%44 Başvuru Maliyeti',
+    slug: 'card-04.png', bg: '#7601ff', text: '#ffffff', tag: 'YETENEK KAZANIMI', metric: '-%44 Başvuru Maliyeti',
     title: 'Doğru Adaya Veriyle Ulaşın', brand: 'TalentFinder', img: webTalent
   },
   {
-    slug: 'card-05.png', bg: '#2563eb', text: '#ffffff', tag: 'SAĞLIK TURİZMİ', metric: '+210% Lead',
+    slug: 'card-05.png', bg: '#18181b', text: '#ffffff', tag: 'SAĞLIK TURİZMİ', metric: '+210% Lead',
     title: 'Uluslararası Hasta Kazanım Kreatifi', brand: 'Doctor Bircan', img: refBircan
   },
   {
-    slug: 'card-06.png', bg: '#111827', text: '#ffffff', tag: 'B2B PLATFORM', metric: '%5.4 CTR',
+    slug: 'card-06.png', bg: '#0f172a', text: '#ffffff', tag: 'B2B PLATFORM', metric: '%5.4 CTR',
     title: 'İK Karar Vericilerine Özel Kanca', brand: 'HRShortlist', img: webHr
   },
   {
-    slug: 'card-07.png', bg: '#4f46e5', text: '#ffffff', tag: 'EĞİTİM KAMPANYASI', metric: '4.9x Kayıt',
+    slug: 'card-07.png', bg: '#7601ff', text: '#ffffff', tag: 'EĞİTİM KAMPANYASI', metric: '4.9x Kayıt',
     title: 'Erken Kayıt Dönemi Kreatif Serisi', brand: 'Düş Bahçesi', img: refDus
   },
   {
@@ -333,7 +319,7 @@ const CARDS = [
     title: 'Güven Odaklı Video & Web Kurgusu', brand: 'Center of Surgeons', img: refSurgeons
   },
   {
-    slug: 'card-09.png', bg: '#7c3aed', text: '#ffffff', tag: 'İK & İŞVEREN MARKASI', metric: '+165% Başvuru',
+    slug: 'card-09.png', bg: '#7601ff', text: '#ffffff', tag: 'İK & İŞVEREN MARKASI', metric: '+165% Başvuru',
     title: 'Almanca Bilen Yetenek Kampanyası', brand: 'Autarke', img: refAutarke
   },
 ];

@@ -523,32 +523,31 @@ def build_02_yaratici_ve_cesur_fikir():
             canvas = np.zeros((OUT_H, OUT_W, 3), dtype=np.float32)
 
         # =====================================================================
-        # ACT III (6.05s .. 8.85s): Midnight Roasist Brand Reveal + Kinetic Ribbon
+        # ACT III (6.05s .. 8.85s): Obsidian Roasist Brand Reveal (#7601FF) + Brand Ribbon
         # =====================================================================
         if 6.05 <= t < 8.95:
             wipe_in = _ease_out_expo(_smoothstep(6.05, 6.42, t))
             brand_canvas = np.empty((OUT_H, OUT_W, 3), dtype=np.float32)
-            brand_canvas[:] = np.array([11 / 255.0, 19 / 255.0, 38 / 255.0], dtype=np.float32)
+            brand_canvas[:] = np.array([9 / 255.0, 9 / 255.0, 13 / 255.0], dtype=np.float32)
 
-            icon_op = _smoothstep(6.28, 6.65, t) * (1.0 - _smoothstep(7.05, 7.38, t))
-            lock_op = _smoothstep(7.05, 7.45, t) * (1.0 - _smoothstep(7.85, 8.12, t))
+            icon_op = _smoothstep(6.25, 6.55, t) * (1.0 - _smoothstep(6.88, 7.12, t))
+            lock_op = _smoothstep(7.10, 7.36, t) * (1.0 - _smoothstep(7.84, 8.02, t))
             if icon_op > 0.005:
                 _alpha_over(brand_canvas, brand_icon, icon_op)
             if lock_op > 0.005:
                 _alpha_over(brand_canvas, brand_lockup, lock_op)
 
-            # Dynamic Cobalt/Violet X-ribbon flood (7.80s .. 8.90s)
-            rib_p = _ease_out_expo(_smoothstep(7.80, 8.35, t))
+            # Dynamic Official Roasist Purple (#7601FF) X-ribbon flood (7.96s .. 8.90s)
+            rib_p = _ease_out_expo(_smoothstep(7.96, 8.42, t))
             if rib_p > 0.005:
-                # Flood cobalt base + lighter electric diagonal X strokes
-                cobalt = np.array([18 / 255.0, 92 / 255.0, 255 / 255.0], dtype=np.float32)
-                electric = np.array([56 / 255.0, 138 / 255.0, 255 / 255.0], dtype=np.float32)
-                brand_canvas[:] = brand_canvas * (1.0 - rib_p) + cobalt * rib_p
+                roasist_purple = np.array([118 / 255.0, 1 / 255.0, 255 / 255.0], dtype=np.float32)
+                deep_purple = np.array([86 / 255.0, 0 / 255.0, 192 / 255.0], dtype=np.float32)
+                brand_canvas[:] = brand_canvas * (1.0 - rib_p) + deep_purple * rib_p
                 d1 = np.abs((scr_x_grid - OUT_W * 0.48) * 0.72 + (scr_y_grid - OUT_H * 0.50) * 0.69)
                 d2 = np.abs((scr_x_grid - OUT_W * 0.52) * 0.68 - (scr_y_grid - OUT_H * 0.50) * 0.73)
                 band_w = 135.0 * rib_p
                 x_mask = np.clip(1.0 - np.minimum(d1, d2) / max(1.0, band_w), 0.0, 1.0)[..., None]
-                brand_canvas[:] = brand_canvas * (1.0 - 0.55 * x_mask) + electric * (0.55 * x_mask)
+                brand_canvas[:] = brand_canvas * (1.0 - 0.75 * x_mask) + roasist_purple * (0.75 * x_mask)
 
             wipe_x = int(round(OUT_W * wipe_in))
             if wipe_x >= OUT_W:
