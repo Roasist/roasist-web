@@ -29,7 +29,8 @@ html body .CarouselSlides_carouselMedia__aqYWx video:has(source[src*="roasist"])
 html body .CarouselSlides_carouselMedia__aqYWx img[src*="roasist"],
 html body section .CarouselSlides_carouselMedia__aqYWx video:has(source[src*="roasist"]),
 html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx video,
-html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx video {
+html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx video,
+html body #carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx video {
   filter: none !important;
   -webkit-filter: none !important;
 }
@@ -38,7 +39,8 @@ html body .CarouselSlides_carouselMedia__aqYWx:has(source[src*="roasist"])::afte
 html body .CarouselSlides_carouselMedia__aqYWx:has(video[src*="roasist"])::after,
 html body .CarouselSlides_carouselMedia__aqYWx:has(img[src*="roasist"])::after,
 html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx::after,
-html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx::after {
+html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx::after,
+html body #carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx::after {
   display: none !important;
   content: none !important;
   background: none !important;
@@ -64,6 +66,11 @@ REPLACEMENTS = [
     (
         rf'\"media\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.mp4\",\"mimeType\":\"video/mp4\"}},\"image\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.jpg\"}},\"title\":\"Yaratıcı ve cesur fikir.\"',
         rf'\"media\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.mp4?v=2\",\"mimeType\":\"video/mp4\"}},\"image\":{{\"mediaItemUrl\":\"{PAGES_BASE}/02-yaratici-ve-cesur-fikir.jpg?v=2\"}},\"title\":\"Yaratıcı ve cesur fikir.\"',
+    ),
+    # Slide 3 ("Kusursuz süreç yönetimi.") — Custom Agile Sprint Portal & Real-Time Performance Momentum Cockpit (#7601FF)
+    (
+        r'\"media\":{\"mediaItemUrl\":\"https://kota-content.b-cdn.net/app/uploads/2026/07/Nail-The-Process-compressed.mp4\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://kota-content.b-cdn.net/app/uploads/2026/07/nail-the-process.jpg\"},\"title\":\"Kusursuz süreç yönetimi.\"',
+        rf'\"media\":{{\"mediaItemUrl\":\"{PAGES_BASE}/03-kusursuz-surec-yonetimi.mp4\",\"mimeType\":\"video/mp4\"}},\"image\":{{\"mediaItemUrl\":\"{PAGES_BASE}/03-kusursuz-surec-yonetimi.jpg\"}},\"title\":\"Kusursuz süreç yönetimi.\"',
     ),
 ]
 

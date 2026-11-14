@@ -630,10 +630,333 @@ def build_02_yaratici_ve_cesur_fikir():
     print(f"Done! {out_mp4.relative_to(ROOT)} ({size_mb:.2f} MB), poster: {out_jpg.relative_to(ROOT)}")
 
 
+def _paste_rgba_np(dst_rgb: np.ndarray, src_rgba: np.ndarray, x0: int, y0: int, opacity: float = 1.0):
+    """Alpha-composite float32 RGBA patch onto float32 RGB canvas at integer (x0, y0) with clipping."""
+    if opacity <= 0.001:
+        return
+    sh, sw, _ = src_rgba.shape
+    dh, dw, _ = dst_rgb.shape
+    cx0 = max(0, x0)
+    cy0 = max(0, y0)
+    cx1 = min(dw, x0 + sw)
+    cy1 = min(dh, y0 + sh)
+    if cx1 <= cx0 or cy1 <= cy0:
+        return
+    sx0 = cx0 - x0
+    sy0 = cy0 - y0
+    patch = src_rgba[sy0 : sy0 + (cy1 - cy0), sx0 : sx0 + (cx1 - cx0)]
+    a = patch[..., 3:4] * opacity
+    roi = dst_rgb[cy0:cy1, cx0:cx1]
+    dst_rgb[cy0:cy1, cx0:cx1] = patch[..., :3] * a + roi * (1.0 - a)
+
+
+def build_03_kusursuz_surec_yonetimi():
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_mp4 = OUT_DIR / "03-kusursuz-surec-yonetimi.mp4"
+    out_jpg = OUT_DIR / "03-kusursuz-surec-yonetimi.jpg"
+    s3_dir = ASSETS_DIR / "s3"
+
+    print("Loading Slide 3 studio assets ...")
+    sw_pil = Image.open(s3_dir / "sprint-workspace.png").convert("RGBA")
+    card_act_pil = Image.open(s3_dir / "moving-card-active.png").convert("RGBA").resize((472, 223), Image.Resampling.LANCZOS)
+    card_done_pil = Image.open(s3_dir / "moving-card-done.png").convert("RGBA").resize((472, 223), Image.Resampling.LANCZOS)
+    rc_pil = Image.open(s3_dir / "realtime-cockpit.png").convert("RGBA")
+    badge_rgba = np.array(Image.open(s3_dir / "curve-live-badge.png").convert("RGBA"), dtype=np.float32) / 255.0
+    cur_strat, tx_s, ty_s = _load_premul_cursor(ASSETS_DIR / "cursor-strateji.png", scale=0.60)
+
+    sw_rgba = np.array(sw_pil, dtype=np.float32) / 255.0
+    rc_rgba = np.array(rc_pil, dtype=np.float32) / 255.0
+
+    # Pre-build ambient dark studio backdrop (1020x788) with subtle #7601FF atmospheric glow
+    yy_s, xx_s = np.mgrid[0:OUT_H, 0:OUT_W].astype(np.float32)
+    glow_bg = np.exp(-0.5 * (((xx_s - OUT_W * 0.52) / 420.0) ** 2 + ((yy_s - OUT_H * 0.48) / 310.0) ** 2))[..., None]
+    studio_bg = (
+        np.array([7 / 255.0, 7 / 255.0, 11 / 255.0], dtype=np.float32)
+        + glow_bg * np.array([118 / 255.0, 1 / 255.0, 255 / 255.0], dtype=np.float32) * 0.14
+    )
+    # Subtle 28px architectural dot matrix
+    dots = ((np.mod(xx_s, 28) == 14) & (np.mod(yy_s, 28) == 14)).astype(np.float32)[..., None]
+    studio_bg = np.clip(studio_bg + dots * 0.045, 0.0, 1.0)
+
+    # Pre-compute smooth ROAS growth curve inside realtime-cockpit.png (1560x1060)
+    # X range: 185 .. 1415 (width = 1230), Y baseline (2.5x) = 811, Y top (6.4x) = 542
+    x_min, x_max = 185, 1415
+    xs_curve = np.arange(x_min, x_max + 1, dtype=np.float32)
+    u_c = (xs_curve - x_min) / (x_max - x_min)
+    # 6-sprint monotone growth with gentle organic inflection
+    roas_knots_x = np.linspace(0.0, 1.0, 6)
+    roas_knots_y = np.array([811.0, 760.0, 696.0, 636.0, 584.0, 542.0], dtype=np.float32)
+    # Cubic Hermite monotone interpolation across the 6 sprint milestones
+    ys_curve = np.interp(u_c, roas_knots_x, roas_knots_y)
+    # Smooth with a Gaussian kernel so slope is silky C2 continuous while hitting endpoints
+    kern_r = 26
+    kx = np.arange(-kern_r, kern_r + 1, dtype=np.float32)
+    kern = np.exp(-0.5 * (kx / 11.0) ** 2)
+    kern /= kern.sum()
+    ys_pad = np.pad(ys_curve, (kern_r, kern_r), mode="edge")
+    ys_curve = np.convolve(ys_pad, kern, mode="valid").astype(np.float32)
+    ys_curve[0] = 811.0
+    ys_curve[-1] = 542.0
+
+    milestone_xs = [int(round(x_min + k * (x_max - x_min) / 5.0)) for k in range(6)]
+    milestone_ys = [float(ys_curve[mx - x_min]) for mx in milestone_xs]
+
+    dst_quad = np.array([[0.0, 0.0], [OUT_W, 0.0], [OUT_W, OUT_H], [0.0, OUT_H]], dtype=np.float64)
+
+    total_frames = 600  # 10.00s @ 60fps seamless loop
+
+    ffmpeg_cmd = [
+        "ffmpeg",
+        "-y",
+        "-v", "error",
+        "-f", "rawvideo",
+        "-pix_fmt", "rgb24",
+        "-s", f"{OUT_W}x{OUT_H}",
+        "-r", str(FPS),
+        "-i", "pipe:0",
+        "-c:v", "libx264",
+        "-profile:v", "high",
+        "-preset", "medium",
+        "-crf", "19",
+        "-pix_fmt", "yuv420p",
+        "-movflags", "+faststart",
+        "-an",
+        str(out_mp4),
+    ]
+
+    print(f"Rendering {total_frames} frames ({total_frames / FPS:.2f}s) -> {out_mp4.relative_to(ROOT)} ...")
+    proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE)
+    assert proc.stdin is not None
+
+    poster_rgb = None
+    roasist_purple = np.array([118 / 255.0, 1 / 255.0, 255 / 255.0], dtype=np.float32)
+    bright_purple = np.array([175 / 255.0, 105 / 255.0, 255 / 255.0], dtype=np.float32)
+    emerald_col = np.array([16 / 255.0, 185 / 255.0, 129 / 255.0], dtype=np.float32)
+
+    # Pre-build coordinate grid for chart area rendering (y: 480..837, x: x_min..x_max)
+    plot_y0, plot_y1 = 480, 836
+    py_grid = np.arange(plot_y0, plot_y1, dtype=np.float32)[:, None]
+
+    for f in range(total_frames):
+        t = f / FPS
+        canvas = studio_bg.copy()
+
+        # Blend weight between Scene A (Sprint Workspace) and Scene B (Real-Time Data Cockpit)
+        to_cockpit = _ease_out_expo(_smoothstep(4.45, 5.20, t))
+        back_to_sprint = _ease_out_expo(_smoothstep(9.15, 9.95, t))
+        cockpit_w = to_cockpit * (1.0 - back_to_sprint)
+        sprint_w = 1.0 - cockpit_w
+
+        # =====================================================================
+        # LAYER A: Agile Sprint Workspace (0.00s .. 5.20s and 9.15s .. 10.00s)
+        # =====================================================================
+        if sprint_w > 0.004:
+            # Periodic local time for Sprint board so 9.15..10.00 matches t=0.00 seamlessly!
+            t_sp = t if t < 5.5 else (t - 10.0)  # [-0.85 .. 0.0] smoothly approaches t=0!
+
+            sw_frame = np.zeros((1140, 1680, 4), dtype=np.float32)
+            sw_frame[:] = sw_rgba
+
+            # 1. Animated #7601FF Proje İvme Hattı beam centered in y=213..256 whitespace (y=232..237)
+            prog_p = 0.52 + 0.38 * _ease_out_expo(_smoothstep(0.45, 3.60, max(0.0, t_sp)))
+            bx0, bx1 = 112, 1568
+            bfill = int(round(bx0 + (bx1 - bx0) * prog_p))
+            # Track background
+            sw_frame[232:237, bx0:bx1, :3] = 0.16
+            sw_frame[232:237, bx0:bx1, 3] = 1.0
+            # Official #7601FF active fill
+            sw_frame[232:237, bx0:bfill, :3] = roasist_purple
+            # Milestone dots along track
+            for mx_dot in (112, 476, 840, 1204):
+                is_lit = bfill >= mx_dot
+                dot_col = roasist_purple if is_lit else np.array([0.28, 0.28, 0.34], dtype=np.float32)
+                sw_frame[228:241, mx_dot - 6 : mx_dot + 6, :3] = dot_col
+                sw_frame[228:241, mx_dot - 6 : mx_dot + 6, 3] = 1.0
+
+            # 2. Moving Sprint Card: glides from Col 2 (603, 418) -> Col 3 (1121, 609)
+            move_u = _ease_out_expo(_smoothstep(0.95, 2.45, max(0.0, t_sp)))
+            done_u = _smoothstep(2.20, 2.75, max(0.0, t_sp))
+            lift = math.sin(math.pi * _smoothstep(0.95, 2.45, max(0.0, t_sp)))
+
+            cx_card = (1.0 - move_u) * (603.0 + 236.0) + move_u * (1121.0 + 236.0)
+            cy_card = (1.0 - move_u) * (418.0 + 111.5) + move_u * (609.0 + 111.5) - lift * 34.0
+            sc_card = 1.0 + 0.045 * lift
+            ang_card = -3.2 * lift
+
+            # Blend active (#7601FF) -> done (Emerald) card
+            if done_u <= 0.001:
+                card_pil = card_act_pil
+            elif done_u >= 0.999:
+                card_pil = card_done_pil
+            else:
+                card_pil = Image.blend(card_act_pil, card_done_pil, done_u)
+
+            if lift > 0.002:
+                nw = int(round(card_pil.width * sc_card))
+                nh = int(round(card_pil.height * sc_card))
+                c_xform = card_pil.resize((nw, nh), Image.Resampling.BILINEAR).rotate(ang_card, resample=Image.Resampling.BICUBIC, expand=True)
+            else:
+                c_xform = card_pil
+
+            c_arr = np.array(c_xform, dtype=np.float32) / 255.0
+            px_c = int(round(cx_card - c_xform.width * 0.5))
+            py_c = int(round(cy_card - c_xform.height * 0.5))
+            ca = c_arr[..., 3:4]
+            sw_frame[py_c : py_c + c_arr.shape[0], px_c : px_c + c_arr.shape[1], :3] = (
+                c_arr[..., :3] * ca + sw_frame[py_c : py_c + c_arr.shape[0], px_c : px_c + c_arr.shape[1], :3] * (1.0 - ca)
+            )
+            sw_frame[py_c : py_c + c_arr.shape[0], px_c : px_c + c_arr.shape[1], 3:4] = np.maximum(
+                sw_frame[py_c : py_c + c_arr.shape[0], px_c : px_c + c_arr.shape[1], 3:4], ca
+            )
+
+            # Warp full 1680x1140 Sprint Workspace into 1020x788 studio canvas (100% uncropped)
+            pan_u = _smoothstep(0.40, 3.80, max(0.0, t_sp))
+            slide_out = (1.0 - sprint_w) * 260.0
+            cx_cam = 840.0 + (pan_u - 0.5) * 24.0 + slide_out
+            cy_cam = 570.0
+            vw_cam = 1675.0 - pan_u * 25.0
+            vh_cam = vw_cam * ASPECT
+
+            tilt = 14.0 * (1.0 - pan_u * 0.55)
+            src_q = np.array(
+                [
+                    [cx_cam - vw_cam * 0.5, cy_cam - vh_cam * 0.5 + tilt],
+                    [cx_cam + vw_cam * 0.5, cy_cam - vh_cam * 0.5 - tilt * 0.6],
+                    [cx_cam + vw_cam * 0.5 + tilt * 0.8, cy_cam + vh_cam * 0.5 - tilt * 0.4],
+                    [cx_cam - vw_cam * 0.5 - tilt * 0.8, cy_cam + vh_cam * 0.5 + tilt * 0.8],
+                ],
+                dtype=np.float64,
+            )
+            coeffs = _perspective_coeffs(dst_quad, src_q)
+            sw_warped_pil = Image.fromarray(np.clip(sw_frame * 255.0 + 0.5, 0, 255).astype(np.uint8), mode="RGBA").transform(
+                (OUT_W, OUT_H), Image.Transform.PERSPECTIVE, coeffs, resample=Image.Resampling.BICUBIC
+            )
+            sw_warped = np.array(sw_warped_pil, dtype=np.float32) / 255.0
+            _alpha_over(canvas, sw_warped, sprint_w)
+
+            # Screen-space collaborative cursor guiding the card drag
+            if t_sp >= 0.0:
+                cur_wx = cx_card + 42.0
+                cur_wy = cy_card + 18.0
+                scr_x = (cur_wx - (cx_cam - vw_cam * 0.5)) * (OUT_W / vw_cam) - tx_s
+                scr_y = (cur_wy - (cy_cam - vh_cam * 0.5)) * (OUT_H / vh_cam) - ty_s
+                if sprint_w > 0.65:
+                    _composite_cursor_subpixel(canvas, cur_strat * sprint_w, scr_x, scr_y)
+
+        # =====================================================================
+        # LAYER B: Real-Time Data & Momentum Cockpit (4.45s .. 9.95s)
+        # =====================================================================
+        if cockpit_w > 0.004:
+            rc_frame = rc_rgba.copy()
+
+            # Self-drawing #7601FF ROAS momentum curve (4.85s .. 8.15s)
+            draw_p = _ease_out_expo(_smoothstep(4.85, 8.10, t))
+            n_draw = max(2, int(round(len(xs_curve) * draw_p)))
+            x_end = x_min + n_draw
+
+            y_seg = ys_curve[:n_draw][None, :]  # shape (1, n_draw)
+            roi_plot = rc_frame[plot_y0:plot_y1, x_min:x_end, :3]
+
+            # Translucent #7601FF vertical area gradient under curve
+            below_mask = np.clip((py_grid - y_seg) / 2.0, 0.0, 1.0)
+            vert_fade = np.clip(1.0 - (py_grid - y_seg) / 310.0, 0.0, 1.0)
+            area_alpha = (below_mask * (vert_fade**1.5) * 0.34)[..., None]
+            roi_plot[:] = roasist_purple * area_alpha + roi_plot * (1.0 - area_alpha)
+
+            # Soft #7601FF outer glow along curve
+            dist_line = np.abs(py_grid - y_seg)
+            glow_line = (np.exp(-0.5 * (dist_line / 7.5) ** 2) * 0.42)[..., None]
+            roi_plot[:] = np.clip(roi_plot + roasist_purple * glow_line, 0.0, 1.0)
+
+            # Crisp 4.5px anti-aliased #7601FF + luminous core stroke
+            stroke_mask = np.clip(1.8 - dist_line * 0.65, 0.0, 1.0)[..., None]
+            core_mask = np.clip(1.2 - dist_line * 0.95, 0.0, 1.0)[..., None]
+            roi_plot[:] = roasist_purple * stroke_mask + roi_plot * (1.0 - stroke_mask)
+            roi_plot[:] = bright_purple * (core_mask * 0.45) + roi_plot * (1.0 - core_mask * 0.45)
+
+            # Sprint milestone dots popping in along the curve
+            for mx_i, my_i in zip(milestone_xs, milestone_ys):
+                if mx_i <= x_end:
+                    iy_m = int(round(my_i))
+                    for dy_d in range(-8, 9):
+                        for dx_d in range(-8, 9):
+                            r2 = dx_d * dx_d + dy_d * dy_d
+                            if r2 <= 64:
+                                yy_p, xx_p = iy_m + dy_d, mx_i + dx_d
+                                if 0 <= yy_p < 1060 and 0 <= xx_p < 1560:
+                                    if r2 <= 18:
+                                        rc_frame[yy_p, xx_p, :3] = 1.0
+                                    else:
+                                        rc_frame[yy_p, xx_p, :3] = roasist_purple
+
+            # Live beacon + floating "CANLI İVME · 6.4x ROAS" badge at curve tip
+            tip_x = int(xs_curve[n_draw - 1])
+            tip_y = int(round(ys_curve[n_draw - 1]))
+            pulse_r = 14.0 + 5.0 * math.sin(t * 7.5)
+            y_b0, y_b1 = max(0, tip_y - 24), min(1060, tip_y + 25)
+            x_b0, x_b1 = max(0, tip_x - 24), min(1560, tip_x + 25)
+            gy_b, gx_b = np.mgrid[y_b0:y_b1, x_b0:x_b1].astype(np.float32)
+            dr_b = np.sqrt((gx_b - tip_x) ** 2 + (gy_b - tip_y) ** 2)
+            ring_a = (np.exp(-0.5 * ((dr_b - pulse_r) / 2.2) ** 2) * 0.55)[..., None]
+            rc_frame[y_b0:y_b1, x_b0:x_b1, :3] = np.clip(
+                rc_frame[y_b0:y_b1, x_b0:x_b1, :3] + emerald_col * ring_a, 0.0, 1.0
+            )
+
+            badge_in = _smoothstep(5.40, 6.10, t)
+            if badge_in > 0.01:
+                bx_pos = min(1155, max(200, tip_x - 145))
+                by_pos = tip_y - 122
+                _paste_rgba_np(rc_frame[..., :3], badge_rgba, bx_pos, by_pos, badge_in)
+
+            # Full-board 3D perspective camera glide across Real-Time Cockpit (100% uncropped)
+            c_pan = _smoothstep(4.60, 8.80, t)
+            slide_in_off = (1.0 - cockpit_w) * (-240.0)
+            rc_cx = 780.0 + (c_pan - 0.5) * 20.0 + slide_in_off
+            rc_cy = 530.0
+            rc_vw = 1555.0 - c_pan * 22.0
+            rc_vh = rc_vw * ASPECT
+            rc_tilt = -13.0 * (1.0 - c_pan * 0.65)
+
+            rc_src_q = np.array(
+                [
+                    [rc_cx - rc_vw * 0.5, rc_cy - rc_vh * 0.5 - rc_tilt],
+                    [rc_cx + rc_vw * 0.5, rc_cy - rc_vh * 0.5 + rc_tilt * 0.6],
+                    [rc_cx + rc_vw * 0.5 - rc_tilt * 0.7, rc_cy + rc_vh * 0.5 + rc_tilt * 0.5],
+                    [rc_cx - rc_vw * 0.5 + rc_tilt * 0.7, rc_cy + rc_vh * 0.5 - rc_tilt * 0.7],
+                ],
+                dtype=np.float64,
+            )
+            rc_coeffs = _perspective_coeffs(dst_quad, rc_src_q)
+            rc_warped_pil = Image.fromarray(np.clip(rc_frame * 255.0 + 0.5, 0, 255).astype(np.uint8), mode="RGBA").transform(
+                (OUT_W, OUT_H), Image.Transform.PERSPECTIVE, rc_coeffs, resample=Image.Resampling.BICUBIC
+            )
+            rc_warped = np.array(rc_warped_pil, dtype=np.float32) / 255.0
+            _alpha_over(canvas, rc_warped, cockpit_w)
+
+        rgb_bytes = np.clip(canvas * 255.0 + 0.5, 0, 255).astype(np.uint8)
+        if f == 495:  # t = 8.25s: full 6.4x ROAS curve + live badge in crisp 3D perspective!
+            poster_rgb = rgb_bytes.copy()
+        proc.stdin.write(rgb_bytes.tobytes())
+
+    proc.stdin.close()
+    rc = proc.wait()
+    if rc != 0:
+        raise RuntimeError(f"ffmpeg exited with status {rc}")
+
+    if poster_rgb is not None:
+        Image.fromarray(poster_rgb, mode="RGB").save(out_jpg, quality=92, optimize=True)
+
+    size_mb = out_mp4.stat().st_size / (1024 * 1024)
+    print(f"Done! {out_mp4.relative_to(ROOT)} ({size_mb:.2f} MB), poster: {out_jpg.relative_to(ROOT)}")
+
+
 if __name__ == "__main__":
     target = sys.argv[1] if len(sys.argv) > 1 else "01"
     if target in ("all", "01", "01-veri-ve-strateji"):
         build_01_veri_ve_strateji()
     if target in ("all", "02", "02-yaratici-ve-cesur-fikir"):
         build_02_yaratici_ve_cesur_fikir()
+    if target in ("all", "03", "03-kusursuz-surec-yonetimi"):
+        build_03_kusursuz_surec_yonetimi()
+
 
