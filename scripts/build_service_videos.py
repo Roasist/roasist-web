@@ -431,10 +431,191 @@ def build_web_tasarim():
     print(f"Done! {out_mp4.relative_to(ROOT)} ({size_mb:.2f} MB), poster: {out_jpg.relative_to(ROOT)}")
 
 
+# ---------------------------------------------------------------------------
+# Card 3: SEO, AEO & 360° Dijital Büyüme (3D Z-Depth AI & Search Cloud)
+# ---------------------------------------------------------------------------
+
+GROWTH_CARDS_DIR = ROOT / "scripts" / "assets" / "growth-cards"
+GROWTH_HERO_SIZE = 446.0
+GROWTH_TOTAL_FRAMES = 480  # 8.00s @ 60fps seamless 360° 3D Z-cloud revolution
+
+GROWTH_CARD_SPECS = [
+    # (slug, base_dx, base_dy, orbit_rx, orbit_ry, phase_offset_deg)
+    ("roasist",          +152.0,  +35.0,  92.0,  75.0,    0.0),
+    ("gemini",           -180.0, +135.0, 102.0,  85.0,   45.0),
+    ("google-analytics", +155.0, -135.0,  95.0,  85.0,   90.0),
+    ("perplexity",       -142.0, -145.0, 100.0,  80.0,  135.0),
+    ("chatgpt",          +135.0, +150.0, 105.0,  85.0,  180.0),
+    ("search-console",   -168.0,  -20.0,  95.0,  85.0,  225.0),
+    ("claude",            +15.0, +175.0, 110.0,  75.0,  270.0),
+    ("ai-search",         -35.0, -165.0, 105.0,  80.0,  315.0),
+]
+
+
+def _load_premul_square_card(png_path: pathlib.Path, master_size: int = 600, pad: int = 32):
+    """Load 1000x1000 square card PNG into a premultiplied RGBA master sprite with soft shadow."""
+    raw = Image.open(png_path).convert("RGB").resize((master_size, master_size), Image.Resampling.LANCZOS)
+    ss = 4
+    rad = int(round(15 * ss))
+    mask_big = Image.new("L", (master_size * ss, master_size * ss), 0)
+    ImageDraw.Draw(mask_big).rounded_rectangle(
+        (0, 0, master_size * ss - 1, master_size * ss - 1), radius=rad, fill=255
+    )
+    alpha_card = mask_big.resize((master_size, master_size), Image.Resampling.LANCZOS)
+
+    rim_big = Image.new("RGBA", (master_size * ss, master_size * ss), (0, 0, 0, 0))
+    ImageDraw.Draw(rim_big).rounded_rectangle(
+        (ss // 2, ss // 2, master_size * ss - 1 - ss // 2, master_size * ss - 1 - ss // 2),
+        radius=rad,
+        outline=(255, 255, 255, 28),
+        width=ss,
+    )
+    rim = rim_big.resize((master_size, master_size), Image.Resampling.LANCZOS)
+    card_rgba = raw.convert("RGBA")
+    card_rgba.putalpha(alpha_card)
+    card_rgba = Image.alpha_composite(card_rgba, rim)
+
+    full = master_size + 2 * pad
+    premul = np.zeros((full, full, 4), dtype=np.float32)
+
+    sh = Image.new("L", (full, full), 0)
+    sh.paste(alpha_card, (pad, pad + 8))
+    sh = sh.filter(ImageFilter.GaussianBlur(radius=14))
+    premul[..., 3] = (np.array(sh, dtype=np.float32) / 255.0) * 0.68
+
+    c_arr = np.array(card_rgba, dtype=np.float32) / 255.0
+    rgb = c_arr[..., :3]
+    a = c_arr[..., 3:4]
+    sub = premul[pad : pad + master_size, pad : pad + master_size]
+    sub[..., :3] = rgb * a + sub[..., :3] * (1.0 - a)
+    sub[..., 3:4] = a + sub[..., 3:4] * (1.0 - a)
+
+    sprite = Image.fromarray(np.clip(premul * 255.0 + 0.5, 0, 255).astype(np.uint8), mode="RGBA")
+    return sprite, master_size, pad
+
+
+def build_seo_aeo_buyume():
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_mp4 = OUT_DIR / "seo-aeo-buyume.mp4"
+    out_jpg = OUT_DIR / "seo-aeo-buyume.jpg"
+
+    print(f"Loading {len(GROWTH_CARD_SPECS)} SEO/AEO square brand sprites...")
+    loaded = []
+    for spec in GROWTH_CARD_SPECS:
+        slug = spec[0]
+        p = GROWTH_CARDS_DIR / f"{slug}.png"
+        print(f"  -> {slug} ({p.relative_to(ROOT)})")
+        spr, m_sz, pad = _load_premul_square_card(p)
+        loaded.append((spr, m_sz, pad, *spec[1:]))
+
+    ffmpeg_cmd = [
+        "ffmpeg",
+        "-y",
+        "-v", "error",
+        "-f", "rawvideo",
+        "-pix_fmt", "rgb24",
+        "-s", f"{CANVAS}x{CANVAS}",
+        "-r", str(FPS),
+        "-i", "pipe:0",
+        "-c:v", "libx264",
+        "-profile:v", "high",
+        "-preset", "slow",
+        "-crf", "19",
+        "-pix_fmt", "yuv420p",
+        "-movflags", "+faststart",
+        "-an",
+        str(out_mp4),
+    ]
+
+    print(f"Rendering {GROWTH_TOTAL_FRAMES} frames ({GROWTH_TOTAL_FRAMES / FPS:.2f}s) -> {out_mp4.relative_to(ROOT)} ...")
+    proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE)
+    assert proc.stdin is not None
+
+    n_cards = len(loaded)
+    start_phase = math.radians(14.0)
+
+    for f in range(GROWTH_TOTAL_FRAMES):
+        phase_rad = start_phase + (2.0 * math.pi * f / GROWTH_TOTAL_FRAMES)
+        canvas = np.zeros((CANVAS, CANVAS, 3), dtype=np.float32)
+
+        items = []
+        for k, (spr, m_sz, pad, base_dx, base_dy, orx, ory, p_deg) in enumerate(loaded):
+            theta = phase_rad - k * (2.0 * math.pi / n_cards)
+            c = math.cos(theta)
+            t01 = 0.5 * (c + 1.0)
+            surge = (max(0.0, c) ** 3.0) * 0.27
+            scale = 0.40 + 0.35 * (t01 ** 1.15) + surge
+
+            p_rad = math.radians(p_deg)
+            pull = 0.82 + 0.24 * t01
+            cx = 540.0 + base_dx * pull + orx * math.sin(theta + p_rad)
+            cy = 540.0 + base_dy * pull + ory * math.cos(theta + p_rad * 0.7)
+
+            bright = 1.0 if c >= -0.10 else (0.70 + 0.30 * ((c + 1.0) / 0.90))
+            items.append((c, scale, cx, cy, bright, spr, m_sz, pad))
+
+        items.sort(key=lambda it: it[0])
+
+        for c, scale, cx, cy, bright, spr, m_sz, pad in items:
+            card_px = GROWTH_HERO_SIZE * scale
+            full_px = card_px * ((m_sz + 2.0 * pad) / m_sz)
+            x0 = cx - full_px / 2.0
+            y0 = cy - full_px / 2.0
+
+            ix = int(math.floor(x0))
+            iy = int(math.floor(y0))
+            fx = x0 - ix
+            fy = y0 - iy
+            out_w = int(math.ceil(full_px)) + 3
+            out_h = int(math.ceil(full_px)) + 3
+
+            inv_s = spr.size[0] / full_px
+            warped = spr.transform(
+                (out_w, out_h),
+                Image.Transform.AFFINE,
+                (inv_s, 0.0, -fx * inv_s, 0.0, inv_s, -fy * inv_s),
+                resample=Image.Resampling.BICUBIC,
+            )
+
+            cx0 = max(0, ix)
+            cy0 = max(0, iy)
+            cx1 = min(CANVAS, ix + out_w)
+            cy1 = min(CANVAS, iy + out_h)
+            if cx1 <= cx0 or cy1 <= cy0:
+                continue
+
+            sx0 = cx0 - ix
+            sy0 = cy0 - iy
+            sx1 = sx0 + (cx1 - cx0)
+            sy1 = sy0 + (cy1 - cy0)
+
+            w_arr = np.array(warped, dtype=np.float32)[sy0:sy1, sx0:sx1] / 255.0
+            p_rgb = w_arr[..., :3] * bright
+            p_a = w_arr[..., 3:4]
+            roi = canvas[cy0:cy1, cx0:cx1]
+            canvas[cy0:cy1, cx0:cx1] = p_rgb + roi * (1.0 - p_a)
+
+        rgb_bytes = np.clip(canvas * 255.0 + 0.5, 0, 255).astype(np.uint8)
+        if f == 0:
+            Image.fromarray(rgb_bytes, mode="RGB").save(out_jpg, quality=92, optimize=True)
+        proc.stdin.write(rgb_bytes.tobytes())
+
+    proc.stdin.close()
+    rc = proc.wait()
+    if rc != 0:
+        raise RuntimeError(f"ffmpeg exited with status {rc}")
+
+    size_mb = out_mp4.stat().st_size / (1024 * 1024)
+    print(f"Done! {out_mp4.relative_to(ROOT)} ({size_mb:.2f} MB), poster: {out_jpg.relative_to(ROOT)}")
+
+
 if __name__ == "__main__":
     target = sys.argv[1] if len(sys.argv) > 1 else "all"
     if target in ("all", "performans-pazarlamasi"):
         build_performans_pazarlamasi()
     if target in ("all", "web-tasarim"):
         build_web_tasarim()
+    if target in ("all", "seo-aeo-buyume"):
+        build_seo_aeo_buyume()
+
 
