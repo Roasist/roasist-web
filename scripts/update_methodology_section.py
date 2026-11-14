@@ -1,4 +1,5 @@
 import pathlib
+import re
 
 ROOT = pathlib.Path("/home/antigravity/Roasist/roasist-web")
 
@@ -17,6 +18,33 @@ TARGET_FILES = [
 ]
 
 PAGES_BASE = "https://roasist.github.io/roasist-web/images/methodology"
+
+TRUE_COLOR_STYLE = """<style data-roasist-true-video-colors>
+/* Disable legacy KOTA pink->purple hue-rotate & color-wash overlays on custom Roasist videos */
+html body .ServiceMedia_mediaContainer__WGgZa video,
+html body .ServiceMedia_mediaContainer__WGgZa img,
+html body section .ServiceMedia_mediaContainer__WGgZa video,
+html body .CarouselSlides_carouselMedia__aqYWx video[src*="roasist"],
+html body .CarouselSlides_carouselMedia__aqYWx video:has(source[src*="roasist"]),
+html body .CarouselSlides_carouselMedia__aqYWx img[src*="roasist"],
+html body section .CarouselSlides_carouselMedia__aqYWx video:has(source[src*="roasist"]),
+html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx video,
+html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx video {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+html body .ServiceMedia_mediaContainer__WGgZa::after,
+html body .CarouselSlides_carouselMedia__aqYWx:has(source[src*="roasist"])::after,
+html body .CarouselSlides_carouselMedia__aqYWx:has(video[src*="roasist"])::after,
+html body .CarouselSlides_carouselMedia__aqYWx:has(img[src*="roasist"])::after,
+html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx::after,
+html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  opacity: 0 !important;
+}
+</style>"""
 
 REPLACEMENTS = [
     # Slide 1 ("Önce veri ve strateji.") — Custom Interactive FigJam Strategy Board Video & Poster
@@ -61,6 +89,17 @@ def main():
             if old in html:
                 html = html.replace(old, new)
                 changed += 1
+
+        # Inject or update <style data-roasist-true-video-colors> right before </head>
+        html_no_old_style = re.sub(
+            r"<style data-roasist-true-video-colors>.*?</style>",
+            "",
+            html,
+            flags=re.DOTALL,
+        )
+        if "</head>" in html_no_old_style:
+            html = html_no_old_style.replace("</head>", TRUE_COLOR_STYLE + "</head>", 1)
+            changed += 1
 
         if protected is not None:
             html = html.replace("__PROTECTED_T712_BLOCK__", protected)
