@@ -95,6 +95,11 @@ REPLACEMENTS = [
         r'\"image\":{\"altText\":\"\",\"srcSet\":\"https://kota-content.b-cdn.net/app/uploads/2023/10/Web-design-Development.jpg 1086w, https://kota-content.b-cdn.net/app/uploads/2023/10/Web-design-Development-479x500.jpg 479w, https://kota-content.b-cdn.net/app/uploads/2023/10/Web-design-Development-768x802.jpg 768w\",\"sourceUrl\":\"https://kota-content.b-cdn.net/app/uploads/2023/10/Web-design-Development.jpg\",\"mediaDetails\":{\"width\":1086,\"height\":1134}},\"video\":{\"mediaItemUrl\":\"https://kota-content.b-cdn.net/app/uploads/2026/07/Websites-2026-1.mp4\"}',
         r'\"image\":{\"altText\":\"Web Tasarım ve Kreatif Stüdyo\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@097860ece7c2d31384c3b8ca3013b147c8dbb1f7/public/images/services/web-tasarim.jpg 1080w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@097860ece7c2d31384c3b8ca3013b147c8dbb1f7/public/images/services/web-tasarim.jpg\",\"mediaDetails\":{\"width\":1080,\"height\":1080}},\"video\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@097860ece7c2d31384c3b8ca3013b147c8dbb1f7/public/images/services/web-tasarim.mp4\"}',
     ),
+    # 6. Panel 3 Custom 3D SEO & AEO Ecosystem Video & Poster (Flight JSON)
+    (
+        r'\"image\":{\"altText\":\"\",\"srcSet\":\"https://kota-content.b-cdn.net/app/uploads/2023/10/floan.jpg 1086w, https://kota-content.b-cdn.net/app/uploads/2023/10/floan-479x500.jpg 479w, https://kota-content.b-cdn.net/app/uploads/2023/10/floan-768x802.jpg 768w\",\"sourceUrl\":\"https://kota-content.b-cdn.net/app/uploads/2023/10/floan.jpg\",\"mediaDetails\":{\"width\":1086,\"height\":1134}},\"video\":{\"mediaItemUrl\":\"https://kota-content.b-cdn.net/app/uploads/2023/11/Growth-Marketing.mp4\"}',
+        r'\"image\":{\"altText\":\"SEO, AEO ve 360 Dijital Büyüme\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c2b0d79ee14a72f519427282ff0d82ee15ea68a1/public/images/services/seo-aeo-buyume.jpg 1080w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c2b0d79ee14a72f519427282ff0d82ee15ea68a1/public/images/services/seo-aeo-buyume.jpg\",\"mediaDetails\":{\"width\":1080,\"height\":1080}},\"video\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c2b0d79ee14a72f519427282ff0d82ee15ea68a1/public/images/services/seo-aeo-buyume.mp4\"}',
+    ),
 ]
 
 
