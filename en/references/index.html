@@ -1,0 +1,964 @@
+<!DOCTYPE html><html lang="en" class="__variable_a78db3 __variable_ab8453"><head><script id="always-scroll-to-top">(function(){if(typeof window==="undefined")return;if("scrollRestoration" in history){history.scrollRestoration="manual";}window.scrollTo(0,0);if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0;window.addEventListener("beforeunload",function(){window.scrollTo(0,0);});window.addEventListener("pageshow",function(){window.scrollTo(0,0);if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0;});document.addEventListener("DOMContentLoaded",function(){window.scrollTo(0,0);});window.addEventListener("load",function(){window.scrollTo(0,0);[10,50,100,200,300].forEach(function(d){setTimeout(function(){if(window.scrollY>0&&!window.__userScrolled){window.scrollTo(0,0);if(document.documentElement)document.documentElement.scrollTop=0;if(document.body)document.body.scrollTop=0;}},d);});});window.__userScrolled=false;window.addEventListener("wheel",function(){window.__userScrolled=true;},{passive:true,once:true});window.addEventListener("touchmove",function(){window.__userScrolled=true;},{passive:true,once:true});window.addEventListener("keydown",function(e){if([32,33,34,35,36,38,40].indexOf(e.keyCode)!==-1){window.__userScrolled=true;}},{passive:true,once:true});})();</script><script data-roasist-runtime>
+window.__KOTA_HYDRATE_PATH__ = "/work";
+(function(){
+  try {
+    var play = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function() {
+      var p = play.call(this);
+      return p && p.catch ? p.catch(function(e){ if (e && e.name !== 'AbortError') throw e; }) : p;
+    };
+  } catch(e) {}
+
+  function mapKotaHref(rawHref) {
+    if (!rawHref) return rawHref;
+    var base = window.__ROASIST_BASE__ || (window.location.pathname.startsWith('/roasist-web') ? '/roasist-web' : '');
+    var h = rawHref.replace(/^https?:\/\/(?:www\.)?kota\.co\.uk/i, '');
+    if (h === '/work' || h === '/work/' || h.startsWith('/work/')) h = '/referanslar/';
+    else if (h === '/agency' || h === '/agency/' || h === '/culture' || h === '/culture/') h = '/hakkimizda/';
+    else if (h === '/contact' || h === '/contact/') h = '/iletisim/';
+    else if (h === '/services' || h === '/service' || h === '/service/') h = '/hizmetler/';
+    else if (h === '/faqs' || h === '/faqs/') h = '/hizmetler/';
+    else if (h === '/privacy-policy' || h === '/privacy-policy/' || h === '/terms-conditions' || h === '/terms-conditions/') h = '/gizlilik-politikasi-ve-kullanim-sartlari/';
+    else if (h === '/blog/Performans-Pazarlamasi-Nedir' || h.indexOf('inspire-your-next-design') !== -1) h = '/blog/Performans-Pazarlamasi-Nedir/';
+    else if (h.indexOf('ai-search-zero-click-seo') !== -1) h = '/blog/Veriye-Dayali-Dijital-Pazarlama-Stratejisi-Nedir/';
+    else if (h.indexOf('choosing-the-right-web-design-agency') !== -1) h = '/blog/Reklam-Harcamalarinin-Geri-Donusu-ROAS-Nasil-Hesaplanir/';
+    else if (h.startsWith('/blog/') && h !== '/blog/' && !h.startsWith('/blog/Performans-Pazarlamasi-Nedir') && !h.startsWith('/blog/performans-pazarlamasinda-roas-optimizasyonu') && !h.startsWith('/blog/kurumsal-seo-ve-yapay-zeka-aramalari-aeo-rehberi') && !h.startsWith('/blog/360-dijital-pazarlama-kanallar-arasi-sinerji') && !h.startsWith('/blog/Veriye-Dayali-Dijital-Pazarlama-Stratejisi-Nedir') && !h.startsWith('/blog/Reklam-Harcamalarinin-Geri-Donusu-ROAS-Nasil-Hesaplanir') && !h.startsWith('/blog/kategori/') && !h.startsWith('/blog/etiket/')) h = '/blog/';
+    else if (h.startsWith('/blog/') && !h.endsWith('/')) h = h + '/';
+    else if (h.startsWith('/service/')) {
+      var slug = h.replace('/service/', '').replace(/\/$/, '');
+      var map = {
+        'web-design-development': '/hizmetler/web-tasarim/',
+        'creative-web-design': '/hizmetler/web-tasarim/',
+        'web-development': '/hizmetler/web-tasarim/',
+        'wordpress-cms': '/hizmetler/web-tasarim/',
+        'e-commerce': '/hizmetler/performans-pazarlamasi/',
+        'branding': '/hizmetler/grafik-tasarim/',
+        'brand-strategy-and-identity': '/hizmetler/grafik-tasarim/',
+        'graphic-design': '/hizmetler/grafik-tasarim/',
+        'digital-marketing': '/hizmetler/360-derece-dijital-pazarlama-yonetimi/',
+        'growth-marketing': '/hizmetler/performans-pazarlamasi/',
+        'seo-geo': '/hizmetler/seo/'
+      };
+      h = map[slug] || ('/hizmetler/' + slug + '/');
+    }
+    if (h.startsWith('/') && !h.startsWith('//') && base && !h.startsWith(base + '/') && h !== base) {
+      h = base + (h === '/' ? '/' : h);
+    }
+    return h;
+  }
+
+  document.addEventListener('click', function(event) {
+    var anchor = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+    if (!anchor) return;
+    var raw = anchor.getAttribute('href');
+    if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:') || raw.startsWith('javascript:')) return;
+    var mapped = mapKotaHref(raw);
+    if (mapped && (mapped.startsWith('/') || mapped.startsWith(window.location.origin))) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || anchor.target === '_blank') return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      window.location.href = mapped;
+    }
+  }, true);
+
+  function decorateHeaderLogo() {
+    var logoLink = document.querySelector('a[class*="Header_logo"]');
+    if (logoLink) {
+      var base = window.__ROASIST_BASE__ || (window.location.pathname.startsWith('/roasist-web') ? '/roasist-web' : '');
+      logoLink.setAttribute('href', base ? base + '/' : '/');
+    }
+  }
+
+  function initFaq() {
+    document.querySelectorAll('label[class*="FaqsList_question"]').forEach(function(q) {
+      if (q.dataset.roasistFaq) return;
+      q.dataset.roasistFaq = '1';
+      var input = q.querySelector('input[type="checkbox"]');
+      var ans = q.nextElementSibling;
+      if (input && ans) {
+        ans.addEventListener('transitionend', function() {
+          if (window.lenis && window.lenis.resize) window.lenis.resize();
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    decorateHeaderLogo();
+    initFaq();
+    setTimeout(decorateHeaderLogo, 400);
+    setTimeout(decorateHeaderLogo, 1200);
+  });
+  new MutationObserver(function() {
+    decorateHeaderLogo();
+    initFaq();
+  }).observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
+<style data-roasist-theme>
+:root {
+  --color-primary: #7602FF !important;
+}
+/* Roasist Liquid Ink Melt & Reform Logo Scroll Animation */
+html body header.Header_header__KwdYD,
+html body.dark header.Header_header__KwdYD {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+html body header.Header_header__KwdYD::before,
+html body.roasist-scrolled header.Header_header__KwdYD::before {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: calc(7vw + 9.75rem) !important; }
+}
+@media (min-width: 769px) and (max-width: 1919px) {
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: 13.5rem !important; top: 2.55rem !important; }
+}
+@media screen and (min-width: 1920px) {
+  .Hero_hero__18Xqo > h1, .Hero_hero__drBQ0 > h1 { left: 50% !important; transform: translateX(-50%) !important; padding: 0 13.5rem !important; top: 2.55rem !important; }
+}
+
+html body header.Header_header__KwdYD a.Header_logo____uDV,
+html body.roasist-scrolled header.Header_header__KwdYD a.Header_logo____uDV {
+  position: relative !important;
+  transform: none !important;
+  clip-path: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+  transition: opacity 0.35s ease !important;
+}
+html body header.Header_header__KwdYD a.Header_logo____uDV svg {
+  transition: none !important;
+}
+html body header.Header_header__KwdYD a.Header_logo____uDV::after,
+html body.roasist-scrolled header.Header_header__KwdYD a.Header_logo____uDV::after,
+html body:not(.roasist-scrolled) header.Header_header__KwdYD a.Header_logo____uDV::after {
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
+html body.roasist-ink-running header.Header_header__KwdYD a.Header_logo____uDV svg,
+html body.roasist-ink-hidden header.Header_header__KwdYD a.Header_logo____uDV svg {
+  opacity: 0 !important;
+}
+html body.roasist-ink-running header.Header_header__KwdYD a.Header_logo____uDV,
+html body.roasist-ink-hidden header.Header_header__KwdYD a.Header_logo____uDV {
+  pointer-events: none !important;
+}
+html body:not(.roasist-ink-ready).roasist-scrolled header.Header_header__KwdYD a.Header_logo____uDV {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+/* ROASIST_FOOTER_PHONE_CSS */.Footer_cyberEssestials__2qh89{color:rgba(255,255,255,0.86)!important;text-decoration:none!important;font-size:0.95rem!important;font-variant-numeric:tabular-nums!important;transition:opacity 0.18s cubic-bezier(0.22,1,0.36,1)!important;}.Footer_cyberEssestials__2qh89:hover{opacity:1!important;color:#fff!important;}.Footer_logos__jFNys img{height:38px!important;width:auto!important;max-height:38px!important;object-fit:contain!important;}</style>
+<script data-roasist-ink>(function () {
+  if (typeof window === "undefined" || window.__ROASIST_INK_LOGO_V1__) return;
+  window.__ROASIST_INK_LOGO_V1__ = 1;
+
+  var BASE_W = 168;
+  var BASE_H = 41;
+  var PAD = { left: 32, right: 36, top: 24, bottom: 132 };
+  var CV_W = BASE_W + PAD.left + PAD.right;
+  var CV_H = BASE_H + PAD.top + PAD.bottom;
+
+  var SVG_MARKUP =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 200"><path fill="#ffffff" d="M176.71,198.48v1.32l-35.19.2c-1.72-2.67-2.88-6.5-3.64-11.52-.59-4.79-1.15-10-1.55-15.35s-.56-10.76-1-15.75a95,95,0,0,0-1.16-12.48c-1-4.42-2.51-8.08-4.62-10.56a20.66,20.66,0,0,0-7.46-6.17,32.19,32.19,0,0,0-9.81-2.88c-3.66-.36-7.29-.56-11.15-.56h-47v-35h56.29v18.62L164.6,77.1,110.46,45.8V64.42H54.17v16L0,49.07,54.17,17.74V34.08h64.9c18.26,0,32.29,3.47,41.89,10.17,9.78,6.93,14.6,18.06,14.6,33.41,0,10.4-2.12,18.85-6.34,24.79C165,108.79,158.06,114,148.65,118.2a28.6,28.6,0,0,1,11.52,7.29,35.16,35.16,0,0,1,6.18,11.13A60.62,60.62,0,0,1,169,149.69c.4,4.62.56,9.21.76,13.44.2,6.33.4,11.52.79,15.74.36,4.06,1,7.5,1.32,10A24.35,24.35,0,0,0,174,195,8.76,8.76,0,0,0,176.71,198.48Z M186,84q1.68-15.32,7.38-26.28a41.37,41.37,0,0,1,16.45-17.12q10.74-6.15,28.86-6.15t28.86,6.15A41.37,41.37,0,0,1,284,57.73q5.7,11,7.38,26.28a308.26,308.26,0,0,1,1.68,33.45A307.5,307.5,0,0,1,291.39,151q-1.68,15.21-7.38,26.17A39.24,39.24,0,0,1,267.56,194q-10.74,5.82-28.86,5.82T209.84,194a39.24,39.24,0,0,1-16.45-16.78Q187.69,166.25,186,151a307.5,307.5,0,0,1-1.68-33.57A308.26,308.26,0,0,1,186,84Zm31.32,60.86a76.29,76.29,0,0,0,3.13,18.35q2.35,7,6.72,10.29c2.91,2.17,6.74,3.25,11.52,3.25s8.61-1.08,11.52-3.25,5.15-5.59,6.71-10.29a76.24,76.24,0,0,0,3.14-18.35q.78-11.3.78-27.41t-.78-27.29a77.72,77.72,0,0,0-3.14-18.35q-2.34-7.16-6.71-10.4T238.7,58.17c-4.78,0-8.61,1.09-11.52,3.25s-5.15,5.63-6.72,10.4a77.78,77.78,0,0,0-3.13,18.35q-.78,11.19-.78,27.29T217.33,144.87Z M383,37.59,425.3,197.34H391.74l-7.39-33.79H341.84l-7.38,33.79H300.9L343.19,37.59Zm-4.25,99.56L363.32,65.33h-.44l-15.44,71.82Z M462.44,152.14a53,53,0,0,0,.9,10.18,17.61,17.61,0,0,0,3.35,7.72,16.6,16.6,0,0,0,6.6,4.93,26.39,26.39,0,0,0,10.41,1.79A20.56,20.56,0,0,0,497,172q5.92-4.81,5.93-14.88a26.93,26.93,0,0,0-1.45-9.29,18.47,18.47,0,0,0-4.82-7.05,34.1,34.1,0,0,0-8.83-5.7,126.18,126.18,0,0,0-13.54-5.26,115.68,115.68,0,0,1-18.57-7.83,49.79,49.79,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.25-11.63a79.06,79.06,0,0,1,19.8,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43q3.69,8.16,3.69,19.57v4.48H500.48q0-11.42-4-17.56T483,58.17a22.43,22.43,0,0,0-8.95,1.57,15.1,15.1,0,0,0-5.71,4.14,14.16,14.16,0,0,0-2.91,5.93,30.48,30.48,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.13,5,13.43,9.29l24.83,10.74a75.73,75.73,0,0,1,15,8.39,41,41,0,0,1,9.29,9.39,31.46,31.46,0,0,1,4.81,11.08,62.31,62.31,0,0,1,1.34,13.42q0,25.29-14.65,36.81T481,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M554.17,37.59h32.22V197.34H554.17ZM582.81,26.4H557.75V0h25.06Z M636.29,152.14a53.81,53.81,0,0,0,.89,10.18,17.74,17.74,0,0,0,3.36,7.72,16.6,16.6,0,0,0,6.6,4.93,26.37,26.37,0,0,0,10.4,1.79A20.59,20.59,0,0,0,670.86,172q5.92-4.81,5.93-14.88a26.68,26.68,0,0,0-1.46-9.29,18.33,18.33,0,0,0-4.81-7.05,34.17,34.17,0,0,0-8.84-5.7,125.1,125.1,0,0,0-13.53-5.26,115.68,115.68,0,0,1-18.57-7.83,49.63,49.63,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.24-11.63a79.2,79.2,0,0,1,19.81,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43Q705.2,66,705.2,77.41v4.48H674.33q0-11.42-4-17.56t-13.43-6.16a22.46,22.46,0,0,0-9,1.57,15,15,0,0,0-5.7,4.14,14.16,14.16,0,0,0-2.91,5.93,29.93,29.93,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.14,5,13.42,9.29l24.84,10.74a76,76,0,0,1,15,8.39A41,41,0,0,1,704.2,127a31.44,31.44,0,0,1,4.8,11.08,61.66,61.66,0,0,1,1.35,13.42q0,25.29-14.66,36.81T654.86,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M820,64h-34.9V197.34H752.86V64H718V37.59H820Z"/></svg>';
+
+  var VS =
+    "attribute vec2 a_pos;varying vec2 v_uv;void main(){v_uv=a_pos*0.5+0.5;v_uv.y=1.0-v_uv.y;gl_Position=vec4(a_pos,0.0,1.0);}";
+
+  var FS = [
+    "#extension GL_OES_standard_derivatives : enable",
+    "precision highp float;",
+    "varying vec2 v_uv;",
+    "uniform sampler2D u_tex;",
+    "uniform float u_progress;",
+    "uniform float u_dark;",
+    "uniform vec3 u_baseCol;",
+    "uniform vec2 u_res;",
+    "uniform vec4 u_logoRect;",
+    "float hash(vec2 p){p=fract(p*vec2(127.1,311.7));p+=dot(p,p+34.23);return fract(p.x*p.y);}",
+    "float noise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),u.x),mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),u.x),u.y);}",
+    "float fbm(vec2 p){float v=0.0;float a=0.5;mat2 rot=mat2(0.80,0.60,-0.60,0.80);for(int i=0;i<4;i++){v+=a*noise(p);p=rot*p*2.03+vec2(13.7,9.2);a*=0.5;}return v;}",
+    "float smax(float a,float b,float k){float h=clamp(0.5+0.5*(b-a)/k,0.0,1.0);return mix(a,b,h)+k*h*(1.0-h);}",
+    "float rivuletChannel(float lx){",
+    "  float a=pow(0.5+0.5*sin(lx*45.0-0.8),4.0);",
+    "  float b=pow(0.5+0.5*sin(lx*79.0+1.9),5.5)*0.72;",
+    "  float c=pow(0.5+0.5*cos(lx*27.0+0.4),3.2)*0.55;",
+    "  float env=0.58+0.42*sin(lx*19.0+2.4);",
+    "  return clamp((a+b+c)*env,0.0,1.22);",
+    "}",
+    "void main(){",
+    "  float p=clamp(u_progress,0.0,1.0);",
+    "  vec2 px=v_uv*u_res;",
+    "  float logoTopPx=u_logoRect.y*u_res.y;",
+    "  float logoH_Px=u_logoRect.w*u_res.y;",
+    "  float logoLeftPx=u_logoRect.x*u_res.x;",
+    "  float logoW_Px=u_logoRect.z*u_res.x;",
+    "  float lx=(px.x-logoLeftPx)/logoW_Px;",
+    "  float ly=(px.y-logoTopPx)/logoH_Px;",
+    "  float regionVar=(noise(vec2(lx*6.0+2.3,4.1))-0.5)*0.10;",
+    "  float lp=clamp(p*1.08+regionVar*smoothstep(0.0,0.25,p)*(1.0-smoothstep(0.75,0.98,p)),0.0,1.0);",
+    "  float n1=fbm(vec2(lx*5.2+1.7,px.y*0.032-lp*2.0));",
+    "  float n2=fbm(vec2(lx*11.5-3.1,px.y*0.062-lp*2.9));",
+    "  float yDist=max(0.0,px.y-logoTopPx);",
+    "  float curlX=((n1-0.5)*7.5+(n2-0.5)*3.2)*pow(lp,1.15)*(0.25+0.85*clamp(yDist/100.0,0.0,1.0));",
+    "  float bodySagPx=(4.0+14.0*pow(lp,1.4))*pow(lp,1.25);",
+    "  vec2 bodyUV=vec2((px.x+curlX*0.55)/u_res.x,(px.y-bodySagPx)/u_res.y);",
+    "  vec4 bodyTex=texture2D(u_tex,bodyUV);",
+    "  float bodyBase=mix(bodyTex.r,mix(bodyTex.g,bodyTex.b,smoothstep(0.08,0.45,lp)),smoothstep(0.0,0.14,lp));",
+    "  float blotch=fbm(vec2(lx*9.0+1.2,ly*3.2-lp*1.3));",
+    "  float letterErode=smoothstep(0.14,0.68,lp*1.06+(1.0-clamp(ly,0.0,1.2))*0.25*lp+(blotch-0.5)*0.34*lp);",
+    "  float letterField=clamp(bodyBase-letterErode*0.98,0.0,1.0);",
+    "  float chanLx=(px.x+curlX*0.7-logoLeftPx)/logoW_Px;",
+    "  float chan=rivuletChannel(chanLx);",
+    "  float maxPourPx=(12.0+86.0*chan)*pow(lp,1.18);",
+    "  float drainProg=clamp((lp-0.24)/0.68,0.0,1.0);",
+    "  float minPourPx=maxPourPx*0.94*pow(drainProg,1.35);",
+    "  float pourField=0.0;",
+    "  float streakWash=0.0;",
+    "  if(lp>0.01&&maxPourPx>1.0){",
+    "    for(int k=0;k<24;k++){",
+    "      float fk=(float(k)+0.5)/24.0;",
+    "      float distUp=mix(minPourPx,maxPourPx,fk);",
+    "      float sampleY=px.y-bodySagPx-distUp;",
+    "      float localSway=curlX*(1.0-0.52*fk);",
+    "      vec2 sUV=vec2((px.x+localSway)/u_res.x,sampleY/u_res.y);",
+    "      vec4 st=texture2D(u_tex,sUV);",
+    "      float neckWave=0.78+0.22*sin(fk*9.5-lp*6.0+chanLx*28.0);",
+    "      float tipBulb=0.72+0.48*exp(-pow((fk-0.88)/0.15,2.0));",
+    "      float tailFade=smoothstep(0.0,0.22,fk);",
+    "      float streamDensity=mix(st.g,st.b,0.52);",
+    "      float lateShrink=1.0-0.42*smoothstep(0.72,0.96,lp);",
+    "      float shaped=streamDensity*tipBulb*neckWave*lateShrink*mix(1.0,tailFade,smoothstep(0.24,0.58,lp));",
+    "      pourField=smax(pourField,shaped*0.94,0.14);",
+    "      streakWash+=st.b*(1.0-0.35*fk);",
+    "    }",
+    "    streakWash/=24.0;",
+    "  }",
+    "  float dropField=0.0;",
+    "  for(int i=0;i<12;i++){",
+    "    float fi=float(i);",
+    "    float seed=fract(sin(fi*73.19+0.87)*43758.5453);",
+    "    float ax=0.05+0.90*((fi+0.2+0.6*seed)/12.0);",
+    "    float anchorUVx=u_logoRect.x+ax*u_logoRect.z;",
+    "    float mass=texture2D(u_tex,vec2(anchorUVx,u_logoRect.y+u_logoRect.w*0.55)).a;",
+    "    if(mass>0.22){",
+    "      float locChan=rivuletChannel(ax);",
+    "      float delay=0.16+0.26*fract(seed*6.3);",
+    "      float dp=clamp((lp-delay)/(0.98-delay),0.0,1.0);",
+    "      if(dp>0.0&&dp<1.0){",
+    "        float streamTipY=logoTopPx+logoH_Px*0.75+bodySagPx+(12.0+86.0*locChan)*pow(min(lp,0.85),1.18);",
+    "        float dy=streamTipY+(2.0+(26.0+28.0*seed)*pow(dp,1.40));",
+    "        float dx=anchorUVx*u_res.x-curlX*0.72;",
+    "        float rad=(2.6+3.0*fract(seed*8.1))*mass*sin(pow(dp,0.65)*3.14159);",
+    "        vec2 diff=px-vec2(dx,dy);",
+    "        diff.y*=(diff.y<0.0)?0.54:0.95;",
+    "        float blob=clamp(1.0-length(diff)/max(rad*2.15,0.001),0.0,1.0);",
+    "        dropField=smax(dropField,blob*0.96,0.18);",
+    "      }",
+    "    }",
+    "  }",
+    "  float combined=smax(letterField,pourField,0.16*smoothstep(0.0,0.15,lp));",
+    "  combined=smax(combined,dropField,0.18*smoothstep(0.05,0.25,lp));",
+    "  combined*=(1.0-smoothstep(0.88,0.995,p));",
+    "  float washNoise=0.48+0.62*n2;",
+    "  float washEnv=sin(clamp(p*1.04,0.0,1.0)*3.14159)*(1.0-smoothstep(0.82,0.99,p));",
+    "  float washAlpha=smoothstep(0.14,0.60,streakWash*washNoise)*washEnv*0.38;",
+    "  float fw=max(fwidth(combined),0.016);",
+    "  float cutoff=mix(0.49,0.45,smoothstep(0.0,0.2,lp));",
+    "  float solidAlpha=smoothstep(cutoff-fw,cutoff+fw,combined);",
+    "  float finalAlpha=clamp(max(solidAlpha,washAlpha),0.0,1.0);",
+    "  if(finalAlpha<0.004)discard;",
+    "  vec3 deepInk=vec3(0.30,0.00,0.82);",
+    "  vec3 brandViolet=vec3(0.4627,0.0078,1.0);",
+    "  vec3 vividOrchid=vec3(0.76,0.10,1.00);",
+    "  vec3 magentaBleed=vec3(1.00,0.204,0.953);",
+    "  float wetMix=smoothstep(0.02,0.20,p);",
+    "  float thickness=clamp((combined-0.43)/0.42,0.0,1.0);",
+    "  float flowTint=clamp((yDist/95.0)*0.50*wetMix,0.0,0.48);",
+    "  vec3 wetCol=mix(magentaBleed,vividOrchid,smoothstep(0.0,0.36,thickness));",
+    "  wetCol=mix(wetCol,brandViolet,smoothstep(0.28,0.74,thickness)*(1.0-flowTint));",
+    "  wetCol=mix(wetCol,mix(deepInk,vec3(0.94,0.89,1.0),u_dark*0.78),smoothstep(0.72,1.0,thickness));",
+    "  vec2 grad=vec2(dFdx(combined),dFdy(combined));",
+    "  vec3 norm=normalize(vec3(-grad*18.0,1.0));",
+    "  float spec=pow(max(dot(norm,normalize(vec3(-0.42,-0.68,0.60))),0.0),20.0)*wetMix*solidAlpha*0.42;",
+    "  vec3 bodyCol=mix(u_baseCol,wetCol,wetMix);",
+    "  vec3 washCol=mix(brandViolet,magentaBleed,clamp(0.30+0.70*n1,0.0,1.0));",
+    "  vec3 col=mix(washCol,bodyCol,clamp(solidAlpha/max(finalAlpha,0.001),0.0,1.0));",
+    "  col+=vec3(0.96,0.88,1.0)*spec;",
+    "  gl_FragColor=vec4(col,finalAlpha);",
+    "}"
+  ].join("\n");
+
+  function parseRGB(str) {
+    var m = str && str.match(/(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)/);
+    if (!m) return [0.4627, 0.0078, 1.0];
+    return [parseFloat(m[1]) / 255, parseFloat(m[2]) / 255, parseFloat(m[3]) / 255];
+  }
+
+  function buildTexture(cb) {
+    var scale = 3;
+    var w = CV_W * scale;
+    var h = CV_H * scale;
+    var img = new Image();
+    img.onload = function () {
+      function layer(blurPx) {
+        var c = document.createElement("canvas");
+        c.width = w;
+        c.height = h;
+        var ctx = c.getContext("2d");
+        if (blurPx > 0 && "filter" in ctx) ctx.filter = "blur(" + blurPx * scale + "px)";
+        ctx.drawImage(img, PAD.left * scale, PAD.top * scale, BASE_W * scale, BASE_H * scale);
+        return ctx.getImageData(0, 0, w, h).data;
+      }
+      var sharp = layer(0);
+      var tight = layer(2.0);
+      var med = layer(4.8);
+      var wide = layer(10.0);
+
+      var out = document.createElement("canvas");
+      out.width = w;
+      out.height = h;
+      var octx = out.getContext("2d");
+      var outImg = octx.createImageData(w, h);
+      var od = outImg.data;
+      for (var i = 0, n = w * h; i < n; i++) {
+        var idx = i * 4;
+        od[idx] = sharp[idx + 3];
+        od[idx + 1] = tight[idx + 3];
+        od[idx + 2] = med[idx + 3];
+        od[idx + 3] = wide[idx + 3];
+      }
+      octx.putImageData(outImg, 0, 0);
+      cb(out);
+    };
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(SVG_MARKUP);
+  }
+
+  function initEngine() {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    buildTexture(function (texCanvas) {
+      var canvas = document.createElement("canvas");
+      canvas.className = "roasist-ink-canvas";
+      canvas.setAttribute("aria-hidden", "true");
+      canvas.style.cssText =
+        "position:absolute;pointer-events:none;opacity:0;visibility:hidden;z-index:2;will-change:opacity;";
+
+      var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      if (dpr < 2) dpr = 2;
+      canvas.width = Math.round(CV_W * dpr);
+      canvas.height = Math.round(CV_H * dpr);
+
+      var gl =
+        canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false, antialias: true }) ||
+        canvas.getContext("experimental-webgl", { alpha: true, premultipliedAlpha: false, antialias: true });
+      if (!gl) return;
+      gl.getExtension("OES_standard_derivatives");
+
+      function compile(type, src) {
+        var s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+          gl.deleteShader(s);
+          return null;
+        }
+        return s;
+      }
+
+      var vs = compile(gl.VERTEX_SHADER, VS);
+      var fs = compile(gl.FRAGMENT_SHADER, FS);
+      if (!vs || !fs) return;
+
+      var prog = gl.createProgram();
+      gl.attachShader(prog, vs);
+      gl.attachShader(prog, fs);
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+      gl.useProgram(prog);
+
+      var buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+      var aPos = gl.getAttribLocation(prog, "a_pos");
+      gl.enableVertexAttribArray(aPos);
+      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+      var tex = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texCanvas);
+
+      var uProg = gl.getUniformLocation(prog, "u_progress");
+      var uDark = gl.getUniformLocation(prog, "u_dark");
+      var uBaseCol = gl.getUniformLocation(prog, "u_baseCol");
+      var uRes = gl.getUniformLocation(prog, "u_res");
+      var uRect = gl.getUniformLocation(prog, "u_logoRect");
+
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+      var mounted = false;
+      var progress = window.scrollY > 40 ? 1.0 : 0.0;
+      var target = progress;
+      var rafId = 0;
+      var lastTs = 0;
+
+      function getRefs() {
+        var header = document.querySelector(".Header_header__KwdYD");
+        var logo = header && header.querySelector(".Header_logo____uDV");
+        var svg = logo && logo.querySelector("svg");
+        return { header: header, logo: logo, svg: svg };
+      }
+
+      function syncLayout(refs) {
+        if (!refs.header || !refs.svg) return false;
+        if (!mounted || canvas.parentNode !== refs.header) {
+          refs.header.appendChild(canvas);
+          mounted = true;
+        }
+        var hRect = refs.header.getBoundingClientRect();
+        var sRect = refs.svg.getBoundingClientRect();
+        if (sRect.width < 10) return false;
+        var scale = sRect.width / BASE_W;
+        canvas.style.width = CV_W * scale + "px";
+        canvas.style.height = CV_H * scale + "px";
+        canvas.style.left = sRect.left - hRect.left - PAD.left * scale + "px";
+        canvas.style.top = sRect.top - hRect.top - PAD.top * scale + "px";
+        return true;
+      }
+
+      function applyStateClasses() {
+        if (!document.body) return;
+        document.body.classList.add("roasist-ink-ready");
+        if (progress <= 0.002) {
+          document.body.classList.remove("roasist-ink-running", "roasist-ink-hidden");
+          canvas.style.opacity = "0";
+          canvas.style.visibility = "hidden";
+        } else if (progress >= 0.998) {
+          document.body.classList.remove("roasist-ink-running");
+          document.body.classList.add("roasist-ink-hidden");
+          canvas.style.opacity = "0";
+          canvas.style.visibility = "hidden";
+        } else {
+          document.body.classList.add("roasist-ink-running");
+          document.body.classList.remove("roasist-ink-hidden");
+          canvas.style.opacity = "1";
+          canvas.style.visibility = "visible";
+        }
+      }
+
+      function drawFrame(p, refs) {
+        var isDark = document.body && document.body.classList.contains("dark") ? 1.0 : 0.0;
+        var rgb = refs.logo ? parseRGB(window.getComputedStyle(refs.logo).color) : [0.4627, 0.0078, 1.0];
+        // Smoothly ease visual progress so both forward melt and reverse reform feel fluid & viscous
+        var eased = p < 0.5 ? 2.0 * p * p : 1.0 - Math.pow(-2.0 * p + 2.0, 2.0) / 2.0;
+        var visualP = 0.35 * p + 0.65 * eased;
+
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform1f(uProg, visualP);
+        gl.uniform1f(uDark, isDark);
+        gl.uniform3f(uBaseCol, rgb[0], rgb[1], rgb[2]);
+        gl.uniform2f(uRes, CV_W, CV_H);
+        gl.uniform4f(uRect, PAD.left / CV_W, PAD.top / CV_H, BASE_W / CV_W, BASE_H / CV_H);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+      }
+
+      function tick(ts) {
+        if (!lastTs) lastTs = ts;
+        var dt = Math.min((ts - lastTs) / 1000, 0.05);
+        lastTs = ts;
+
+        var speed = target > progress ? 1 / 1.05 : 1 / 0.92;
+        if (Math.abs(target - progress) <= speed * dt) {
+          progress = target;
+        } else {
+          progress += (target > progress ? 1 : -1) * speed * dt;
+        }
+
+        var refs = getRefs();
+        if (progress > 0.002 && progress < 0.998) {
+          if (syncLayout(refs)) {
+            drawFrame(progress, refs);
+          }
+        }
+        applyStateClasses();
+
+        if (Math.abs(target - progress) > 0.0005) {
+          rafId = window.requestAnimationFrame(tick);
+        } else {
+          rafId = 0;
+          lastTs = 0;
+        }
+      }
+
+      function updateTarget() {
+        var scrolled = window.scrollY > 40;
+        if (document.body) {
+          if (scrolled) document.body.classList.add("roasist-scrolled");
+          else document.body.classList.remove("roasist-scrolled");
+        }
+        var nextTarget = scrolled ? 1.0 : 0.0;
+        if (nextTarget !== target) {
+          target = nextTarget;
+          if (!rafId) {
+            lastTs = 0;
+            rafId = window.requestAnimationFrame(tick);
+          }
+        }
+      }
+
+      // Mount safely after hydration settles (or on first scroll)
+      function safeBoot() {
+        progress = window.scrollY > 40 ? 1.0 : 0.0;
+        target = progress;
+        var refs = getRefs();
+        syncLayout(refs);
+        applyStateClasses();
+      }
+
+      if (document.readyState === "complete") {
+        setTimeout(safeBoot, 320);
+      } else {
+        window.addEventListener("load", function () {
+          setTimeout(safeBoot, 320);
+        });
+      }
+
+      window.addEventListener("scroll", updateTarget, { passive: true });
+      window.addEventListener(
+        "resize",
+        function () {
+          var refs = getRefs();
+          syncLayout(refs);
+          if (progress > 0.002 && progress < 0.998) drawFrame(progress, refs);
+        },
+        { passive: true }
+      );
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initEngine);
+  } else {
+    initEngine();
+  }
+})();</script><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/482a8097102f5f9f-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/50431d8feb7ceff2-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/54252e86b97de34f-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/bb0bdc9db5c241da-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-google-partner-w.svg"/><link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-meta-partner-w.svg"/><link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-tiktok-partner-w.svg"/><link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-ai-seo-w.svg"/><link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/images/cyber-essentials.svg"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/f9cbc29e5dcba8c4.css" data-precedence="next"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@d6aae801bbdd2aae3b5774f243336a975fc26aea/public/_next/static/css/84191844b30595bc.css" data-precedence="next"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/053ade63481ccabc.css" data-precedence="next"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/e36a1a112c1c5ec8.css" data-precedence="next"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/989bd6fb590599c9.css" data-precedence="next"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/c8ac051173e41d45.css" data-precedence="next"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/33a276ed7bd6abf4.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/webpack-1b6a5d5ee0c4d44d.js"/><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/fd9d1056-2f07626ddf804ce1.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/2117-ba8bcf71fc4483a9.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/main-app-be3d940aef6bd3eb.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/c15bf2b0-7fe4609d5aed7ee2.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/1550-75709fc12a079aa2.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/2553-48f52e8f75360017.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/app/layout-69eda66b9da6597e.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/b536a0f1-48e07d9a196acd0d.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/1242-b8f16838e7608b53.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/6644-79af0604a55e02a8.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/9498-3112cb2861cfba50.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@e554af6f315a09f399436d3fb4b1a3e001e73fe9/public/_next/static/chunks/4143-6b83e17252ec01c2.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/988-86d1af1c6c90b59b.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/_next/static/chunks/app/(home)/page-b58f77e3dc47742c.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@8f0ab42218a504dbe043eda2bcb30c72e86575a8/_next/static/chunks/app/work/page-5b3919766e28ce0e.js" async=""></script><link rel="preload" href="https://www.googletagmanager.com/gtag/js?id=AW-985589288" as="script"/><link rel="icon" href="/icon.png?c6e807c869f7d63d" type="image/png" sizes="512x512"/><meta name="next-size-adjust"/><title>Our Work &amp; Case Studies | Roasist</title><meta name="description" content="Explore how Roasist scales ambitious brands across healthcare, real estate, e-commerce, SaaS, hospitality, and B2B through performance marketing, SEO, and web design."/><link rel="canonical" href="https://www.roasist.com/en/references/"/><meta property="og:locale" content="en_US"/><meta property="og:type" content="article"/><meta property="og:title" content="Our Work &amp; Case Studies | Roasist"/><meta property="og:description" content="Explore how Roasist scales ambitious brands across healthcare, real estate, e-commerce, SaaS, hospitality, and B2B through performance marketing, SEO, and web design."/><meta property="og:url" content="https://www.roasist.com/en/references/"/><meta property="og:site_name" content="Roasist"/><meta property="article:publisher" content="https://www.facebook.com/roasistt"/><meta property="article:modified_time" content="2026-08-12T15:00:39+00:00"/><meta property="og:image" content="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/23-projects.jpg"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="675"/><meta property="og:image:type" content="image/jpeg"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:site" content="@Roasistt"/><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script><style id="hide-hero-video">.Hero_video__rzcbe{display:none!important;visibility:hidden!important;width:0!important;height:0!important;pointer-events:none!important;}.Hero_hero__Oyf4n{height:auto!important;min-height:0!important;max-height:none!important;padding-bottom:3.5rem!important;}.Hero_top__RRkYH{align-self:auto!important;}.Hero_hero__Oyf4n h2{margin-top:0.5rem!important;margin-bottom:2.5rem!important;}.Hero_bottom__ktiOH{align-self:auto!important;margin-top:1rem!important;}@media (max-width:768px){.Hero_hero__Oyf4n .container{height:auto!important;padding-top:6rem!important;padding-bottom:2rem!important;}.Hero_bottom__ktiOH{flex:none!important;margin-top:1.5rem!important;}}</style><style id="roasist-menu-fix">.PrimaryNavigation_submenuOpen__uJhU7{max-height:280px!important;}</style><script data-roasist-gtm>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}(function(){var saved=null;try{saved=localStorage.getItem("roasist_cookie_consent");}catch(e){}var st=saved==="granted"?"granted":"denied";gtag("consent","default",{analytics_storage:st,ad_storage:st,ad_user_data:st,ad_personalization:st,wait_for_update:500});})();(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-TRVG2SF");</script><link rel="alternate" hreflang="tr" href="https://www.roasist.com/referanslar/"/><link rel="alternate" hreflang="en" href="https://www.roasist.com/en/references/"/><link rel="alternate" hreflang="x-default" href="https://www.roasist.com/referanslar/"/><style data-roasist-ui-css>
+.roasist-lang-switch{
+  display:inline-flex;align-items:center;gap:2px;
+  padding:4px 6px;border-radius:999px;
+  border:1px solid rgba(15,23,42,0.14);
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font-size:12px;line-height:1;font-weight:600;letter-spacing:0.02em;
+  font-variant-numeric:tabular-nums;
+  margin-right:10px;pointer-events:all;z-index:40;
+  transition:border-color 160ms cubic-bezier(0.22,1,0.36,1),background-color 160ms cubic-bezier(0.22,1,0.36,1);
+}
+body.dark .roasist-lang-switch{
+  border-color:rgba(255,255,255,0.22);
+  background:rgba(15,23,42,0.68);
+}
+.roasist-lang-switch a{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:5px 8px;border-radius:999px;text-decoration:none!important;
+  color:#475569;transition:color 160ms cubic-bezier(0.22,1,0.36,1),background-color 160ms cubic-bezier(0.22,1,0.36,1);
+}
+body.dark .roasist-lang-switch a{color:#cbd5e1;}
+.roasist-lang-switch a.is-active{
+  background:#0f172a;color:#ffffff!important;pointer-events:none;
+}
+body.dark .roasist-lang-switch a.is-active{
+  background:#ffffff;color:#0f172a!important;
+}
+.roasist-lang-switch a:not(.is-active):hover{
+  color:#0f172a;background:rgba(15,23,42,0.06);
+}
+body.dark .roasist-lang-switch a:not(.is-active):hover{
+  color:#ffffff;background:rgba(255,255,255,0.12);
+}
+@media (max-width:768px){
+  .Header_header__KwdYD .roasist-lang-switch{margin-right:6px;padding:3px 4px;font-size:11px;}
+  .Header_header__KwdYD .roasist-lang-switch a{padding:4px 6px;}
+}
+.roasist-cookie-bar{
+  position:fixed;left:24px;bottom:24px;z-index:9999;
+  max-width:420px;width:calc(100vw - 48px);
+  background:#ffffff;color:#0f172a;
+  border:1px solid rgba(15,23,42,0.10);
+  border-radius:16px;padding:20px 24px;
+  box-shadow:0 16px 40px rgba(15,23,42,0.12);
+  display:flex;flex-direction:column;gap:14px;
+  font-size:13.5px;line-height:1.55;
+  opacity:0;transform:translateY(10px);
+  transition:opacity 180ms cubic-bezier(0.22,1,0.36,1),transform 180ms cubic-bezier(0.22,1,0.36,1);
+}
+.roasist-cookie-bar.is-visible{opacity:1;transform:translateY(0);}
+.roasist-cookie-bar p{margin:0;color:#475569;font-size:13px;line-height:1.55;}
+.roasist-cookie-bar p a{color:#0f172a;text-decoration:underline;text-underline-offset:3px;}
+.roasist-cookie-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;}
+.roasist-cookie-btn{
+  appearance:none;border-radius:999px;padding:8px 16px;
+  font-size:12.5px;font-weight:600;line-height:1;cursor:pointer;
+  min-width:88px;height:34px;display:inline-flex;align-items:center;justify-content:center;
+  transition:background-color 160ms cubic-bezier(0.22,1,0.36,1),color 160ms cubic-bezier(0.22,1,0.36,1),border-color 160ms cubic-bezier(0.22,1,0.36,1);
+}
+.roasist-cookie-btn--ghost{
+  background:transparent;color:#64748b;border:1px solid rgba(15,23,42,0.12);
+}
+.roasist-cookie-btn--ghost:hover{color:#0f172a;border-color:rgba(15,23,42,0.28);}
+.roasist-cookie-btn--primary{
+  background:#0f172a;color:#ffffff;border:1px solid #0f172a;
+}
+.roasist-cookie-btn--primary:hover{background:#1e293b;}
+@media (max-width:640px){
+  .roasist-cookie-bar{left:16px;bottom:16px;width:calc(100vw - 32px);padding:18px 20px;}
+}
+</style></head><body><div style="position:fixed;z-index:50;width:100vw;height:100vh;background:#efefef"></div><div class="PrimaryNavigation_page__DgiUM "><button class="PrimaryNavigation_icon__qAQCe" data-modal-hide="true"><div class="PrimaryNavigation_line__eUBQ0"></div><div class="PrimaryNavigation_line__eUBQ0"></div></button><aside class="PrimaryNavigation_flyout__nH7QV"><nav class="PrimaryNavigation_navigation__l8Jgb"><ul><li><a href="/en/references/">Work</a></li><li><a href="/en/who-we-are/">About Us</a></li><li><div class="PrimaryNavigation_parent__bfX37">Services<figure class="PrimaryNavigation_toggleSign__XESvT "><span class="PrimaryNavigation_toggleInner__Lz3QB"><span class="PrimaryNavigation_toggleLine__QUlfd"></span><span class="PrimaryNavigation_toggleLine__QUlfd"></span></span></figure></div><ul class="PrimaryNavigation_submenu__ryGWu "><li><a href="/en/performance-marketing/">Performance Marketing</a></li><li><a href="/en/seo/">SEO</a></li><li><a href="/en/graphic-design/">Graphic Design</a></li><li><a href="/en/web-design/">Web Design</a></li><li><a href="/en/360-digital-marketing-management/">360° Digital Marketing</a></li></ul></li><li><a href="/en/blog/">Blog</a></li><li><a href="/en/contact-us/">Contact</a></li></ul><div class="PrimaryNavigation_buttonContainer__iiKTy"><div class="Magnetic_magnetic__LncOy" data-fill="false"><div class="Button_button__JJiqJ" data-direction="forwards"><a class="Button_inner__fnyH6" href="/iletisim/"><span class="Button_border__hirH2"></span><span class="Button_text__IZaCD"><span class="Button_textInner__JTTHe">Projeye Başla</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" class="Button_buttonArrow__0W9XI"><path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z" fill="currentColor"></path></svg></span></a></div></div></div></nav><div class="PrimaryNavigation_background__vtv26"></div></aside><figure class="PrimaryNavigation_pageOverlay__QD6me"></figure></div><header class="Header_header__KwdYD" data-modal-hide="true"><a class="Header_logo____uDV" href="/en/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 200"><path fill="currentColor" d="M176.71,198.48v1.32l-35.19.2c-1.72-2.67-2.88-6.5-3.64-11.52-.59-4.79-1.15-10-1.55-15.35s-.56-10.76-1-15.75a95,95,0,0,0-1.16-12.48c-1-4.42-2.51-8.08-4.62-10.56a20.66,20.66,0,0,0-7.46-6.17,32.19,32.19,0,0,0-9.81-2.88c-3.66-.36-7.29-.56-11.15-.56h-47v-35h56.29v18.62L164.6,77.1,110.46,45.8V64.42H54.17v16L0,49.07,54.17,17.74V34.08h64.9c18.26,0,32.29,3.47,41.89,10.17,9.78,6.93,14.6,18.06,14.6,33.41,0,10.4-2.12,18.85-6.34,24.79C165,108.79,158.06,114,148.65,118.2a28.6,28.6,0,0,1,11.52,7.29,35.16,35.16,0,0,1,6.18,11.13A60.62,60.62,0,0,1,169,149.69c.4,4.62.56,9.21.76,13.44.2,6.33.4,11.52.79,15.74.36,4.06,1,7.5,1.32,10A24.35,24.35,0,0,0,174,195,8.76,8.76,0,0,0,176.71,198.48Z M186,84q1.68-15.32,7.38-26.28a41.37,41.37,0,0,1,16.45-17.12q10.74-6.15,28.86-6.15t28.86,6.15A41.37,41.37,0,0,1,284,57.73q5.7,11,7.38,26.28a308.26,308.26,0,0,1,1.68,33.45A307.5,307.5,0,0,1,291.39,151q-1.68,15.21-7.38,26.17A39.24,39.24,0,0,1,267.56,194q-10.74,5.82-28.86,5.82T209.84,194a39.24,39.24,0,0,1-16.45-16.78Q187.69,166.25,186,151a307.5,307.5,0,0,1-1.68-33.57A308.26,308.26,0,0,1,186,84Zm31.32,60.86a76.29,76.29,0,0,0,3.13,18.35q2.35,7,6.72,10.29c2.91,2.17,6.74,3.25,11.52,3.25s8.61-1.08,11.52-3.25,5.15-5.59,6.71-10.29a76.24,76.24,0,0,0,3.14-18.35q.78-11.3.78-27.41t-.78-27.29a77.72,77.72,0,0,0-3.14-18.35q-2.34-7.16-6.71-10.4T238.7,58.17c-4.78,0-8.61,1.09-11.52,3.25s-5.15,5.63-6.72,10.4a77.78,77.78,0,0,0-3.13,18.35q-.78,11.19-.78,27.29T217.33,144.87Z M383,37.59,425.3,197.34H391.74l-7.39-33.79H341.84l-7.38,33.79H300.9L343.19,37.59Zm-4.25,99.56L363.32,65.33h-.44l-15.44,71.82Z M462.44,152.14a53,53,0,0,0,.9,10.18,17.61,17.61,0,0,0,3.35,7.72,16.6,16.6,0,0,0,6.6,4.93,26.39,26.39,0,0,0,10.41,1.79A20.56,20.56,0,0,0,497,172q5.92-4.81,5.93-14.88a26.93,26.93,0,0,0-1.45-9.29,18.47,18.47,0,0,0-4.82-7.05,34.1,34.1,0,0,0-8.83-5.7,126.18,126.18,0,0,0-13.54-5.26,115.68,115.68,0,0,1-18.57-7.83,49.79,49.79,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.25-11.63a79.06,79.06,0,0,1,19.8,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43q3.69,8.16,3.69,19.57v4.48H500.48q0-11.42-4-17.56T483,58.17a22.43,22.43,0,0,0-8.95,1.57,15.1,15.1,0,0,0-5.71,4.14,14.16,14.16,0,0,0-2.91,5.93,30.48,30.48,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.13,5,13.43,9.29l24.83,10.74a75.73,75.73,0,0,1,15,8.39,41,41,0,0,1,9.29,9.39,31.46,31.46,0,0,1,4.81,11.08,62.31,62.31,0,0,1,1.34,13.42q0,25.29-14.65,36.81T481,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M554.17,37.59h32.22V197.34H554.17ZM582.81,26.4H557.75V0h25.06Z M636.29,152.14a53.81,53.81,0,0,0,.89,10.18,17.74,17.74,0,0,0,3.36,7.72,16.6,16.6,0,0,0,6.6,4.93,26.37,26.37,0,0,0,10.4,1.79A20.59,20.59,0,0,0,670.86,172q5.92-4.81,5.93-14.88a26.68,26.68,0,0,0-1.46-9.29,18.33,18.33,0,0,0-4.81-7.05,34.17,34.17,0,0,0-8.84-5.7,125.1,125.1,0,0,0-13.53-5.26,115.68,115.68,0,0,1-18.57-7.83,49.63,49.63,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.24-11.63a79.2,79.2,0,0,1,19.81,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43Q705.2,66,705.2,77.41v4.48H674.33q0-11.42-4-17.56t-13.43-6.16a22.46,22.46,0,0,0-9,1.57,15,15,0,0,0-5.7,4.14,14.16,14.16,0,0,0-2.91,5.93,29.93,29.93,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.14,5,13.42,9.29l24.84,10.74a76,76,0,0,1,15,8.39A41,41,0,0,1,704.2,127a31.44,31.44,0,0,1,4.8,11.08,61.66,61.66,0,0,1,1.35,13.42q0,25.29-14.66,36.81T654.86,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M820,64h-34.9V197.34H752.86V64H718V37.59H820Z"></path></svg></a><a class="Header_button__yG4_K" href="/en/contact-us/"><span class="Header_text__taNU6"><span>Get in Touch</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" class="Header_buttonArrow__frtNz"><path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z" fill="currentColor"></path></svg></span></a></header><p class="Celebrating_celebrating__MdmnM" data-modal-hide="true"><a href="/en/who-we-are/">ROASIST GLOBAL — 360° DIGITAL GROWTH &amp; PERFORMANCE : <!-- -->2026</a></p>
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+<!-- -->
+	<!-- -->
+	<!-- -->
+	<!-- -->
+<!-- -->
+<!-- -->
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.roasist.com/en/references/","url":"https://www.roasist.com/en/references/","name":"Our Work & Case Studies | Roasist","isPartOf":{"@id":"https://www.roasist.com/en/#website"},"about":{"@id":"https://www.roasist.com/#organization"},"description":"Explore how Roasist scales ambitious brands across healthcare, real estate, e-commerce, SaaS, hospitality, and B2B through performance marketing, SEO, and web design.","breadcrumb":{"@id":"https://www.roasist.com/en/references/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.roasist.com/en/references/"]}]},{"@type":"BreadcrumbList","@id":"https://www.roasist.com/en/references/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.roasist.com/en/"},{"@type":"ListItem","position":2,"name":"Our Work & Case Studies","item":"https://www.roasist.com/en/references/"}]},{"@type":"WebSite","@id":"https://www.roasist.com/en/#website","url":"https://www.roasist.com/en/","name":"Roasist Global","description":"Data-Driven 360° Digital Marketing, Performance & Growth Agency","publisher":{"@id":"https://www.roasist.com/#organization"},"inLanguage":"en-US"},{"@type":"Organization","@id":"https://www.roasist.com/#organization","name":"Roasist","alternateName":"Roasist Digital Growth Agency","url":"https://www.roasist.com/en/","email":"info@roasist.com","telephone":"+90 540 507 53 50","address":{"@type":"PostalAddress","addressLocality":"Istanbul","addressCountry":"TR"},"logo":{"@type":"ImageObject","@id":"https://www.roasist.com/#/schema/logo/image/","url":"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/icon.png","contentUrl":"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/icon.png","width":512,"height":512,"caption":"Roasist"},"sameAs":["https://www.instagram.com/roasist","https://www.linkedin.com/company/roasist","https://twitter.com/Roasistt","https://www.facebook.com/roasistt","https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA"]}]}</script>
+<div class="FloatingStartButton_linkContainer__eZz7z"><a class="FloatingStartButton_button__Ncnrf" href="/start-your-project"><span class="FloatingStartButton_text__70x9M"><span>Projeye Başlayın</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" class="FloatingStartButton_buttonArrow__re1eN"><path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z" fill="currentColor"></path></svg></span></a></div><div><section class="Hero_hero__Oyf4n"><div class="container"><div class="Hero_top__RRkYH"><h2><span class="LineByLine_headingOuter__JmusT"><span>Expertise that scales brands <em>digitally.</em></span></span><figure class="crosshair" aria-hidden="true"><span class="FadeInRotate_container__QE9u9" data-fill="true" data-direction="clockwise"><span class="inner"></span></span></figure></h2><div class="Hero_video__rzcbe"><span class="ScaleFadeIn_container__cK78G" data-fill="true"><span class="ScaleFadeIn_inner__y4reT" data-fill="true"><video src="https://kota-content.b-cdn.net/app/uploads/2025/10/Short-Preview-homepage.mp4" class="Hero_video__rzcbe" autoPlay="" muted="" loop="" playsInline=""></video></span></span></div></div><div class="Hero_bottom__ktiOH"><h1><span class="MaskInUp_container__0AW5i" data-fill="false"><div><span><i></i>Our Work</span></div></span></h1><h3 class="Hero_introText__oP34v"><span class="FadeIn_container__bjQVL" data-fill="false"><span>Roasist unites performance marketing, enterprise SEO, creative design, and web engineering to build measurable growth stories for national and global brands. </span></span></h3><div class="Hero_arrow__lxSeM"><span class="FadeInRotate_container__QE9u9" data-fill="false" data-direction="counterclockwise"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.91 75.65"><path d="m13.65 67.65 61.93-62L69.92 0 8 61.99V.25H0v75.4h75.91v-8H13.65z"></path></svg></span></div></div></div></section><div class="Work_projectsWithFilters__mwDTM"><div class="container"><!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/$--></div></div><div class="webgl-background_container__Ojc1v" data-background="2" data-dark-background="false" data-position="fixed" data-noise="true"></div></div><footer class="Footer_footer__pQtti" data-theme="dark"><div class="container"><div class="Footer_top__623B4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 200" class="Footer_logo__b602f"><path fill="#fff" stroke-width="0" d="M176.71,198.48v1.32l-35.19.2c-1.72-2.67-2.88-6.5-3.64-11.52-.59-4.79-1.15-10-1.55-15.35s-.56-10.76-1-15.75a95,95,0,0,0-1.16-12.48c-1-4.42-2.51-8.08-4.62-10.56a20.66,20.66,0,0,0-7.46-6.17,32.19,32.19,0,0,0-9.81-2.88c-3.66-.36-7.29-.56-11.15-.56h-47v-35h56.29v18.62L164.6,77.1,110.46,45.8V64.42H54.17v16L0,49.07,54.17,17.74V34.08h64.9c18.26,0,32.29,3.47,41.89,10.17,9.78,6.93,14.6,18.06,14.6,33.41,0,10.4-2.12,18.85-6.34,24.79C165,108.79,158.06,114,148.65,118.2a28.6,28.6,0,0,1,11.52,7.29,35.16,35.16,0,0,1,6.18,11.13A60.62,60.62,0,0,1,169,149.69c.4,4.62.56,9.21.76,13.44.2,6.33.4,11.52.79,15.74.36,4.06,1,7.5,1.32,10A24.35,24.35,0,0,0,174,195,8.76,8.76,0,0,0,176.71,198.48Z M186,84q1.68-15.32,7.38-26.28a41.37,41.37,0,0,1,16.45-17.12q10.74-6.15,28.86-6.15t28.86,6.15A41.37,41.37,0,0,1,284,57.73q5.7,11,7.38,26.28a308.26,308.26,0,0,1,1.68,33.45A307.5,307.5,0,0,1,291.39,151q-1.68,15.21-7.38,26.17A39.24,39.24,0,0,1,267.56,194q-10.74,5.82-28.86,5.82T209.84,194a39.24,39.24,0,0,1-16.45-16.78Q187.69,166.25,186,151a307.5,307.5,0,0,1-1.68-33.57A308.26,308.26,0,0,1,186,84Zm31.32,60.86a76.29,76.29,0,0,0,3.13,18.35q2.35,7,6.72,10.29c2.91,2.17,6.74,3.25,11.52,3.25s8.61-1.08,11.52-3.25,5.15-5.59,6.71-10.29a76.24,76.24,0,0,0,3.14-18.35q.78-11.3.78-27.41t-.78-27.29a77.72,77.72,0,0,0-3.14-18.35q-2.34-7.16-6.71-10.4T238.7,58.17c-4.78,0-8.61,1.09-11.52,3.25s-5.15,5.63-6.72,10.4a77.78,77.78,0,0,0-3.13,18.35q-.78,11.19-.78,27.29T217.33,144.87Z M383,37.59,425.3,197.34H391.74l-7.39-33.79H341.84l-7.38,33.79H300.9L343.19,37.59Zm-4.25,99.56L363.32,65.33h-.44l-15.44,71.82Z M462.44,152.14a53,53,0,0,0,.9,10.18,17.61,17.61,0,0,0,3.35,7.72,16.6,16.6,0,0,0,6.6,4.93,26.39,26.39,0,0,0,10.41,1.79A20.56,20.56,0,0,0,497,172q5.92-4.81,5.93-14.88a26.93,26.93,0,0,0-1.45-9.29,18.47,18.47,0,0,0-4.82-7.05,34.1,34.1,0,0,0-8.83-5.7,126.18,126.18,0,0,0-13.54-5.26,115.68,115.68,0,0,1-18.57-7.83,49.79,49.79,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.25-11.63a79.06,79.06,0,0,1,19.8,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43q3.69,8.16,3.69,19.57v4.48H500.48q0-11.42-4-17.56T483,58.17a22.43,22.43,0,0,0-8.95,1.57,15.1,15.1,0,0,0-5.71,4.14,14.16,14.16,0,0,0-2.91,5.93,30.48,30.48,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.13,5,13.43,9.29l24.83,10.74a75.73,75.73,0,0,1,15,8.39,41,41,0,0,1,9.29,9.39,31.46,31.46,0,0,1,4.81,11.08,62.31,62.31,0,0,1,1.34,13.42q0,25.29-14.65,36.81T481,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M554.17,37.59h32.22V197.34H554.17ZM582.81,26.4H557.75V0h25.06Z M636.29,152.14a53.81,53.81,0,0,0,.89,10.18,17.74,17.74,0,0,0,3.36,7.72,16.6,16.6,0,0,0,6.6,4.93,26.37,26.37,0,0,0,10.4,1.79A20.59,20.59,0,0,0,670.86,172q5.92-4.81,5.93-14.88a26.68,26.68,0,0,0-1.46-9.29,18.33,18.33,0,0,0-4.81-7.05,34.17,34.17,0,0,0-8.84-5.7,125.1,125.1,0,0,0-13.53-5.26,115.68,115.68,0,0,1-18.57-7.83,49.63,49.63,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.24-11.63a79.2,79.2,0,0,1,19.81,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43Q705.2,66,705.2,77.41v4.48H674.33q0-11.42-4-17.56t-13.43-6.16a22.46,22.46,0,0,0-9,1.57,15,15,0,0,0-5.7,4.14,14.16,14.16,0,0,0-2.91,5.93,29.93,29.93,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.14,5,13.42,9.29l24.84,10.74a76,76,0,0,1,15,8.39A41,41,0,0,1,704.2,127a31.44,31.44,0,0,1,4.8,11.08,61.66,61.66,0,0,1,1.35,13.42q0,25.29-14.66,36.81T654.86,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M820,64h-34.9V197.34H752.86V64H718V37.59H820Z"></path></svg><a class="Footer_email__nLajh CopyText_copyText__OtWNq">info@roasist.com<div class="CopyText_tooltip__HuxWa ">Copy email address</div></a></div><div class="Footer_bottom__wxP7Z"><div class="Footer_socialLinks__tA7gt"><a href="https://www.instagram.com/roasist" target="_blank" rel="noopener noreferrer">Instagram<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.69 12.69"><path fill="#fff" stroke-width="0" d="M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z"></path></svg></a><a href="https://www.linkedin.com/company/roasist" target="_blank" rel="noopener noreferrer">LinkedIn<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.69 12.69"><path fill="#fff" stroke-width="0" d="M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z"></path></svg></a><a href="https://twitter.com/Roasistt" target="_blank" rel="noopener noreferrer">X<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.69 12.69"><path fill="#fff" stroke-width="0" d="M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z"></path></svg></a><a href="https://www.facebook.com/roasistt" target="_blank" rel="noopener noreferrer">Facebook<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.69 12.69"><path fill="#fff" stroke-width="0" d="M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z"></path></svg></a><a href="https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA" target="_blank" rel="noopener noreferrer">YouTube<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.69 12.69"><path fill="#fff" stroke-width="0" d="M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z"></path></svg></a></div><ul class="Footer_lastNav__at6Kh" data-type="mobile"><li><a href="/en/contact-us/">Contact</a></li><li><a href="/en/who-we-are/">About Us</a></li><li><a href="/en/privacy-policy-and-terms-of-use/">Privacy Policy</a></li></ul><div class="Footer_sectorsWrap__UM4Zx" data-type="mobile"><span class="Footer_sectorTitle__yEZhb">Our Services :</span><ul class="Footer_sectorMenu__GX7QZ"><a class="Footer_sectorItem__0Cx14" href="/en/performance-marketing/">Performance Marketing</a><a class="Footer_sectorItem__0Cx14" href="/en/seo/">SEO</a><a class="Footer_sectorItem__0Cx14" href="/en/graphic-design/">Graphic Design</a><a class="Footer_sectorItem__0Cx14" href="/en/web-design/">Web Design</a><a class="Footer_sectorItem__0Cx14" href="/en/360-digital-marketing-management/">360° Digital Marketing</a></ul></div><div class="Footer_logos__jFNys"><img src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-google-partner-w.svg" alt=""/><img src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-meta-partner-w.svg" alt=""/><img src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-tiktok-partner-w.svg" alt=""/><img src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-ai-seo-w.svg" alt=""/></div></div><div class="Footer_last__auU9C"><ul class="Footer_lastNav__at6Kh" data-type="desktop"><li><a href="/en/contact-us/">Contact</a></li><li><a href="/en/who-we-are/">About Us</a></li><li><a href="/en/privacy-policy-and-terms-of-use/">Privacy Policy</a></li></ul><a class="Footer_newsletterButton__wp2hz" href="/en/contact-us/">Get a Free Digital Audit</a></div><div class="Footer_copyright__j4atB"><div class="Footer_sectorsWrap__UM4Zx" data-type="desktop"><span class="Footer_sectorTitle__yEZhb">Our Services :</span><ul class="Footer_sectorMenu__GX7QZ"><a class="Footer_sectorItem__0Cx14" href="/en/performance-marketing/">Performance Marketing</a><a class="Footer_sectorItem__0Cx14" href="/en/seo/">SEO</a><a class="Footer_sectorItem__0Cx14" href="/en/graphic-design/">Graphic Design</a><a class="Footer_sectorItem__0Cx14" href="/en/web-design/">Web Design</a><a class="Footer_sectorItem__0Cx14" href="/en/360-digital-marketing-management/">360° Digital Marketing</a></ul></div><div class="Footer_copyrightTextWrap__uhQWh"><span class="Footer_copyrightText__f_Lte">© Roasist <!-- -->2026</span><a href="tel:+905405075350" class="Footer_cyberEssestials__2qh89">+90 540 507 53 50 • Istanbul</a></div></div></div></footer><script src="https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/chunks/webpack-1b6a5d5ee0c4d44d.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/482a8097102f5f9f-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/50431d8feb7ceff2-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n3:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/54252e86b97de34f-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n4:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/media/bb0bdc9db5c241da-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n5:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/f9cbc29e5dcba8c4.css\",\"style\"]\n6:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@d6aae801bbdd2aae3b5774f243336a975fc26aea/public/_next/static/css/84191844b30595bc.css\",\"style\"]\n7:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/053ade63481ccabc.css\",\"style\"]\n8:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/e36a1a112c1c5ec8.css\",\"style\"]\n9:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/989bd6fb590599c9.css\",\"style\"]\na:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/c8ac051173e41d45.css\",\"style\"]\nb:HL[\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/33a276ed7bd6abf4.css\",\"style\"]\nc:I[12846,[],\"\"]\nf:I[4707,[],\"\"]\n10:I[36423,[],\"\"]\n11:I[93442,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n12:I[88003,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"\"]\n13:I[81835,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"NavigationContextProvider\"]\n14:I[74476,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n15:I[62213,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n16:I[14389,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n17:I[37277,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n1b:I[56455,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"6644\",\"static/chunks/6644-79af0604a55e02a8.js\",\"9498\",\"static/chunks/9498-3112cb2861cfba50.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"988\",\"static/chunks/988-86d1af1c6c90b59b.js\",\"5608\",\"static/chunks/app/(home)/page-b58f77e3dc47742c.js\"],\"default\"]\n1c:I[25523,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"6644\",\"static/chunks/6644-79af0604a55e02a8.js\",\"9498\",\"static/chunks/9498-3112cb2861cfba50.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"988\",\"static/chunks/988-86d1af1c6c90b59b.js\",\"5608\",\"static/chunks/app/(home)/page-b58f77e3dc47742c.js\"],\"default\"]\n1d:I[44143,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n1f:I[61060,[],\"\"]\n20:[]\n0:[\"$\",\"$Lc\",null,{\"buildId\":\"d5gO_rPE-hS1cIcjYgcid\",\"assetPrefix\":\"\",\"urlParts\":[\"\",\"work\"],\"initialTree\":[\"\",{\"children\":[\"work\",{\"children\":[\"__PAGE__\",{}]}]},\"$undefined\",\"$undefined\",true],\"initialSeedData\":[\"\",{\"children\":[\"work\",{\"children\":[\"__PAGE__\",{},[[\"$Ld\",\"$Le\",[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/989bd6fb590599c9.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/c8ac051173e41d45.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/33a276ed7bd6abf4.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]]],null],null]},[null,[\"$\",\"$Lf\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"work\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L10\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\"}]],null]},[[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/f9cbc29e5dcba8c4.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@d6aae801bbdd2aae3b5774f243336a975fc26aea/public/_next/static/css/84191844b30595bc.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/053ade63481ccabc.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}],[\"$\",\"link\",\"3\",{\"rel\":\"stylesheet\",\"href\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/_next/static/css/e36a1a112c1c5ec8.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"className\":\"__variable_a78db3 __variable_ab8453\",\"children\":[false,false,[\"$\",\"body\",null,{\"children\":[\"$\",\"$L13\",null,{\"children\":[\"$\",\"$L14\",null,{\"children\":[[\"$\",\"$L15\",null,{}],[\"$\",\"$L16\",null,{\"cookieBanner\":false,\"menu\":\"$L18\",\"header\":\"$L19\",\"footer\":\"$L1a\",\"children\":[\"$\",\"$Lf\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L10\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"$L1b\",null,{}],[\"$\",\"div\",null,{\"className\":\"NotFound_notFound__TmLC2\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"h1\",null,{\"children\":[\"Hello there.\",[\"$\",\"br\",null,{}],\"Looks like you're a bit lost...\"]}],[\"$\",\"div\",null,{\"className\":\"NotFound_buttonContainer__YCunx\",\"children\":[\"$\",\"$L1c\",null,{\"color\":\"white\",\"type\":\"a-internal\",\"href\":\"/en/\",\"text\":\"Back to Homepage\"}]}]]}]}],[\"$\",\"$L1d\",null,{\"variation\":0,\"scrollTrigger\":true,\"darkBackground\":true,\"position\":\"absolute\"}],[\"$\",\"div\",null,{\"className\":\"NotFound_background__32Jaa\"}]],\"notFoundStyles\":[]}]}]]}]}]}],false]}]],null],null],\"couldBeIntercepted\":false,\"initialHead\":[null,\"$L1e\"],\"globalErrorComponent\":\"$1f\",\"missingSlots\":\"$W20\"}]\n21:I[47899,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"6644\",\"static/chunks/6644-79af0604a55e02a8.js\",\"9498\",\"static/chunks/9498-3112cb2861cfba50.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"988\",\"static/chunks/988-86d1af1c6c90b59b.js\",\"5608\",\"static/chunks/app/(home)/page-b58f77e3dc47742c.js\"],\"default\"]\n22:I[25928,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n19:[[\"$\",\"header\",null,{\"className\":\"Header_header__KwdYD\",\"data-modal-hide\":true,\"children\":[[\"$\",\"$L21\",null,{\"className\":\"Header_logo____uDV\",\"href\":\"/en/\",\"children\":[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 820 200\",\"children\":[\"$\",\"path\",null,{\"fill\":\"currentColor\",\"d\":\"M176.71,198.48v1.32l-35.19.2c-1.72-2.67-2.88-6.5-3.64-11.52-.59-4.79-1.15-10-1.55-15.35s-.56-10.76-1-15.75a95,95,0,0,0-1.16-12.48c-1-4.42-2.51-8.08-4.62-10.56a20.66,20.66,0,0,0-7.46-6.17,32.19,32.19,0,0,0-9.81-2.88c-3.66-.36-7.29-.56-11.15-.56h-47v-35h56.29v18.62L164.6,77.1,110.46,45.8V64.42H54.17v16L0,49.07,54.17,17.74V34.08h64.9c18.26,0,32.29,3.47,41.89,10.17,9.78,6.93,14.6,18.06,14.6,33.41,0,10.4-2.12,18.85-6.34,24.79C165,108.79,158.06,114,148.65,118.2a28.6,28.6,0,0,1,11.52,7.29,35.16,35.16,0,0,1,6.18,11.13A60.62,60.62,0,0,1,169,149.69c.4,4.62.56,9.21.76,13.44.2,6.33.4,11.52.79,15.74.36,4.06,1,7.5,1.32,10A24.35,24.35,0,0,0,174,195,8.76,8.76,0,0,0,176.71,198.48Z M186,84q1.68-15.32,7.38-26.28a41.37,41.37,0,0,1,16.45-17.12q10.74-6.15,28.86-6.15t28.86,6.15A41.37,41.37,0,0,1,284,57.73q5.7,11,7.38,26.28a308.26,308.26,0,0,1,1.68,33.45A307.5,307.5,0,0,1,291.39,151q-1.68,15.21-7.38,26.17A39.24,39.24,0,0,1,267.56,194q-10.74,5.82-28.86,5.82T209.84,194a39.24,39.24,0,0,1-16.45-16.78Q187.69,166.25,186,151a307.5,307.5,0,0,1-1.68-33.57A308.26,308.26,0,0,1,186,84Zm31.32,60.86a76.29,76.29,0,0,0,3.13,18.35q2.35,7,6.72,10.29c2.91,2.17,6.74,3.25,11.52,3.25s8.61-1.08,11.52-3.25,5.15-5.59,6.71-10.29a76.24,76.24,0,0,0,3.14-18.35q.78-11.3.78-27.41t-.78-27.29a77.72,77.72,0,0,0-3.14-18.35q-2.34-7.16-6.71-10.4T238.7,58.17c-4.78,0-8.61,1.09-11.52,3.25s-5.15,5.63-6.72,10.4a77.78,77.78,0,0,0-3.13,18.35q-.78,11.19-.78,27.29T217.33,144.87Z M383,37.59,425.3,197.34H391.74l-7.39-33.79H341.84l-7.38,33.79H300.9L343.19,37.59Zm-4.25,99.56L363.32,65.33h-.44l-15.44,71.82Z M462.44,152.14a53,53,0,0,0,.9,10.18,17.61,17.61,0,0,0,3.35,7.72,16.6,16.6,0,0,0,6.6,4.93,26.39,26.39,0,0,0,10.41,1.79A20.56,20.56,0,0,0,497,172q5.92-4.81,5.93-14.88a26.93,26.93,0,0,0-1.45-9.29,18.47,18.47,0,0,0-4.82-7.05,34.1,34.1,0,0,0-8.83-5.7,126.18,126.18,0,0,0-13.54-5.26,115.68,115.68,0,0,1-18.57-7.83,49.79,49.79,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.25-11.63a79.06,79.06,0,0,1,19.8,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43q3.69,8.16,3.69,19.57v4.48H500.48q0-11.42-4-17.56T483,58.17a22.43,22.43,0,0,0-8.95,1.57,15.1,15.1,0,0,0-5.71,4.14,14.16,14.16,0,0,0-2.91,5.93,30.48,30.48,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.13,5,13.43,9.29l24.83,10.74a75.73,75.73,0,0,1,15,8.39,41,41,0,0,1,9.29,9.39,31.46,31.46,0,0,1,4.81,11.08,62.31,62.31,0,0,1,1.34,13.42q0,25.29-14.65,36.81T481,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M554.17,37.59h32.22V197.34H554.17ZM582.81,26.4H557.75V0h25.06Z M636.29,152.14a53.81,53.81,0,0,0,.89,10.18,17.74,17.74,0,0,0,3.36,7.72,16.6,16.6,0,0,0,6.6,4.93,26.37,26.37,0,0,0,10.4,1.79A20.59,20.59,0,0,0,670.86,172q5.92-4.81,5.93-14.88a26.68,26.68,0,0,0-1.46-9.29,18.33,18.33,0,0,0-4.81-7.05,34.17,34.17,0,0,0-8.84-5.7,125.1,125.1,0,0,0-13.53-5.26,115.68,115.68,0,0,1-18.57-7.83,49.63,49.63,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.24-11.63a79.2,79.2,0,0,1,19.81,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43Q705.2,66,705.2,77.41v4.48H674.33q0-11.42-4-17.56t-13.43-6.16a22.46,22.46,0,0,0-9,1.57,15,15,0,0,0-5.7,4.14,14.16,14.16,0,0,0-2.91,5.93,29.93,29.93,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.14,5,13.42,9.29l24.84,10.74a76,76,0,0,1,15,8.39A41,41,0,0,1,704.2,127a31.44,31.44,0,0,1,4.8,11.08,61.66,61.66,0,0,1,1.35,13.42q0,25.29-14.66,36.81T654.86,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M820,64h-34.9V197.34H752.86V64H718V37.59H820Z\"}]}]}],[\"$\",\"$L21\",null,{\"className\":\"Header_button__yG4_K\",\"href\":\"/en/contact-us/\",\"children\":[\"$\",\"span\",null,{\"className\":\"Header_text__taNU6\",\"children\":[[\"$\",\"span\",null,{\"className\":\"$undefined\",\"children\":\"Get in Touch\"}],[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 17.1 15.17\",\"className\":\"Header_buttonArrow__frtNz\",\"children\":[\"$\",\"path\",null,{\"d\":\"m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z\",\"fill\":\"currentColor\"}]}]]}]}]]}],[\"$\",\"p\",null,{\"className\":\"Celebrating_celebrating__MdmnM\",\"data-modal-hide\":true,\"children\":[\"$\",\"a\",null,{\"href\":\"/en/who-we-are/\",\"children\":[\"ROASIST GLOBAL — 360° DIGITAL GROWTH & PERFORMANCE : \",2026]}]}]]\n1e:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"meta\",\"1\",{\"charSet\":\"utf-8\"}],[\"$\",\"link\",\"2\",{\"rel\":\"icon\",\"href\":\"/icon.png?c6e807c869f7d63d\",\"type\":\"image/png\",\"sizes\":\"512x512\"}],[\"$\",\"meta\",\"3\",{\"name\":\"next-size-adjust\"}]]\nd:null\n23:I[72632,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n18:[\"$\",\"$L23\",null,{\"data\":{\"menu\":{\"menuItems\":{\"nodes\":[{\"databaseId\":936,\"label\":\"Work\",\"uri\":\"/en/references/\",\"childItems\":{\"nodes\":[]}},{\"databaseId\":946,\"label\":\"About Us\",\"uri\":\"/en/who-we-are/\",\"childItems\":{\"nodes\":[]}},{\"databaseId\":937,\"label\":\"Services\",\"uri\":\"#\",\"childItems\":{\"nodes\":[{\"databaseId\":942,\"label\":\"Performance Marketing\",\"uri\":\"/en/performance-marketing/\"},{\"databaseId\":944,\"label\":\"SEO\",\"uri\":\"/en/seo/\"},{\"databaseId\":945,\"label\":\"Graphic Design\",\"uri\":\"/en/graphic-design/\"},{\"databaseId\":943,\"label\":\"Web Design\",\"uri\":\"/en/web-design/\"},{\"databaseId\":941,\"label\":\"360° Digital Marketing\",\"uri\":\"/en/360-digital-marketing-management/\"}]}},{\"databaseId\":938,\"label\":\"Blog\",\"uri\":\"/en/blog/\",\"childItems\":{\"nodes\":[]}},{\"databaseId\":940,\"label\":\"Contact\",\"uri\":\"/en/contact-us/\",\"childItems\":{\"nodes\":[]}}]}}}}]\n24:I[73258,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"2553\",\"static/chunks/2553-48f52e8f75360017.js\",\"3185\",\"static/chunks/app/layout-69eda66b9da6597e.js\"],\"default\"]\n1a:[\"$\",\"footer\",null,{\"className\":\"Footer_footer__pQtti\",\"data-theme\":\"dark\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"div\",null,{\"className\":\"Footer_top__623B4\",\"children\":[[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 820 200\",\"className\":\"Footer_logo__b602f\",\"children\":[\"$\",\"path\",null,{\"fill\":\"#fff\",\"strokeWidth\":\"0\",\"d\":\"M176.71,198.48v1.32l-35.19.2c-1.72-2.67-2.88-6.5-3.64-11.52-.59-4.79-1.15-10-1.55-15.35s-.56-10.76-1-15.75a95,95,0,0,0-1.16-12.48c-1-4.42-2.51-8.08-4.62-10.56a20.66,20.66,0,0,0-7.46-6.17,32.19,32.19,0,0,0-9.81-2.88c-3.66-.36-7.29-.56-11.15-.56h-47v-35h56.29v18.62L164.6,77.1,110.46,45.8V64.42H54.17v16L0,49.07,54.17,17.74V34.08h64.9c18.26,0,32.29,3.47,41.89,10.17,9.78,6.93,14.6,18.06,14.6,33.41,0,10.4-2.12,18.85-6.34,24.79C165,108.79,158.06,114,148.65,118.2a28.6,28.6,0,0,1,11.52,7.29,35.16,35.16,0,0,1,6.18,11.13A60.62,60.62,0,0,1,169,149.69c.4,4.62.56,9.21.76,13.44.2,6.33.4,11.52.79,15.74.36,4.06,1,7.5,1.32,10A24.35,24.35,0,0,0,174,195,8.76,8.76,0,0,0,176.71,198.48Z M186,84q1.68-15.32,7.38-26.28a41.37,41.37,0,0,1,16.45-17.12q10.74-6.15,28.86-6.15t28.86,6.15A41.37,41.37,0,0,1,284,57.73q5.7,11,7.38,26.28a308.26,308.26,0,0,1,1.68,33.45A307.5,307.5,0,0,1,291.39,151q-1.68,15.21-7.38,26.17A39.24,39.24,0,0,1,267.56,194q-10.74,5.82-28.86,5.82T209.84,194a39.24,39.24,0,0,1-16.45-16.78Q187.69,166.25,186,151a307.5,307.5,0,0,1-1.68-33.57A308.26,308.26,0,0,1,186,84Zm31.32,60.86a76.29,76.29,0,0,0,3.13,18.35q2.35,7,6.72,10.29c2.91,2.17,6.74,3.25,11.52,3.25s8.61-1.08,11.52-3.25,5.15-5.59,6.71-10.29a76.24,76.24,0,0,0,3.14-18.35q.78-11.3.78-27.41t-.78-27.29a77.72,77.72,0,0,0-3.14-18.35q-2.34-7.16-6.71-10.4T238.7,58.17c-4.78,0-8.61,1.09-11.52,3.25s-5.15,5.63-6.72,10.4a77.78,77.78,0,0,0-3.13,18.35q-.78,11.19-.78,27.29T217.33,144.87Z M383,37.59,425.3,197.34H391.74l-7.39-33.79H341.84l-7.38,33.79H300.9L343.19,37.59Zm-4.25,99.56L363.32,65.33h-.44l-15.44,71.82Z M462.44,152.14a53,53,0,0,0,.9,10.18,17.61,17.61,0,0,0,3.35,7.72,16.6,16.6,0,0,0,6.6,4.93,26.39,26.39,0,0,0,10.41,1.79A20.56,20.56,0,0,0,497,172q5.92-4.81,5.93-14.88a26.93,26.93,0,0,0-1.45-9.29,18.47,18.47,0,0,0-4.82-7.05,34.1,34.1,0,0,0-8.83-5.7,126.18,126.18,0,0,0-13.54-5.26,115.68,115.68,0,0,1-18.57-7.83,49.79,49.79,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.25-11.63a79.06,79.06,0,0,1,19.8,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43q3.69,8.16,3.69,19.57v4.48H500.48q0-11.42-4-17.56T483,58.17a22.43,22.43,0,0,0-8.95,1.57,15.1,15.1,0,0,0-5.71,4.14,14.16,14.16,0,0,0-2.91,5.93,30.48,30.48,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.13,5,13.43,9.29l24.83,10.74a75.73,75.73,0,0,1,15,8.39,41,41,0,0,1,9.29,9.39,31.46,31.46,0,0,1,4.81,11.08,62.31,62.31,0,0,1,1.34,13.42q0,25.29-14.65,36.81T481,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M554.17,37.59h32.22V197.34H554.17ZM582.81,26.4H557.75V0h25.06Z M636.29,152.14a53.81,53.81,0,0,0,.89,10.18,17.74,17.74,0,0,0,3.36,7.72,16.6,16.6,0,0,0,6.6,4.93,26.37,26.37,0,0,0,10.4,1.79A20.59,20.59,0,0,0,670.86,172q5.92-4.81,5.93-14.88a26.68,26.68,0,0,0-1.46-9.29,18.33,18.33,0,0,0-4.81-7.05,34.17,34.17,0,0,0-8.84-5.7,125.1,125.1,0,0,0-13.53-5.26,115.68,115.68,0,0,1-18.57-7.83,49.63,49.63,0,0,1-13.09-10,35.53,35.53,0,0,1-7.72-13.2,55.56,55.56,0,0,1-2.46-17.34q0-23.72,13.2-35.35t36.24-11.63a79.2,79.2,0,0,1,19.81,2.34,41.63,41.63,0,0,1,15.66,7.61,35.58,35.58,0,0,1,10.29,13.43Q705.2,66,705.2,77.41v4.48H674.33q0-11.42-4-17.56t-13.43-6.16a22.46,22.46,0,0,0-9,1.57,15,15,0,0,0-5.7,4.14,14.16,14.16,0,0,0-2.91,5.93,29.93,29.93,0,0,0-.78,6.93,23.06,23.06,0,0,0,3.13,12.42q3.14,5,13.42,9.29l24.84,10.74a76,76,0,0,1,15,8.39A41,41,0,0,1,704.2,127a31.44,31.44,0,0,1,4.8,11.08,61.66,61.66,0,0,1,1.35,13.42q0,25.29-14.66,36.81T654.86,199.8q-27.3,0-39-11.86t-11.75-34v-6.48h32.22Z M820,64h-34.9V197.34H752.86V64H718V37.59H820Z\"}]}],[\"$\",\"$L24\",null,{\"text\":\"info@roasist.com\",\"className\":\"Footer_email__nLajh\"}]]}],[\"$\",\"div\",null,{\"className\":\"Footer_bottom__wxP7Z\",\"children\":[[\"$\",\"div\",null,{\"className\":\"Footer_socialLinks__tA7gt\",\"children\":[[\"$\",\"a\",\"0\",{\"href\":\"https://www.instagram.com/roasist\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"children\":[\"Instagram\",[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 12.69 12.69\",\"children\":[\"$\",\"path\",null,{\"fill\":\"#fff\",\"strokeWidth\":\"0\",\"d\":\"M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z\"}]}]]}],[\"$\",\"a\",\"1\",{\"href\":\"https://www.linkedin.com/company/roasist\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"children\":[\"LinkedIn\",[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 12.69 12.69\",\"children\":[\"$\",\"path\",null,{\"fill\":\"#fff\",\"strokeWidth\":\"0\",\"d\":\"M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z\"}]}]]}],[\"$\",\"a\",\"2\",{\"href\":\"https://twitter.com/Roasistt\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"children\":[\"X\",[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 12.69 12.69\",\"children\":[\"$\",\"path\",null,{\"fill\":\"#fff\",\"strokeWidth\":\"0\",\"d\":\"M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z\"}]}]]}],[\"$\",\"a\",\"3\",{\"href\":\"https://www.facebook.com/roasistt\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"children\":[\"Facebook\",[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 12.69 12.69\",\"children\":[\"$\",\"path\",null,{\"fill\":\"#fff\",\"strokeWidth\":\"0\",\"d\":\"M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z\"}]}]]}],[\"$\",\"a\",\"4\",{\"href\":\"https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"children\":[\"YouTube\",[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 12.69 12.69\",\"children\":[\"$\",\"path\",null,{\"fill\":\"#fff\",\"strokeWidth\":\"0\",\"d\":\"M12.65.31a.504.504 0 00-.46-.31H.5C.22 0 0 .22 0 .5s.22.5.5.5h10.49L.55 11.43c-.2.2-.2.51 0 .71a.485.485 0 00.7 0L11.69 1.71v10.47c0 .28.22.5.5.5s.5-.22.5-.5V.52c0-.07 0-.14-.04-.21z\"}]}]]}]]}],[\"$\",\"ul\",null,{\"className\":\"Footer_lastNav__at6Kh\",\"data-type\":\"mobile\",\"children\":[[\"$\",\"li\",null,{\"className\":\"$undefined\",\"children\":[\"$\",\"$L21\",null,{\"href\":\"/en/contact-us/\",\"children\":\"Contact\"}]}],[\"$\",\"li\",null,{\"className\":\"$undefined\",\"children\":[\"$\",\"$L21\",null,{\"href\":\"/en/who-we-are/\",\"children\":\"About Us\"}]}],[\"$\",\"li\",null,{\"className\":\"$undefined\",\"children\":[\"$\",\"$L21\",null,{\"href\":\"/en/privacy-policy-and-terms-of-use/\",\"children\":\"Privacy Policy\"}]}]]}],[\"$\",\"div\",null,{\"className\":\"Footer_sectorsWrap__UM4Zx\",\"data-type\":\"mobile\",\"children\":[[\"$\",\"span\",null,{\"className\":\"Footer_sectorTitle__yEZhb\",\"children\":\"Our Services :\"}],[\"$\",\"ul\",null,{\"className\":\"Footer_sectorMenu__GX7QZ\",\"children\":[[\"$\",\"$L21\",\"0\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/performance-marketing/\",\"children\":\"Performance Marketing\"}],[\"$\",\"$L21\",\"1\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/seo/\",\"children\":\"SEO\"}],[\"$\",\"$L21\",\"2\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/graphic-design/\",\"children\":\"Graphic Design\"}],[\"$\",\"$L21\",\"3\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/web-design/\",\"children\":\"Web Design\"}],[\"$\",\"$L21\",\"4\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/360-digital-marketing-management/\",\"children\":\"360° Digital Marketing\"}]]}]]}],[\"$\",\"div\",null,{\"className\":\"Footer_logos__jFNys\",\"children\":[[\"$\",\"img\",\"4739\",{\"src\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-google-partner-w.svg\",\"alt\":\"\"}],[\"$\",\"img\",\"154\",{\"src\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-meta-partner-w.svg\",\"alt\":\"\"}],[\"$\",\"img\",\"155\",{\"src\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-tiktok-partner-w.svg\",\"alt\":\"\"}],[\"$\",\"img\",\"153\",{\"src\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@c766063e6a19824bf5e1a598d275bf05cbf2226f/public/images/badge-ai-seo-w.svg\",\"alt\":\"\"}]]}]]}],[\"$\",\"div\",null,{\"className\":\"Footer_last__auU9C\",\"children\":[[\"$\",\"ul\",null,{\"className\":\"Footer_lastNav__at6Kh\",\"data-type\":\"desktop\",\"children\":[[\"$\",\"li\",null,{\"className\":\"$undefined\",\"children\":[\"$\",\"$L21\",null,{\"href\":\"/en/contact-us/\",\"children\":\"Contact\"}]}],[\"$\",\"li\",null,{\"className\":\"$undefined\",\"children\":[\"$\",\"$L21\",null,{\"href\":\"/en/who-we-are/\",\"children\":\"About Us\"}]}],[\"$\",\"li\",null,{\"className\":\"$undefined\",\"children\":[\"$\",\"$L21\",null,{\"href\":\"/en/privacy-policy-and-terms-of-use/\",\"children\":\"Privacy Policy\"}]}]]}],[\"$\",\"$L21\",null,{\"className\":\"Footer_newsletterButton__wp2hz\",\"href\":\"/en/contact-us/\",\"children\":\"Get a Free Digital Audit\"}]]}],[\"$\",\"div\",null,{\"className\":\"Footer_copyright__j4atB\",\"children\":[[\"$\",\"div\",null,{\"className\":\"Footer_sectorsWrap__UM4Zx\",\"data-type\":\"desktop\",\"children\":[[\"$\",\"span\",null,{\"className\":\"Footer_sectorTitle__yEZhb\",\"children\":\"Our Services :\"}],[\"$\",\"ul\",null,{\"className\":\"Footer_sectorMenu__GX7QZ\",\"children\":[[\"$\",\"$L21\",\"0\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/performance-marketing/\",\"children\":\"Performance Marketing\"}],[\"$\",\"$L21\",\"1\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/seo/\",\"children\":\"SEO\"}],[\"$\",\"$L21\",\"2\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/graphic-design/\",\"children\":\"Graphic Design\"}],[\"$\",\"$L21\",\"3\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/web-design/\",\"children\":\"Web Design\"}],[\"$\",\"$L21\",\"4\",{\"className\":\"Footer_sectorItem__0Cx14\",\"href\":\"/en/360-digital-marketing-management/\",\"children\":\"360° Digital Marketing\"}]]}]]}],[\"$\",\"div\",null,{\"className\":\"Footer_copyrightTextWrap__uhQWh\",\"children\":[[\"$\",\"span\",null,{\"className\":\"Footer_copyrightText__f_Lte\",\"children\":[\"© Roasist \",2026]}],[\"$\",\"a\",null,{\"href\":\"tel:+905405075350\",\"className\":\"Footer_cyberEssestials__2qh89\",\"children\":\"+90 540 507 53 50 • Istanbul\"}]]}]]}]]}]}]\n26:I[86802,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n27:I[15098,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n28:I[86419,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n29:I[77726,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n2a:I[37767,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n2b:I[2941,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n2c:\"$Sreact.suspense\"\n2d:I[78267,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n2e:I[60119,[\"922\",\"static/chunks/c15bf2b0-7fe4609d5aed7ee2.js\",\"6689\",\"static/chunks/b536a0f1-48e07d9a196acd0d.js\",\"1550\",\"static/chunks/1550-75709fc12a079aa2.js\",\"1242\",\"static/chunks/1242-b8f16838e7608b53.js\",\"4143\",\"static/chunks/4143-6b83e17252ec01c2.js\",\"7534\",\"static/chunks/app/work/page-5b3919766e28ce0e.js\"],\"default\"]\n25:T86f,{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://www.roasist.com/en/references/\",\"url\":\"https://www.roasist.com/en/references/\",\"name\":\"Our Work & Case Studies | Roasist\",\"isPartOf\":{\"@id\":\"https://www.roasist.com/en/#website\"},\"about\":{\"@id\":\"https://www.roasist.com/#organization\"},\"description\":\"Explore how Roasist scales ambitious brands across healthcare, real estate, e-commerce, SaaS, hospitality, and B2B through performance marketing, SEO, and web design.\",\"breadcrumb\":{\"@id\":\"https://www.roasist.com/en/references/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://www.roasist.com/en/references/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://www.roasist.com/en/references/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://www.roasist.com/en/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Our Work & Case Studies\",\"item\":\"https://www.roasist.com/en/references/\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.roasist.com/en/#website\",\"url\":\"https://www.roasist.com/en/\",\"name\":\"Roasist Global\",\"description\":\"Data-Driven 360° Digital Marketing, Performance & Growth Agency\",\"publisher\":{\"@id\":\"https://www.roasist.com/#organization\"},\"inLanguage\":\"en-US\"},{\"@type\":\"Organization\",\"@id\":\"https://www.roasist.com/#organization\",\"name\":\"Roasist\",\"alternateName\":\"Roasist Digital Growth Agency\",\"url\":\"https://www.roasist.com/en/\",\"email\":\"info@roasist.com\",\"telephone\":\"+90 540 507 53 50\",\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Istanbul\",\"addressCountry\":\"TR\"},\"logo\":{\"@type\":\"ImageObject\",\"@id\":\"https://www.roasist.com/#/schema/logo/image/\",\"url\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/icon.png\",\"contentUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@189b2e0aee16a196d88d8895fb3795810c6d17f9/icon.png\",\"width\":512,\"height\":512,\"caption\":\"Roasist\"},\"sameAs\":[\"https://www.instagram.com/roasist\",\"https://www.linkedin.com/company/roasist\",\"https://twitter.com/Roasistt\",\"https://www.facebook.com/roasistt\",\"https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA\"]}]}e:[[[\"$\",\"title\",null,{\"children\":\"Our Work & Case Studies | Roasist\"}],[\"\\n\",[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Explore how Roasist scales ambitious brands across healthcare, real estate, e-commerce, SaaS, hospitality, and B2B through performance marketing, SEO, and web design.\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"link\",\"4\",{\"rel\":\"canonical\",\"href\":\"https://www.roasist.com/en/references/\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"6\",{\"property\":\"og:locale\",\"content\":\"en_US\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"8\",{\"property\":\"og:type\",\"content\":\"article\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"10\",{\"property\":\"og:title\",\"content\":\"Our Work & Case Studies | Roasist\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"12\",{\"property\":\"og:description\",\"content\":\"Explore how Roasist scales ambitious brands across healthcare, real estate, e-commerce, SaaS, hospitality, and B2B through performance marketing, SEO, and web design.\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"14\",{\"property\":\"og:url\",\"content\":\"https://www.roasist.com/en/references/\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"16\",{\"property\":\"og:site_name\",\"content\":\"Roasist\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"18\",{\"property\":\"article:publisher\",\"content\":\"https://www.facebook.com/roasistt\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"20\",{\"property\":\"article:modified_time\",\"content\":\"2026-08-12T15:00:39+00:00\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"22\",{\"property\":\"og:image\",\"content\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/23-projects.jpg\",\"children\":\"$undefined\"}],\"\\n\\t\",[\"$\",\"meta\",\"24\",{\"property\":\"og:image:width\",\"content\":\"1200\",\"children\":\"$undefined\"}],\"\\n\\t\",[\"$\",\"meta\",\"26\",{\"property\":\"og:image:height\",\"content\":\"675\",\"children\":\"$undefined\"}],\"\\n\\t\",[\"$\",\"meta\",\"28\",{\"property\":\"og:image:type\",\"content\":\"image/jpeg\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"30\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"meta\",\"32\",{\"name\":\"twitter:site\",\"content\":\"@Roasistt\",\"children\":\"$undefined\"}],\"\\n\",[\"$\",\"script\",\"34\",{\"type\":\"application/ld+json\",\"className\":\"yoast-schema-graph\",\"dangerouslySetInnerHTML\":{\"__html\":\"$25\"},\"children\":\"$undefined\"}],\"\\n\"]],[\"$\",\"$L26\",null,{}],[\"$\",\"div\",null,{\"className\":\"$undefined\",\"children\":[[\"$\",\"section\",null,{\"className\":\"Hero_hero__Oyf4n\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"div\",null,{\"className\":\"Hero_top__RRkYH\",\"children\":[[\"$\",\"h2\",null,{\"children\":[[\"$\",\"$L27\",null,{\"delay\":0.2,\"children\":[\"$\",\"span\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"Expertise that scales brands <em>digitally.</em>\"}}]}],[\"$\",\"figure\",null,{\"className\":\"crosshair\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"$L28\",null,{\"fill\":true,\"delay\":0.75,\"direction\":\"clockwise\",\"children\":[\"$\",\"span\",null,{\"className\":\"inner\"}]}]}]]}],[\"$\",\"div\",null,{\"className\":\"Hero_video__rzcbe\",\"children\":[\"$\",\"$L29\",null,{\"fill\":true,\"delay\":1,\"children\":[\"$\",\"video\",null,{\"src\":\"https://kota-content.b-cdn.net/app/uploads/2025/10/Short-Preview-homepage.mp4\",\"className\":\"Hero_video__rzcbe\",\"autoPlay\":true,\"muted\":true,\"loop\":true,\"playsInline\":true}]}]}]]}],[\"$\",\"div\",null,{\"className\":\"Hero_bottom__ktiOH\",\"children\":[[\"$\",\"h1\",null,{\"children\":[\"$\",\"$L2a\",null,{\"children\":[\"$\",\"span\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"<i></i>Work\"}}]}]}],[\"$\",\"h3\",null,{\"className\":\"Hero_introText__oP34v\",\"children\":[\"$\",\"$L2b\",null,{\"delay\":0.5,\"children\":[\"$\",\"span\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"Discover the brands we have scaled through data-driven performance marketing, enterprise SEO, and conversion engineering. \"}}]}]}],[\"$\",\"div\",null,{\"className\":\"Hero_arrow__lxSeM\",\"children\":[\"$\",\"$L28\",null,{\"delay\":1.35,\"children\":[\"$\",\"svg\",null,{\"xmlns\":\"http://www.w3.org/2000/svg\",\"viewBox\":\"0 0 75.91 75.65\",\"children\":[\"$\",\"path\",null,{\"d\":\"m13.65 67.65 61.93-62L69.92 0 8 61.99V.25H0v75.4h75.91v-8H13.65z\"}]}]}]}]]}]]}]}],[\"$\",\"div\",null,{\"className\":\"Work_projectsWithFilters__mwDTM\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[\"$\",\"$2c\",null,{\"children\":[[\"$\",\"$L2d\",null,{\"sectors\":[{\"node\":{\"name\":\"Healthcare\",\"slug\":\"saglik\",\"count\":7}},{\"node\":{\"name\":\"Education\",\"slug\":\"egitim\",\"count\":6}},{\"node\":{\"name\":\"Real Estate & Hospitality\",\"slug\":\"gayrimenkul-turizm\",\"count\":5}},{\"node\":{\"name\":\"Call Center & BPO\",\"slug\":\"cagri-merkezi\",\"count\":4}},{\"node\":{\"name\":\"Gastronomy\",\"slug\":\"yeme-icme\",\"count\":2}},{\"node\":{\"name\":\"Oyun\",\"slug\":\"oyun\",\"count\":1}}],\"services\":[]}],[\"$\",\"$L2e\",null,{\"projects\":[{\"node\":{\"title\":\"23 Projects\",\"slug\":\"23-projects\",\"databaseId\":9001,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"23 Projects\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/23-projects.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/23-projects.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/23-projects.mp4\"}},\"hero\":{\"heading\":\"Investor-focused global acquisition for luxury real estate developments.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"web-analitik\",\"name\":\"Web Analytics\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"gayrimenkul-turizm\",\"name\":\"Real Estate & Hospitality\"}}]}}},{\"node\":{\"title\":\"Summer Homes\",\"slug\":\"summer-homes\",\"databaseId\":9002,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Summer Homes\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/summer-homes.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/summer-homes.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/summer-homes.mp4\"}},\"hero\":{\"heading\":\"360° international digital growth for a leading real estate brand.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"360-dijital-pazarlama\",\"name\":\"360° Digital Marketing\"}},{\"node\":{\"slug\":\"web-tasarım\",\"name\":\"Web Design\"}},{\"node\":{\"slug\":\"grafik-tasarım\",\"name\":\"Graphic Design\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"web-analitik\",\"name\":\"Web Analytics\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"gayrimenkul-turizm\",\"name\":\"Real Estate & Hospitality\"}}]}}},{\"node\":{\"title\":\"Dental Art\",\"slug\":\"dental-art\",\"databaseId\":9003,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Dental Art\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/dental-art.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/dental-art.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/dental-art.mp4\"}},\"hero\":{\"heading\":\"High-ROAS international patient acquisition in medical tourism.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"kreatif-i-letişim\",\"name\":\"Creative Direction\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"saglik\",\"name\":\"Healthcare\"}}]}}},{\"node\":{\"title\":\"Medistate\",\"slug\":\"medistate\",\"databaseId\":9004,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Medistate\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/medistate.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/medistate.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/medistate.mp4\"}},\"hero\":{\"heading\":\"Data-driven international patient acquisition for a global hospital group.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"web-analitik\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"kreatif-i-letişim\",\"name\":\"Creative Direction\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"saglik\",\"name\":\"Healthcare\"}}]}}},{\"node\":{\"title\":\"Bonus Vip\",\"slug\":\"bonus-vip\",\"databaseId\":9005,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Bonus Vip\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/bonus-vip-office.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/bonus-vip-office.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@5c1d9cff2d8430e51c27f11555dd13bd040c5c55/public/images/projects/bonus-vip-office.mp4\"}},\"hero\":{\"heading\":\"Scalable multilingual talent acquisition for an industry-leading call center.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"web-analitik\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"kreatif-i-letişim\",\"name\":\"Creative Direction\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"cagri-merkezi\",\"name\":\"Call Center & BPO\"}}]}}},{\"node\":{\"title\":\"Op. Dr. Özgür Demirtaş\",\"slug\":\"op-dr-ozgur-demirtas\",\"databaseId\":9006,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Op. Dr. Özgür Demirtaş\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/op-dr-ozgur-demirtas.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/op-dr-ozgur-demirtas.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/op-dr-ozgur-demirtas.mp4\"}},\"hero\":{\"heading\":\"Patient-focused international digital growth in aesthetic surgery.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitik\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"grafik-tasarım\",\"name\":\"Graphic Design\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"saglik\",\"name\":\"Healthcare\"}}]}}},{\"node\":{\"title\":\"Turkey Hair Academy\",\"slug\":\"turkey-hair-academy\",\"databaseId\":9007,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Turkey Hair Academy\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/turkey-hair-academy.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/turkey-hair-academy.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/turkey-hair-academy.mp4\"}},\"hero\":{\"heading\":\"Global patient acquisition and multi-market scaling in medical tourism.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"saglik\",\"name\":\"Healthcare\"}}]}}},{\"node\":{\"title\":\"Autarke Call Center\",\"slug\":\"autarke-call-center\",\"databaseId\":9008,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Autarke Call Center\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/autarke-call-center.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/autarke-call-center.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/autarke-call-center.mp4\"}},\"hero\":{\"heading\":\"Multilingual talent acquisition for European-facing call center operations.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"yetenek-kazanımı\",\"name\":\"Talent Acquisition\"}},{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"cagri-merkezi\",\"name\":\"Call Center & BPO\"}}]}}},{\"node\":{\"title\":\"İzmir Balık Restaurant\",\"slug\":\"izmir-balik-restaurant\",\"databaseId\":9009,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"İzmir Balık Restaurant\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/izmir-balik-restaurant.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/izmir-balik-restaurant.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/izmir-balik-restaurant.mp4\"}},\"hero\":{\"heading\":\"Local brand authority and table reservation growth in gastronomy.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"grafik-tasarım\",\"name\":\"Graphic Design\"}},{\"node\":{\"slug\":\"web-tasarım\",\"name\":\"Web Design\"}},{\"node\":{\"slug\":\"kreatif-i-letişim\",\"name\":\"Creative Direction\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"yeme-icme\",\"name\":\"Gastronomy\"}}]}}},{\"node\":{\"title\":\"BBG Call Center\",\"slug\":\"bbg-call-center\",\"databaseId\":9010,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"BBG Call Center\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/bbg-call-center.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/bbg-call-center.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/bbg-call-center.mp4\"}},\"hero\":{\"heading\":\"Qualified B2B leads and multilingual talent recruitment in BPO.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"cagri-merkezi\",\"name\":\"Call Center & BPO\"}}]}}},{\"node\":{\"title\":\"LoyalCall\",\"slug\":\"loyalcall\",\"databaseId\":9011,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"LoyalCall\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/loyalcall.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/loyalcall.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/loyalcall.mp4\"}},\"hero\":{\"heading\":\"Data-driven recruitment and B2B growth for customer contact centers.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"cagri-merkezi\",\"name\":\"Call Center & BPO\"}}]}}},{\"node\":{\"title\":\"Doctor Bircan\",\"slug\":\"doctor-bircan\",\"databaseId\":9012,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Doctor Bircan\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/doctor-bircan.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/doctor-bircan.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/doctor-bircan.mp4\"}},\"hero\":{\"heading\":\"High-converting international patient acquisition in hair restoration & aesthetics.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"saglik\",\"name\":\"Healthcare\"}}]}}},{\"node\":{\"title\":\"Hyundai\",\"slug\":\"hyundai\",\"databaseId\":9013,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Hyundai\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/hyundai.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/hyundai.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/hyundai.mp4\"}},\"hero\":{\"heading\":\"Lead generation and sales conversion for residential & commercial water systems.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"talep-oluşturma\",\"name\":\"Demand Generation\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Mobile Game Factory\",\"slug\":\"mobile-game-factory\",\"databaseId\":9014,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Mobile Game Factory\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/mobile-game-factory.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/mobile-game-factory.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/mobile-game-factory.mp4\"}},\"hero\":{\"heading\":\"Global user acquisition (UA) and scaling in the mobile gaming ecosystem.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"oyun\",\"name\":\"Oyun\"}}]}}},{\"node\":{\"title\":\"Yengeç\",\"slug\":\"yengec\",\"databaseId\":9015,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Yengeç\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/yengec.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/yengec.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/yengec.mp4\"}},\"hero\":{\"heading\":\"B2B SaaS user acquisition and recurring growth for an e-commerce integration platform.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Kodlab\",\"slug\":\"kodlab\",\"databaseId\":9016,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Kodlab\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/kodlab.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/kodlab.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/kodlab.mp4\"}},\"hero\":{\"heading\":\"E-commerce revenue acceleration in software and technology publishing.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"e-ticaret-büyüme\",\"name\":\"E-Commerce Growth\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Marmara Kurs\",\"slug\":\"marmara-kurs\",\"databaseId\":9017,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Marmara Kurs\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/marmara-kurs.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/marmara-kurs.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/marmara-kurs.mp4\"}},\"hero\":{\"heading\":\"Targeted student enrollment campaigns in private education.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"kayıt-stratejisi\",\"name\":\"Enrollment Strategy\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"egitim\",\"name\":\"Education\"}}]}}},{\"node\":{\"title\":\"Turkey House\",\"slug\":\"turkey-house\",\"databaseId\":9018,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Turkey House\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/turkey-house.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/turkey-house.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/turkey-house.mp4\"}},\"hero\":{\"heading\":\"International investor marketing for luxury real estate portfolios.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"gayrimenkul-turizm\",\"name\":\"Real Estate & Hospitality\"}}]}}},{\"node\":{\"title\":\"Beşsekiz Ortaokulları\",\"slug\":\"bessekiz-ortaokullari\",\"databaseId\":9019,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Beşsekiz Ortaokulları\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/bessekiz-ortaokullari.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/bessekiz-ortaokullari.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/bessekiz-ortaokullari.mp4\"}},\"hero\":{\"heading\":\"Parent engagement and new-term enrollment growth for private schools.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"kurumsal-i-letişim\",\"name\":\"Corporate Communications\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"egitim\",\"name\":\"Education\"}}]}}},{\"node\":{\"title\":\"Urla Balık\",\"slug\":\"urla-balik\",\"databaseId\":9020,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Urla Balık\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/urla-balik.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/urla-balik.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/urla-balik.mp4\"}},\"hero\":{\"heading\":\"Brand positioning and guest reservation growth in Aegean fine dining.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"kreatif-i-letişim\",\"name\":\"Creative Direction\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"yeme-icme\",\"name\":\"Gastronomy\"}}]}}},{\"node\":{\"title\":\"Livaneli Hotels\",\"slug\":\"livaneli-group\",\"databaseId\":9021,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Livaneli Hotels\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/livaneli-group.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/livaneli-group.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/livaneli-group.mp4\"}},\"hero\":{\"heading\":\"Direct booking and occupancy growth for a boutique hotel group.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-tasarım\",\"name\":\"Web Design\"}},{\"node\":{\"slug\":\"rezervasyon-büyümesi\",\"name\":\"Booking Growth\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"gayrimenkul-turizm\",\"name\":\"Real Estate & Hospitality\"}}]}}},{\"node\":{\"title\":\"Kitapbilgini\",\"slug\":\"kitapbilgini\",\"databaseId\":9022,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Kitapbilgini\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/kitapbilgini.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/kitapbilgini.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/kitapbilgini.mp4\"}},\"hero\":{\"heading\":\"Checkout conversion rate and ROAS optimization in online book retail.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"e-ticaret-büyüme\",\"name\":\"E-Commerce Growth\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"SFK\",\"slug\":\"sfk\",\"databaseId\":9023,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"SFK\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/sfk.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/sfk.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/sfk.mp4\"}},\"hero\":{\"heading\":\"Brand awareness and cultural reach for children's book publishing in Germany.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"yayıncılık-i-letişimi\",\"name\":\"Publishing Growth\"}},{\"node\":{\"slug\":\"marka-bilinirliği\",\"name\":\"Brand Awareness\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"egitim\",\"name\":\"Education\"}}]}}},{\"node\":{\"title\":\"İstanbul Medya Akademisi\",\"slug\":\"istanbul-medya-akademisi\",\"databaseId\":9024,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"İstanbul Medya Akademisi\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/istanbul-medya-akademisi.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/istanbul-medya-akademisi.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/istanbul-medya-akademisi.mp4\"}},\"hero\":{\"heading\":\"Targeted enrollment growth for media and communication academy programs.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}},{\"node\":{\"slug\":\"grafik-tasarım\",\"name\":\"Graphic Design\"}},{\"node\":{\"slug\":\"web-tasarım\",\"name\":\"Web Design\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"egitim\",\"name\":\"Education\"}}]}}},{\"node\":{\"title\":\"Cosy Life Consulting\",\"slug\":\"cosy-life-consulting\",\"databaseId\":9025,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Cosy Life Consulting\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/cosy-life-consulting.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/cosy-life-consulting.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/cosy-life-consulting.mp4\"}},\"hero\":{\"heading\":\"Qualified international client acquisition in investment & relocation consulting.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Düş Bahçesi Okulları\",\"slug\":\"dus-bahcesi-okullari\",\"databaseId\":9026,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Düş Bahçesi Okulları\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/dus-bahcesi-okullari.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/dus-bahcesi-okullari.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/dus-bahcesi-okullari.mp4\"}},\"hero\":{\"heading\":\"Parent-focused enrollment and trust strategy in early childhood education.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"egitim\",\"name\":\"Education\"}}]}}},{\"node\":{\"title\":\"Lefior\",\"slug\":\"lefior\",\"databaseId\":9027,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Lefior\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/lefior.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/lefior.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/lefior.mp4\"}},\"hero\":{\"heading\":\"E-commerce volume and repeat customer loyalty in premium dermocosmetics.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"e-ticaret-büyüme\",\"name\":\"E-Commerce Growth\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Center of Surgeons\",\"slug\":\"center-of-surgeons\",\"databaseId\":9028,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Center of Surgeons\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/center-of-surgeons.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/center-of-surgeons.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/center-of-surgeons.mp4\"}},\"hero\":{\"heading\":\"Global patient outreach and consultation volume for surgical specialists.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"büyüme-stratejisi\",\"name\":\"Growth Strategy\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"saglik\",\"name\":\"Healthcare\"}}]}}},{\"node\":{\"title\":\"Elose Laboratories\",\"slug\":\"elose-laboratories\",\"databaseId\":9029,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Elose Laboratories\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/elose-laboratories.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/elose-laboratories.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/elose-laboratories.mp4\"}},\"hero\":{\"heading\":\"Marketplace and D2C web revenue growth for dermocosmetic laboratory formulas.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"e-ticaret-stratejisi\",\"name\":\"E-Commerce Strategy\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"DermaDerm\",\"slug\":\"dermaderm\",\"databaseId\":9030,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"DermaDerm\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/dermaderm.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/dermaderm.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/dermaderm.mp4\"}},\"hero\":{\"heading\":\"Direct-to-consumer (D2C) e-commerce scaling in botanical skin and hair care.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"saglik\",\"name\":\"Healthcare\"}}]}}},{\"node\":{\"title\":\"Yoloo\",\"slug\":\"yoloo\",\"databaseId\":9031,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Yoloo\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/yoloo.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/yoloo.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/yoloo.mp4\"}},\"hero\":{\"heading\":\"Active rider acquisition and retention in urban mobility technology.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"uygulama-büyüme\",\"name\":\"App Growth\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Pedalbox\",\"slug\":\"pedalbox\",\"databaseId\":9032,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Pedalbox\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/pedalbox.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/pedalbox.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/pedalbox.mp4\"}},\"hero\":{\"heading\":\"E-commerce sales and global dealer leads in automotive performance tech.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Natural Dukkan\",\"slug\":\"natural-dukkan\",\"databaseId\":9033,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Natural Dukkan\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/natural-dukkan.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/natural-dukkan.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/natural-dukkan.mp4\"}},\"hero\":{\"heading\":\"Sustainable D2C e-commerce revenue in organic and natural living products.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"e-ticaret-büyüme\",\"name\":\"E-Commerce Growth\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"GekoO\",\"slug\":\"gekoo\",\"databaseId\":9034,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"GekoO\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/gekoo.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/gekoo.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/gekoo.mp4\"}},\"hero\":{\"heading\":\"Trust-led e-commerce sales growth in organic baby and child nutrition.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"kreatif-i-letişim\",\"name\":\"Creative Direction\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"3E İlaçlama\",\"slug\":\"3e-ilaclama\",\"databaseId\":9035,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"3E İlaçlama\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/3e-ilaclama.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/3e-ilaclama.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/3e-ilaclama.mp4\"}},\"hero\":{\"heading\":\"High-intent local search call conversions for commercial pest control.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"lokal-arama-reklamları\",\"name\":\"Local Search Ads\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Sekiz Oniki\",\"slug\":\"sekiz-oniki\",\"databaseId\":9036,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Sekiz Oniki\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/sekiz-oniki.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/sekiz-oniki.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/sekiz-oniki.mp4\"}},\"hero\":{\"heading\":\"Parent engagement and campus enrollments in academic exam preparation.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"egitim\",\"name\":\"Education\"}}]}}},{\"node\":{\"title\":\"DecorEvi\",\"slug\":\"decorevi\",\"databaseId\":9037,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"DecorEvi\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/decorevi.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/decorevi.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/decorevi.mp4\"}},\"hero\":{\"heading\":\"Higher average order value (AOV) and e-commerce ROAS in home decor.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"e-ticaret-reklamları\",\"name\":\"E-Commerce Ads\"}}]},\"taxonomySectors\":{\"edges\":[]}}},{\"node\":{\"title\":\"Cordelia\",\"slug\":\"cordelia\",\"databaseId\":9038,\"singleProject\":{\"projectDetails\":{\"showOnlyOnFilter\":null,\"yearCompleted\":null,\"featuredImage\":{\"altText\":\"Cordelia\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/cordelia.jpg 1440w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/cordelia.jpg\",\"mediaDetails\":{\"width\":1440,\"height\":810}},\"featuredVideo\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@0dcb06f5334e8bc30360c7357a1f307c5d6f6a30/public/images/references/cordelia.mp4\"}},\"hero\":{\"heading\":\"High-engagement booking growth for a boutique hospitality and property concept.\"}},\"taxonomyServices\":{\"edges\":[{\"node\":{\"slug\":\"performans-pazarlaması\",\"name\":\"Performance Marketing\"}},{\"node\":{\"slug\":\"web-analitiği\",\"name\":\"Web Analytics\"}},{\"node\":{\"slug\":\"kreatif-i-letişim\",\"name\":\"Creative Direction\"}}]},\"taxonomySectors\":{\"edges\":[{\"node\":{\"slug\":\"gayrimenkul-turizm\",\"name\":\"Real Estate & Hospitality\"}}]}}}]}]]}]}]}],[\"$\",\"$L1d\",null,{\"variation\":2,\"scrollTrigger\":true,\"scrollTriggerOpacity\":0}]]}]]\n"])</script><script data-roasist-ui data-lang="en" data-tr-route="/referanslar/" data-en-route="/en/references/">
+(function(){
+  var scriptEl = document.currentScript;
+  var pageLang = (scriptEl && scriptEl.getAttribute('data-lang')) || (document.documentElement.lang === 'en' ? 'en' : 'tr');
+  var trRoute = (scriptEl && scriptEl.getAttribute('data-tr-route')) || '/';
+  var enRoute = (scriptEl && scriptEl.getAttribute('data-en-route')) || '/en/';
+
+  function getBase() {
+    return window.__ROASIST_BASE__ || (window.location.pathname.indexOf('/roasist-web') === 0 ? '/roasist-web' : '');
+  }
+
+  function withBase(path) {
+    var b = getBase();
+    if (!path || !path.startsWith('/') || path.startsWith('//')) return path;
+    if (b && path !== b && path.indexOf(b + '/') !== 0) {
+      return b + path;
+    }
+    return path;
+  }
+
+  var SERVICE_MAP_TR = {
+    'performans-pazarlamasi': '/hizmetler/performans-pazarlamasi/',
+    'brand-strategy-and-identity': '/hizmetler/performans-pazarlamasi/',
+    'google-reklamlari': '/hizmetler/performans-pazarlamasi/google-reklamlari/',
+    'brand-strategy': '/hizmetler/performans-pazarlamasi/google-reklamlari/',
+    'instagram-reklamlari': '/hizmetler/performans-pazarlamasi/instagram-reklamlari/',
+    'brand-identity-design': '/hizmetler/performans-pazarlamasi/instagram-reklamlari/',
+    'tiktok-reklamlari': '/hizmetler/performans-pazarlamasi/tiktok-reklamlari/',
+    'tone-of-voice': '/hizmetler/performans-pazarlamasi/tiktok-reklamlari/',
+    'yandex-reklamlari': '/hizmetler/performans-pazarlamasi/yandex-reklamlari/',
+    'bing-reklamlari': '/hizmetler/performans-pazarlamasi/bing-reklamlari/',
+    'linkedin-reklamlari': '/hizmetler/performans-pazarlamasi/linkedin-reklamlari/',
+    'web-tasarim': '/hizmetler/web-tasarim/',
+    'web-design-development': '/hizmetler/web-tasarim/',
+    'creative-web-design': '/hizmetler/web-tasarim/',
+    'web-development': '/hizmetler/web-tasarim/',
+    'wordpress-cms': '/hizmetler/web-tasarim/',
+    'grafik-tasarim': '/hizmetler/grafik-tasarim/',
+    'graphic-design': '/hizmetler/grafik-tasarim/',
+    'seo': '/hizmetler/seo/',
+    'seo-geo': '/hizmetler/seo/',
+    'sitecare': '/hizmetler/seo/',
+    'copywriting': '/hizmetler/360-derece-dijital-pazarlama-yonetimi/',
+    'growth-marketing': '/hizmetler/seo/',
+    '360-derece-dijital-pazarlama-yonetimi': '/hizmetler/360-derece-dijital-pazarlama-yonetimi/'
+  };
+
+  var SERVICE_MAP_EN = {
+    'performance-marketing': '/en/performance-marketing/',
+    'google-ads': '/en/google-ads/',
+    'instagram-ads': '/en/instagram-ads/',
+    'facebook-ads': '/en/facebook-ads/',
+    'tiktok-ads': '/en/tiktok-ads/',
+    'linkedin-ads': '/en/linkedin-ads/',
+    'yandex-ads': '/en/yandex-ads/',
+    'bing-ads': '/en/bing-ads/',
+    'seo': '/en/seo/',
+    'graphic-design': '/en/graphic-design/',
+    'web-design': '/en/web-design/',
+    '360-digital-marketing-management': '/en/360-digital-marketing-management/'
+  };
+
+  function resolveRoasistHref(rawHref) {
+    if (!rawHref) return rawHref;
+    if (rawHref.startsWith('#') || rawHref.startsWith('mailto:') || rawHref.startsWith('tel:') || rawHref.startsWith('javascript:')) return rawHref;
+    if (/^https?:\/\//i.test(rawHref) && !/^https?:\/\/(?:www\.)?kota\.co\.uk/i.test(rawHref)) return rawHref;
+
+    var h = rawHref.replace(/^https?:\/\/(?:www\.)?kota\.co\.uk/i, '');
+    var b = getBase();
+    if (b && (h === b || h.indexOf(b + '/') === 0)) {
+      h = h.slice(b.length) || '/';
+    }
+
+    if (h.indexOf('service/') === 0) h = '/' + h;
+    if (h.indexOf('/service/') === 0) {
+      var s = h.slice('/service/'.length).replace(/\/$/, '');
+      if (pageLang === 'en') {
+        h = SERVICE_MAP_EN[s] || ('/en/' + s + '/');
+      } else {
+        h = SERVICE_MAP_TR[s] || ('/hizmetler/' + s + '/');
+      }
+    } else if (pageLang === 'en') {
+      if (h === '/iletisim' || h === '/iletisim/' || h === '/start-your-project' || h === '/start-your-project/' || h === '/contact' || h === '/contact/') {
+        h = '/en/contact-us/';
+      } else if (h === '/referanslar' || h === '/referanslar/' || h === '/work' || h === '/work/' || h.indexOf('/work/') === 0) {
+        h = '/en/references/';
+      } else if (h === '/hakkimizda' || h === '/hakkimizda/' || h === '/agency' || h === '/agency/') {
+        h = '/en/who-we-are/';
+      } else if (h === '/blog') {
+        h = '/en/blog/';
+      }
+    } else {
+      if (h === '/iletisim' || h === '/start-your-project' || h === '/start-your-project/') h = '/iletisim/';
+      else if (h === '/referanslar') h = '/referanslar/';
+      else if (h === '/hakkimizda') h = '/hakkimizda/';
+      else if (h === '/hizmetler') h = '/hizmetler/';
+      else if (h === '/blog') h = '/blog/';
+      else if (h.indexOf('/hizmetler/') === 0 && !h.endsWith('/')) h = h + '/';
+    }
+
+    if (h.startsWith('/') && !h.startsWith('//')) {
+      return withBase(h);
+    }
+    return h;
+  }
+
+  document.addEventListener('click', function(event) {
+    var anchor = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+    if (!anchor) return;
+    if (anchor.closest('.roasist-lang-switch')) return;
+    var raw = anchor.getAttribute('href');
+    if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:') || raw.startsWith('javascript:')) return;
+    if (/^https?:\/\//i.test(raw) && !/^https?:\/\/(?:www\.)?kota\.co\.uk/i.test(raw)) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || anchor.target === '_blank') return;
+
+    var dest = resolveRoasistHref(raw);
+    if (dest && dest.startsWith('/')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      window.location.href = dest;
+    }
+  }, true);
+
+  function applyPostHydrationEnhancements() {
+    var header = document.querySelector('header[class*="Header_header"]');
+    if (header) {
+      var logo = header.querySelector('a[class*="Header_logo"]');
+      if (logo) {
+        var wantLogoHref = withBase(pageLang === 'en' ? '/en/' : '/');
+        if (logo.getAttribute('href') !== wantLogoHref) logo.setAttribute('href', wantLogoHref);
+      }
+      if (!header.querySelector('.roasist-lang-switch')) {
+        var sw = document.createElement('div');
+        sw.className = 'roasist-lang-switch';
+        sw.setAttribute('role', 'navigation');
+        sw.setAttribute('aria-label', pageLang === 'en' ? 'Language selector' : 'Dil seçimi');
+
+        var aTr = document.createElement('a');
+        aTr.href = withBase(trRoute);
+        aTr.textContent = 'TR';
+        aTr.setAttribute('hreflang', 'tr');
+        if (pageLang === 'tr') aTr.className = 'is-active';
+
+        var aEn = document.createElement('a');
+        aEn.href = withBase(enRoute);
+        aEn.textContent = 'EN';
+        aEn.setAttribute('hreflang', 'en');
+        if (pageLang === 'en') aEn.className = 'is-active';
+
+        sw.appendChild(aTr);
+        sw.appendChild(aEn);
+
+        var rightWrap = header.querySelector('[class*="Header_right"]') || header.querySelector('a[class*="Header_button"]');
+        if (rightWrap && rightWrap.className && String(rightWrap.className).indexOf('Header_right') !== -1) {
+          rightWrap.insertBefore(sw, rightWrap.firstChild);
+        } else if (rightWrap && rightWrap.parentNode) {
+          rightWrap.parentNode.insertBefore(sw, rightWrap);
+        } else {
+          header.appendChild(sw);
+        }
+      }
+    }
+
+    document.querySelectorAll('a[href^="service/"], a[href^="/service/"]').forEach(function(a) {
+      var clean = resolveRoasistHref(a.getAttribute('href'));
+      if (clean && a.getAttribute('href') !== clean) a.setAttribute('href', clean);
+    });
+
+    if (pageLang === 'en') {
+      document.querySelectorAll('[class*="PrimaryNavigation_buttonContainer"] a, [class*="FloatingStartButton_linkContainer"] a').forEach(function(a) {
+        var contactHref = withBase('/en/contact-us/');
+        if (a.getAttribute('href') !== contactHref) a.setAttribute('href', contactHref);
+        a.querySelectorAll('span').forEach(function(sp) {
+          if (sp.children.length === 0 && (sp.textContent === 'Projeye Başla' || sp.textContent === 'Projeye Başlayın')) {
+            sp.textContent = 'Start a Project';
+          }
+        });
+      });
+
+      document.querySelectorAll('[class*="ServicesPanel_panel"] [class*="Button_textInner"]').forEach(function(sp) {
+        if (sp.textContent === 'Detaylı İncele') sp.textContent = 'Explore Service';
+      });
+
+      document.querySelectorAll('button, span').forEach(function(el) {
+        if (el.children.length === 0) {
+          if (el.textContent === 'Filtrele') el.textContent = 'Filter';
+          else if (el.textContent === 'Tüm Kategoriler' || el.textContent === 'Tümü') el.textContent = 'All';
+        }
+      });
+
+      var formSec = document.querySelector('section[class*="Form_contactForm"]');
+      if (formSec && !formSec.dataset.roasistEnDone) {
+        formSec.dataset.roasistEnDone = '1';
+        var formMap = {
+          'İlgilendiğiniz Hizmet :': 'Services of Interest :',
+          'Web Tasarım & Geliştirme': 'Web Design & Development',
+          'Branding': 'Brand & Creative Strategy',
+          'SEO & İçerik Stratejisi': 'Enterprise SEO & AEO',
+          'E-Ticaret': 'Performance Marketing & ROAS',
+          '360° Dijital Pazarlama': '360° Digital Marketing',
+          'Kreatif & Grafik Tasarım': 'Graphic & Ad Creative',
+          'Dosya Ekle': 'Attach Brief',
+          'Roasist dijital büyüme bültenini almak istiyorum': 'Subscribe to Roasist digital growth insights',
+          'Verilerimin Gizlilik Politikası ve KVKK kapsamında güvenle işlenmesini kabul ediyorum.': 'I agree to the processing of my data under the Privacy Policy.',
+          'Gönder': 'Send Inquiry'
+        };
+        var walker = document.createTreeWalker(formSec, NodeFilter.SHOW_TEXT, null);
+        var tNode;
+        while ((tNode = walker.nextNode())) {
+          var trimmed = tNode.nodeValue.trim();
+          if (formMap[trimmed]) {
+            tNode.nodeValue = tNode.nodeValue.replace(trimmed, formMap[trimmed]);
+          } else if (trimmed.indexOf('Bütçe planlaması ve hizmet kapsamlarımız') !== -1) {
+            tNode.nodeValue = 'Explore our tailored digital growth scopes ';
+          } else if (trimmed === 'buradan ulaşabilirsiniz') {
+            tNode.nodeValue = 'on our services page';
+            if (tNode.parentElement && tNode.parentElement.tagName === 'A') {
+              tNode.parentElement.setAttribute('href', withBase('/en/services/'));
+            }
+          }
+        }
+        formSec.querySelectorAll('input[placeholder]').forEach(function(inp) {
+          if (inp.placeholder.indexOf('Budget') !== -1) inp.placeholder = 'Monthly Budget ($ / €)';
+        });
+      }
+    } else {
+      var trFormSec = document.querySelector('section[class*="Form_contactForm"]');
+      if (trFormSec && !trFormSec.dataset.roasistTrDone) {
+        trFormSec.dataset.roasistTrDone = '1';
+        var phMapTr = {
+          'First name*': 'Adınız*',
+          'Last name*': 'Soyadınız*',
+          'Email*': 'Kurumsal E-posta*',
+          'Budget (£)': 'Aylık Reklam / Proje Bütçesi',
+          'Message': 'Projenizden ve büyüme hedeflerinizden bahsedin...'
+        };
+        trFormSec.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(function(inp) {
+          if (phMapTr[inp.placeholder]) inp.placeholder = phMapTr[inp.placeholder];
+        });
+      }
+    }
+  }
+
+  function mountCookieBanner() {
+    var saved = null;
+    try { saved = localStorage.getItem('roasist_cookie_consent'); } catch (e) {}
+    if (saved || document.querySelector('.roasist-cookie-bar')) return;
+
+    var bar = document.createElement('aside');
+    bar.className = 'roasist-cookie-bar';
+    bar.setAttribute('role', 'dialog');
+    bar.setAttribute('aria-label', pageLang === 'en' ? 'Cookie preferences' : 'Çerez tercihleri');
+
+    var privHref = withBase(pageLang === 'en' ? '/en/privacy-policy-and-terms-of-use/' : '/gizlilik-politikasi-ve-kullanim-sartlari/');
+    var copyHtml = pageLang === 'en'
+      ? 'We use cookies to measure performance and improve your experience in accordance with our <a href="' + privHref + '">Privacy Policy</a>.'
+      : 'Deneyiminizi iyileştirmek ve performans analizi yapmak için <a href="' + privHref + '">Gizlilik ve Çerez Politikamız</a> kapsamında çerezler kullanıyoruz.';
+
+    bar.innerHTML = '<p>' + copyHtml + '</p>' +
+      '<div class="roasist-cookie-actions">' +
+      '<button type="button" class="roasist-cookie-btn roasist-cookie-btn--ghost" data-consent="denied">' + (pageLang === 'en' ? 'Decline' : 'Reddet') + '</button>' +
+      '<button type="button" class="roasist-cookie-btn roasist-cookie-btn--primary" data-consent="granted">' + (pageLang === 'en' ? 'Accept' : 'Kabul Et') + '</button>' +
+      '</div>';
+
+    function closeWith(choice) {
+      try { localStorage.setItem('roasist_cookie_consent', choice); } catch (e) {}
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          analytics_storage: choice,
+          ad_storage: choice,
+          ad_user_data: choice,
+          ad_personalization: choice
+        });
+      }
+      bar.classList.remove('is-visible');
+      setTimeout(function() { if (bar.parentNode) bar.parentNode.removeChild(bar); }, 200);
+      document.removeEventListener('keydown', onEsc);
+    }
+
+    function onEsc(ev) {
+      if (ev.key === 'Escape') closeWith('denied');
+    }
+
+    bar.querySelectorAll('button[data-consent]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        closeWith(btn.getAttribute('data-consent'));
+      });
+    });
+    document.addEventListener('keydown', onEsc);
+    document.body.appendChild(bar);
+    requestAnimationFrame(function() { bar.classList.add('is-visible'); });
+  }
+
+  function scheduleEnhancements() {
+    setTimeout(applyPostHydrationEnhancements, 450);
+    setTimeout(applyPostHydrationEnhancements, 1200);
+    setTimeout(mountCookieBanner, 1300);
+    var timer = null;
+    new MutationObserver(function() {
+      if (timer) return;
+      timer = setTimeout(function() {
+        timer = null;
+        applyPostHydrationEnhancements();
+      }, 250);
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleEnhancements);
+  } else {
+    scheduleEnhancements();
+  }
+})();
+</script></body></html>
