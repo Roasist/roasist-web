@@ -17,8 +17,12 @@ DIST = os.path.join(ROOT, "dist")
 REF_DIR = "/tmp/kota-clone/reference"
 PAGES_DIR = os.path.join(REF_DIR, "pages")
 
-with open(os.path.join(REF_DIR, "routes.json"), "r", encoding="utf-8") as f:
-    ROUTES = json.load(f)
+ROUTES_PATH = os.path.join(REF_DIR, "routes.json")
+if os.path.exists(ROUTES_PATH):
+    with open(ROUTES_PATH, "r", encoding="utf-8") as f:
+        ROUTES = json.load(f)
+else:
+    ROUTES = {}
 
 with open(os.path.join(ROOT, "scripts", "services_data.json"), "r", encoding="utf-8") as f:
     RAW_SERVICES = json.load(f)

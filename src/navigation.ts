@@ -122,7 +122,7 @@ export const footerData = {
     {
       title: 'İletişim & Destek',
       links: [
-        { text: 'WhatsApp Hızlı Destek (+90 541 507 53 50)', href: 'https://wa.me/+905415075350' },
+        { text: 'WhatsApp Hızlı Destek (+90 540 507 53 50)', href: 'https://wa.me/+905405075350' },
         { text: 'Ücretsiz Ön Analiz Talebi', href: getPermalink('/iletisim/#analiz-formu') },
         { text: 'Gizlilik Politikası ve Kullanım Şartları', href: getPermalink('/gizlilik-politikasi-ve-kullanim-sartlari/') },
       ],
@@ -138,7 +138,7 @@ export const footerData = {
     { ariaLabel: 'X (Twitter)', icon: 'tabler:brand-x', href: 'https://twitter.com/Roasistt' },
     { ariaLabel: 'YouTube', icon: 'tabler:brand-youtube', href: 'https://www.youtube.com/channel/UCY3G_IU2YJ326zGwU3_YlyA' },
     { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: 'https://www.facebook.com/roasistt' },
-    { ariaLabel: 'WhatsApp', icon: 'tabler:brand-whatsapp', href: 'https://wa.me/+905415075350' },
+    { ariaLabel: 'WhatsApp', icon: 'tabler:brand-whatsapp', href: 'https://wa.me/+905405075350' },
   ],
   footNote: `
     © ${new Date().getFullYear()} <strong>Roasist</strong> — Özelleştirilmiş Dijital Pazarlama & Büyüme Teknolojileri. Tüm hakları saklıdır.

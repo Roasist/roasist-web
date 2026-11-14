@@ -1424,6 +1424,70 @@
           "answer": "Başta sağlık turizmi (saç ekimi, diş, estetik, hastane), gayrimenkul/inşaat, turizm ve otelcilik, e-ihracat, lojistik ve B2B üretim sektörleri olmak üzere Rusya ve BDT coğrafyasından müşteri kazanmak isteyen tüm işletmeler için vazgeçilmez bir kanaldır."
         }
       ]
+    },
+    {
+      "slug": "performans-pazarlamasi/bing-reklamlari",
+      "permalink": "/hizmetler/performans-pazarlamasi/bing-reklamlari/",
+      "category": "Performans Kanalı",
+      "icon": "tabler:brand-windows",
+      "seoTitle": "Bing Reklamları (Microsoft Advertising) - Roasist",
+      "seoDescription": "Bing reklamları (Microsoft Advertising) ile masaüstü ve kurumsal aramalarda yüksek satın alma gücüne sahip kitlelere düşük tıklama maliyetleriyle (CPC) ulaşın.",
+      "h1": "Bing Reklamları",
+      "heroQuestion": "Microsoft Advertising ve Bing reklamlarıyla yüksek ROAS yakalamaya hazır mısınız?",
+      "aeoDirectAnswer": "Bing Reklamları (Microsoft Advertising); Windows, Microsoft Edge, Bing, Yahoo ve DuckDuckGo arama ağında masaüstü ve kurumsal karar vericilere daha düşük tıklama maliyetleriyle (CPC) ulaşarak ihracat, B2B, turizm ve e-ticaret markalarına yüksek yatırım getirisi (ROAS) sağlayan performans reklam platformudur.",
+      "metrics": [
+        {
+          "value": "Microsoft Ağı",
+          "label": "Bing, Yahoo & DuckDuckGo",
+          "detail": "Masaüstü ve kurumsal aramalarda yüksek satın alma gücü"
+        },
+        {
+          "value": "Düşük CPC",
+          "label": "Yüksek ROAS Verimliliği",
+          "detail": "Daha düşük rekabet ve birim tıklama maliyetiyle kârlı dönüşüm"
+        },
+        {
+          "value": "LinkedIn Verisi",
+          "label": "Profil Bazlı Hedefleme",
+          "detail": "Microsoft ekosistemi üzerinden şirket, sektör ve unvan hedeflemesi"
+        }
+      ],
+      "overviewHeading": "İşletmeler İçin Bing Reklamlarının Önemi Nedir?",
+      "overviewParagraphs": [
+        "Roasist, kalite ve performans odaklı çalışma prensibini gözetir, doğru ölçümleme için gerekli entegrasyonları ve teknolojileri kullanır, detaylı analizler sonucu reklam stratejinizi inşa eder, verilerin ışığında kampanya süreçlerini daha iyi hale getirir ve anlamlı raporlar ile sürece sizi de dahil eder.",
+        "Bing Reklamları (Microsoft Advertising), başta Kuzey Amerika, İngiltere ve Avrupa olmak üzere küresel pazarlarda Windows işletim sistemi ve Microsoft Edge tarayıcısını varsayılan olarak kullanan yüksek gelir grubundaki masaüstü kullanıcılarına ve kurumsal profesyonellere ulaşmanın en kârlı yoludur.",
+        "Daha düşük tıklama başı maliyetler (CPC), Google Ads kampanya senkronizasyonu ve Microsoft’a özel LinkedIn profil hedefleme yetenekleriyle hem B2B hem de uluslararası B2C satışlarınızı ölçeklendiriyoruz."
+      ],
+      "subFeaturesTitle": "Bing Ads & Microsoft Advertising Çözümlerimiz",
+      "subFeaturesSubtitle": "Küresel arama ağında daha düşük maliyetle daha nitelikli müşteriler kazandırıyoruz.",
+      "subFeatures": [
+        {
+          "title": "Microsoft Arama Ağı (Bing, Yahoo, DuckDuckGo)",
+          "description": "Bing, Yahoo, DuckDuckGo ve Ecosia arama sonuçlarında ürün veya hizmetinizi arayan yüksek satın alma niyetli kullanıcılara tam karar anında en üst sırada görünür olun.",
+          "icon": "tabler:search"
+        },
+        {
+          "title": "Microsoft Audience Network & Alışveriş Reklamları",
+          "description": "MSN, Outlook ve Microsoft iş ortağı premium yayıncılarda görsel reklamlar ve ürün katalog (Shopping) kampanyalarıyla e-ticaret ve ihracat dönüşümlerinizi katlayın.",
+          "icon": "tabler:shopping-cart"
+        },
+        {
+          "title": "LinkedIn Profil Tabanlı Kurumsal Hedefleme",
+          "description": "Arama reklamlarında yalnızca Microsoft Advertising’in sunduğu LinkedIn şirket, sektör ve iş unvanı katmanlarını kullanarak B2B karar vericilere nokta atışı ulaşın.",
+          "icon": "tabler:briefcase"
+        }
+      ],
+      "processTitle": "Bing Reklamları Hizmet Sürecimiz",
+      "faqs": [
+        {
+          "question": "Bing Reklamları (Microsoft Advertising) nedir ve nerelerde yayınlanır?",
+          "answer": "Bing Reklamları; Microsoft Bing, Yahoo, DuckDuckGo arama motorlarında ve MSN, Microsoft Edge, Outlook gibi Microsoft Audience Network platformlarında yayınlanan arama, alışveriş ve görüntülü performans reklamlarıdır."
+        },
+        {
+          "question": "Hangi işletmeler mutlaka Bing Reklamları kullanmalıdır?",
+          "answer": "ABD, İngiltere, Almanya ve Avrupa pazarlarına ihracat, yazılım/SaaS, sağlık turizmi, turizm veya e-ticaret satışı yapan markalar ile masaüstü kullanan kurumsal B2B karar vericilere düşük CPC maliyetleriyle ulaşmak isteyen tüm işletmeler için yüksek ROAS sağlayan bir kanaldır."
+        }
+      ]
     }
   ],
   "defaultWhyUs": [

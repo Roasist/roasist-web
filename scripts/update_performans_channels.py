@@ -36,7 +36,7 @@ CHANNELS = [
             "Google arama sonuçlarında (SERP), Alışveriş sekmesinde, YouTube ve GDN ağında "
             "satın alma niyeti en yüksek kullanıcılara tam aradıkları anda ulaşın."
         ),
-        "href": "/iletisim/",
+        "href": "/hizmetler/performans-pazarlamasi/google-reklamlari/",
         "button_text": "Detaylı İncele",
         "media_type": "video",
         "src": "https://kota-content.b-cdn.net/app/uploads/2023/11/Animation-1-Bipsync-1.mp4",
@@ -48,7 +48,7 @@ CHANNELS = [
             "Gelişmiş kitle segmentasyonu, katalog reklamları (DPA), Reels/Story kreatifleri "
             "ve Conversions API kurulumuyla sosyal medyada ölçeklenebilir satış yakalayın."
         ),
-        "href": "/iletisim/",
+        "href": "/hizmetler/performans-pazarlamasi/instagram-reklamlari/",
         "button_text": "Detaylı İncele",
         "media_type": "image",
         "src": "https://kota-content.b-cdn.net/app/uploads/2023/11/Web-Development-backrate-2.png",
@@ -65,7 +65,7 @@ CHANNELS = [
             "Kısa video dinamiklerine uygun dikkat çekici kreatifler ve Spark Ads modelleriyle "
             "markanızı milyonlarca aktif kullanıcıyla buluşturun."
         ),
-        "href": "/iletisim/",
+        "href": "/hizmetler/performans-pazarlamasi/tiktok-reklamlari/",
         "button_text": "Detaylı İncele",
         "media_type": "image",
         "src": "https://kota-content.b-cdn.net/app/uploads/2023/11/Wordpress-and-cms-mealeo.png",
@@ -83,7 +83,7 @@ CHANNELS = [
             "reklamları, ürün katalogları ve Yandex Reklam Ağı (YAN) üzerinden doğrudan ulaşarak "
             "global satışlarınızı ölçeklendirin."
         ),
-        "href": "/iletisim/",
+        "href": "/hizmetler/performans-pazarlamasi/yandex-reklamlari/",
         "button_text": "Detaylı İncele",
         "media_type": "video",
         "src": "https://kota-content.b-cdn.net/app/uploads/2023/11/seo-geo-V2.mp4",
@@ -96,7 +96,7 @@ CHANNELS = [
             "DuckDuckGo ve Microsoft reklam ağında daha düşük tıklama maliyetleriyle (CPC) ulaşarak "
             "yüksek ROAS elde edin."
         ),
-        "href": "/iletisim/",
+        "href": "/hizmetler/performans-pazarlamasi/bing-reklamlari/",
         "button_text": "Detaylı İncele",
         "media_type": "image",
         "src": "https://kota-content.b-cdn.net/app/uploads/2023/11/copywriting-2-1.jpg",
@@ -114,7 +114,7 @@ CHANNELS = [
             "ve profesyonel ilgi alanlarına göre nokta atışı hedefleme yaparak yüksek nitelikli "
             "kurumsal B2B potansiyel müşteriler kazanın."
         ),
-        "href": "/iletisim/",
+        "href": "/hizmetler/performans-pazarlamasi/linkedin-reklamlari/",
         "button_text": "Detaylı İncele",
         "media_type": "image",
         "src": "https://kota-content.b-cdn.net/app/uploads/2023/11/sitecare.jpg",
