@@ -85,6 +85,11 @@ REPLACEMENTS = [
     ),
     # 3. Panel 1 Description with "Bing" added (SSR + Flight JSON)
     (OLD_MAIN_TEXT, NEW_MAIN_TEXT),
+    # 4. Panel 1 Custom Orbital Client Video & Poster (Flight JSON)
+    (
+        r'\"image\":{\"altText\":\"\",\"srcSet\":\"https://kota-content.b-cdn.net/app/uploads/2023/10/wogan-1.jpg 1086w, https://kota-content.b-cdn.net/app/uploads/2023/10/wogan-1-479x500.jpg 479w, https://kota-content.b-cdn.net/app/uploads/2023/10/wogan-1-768x802.jpg 768w\",\"sourceUrl\":\"https://kota-content.b-cdn.net/app/uploads/2023/10/wogan-1.jpg\",\"mediaDetails\":{\"width\":1086,\"height\":1134}},\"video\":{\"mediaItemUrl\":\"https://kota-content.b-cdn.net/app/uploads/2026/07/Branding-1.mp4\"}',
+        r'\"image\":{\"altText\":\"Performans Pazarlaması\",\"srcSet\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@eb064304d8b3f3053263e5f79b3b5a3da883d011/public/images/services/performans-pazarlamasi.jpg 1080w\",\"sourceUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@eb064304d8b3f3053263e5f79b3b5a3da883d011/public/images/services/performans-pazarlamasi.jpg\",\"mediaDetails\":{\"width\":1080,\"height\":1080}},\"video\":{\"mediaItemUrl\":\"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@eb064304d8b3f3053263e5f79b3b5a3da883d011/public/images/services/performans-pazarlamasi.mp4\"}',
+    ),
 ]
 
 
