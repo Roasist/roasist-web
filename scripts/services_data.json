@@ -149,10 +149,10 @@
       "category": "Ana Hizmet",
       "icon": "tabler:chart-arrows-vertical",
       "seoTitle": "Roasist - Performans Pazarlaması",
-      "seoDescription": "Performans pazarlaması ve veri odaklı reklam yönetimiyle ROAS ve satışlarınızı büyütün. Google Ads, Meta, TikTok, LinkedIn ve Yandex reklam uzmanlığı.",
+      "seoDescription": "Performans pazarlaması ve veri odaklı reklam yönetimiyle ROAS ve satışlarınızı büyütün. Google Ads, Meta, TikTok, Yandex, Bing ve LinkedIn reklam uzmanlığı.",
       "h1": "Performans Pazarlaması",
       "heroQuestion": "Performans Pazarlaması ile işletmeni büyütmeye hazır mısın?",
-      "aeoDirectAnswer": "Performans pazarlaması, dijital reklam bütçelerinin tıklama, form (lead), uygulama indirme veya doğrudan satış (ROAS) gibi tamamen ölçülebilir ticari sonuçlara odaklanarak yönetildiği; Google Ads, Meta, TikTok, LinkedIn ve Yandex kanallarını kapsayan veri odaklı büyüme stratejisidir.",
+      "aeoDirectAnswer": "Performans pazarlaması, dijital reklam bütçelerinin tıklama, form (lead), uygulama indirme veya doğrudan satış (ROAS) gibi tamamen ölçülebilir ticari sonuçlara odaklanarak yönetildiği; Google Ads, Meta, TikTok, Yandex, Bing ve LinkedIn kanallarını kapsayan veri odaklı büyüme stratejisidir.",
       "metrics": [
         {
           "value": "ROAS Odaklı",
@@ -162,7 +162,7 @@
         {
           "value": "6+ Kanal",
           "label": "Çok Kanallı (Omnichannel) Mimari",
-          "detail": "Google, Instagram, Facebook, TikTok, LinkedIn ve Yandex entegrasyonu"
+          "detail": "Google, Instagram, Facebook, TikTok, Yandex, Bing ve LinkedIn entegrasyonu"
         },
         {
           "value": "%100 Şeffaf",
@@ -196,19 +196,19 @@
           "icon": "tabler:brand-tiktok"
         },
         {
-          "title": "LinkedIn B2B Reklamları",
-          "description": "Şirket büyüklüğü, sektör ve iş unvanına (CEO, Satın Alma Müdürü vb.) göre nokta atışı hedefleme yaparak kurumsal B2B potansiyel müşteriler kazanın.",
-          "icon": "tabler:brand-linkedin"
-        },
-        {
           "title": "Yandex Ads",
-          "description": "Rusya, BDT ülkeleri ve uluslararası pazarlarda hedef kitlenize Yandex Arama ve Reklam Ağı (YAN) üzerinden doğrudan erişin.",
+          "description": "Rusya, BDT ülkeleri ve uluslararası pazarlarda hedef kitlenize Yandex Direct arama reklamları, ürün katalogları ve Yandex Reklam Ağı (YAN) üzerinden doğrudan ulaşarak global satışlarınızı ölçeklendirin.",
           "icon": "tabler:world"
         },
         {
-          "title": "Programatik & Yeniden Pazarlama (Retargeting)",
-          "description": "Sitenizi ziyaret edip henüz satın almayan kullanıcıları çok kanallı dinamik yeniden pazarlama kurgularıyla müşteriye dönüştürün.",
-          "icon": "tabler:refresh-dot"
+          "title": "Bing Ads",
+          "description": "Masaüstü ve kurumsal aramalarda yüksek satın alma gücüne sahip kitlelere Bing, Yahoo, DuckDuckGo ve Microsoft reklam ağında daha düşük tıklama maliyetleriyle (CPC) ulaşarak yüksek ROAS elde edin.",
+          "icon": "tabler:brand-windows"
+        },
+        {
+          "title": "LinkedIn Ads",
+          "description": "Şirket büyüklüğü, sektör, karar verici iş unvanı (CEO, CMO, Satın Alma Direktörü vb.) ve profesyonel ilgi alanlarına göre nokta atışı hedefleme yaparak yüksek nitelikli kurumsal B2B potansiyel müşteriler kazanın.",
+          "icon": "tabler:brand-linkedin"
         }
       ],
       "processTitle": "Performans Pazarlama Sürecimiz",
@@ -277,7 +277,7 @@
         },
         {
           "question": "Reklam hesaplarımızın mülkiyeti kimde oluyor?",
-          "answer": "Tüm reklam hesaplarınız (Google Ads, Meta Business, TikTok, LinkedIn, Yandex) %100 sizin mülkiyetinizde kalır. Roasist, resmi yönetici (MCC / Business Partner) hesabımız üzerinden yetki alarak kampanyalarınızı şeffaf biçimde sizin adınıza yönetir."
+          "answer": "Tüm reklam hesaplarınız (Google Ads, Meta Business, TikTok, Yandex, Bing, LinkedIn) %100 sizin mülkiyetinizde kalır. Roasist, resmi yönetici (MCC / Business Partner) hesabımız üzerinden yetki alarak kampanyalarınızı şeffaf biçimde sizin adınıza yönetir."
         },
         {
           "question": "Minimum ne kadar reklam bütçesiyle başlamalıyız?",
