@@ -2030,42 +2030,84 @@ def build_en_privacy():
 # STEP C: HREFLANG + UNIFIED POST-HYDRATION UI ENHANCER (SWITCHER, ROUTER, CONSENT)
 # ==============================================================================
 ROASIST_UI_CSS = """<style data-roasist-ui-css>
+/* Service Hero: generous spacing below fixed logo + desktop intro alignment with last h2 line */
+@media (max-width:768px){
+  .Hero_hero__18Xqo .container{
+    padding-top:8.25rem!important;
+    row-gap:1.75rem!important;
+  }
+}
+@media (min-width:769px) and (max-width:1023px){
+  .Hero_hero__18Xqo{
+    padding-top:clamp(8.5rem,14vh,10.5rem)!important;
+    min-height:auto!important;
+    padding-bottom:3rem!important;
+  }
+  .Hero_top__fPz2U{
+    align-items:flex-start!important;
+  }
+  .Hero_bottom__5uvI_{
+    margin-top:2.25rem!important;
+  }
+}
+@media (min-width:1024px){
+  .Hero_hero__18Xqo{
+    padding-top:clamp(9rem,15vh,11.5rem)!important;
+    min-height:auto!important;
+    padding-bottom:3.25rem!important;
+  }
+  .Hero_top__fPz2U{
+    align-items:flex-start!important;
+  }
+  .Hero_hero__18Xqo h3.Hero_introText__HLM02{
+    grid-column:8/span 5!important;
+    max-width:30ch!important;
+    align-self:start!important;
+    margin-top:calc(-1 * var(--fs-100) * 0.90)!important;
+    margin-bottom:3.25rem!important;
+  }
+}
+
+/* Footer bottom bar & TR | EN language switcher */
+.Footer_copyrightTextWrap__uhQWh{
+  gap:1.125rem;
+  flex-wrap:wrap;
+}
+.Footer_cyberEssestials__2qh89{
+  width:auto!important;
+  margin-left:0!important;
+  margin-top:0!important;
+  white-space:nowrap;
+  color:rgba(255,255,255,0.78);
+  text-decoration:none;
+  font-size:0.95rem;
+  font-variant-numeric:tabular-nums;
+  transition:color 160ms cubic-bezier(0.22,1,0.36,1);
+}
+.Footer_cyberEssestials__2qh89:hover{
+  color:#ffffff;
+}
 .roasist-lang-switch{
   display:inline-flex;align-items:center;gap:2px;
-  padding:4px 6px;border-radius:999px;
-  border:1px solid rgba(15,23,42,0.14);
-  background:rgba(255,255,255,0.82);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  font-size:12px;line-height:1;font-weight:600;letter-spacing:0.02em;
+  padding:3px 4px;border-radius:999px;
+  border:1px solid rgba(255,255,255,0.24);
+  background:rgba(255,255,255,0.06);
+  font-size:12px;line-height:1;font-weight:600;letter-spacing:0.03em;
   font-variant-numeric:tabular-nums;
-  margin-right:10px;pointer-events:all;z-index:40;
+  pointer-events:all;
   transition:border-color 160ms cubic-bezier(0.22,1,0.36,1),background-color 160ms cubic-bezier(0.22,1,0.36,1);
-}
-body.dark .roasist-lang-switch{
-  border-color:rgba(255,255,255,0.22);
-  background:rgba(15,23,42,0.68);
 }
 .roasist-lang-switch a{
   display:inline-flex;align-items:center;justify-content:center;
-  padding:5px 8px;border-radius:999px;text-decoration:none!important;
-  color:#475569;transition:color 160ms cubic-bezier(0.22,1,0.36,1),background-color 160ms cubic-bezier(0.22,1,0.36,1);
+  padding:5px 9px;border-radius:999px;text-decoration:none!important;
+  color:rgba(255,255,255,0.72);
+  transition:color 160ms cubic-bezier(0.22,1,0.36,1),background-color 160ms cubic-bezier(0.22,1,0.36,1);
 }
-body.dark .roasist-lang-switch a{color:#cbd5e1;}
 .roasist-lang-switch a.is-active{
-  background:#0f172a;color:#ffffff!important;pointer-events:none;
-}
-body.dark .roasist-lang-switch a.is-active{
-  background:#ffffff;color:#0f172a!important;
+  background:#ffffff;color:#0f172a!important;pointer-events:none;
 }
 .roasist-lang-switch a:not(.is-active):hover{
-  color:#0f172a;background:rgba(15,23,42,0.06);
-}
-body.dark .roasist-lang-switch a:not(.is-active):hover{
-  color:#ffffff;background:rgba(255,255,255,0.12);
-}
-@media (max-width:768px){
-  .Header_header__KwdYD .roasist-lang-switch{margin-right:6px;padding:3px 4px;font-size:11px;}
-  .Header_header__KwdYD .roasist-lang-switch a{padding:4px 6px;}
+  color:#ffffff;background:rgba(255,255,255,0.14);
 }
 .roasist-cookie-bar{
   position:fixed;left:24px;bottom:24px;z-index:9999;
@@ -2233,36 +2275,35 @@ ROASIST_UI_SCRIPT_TEMPLATE = """<script data-roasist-ui data-lang="__LANG__" dat
         var wantLogoHref = withBase(pageLang === 'en' ? '/en/' : '/');
         if (logo.getAttribute('href') !== wantLogoHref) logo.setAttribute('href', wantLogoHref);
       }
-      if (!header.querySelector('.roasist-lang-switch')) {
-        var sw = document.createElement('div');
-        sw.className = 'roasist-lang-switch';
-        sw.setAttribute('role', 'navigation');
-        sw.setAttribute('aria-label', pageLang === 'en' ? 'Language selector' : 'Dil seçimi');
+      header.querySelectorAll('.roasist-lang-switch').forEach(function(el) {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      });
+    }
 
-        var aTr = document.createElement('a');
-        aTr.href = withBase(trRoute);
-        aTr.textContent = 'TR';
-        aTr.setAttribute('hreflang', 'tr');
-        if (pageLang === 'tr') aTr.className = 'is-active';
+    var footer = document.querySelector('footer[class*="Footer_footer"]');
+    if (footer && !footer.querySelector('.roasist-lang-switch')) {
+      var sw = document.createElement('div');
+      sw.className = 'roasist-lang-switch';
+      sw.setAttribute('role', 'navigation');
+      sw.setAttribute('aria-label', pageLang === 'en' ? 'Language selector' : 'Dil seçimi');
 
-        var aEn = document.createElement('a');
-        aEn.href = withBase(enRoute);
-        aEn.textContent = 'EN';
-        aEn.setAttribute('hreflang', 'en');
-        if (pageLang === 'en') aEn.className = 'is-active';
+      var aTr = document.createElement('a');
+      aTr.href = withBase(trRoute);
+      aTr.textContent = 'TR';
+      aTr.setAttribute('hreflang', 'tr');
+      if (pageLang === 'tr') aTr.className = 'is-active';
 
-        sw.appendChild(aTr);
-        sw.appendChild(aEn);
+      var aEn = document.createElement('a');
+      aEn.href = withBase(enRoute);
+      aEn.textContent = 'EN';
+      aEn.setAttribute('hreflang', 'en');
+      if (pageLang === 'en') aEn.className = 'is-active';
 
-        var rightWrap = header.querySelector('[class*="Header_right"]') || header.querySelector('a[class*="Header_button"]');
-        if (rightWrap && rightWrap.className && String(rightWrap.className).indexOf('Header_right') !== -1) {
-          rightWrap.insertBefore(sw, rightWrap.firstChild);
-        } else if (rightWrap && rightWrap.parentNode) {
-          rightWrap.parentNode.insertBefore(sw, rightWrap);
-        } else {
-          header.appendChild(sw);
-        }
-      }
+      sw.appendChild(aTr);
+      sw.appendChild(aEn);
+
+      var copyWrap = footer.querySelector('[class*="Footer_copyrightTextWrap"]') || footer.querySelector('[class*="Footer_copyright"]') || footer;
+      copyWrap.appendChild(sw);
     }
 
     document.querySelectorAll('a[href^="service/"], a[href^="/service/"]').forEach(function(a) {
