@@ -2616,12 +2616,14 @@ def generate_sitemap_and_robots():
 
 
 def main():
+    from remove_service_bento_videos import remove_bento_from_all_service_pages
     from update_discover_more_links import update_discover_more_all_pages
 
     fix_tr_remnants()
     build_en_homepage()
     build_en_about()
     build_en_services()
+    remove_bento_from_all_service_pages()
     update_discover_more_all_pages()
     build_en_references()
     build_en_blog()
