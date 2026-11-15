@@ -1621,6 +1621,8 @@ def build_en_blog():
         ),
         ("Projeye Başlayın", "Start a Project"),
         ("Öne Çıkan", "Featured"),
+        ("Dijital büyüme,<br />\r\nveri & strateji <br />\r\nRoasist Blog.", "Digital growth,<br />\r\ndata & strategy <br />\r\nRoasist Blog."),
+        ("Dijital büyüme,<br />\nveri & strateji <br />\nRoasist Blog.", "Digital growth,<br />\ndata & strategy <br />\nRoasist Blog."),
         ('"/iletisim/"', '"/en/contact-us/"'),
         ('"/iletisim"', '"/en/contact-us/"'),
         ('"/start-your-project"', '"/en/contact-us/"'),
@@ -2030,17 +2032,71 @@ def build_en_privacy():
 # STEP C: HREFLANG + UNIFIED POST-HYDRATION UI ENHANCER (SWITCHER, ROUTER, CONSENT)
 # ==============================================================================
 ROASIST_UI_CSS = """<style data-roasist-ui-css>
-/* Service Hero: generous spacing below fixed logo + desktop intro alignment with last h2 line */
+/* Service Hero: mobile/tablet eyebrow h1 above h2 + desktop spacing & intro alignment */
+@media (max-width:1023px){
+  .Hero_hero__18Xqo,
+  .Hero_hero__drBQ0{
+    display:flex!important;
+    flex-direction:column!important;
+    min-height:auto!important;
+  }
+  .Hero_hero__18Xqo > h1,
+  .Hero_hero__drBQ0 > h1{
+    position:static!important;
+    top:auto!important;
+    left:auto!important;
+    transform:none!important;
+    width:100%!important;
+    max-width:calc(1400px + 15%)!important;
+    height:auto!important;
+    margin:0 auto 0.875rem!important;
+    padding:0 7%!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:0.5rem!important;
+    font-size:0.72rem!important;
+    font-weight:500!important;
+    line-height:1.35!important;
+    letter-spacing:0.08em!important;
+    text-transform:uppercase!important;
+    color:rgba(15,23,42,0.58)!important;
+    z-index:1!important;
+  }
+  body.dark .Hero_hero__18Xqo > h1,
+  body.dark .Hero_hero__drBQ0 > h1{
+    color:rgba(255,255,255,0.68)!important;
+  }
+  .Hero_hero__18Xqo > h1::before,
+  .Hero_hero__drBQ0 > h1::before{
+    content:"";
+    display:inline-block;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background-color:#7602FF;
+    flex-shrink:0;
+  }
+  .Hero_hero__18Xqo .container,
+  .Hero_hero__drBQ0 .container{
+    padding-top:0!important;
+  }
+  .Hero_hero__18Xqo h2{
+    margin:0!important;
+  }
+}
 @media (max-width:768px){
+  .Hero_hero__18Xqo,
+  .Hero_hero__drBQ0{
+    padding-top:7.25rem!important;
+  }
   .Hero_hero__18Xqo .container{
-    padding-top:8.25rem!important;
-    row-gap:1.75rem!important;
+    row-gap:1.5rem!important;
   }
 }
 @media (min-width:769px) and (max-width:1023px){
-  .Hero_hero__18Xqo{
-    padding-top:clamp(8.5rem,14vh,10.5rem)!important;
-    min-height:auto!important;
+  .Hero_hero__18Xqo,
+  .Hero_hero__drBQ0{
+    padding-top:8rem!important;
     padding-bottom:3rem!important;
   }
   .Hero_top__fPz2U{
@@ -2048,6 +2104,12 @@ ROASIST_UI_CSS = """<style data-roasist-ui-css>
   }
   .Hero_bottom__5uvI_{
     margin-top:2.25rem!important;
+  }
+}
+@media (min-width:1024px) and (max-width:1919px){
+  .Hero_hero__18Xqo > h1,
+  .Hero_hero__drBQ0 > h1{
+    max-width:calc(100% - 29rem)!important;
   }
 }
 @media (min-width:1024px){
