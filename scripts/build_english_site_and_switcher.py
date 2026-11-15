@@ -2068,6 +2068,19 @@ ROASIST_UI_CSS = """<style data-roasist-ui-css>
   }
 }
 
+/* DiscoverMore active service pill (light & dark themes) */
+.DiscoverMore_discoverMore__hYPtP a.DiscoverMoreLink_active__6IF37{
+  background-color:#000000!important;
+  color:#ffffff!important;
+  border-color:#000000!important;
+  cursor:default;
+}
+.DiscoverMore_discoverMore__hYPtP[data-theme="dark"] a.DiscoverMoreLink_active__6IF37{
+  background-color:#ffffff!important;
+  color:#000000!important;
+  border-color:#ffffff!important;
+}
+
 /* Footer bottom bar & TR | EN language switcher */
 .Footer_copyrightTextWrap__uhQWh{
   gap:1.125rem;
@@ -2603,10 +2616,13 @@ def generate_sitemap_and_robots():
 
 
 def main():
+    from update_discover_more_links import update_discover_more_all_pages
+
     fix_tr_remnants()
     build_en_homepage()
     build_en_about()
     build_en_services()
+    update_discover_more_all_pages()
     build_en_references()
     build_en_blog()
     build_en_contact()
