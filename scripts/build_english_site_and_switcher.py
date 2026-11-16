@@ -2747,6 +2747,7 @@ def main():
     from update_about_ecosystem import update_about_ecosystem_tr
     from update_about_mission_quote import update_about_mission_quote_tr
     from update_about_team_leyla import update_about_team_leyla_tr
+    from update_all_page_hero_titles import update_all_pages_hero_titles
     from update_discover_more_links import update_discover_more_all_pages
 
     fix_tr_remnants()
@@ -2763,9 +2764,11 @@ def main():
     build_en_contact()
     build_en_privacy()
     inject_hreflang_and_ui_across_all_pages()
+    update_all_pages_hero_titles()
     generate_sitemap_and_robots()
     print("[FAZ 4 COMPLETE] All 22 English pages, TR|EN switcher, hreflang, consent bar & sitemap built!")
 
 
 if __name__ == "__main__":
     main()
+
