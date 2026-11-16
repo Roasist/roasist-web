@@ -1156,7 +1156,7 @@ def build_en_homepage():
 EXTRA_ABOUT_PAIRS_EN = [
     ("Vizyon", "Vision"),
     ("Misyon", "Mission"),
-    ("Markalar", "Partner Brands"),
+    ("Markalar", "Brands"),
     ('href="/iletisim/"', 'href="/en/contact-us/"'),
     ('href="/iletisim"', 'href="/en/contact-us/"'),
     ('"href":"/iletisim/"', '"href":"/en/contact-us/"'),

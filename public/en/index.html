@@ -768,20 +768,96 @@ body.dark .roasist-mission-quote__author{
   height:100%;
   touch-action:pan-y;
 }
-/* Hakkımızda / Who We Are — Official Partnerships & Team Heading refinements */
+/* Hakkımızda / Who We Are — Güçlü Markalar desktop intro alignment beside "Güçlü" */
+.Partners_partners__jBo8y .LargeHeading_headingOuter__i9qcd .split-word{
+  overflow:visible!important;
+}
+.Partners_partners__jBo8y .LargeHeading_headingOuter__i9qcd .split-char{
+  transform:translate(0px,0px)!important;
+  opacity:1!important;
+}
+@media (min-width:769px){
+  .Partners_partners__jBo8y:has(.Partners_introText__3_Pu8){
+    padding-top:clamp(3.5rem,6vw,5.5rem)!important;
+  }
+  .Partners_partners__jBo8y .Partners_headingInner__vdhDe{
+    grid-column:1 / -1!important;
+    grid-row:1!important;
+  }
+  .Partners_partners__jBo8y .Partners_introText__3_Pu8{
+    grid-column:8 / span 5!important;
+    grid-row:1!important;
+    align-self:start!important;
+    margin:clamp(0.65rem,1.25vw,1.35rem) 0 0 0!important;
+    transform:none!important;
+    z-index:2;
+  }
+  .Partners_partners__jBo8y .Partners_introText__3_Pu8 p{
+    font-size:clamp(1rem,1.2vw,1.25rem)!important;
+    line-height:1.38!important;
+    margin:0!important;
+  }
+  .Team_introContainerDesktop__tmXZ_ .Team_intro__xDd7M{
+    transform:translateY(3.25rem)!important;
+  }
+}
+/* Hakkımızda / Who We Are — Official Partnerships logo showcase (no table borders) */
 .BigUps_partners__xRCBU .BigUps_heading__zYN_v{
-  margin-bottom:clamp(2.5rem,5vw,4.5rem)!important;
+  grid-column:1 / -1!important;
+  margin-bottom:clamp(2.5rem,4.5vw,4rem)!important;
+}
+.BigUps_partners__xRCBU .BigUps_awards__JQZ1R{
+  grid-column:1 / -1!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:center!important;
+  justify-items:center!important;
+  gap:clamp(2rem,4vw,4.5rem)!important;
+  border:none!important;
+  margin-top:clamp(1rem,2vw,2.25rem)!important;
+  padding:0!important;
+}
+@media (max-width:768px){
+  .BigUps_partners__xRCBU .BigUps_awards__JQZ1R{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:2.25rem 1.5rem!important;
+  }
+}
+.BigUps_partners__xRCBU .BigUps_awards__JQZ1R > span{
+  width:100%!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  opacity:1!important;
+}
+.BigUps_partners__xRCBU .BigUps_award__D7Yq2{
+  border:none!important;
+  padding:0!important;
+  margin:0!important;
+  width:100%!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
 }
 .BigUps_partners__xRCBU .BigUps_logo__sSEo5{
+  width:100%!important;
+  margin:0!important;
   display:flex!important;
+  justify-content:center!important;
   align-items:center!important;
 }
 .BigUps_partners__xRCBU .BigUps_logo__sSEo5 img{
-  height:2.25rem!important;
+  height:clamp(48px,4.4vw,68px)!important;
+  max-height:68px!important;
   width:auto!important;
-  max-width:11rem!important;
+  max-width:100%!important;
   object-fit:contain!important;
-  object-position:left center!important;
+  object-position:center!important;
+  filter:drop-shadow(0 2px 10px rgba(118,2,255,0.16))!important;
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1)!important;
+}
+.BigUps_partners__xRCBU .BigUps_award__D7Yq2:hover .BigUps_logo__sSEo5 img{
+  transform:scale(1.06)!important;
 }
 html[lang="tr"] .Team_heading__C_JZM{
   font-size:clamp(2.75rem,8.2vw,9.2rem)!important;

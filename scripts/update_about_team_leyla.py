@@ -140,26 +140,23 @@ def strip_single_team_style(ssr: str) -> str:
 
 
 OFFICIAL_PARTNERS_TR = [
-    ("google-partner.svg", "Google Partner", "Resmi Ajans Partneri"),
-    ("yandex-partner.svg", "Yandex Partner", "Resmi Reklam Partneri"),
-    ("meta-partner.svg", "Meta Business Partner", "Resmi Pazarlama Partneri"),
-    ("tiktok-partner.svg", "TikTok Partner", "Resmi Pazarlama Partneri"),
+    ("badge-google-partner-w.svg", "Google Partner"),
+    ("badge-meta-partner-w.svg", "Meta Business Partner"),
+    ("badge-tiktok-partner-w.svg", "TikTok Marketing Partner"),
+    ("badge-ai-seo-w.svg", "Yandex Ads Partner"),
 ]
 
 
 def build_ssr_bigups_section(is_dist: bool) -> str:
-    partner_base = "/roasist-web/images/partners" if is_dist else "/images/partners"
+    partner_base = "/roasist-web/images" if is_dist else "/images"
     rows_html = []
-    for svg_file, name, ptype in OFFICIAL_PARTNERS_TR:
+    for svg_file, name in OFFICIAL_PARTNERS_TR:
         logo_url = f"{partner_base}/{svg_file}"
         rows_html.append(
             '<span class="FadeIn_container__bjQVL" data-fill="false">'
             '<div class="BigUps_award__D7Yq2">'
             f'<figure class="BigUps_logo__sSEo5"><img src="{logo_url}" alt="{name}"/></figure>'
-            '<div class="BigUps_nameType__Ysghr">'
-            f'<p class="BigUps_name__ntnRC">{name}</p>'
-            f'<p class="BigUps_type__sHqdy">{ptype}</p>'
-            "</div></div></span>"
+            "</div></span>"
         )
     return (
         '<div class="BigUps_partners__xRCBU">'
@@ -172,9 +169,9 @@ def build_ssr_bigups_section(is_dist: bool) -> str:
 
 
 def build_flight_bigups_node(is_dist: bool) -> list:
-    partner_base = "/roasist-web/images/partners" if is_dist else "/images/partners"
+    partner_base = "/roasist-web/images" if is_dist else "/images"
     award_nodes = []
-    for idx, (svg_file, name, ptype) in enumerate(OFFICIAL_PARTNERS_TR):
+    for idx, (svg_file, name) in enumerate(OFFICIAL_PARTNERS_TR):
         logo_url = f"{partner_base}/{svg_file}"
         award_nodes.append(
             [
@@ -196,18 +193,6 @@ def build_flight_bigups_node(is_dist: bool) -> list:
                                     {
                                         "className": "BigUps_logo__sSEo5",
                                         "children": ["$", "img", None, {"src": logo_url, "alt": name}],
-                                    },
-                                ],
-                                [
-                                    "$",
-                                    "div",
-                                    None,
-                                    {
-                                        "className": "BigUps_nameType__Ysghr",
-                                        "children": [
-                                            ["$", "p", None, {"className": "BigUps_name__ntnRC", "children": name}],
-                                            ["$", "p", None, {"className": "BigUps_type__sHqdy", "children": ptype}],
-                                        ],
                                     },
                                 ],
                             ],
