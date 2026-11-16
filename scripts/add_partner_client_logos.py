@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Adds 23Projects (https://www.23projects.net/) and Dental Art (https://www.dentalartalanya.com/)
-white reference logos to the black-background reference logos component (`Partners_partners__jBo8y` ->
+Replaces Mobile Game Factory (`ref-10.png`) with 23Projects (`23projects.png`)
+and Urla Balık (`ref-16.png`, or 15th slot `ref-15.png` on About Us) with Dental Art (`dental-art.png`)
+inside the black-background reference logos component (`Partners_partners__jBo8y` ->
 `Partners_logosInner__Aoq5_`) across Homepage (TR & EN) and About Us (TR & EN) in both `public/` and `dist/`.
 
-Maintains 100% parity between SSR HTML and React Flight JSON (`self.__next_f.push`).
+Maintains 15 logos (3x5 grid) and 100% parity between SSR HTML and React Flight JSON (`self.__next_f.push`).
 Idempotent: safe to re-run repeatedly.
 """
 
@@ -25,26 +26,67 @@ from apply_phase1_cleanup import (  # noqa: E402
     rewrite_flight_in_html,
 )
 
-NEW_LOGOS = [
-    ("23projects.png", "23Projects"),
-    ("dental-art.png", "Dental Art"),
+HOME_LOGOS = [
+    ("ref-29.png", ""),
+    ("ref-14.png", ""),
+    ("ref-04.png", ""),
+    ("ref-11.png", ""),
+    ("ref-12.png", ""),
+    ("ref-23.png", ""),
+    ("23projects.png", "23Projects"),   # Replaces Mobile Game Factory (ref-10.png)
+    ("ref-06.png", ""),
+    ("ref-08.png", ""),
+    ("ref-20.png", ""),
+    ("ref-27.png", ""),
+    ("ref-28.png", ""),
+    ("ref-09.png", ""),
+    ("ref-22.png", ""),
+    ("dental-art.png", "Dental Art"),   # Replaces Urla Balık (ref-16.png)
 ]
 
+ABOUT_LOGOS = [
+    ("ref-01.png", ""),
+    ("ref-02.png", ""),
+    ("ref-03.png", ""),
+    ("ref-04.png", ""),
+    ("ref-05.png", ""),
+    ("ref-06.png", ""),
+    ("ref-07.png", ""),
+    ("ref-08.png", ""),
+    ("ref-09.png", ""),
+    ("23projects.png", "23Projects"),   # Replaces Mobile Game Factory (ref-10.png)
+    ("ref-11.png", ""),
+    ("ref-12.png", ""),
+    ("ref-13.png", ""),
+    ("ref-14.png", ""),
+    ("dental-art.png", "Dental Art"),   # Replaces 15th slot (ref-15.png)
+]
+
+OLD_REF_SHA = "189b2e0aee16a196d88d8895fb3795810c6d17f9"
+
 TARGET_FILES = [
-    ("public/kota-roasist-local.html", False),
-    ("public/en/index.html", False),
-    ("public/hakkimizda/index.html", False),
-    ("public/en/who-we-are/index.html", False),
-    ("dist/index.html", True),
-    ("dist/en/index.html", True),
-    ("dist/hakkimizda/index.html", True),
-    ("dist/en/who-we-are/index.html", True),
+    ("public/kota-roasist-local.html", False, HOME_LOGOS),
+    ("public/en/index.html", False, HOME_LOGOS),
+    ("public/hakkimizda/index.html", False, ABOUT_LOGOS),
+    ("public/en/who-we-are/index.html", False, ABOUT_LOGOS),
+    ("dist/index.html", True, HOME_LOGOS),
+    ("dist/en/index.html", True, HOME_LOGOS),
+    ("dist/hakkimizda/index.html", True, ABOUT_LOGOS),
+    ("dist/en/who-we-are/index.html", True, ABOUT_LOGOS),
 ]
 
 DIV_TAG_RE = re.compile(r"<div(?:\s[^>]*)?>|</div>")
 
 
-def replace_logos_inner_ssr(ssr_html: str, prefix: str) -> str:
+def logo_url_for(fn: str, is_dist: bool, cdn_sha: str) -> str:
+    if not is_dist:
+        return f"/images/clients-white/{fn}"
+    if fn.startswith("ref-"):
+        return f"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@{OLD_REF_SHA}/images/clients-white/{fn}"
+    return f"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@{cdn_sha}/public/images/clients-white/{fn}"
+
+
+def replace_logos_inner_ssr(ssr_html: str, logos_spec: list, is_dist: bool, cdn_sha: str) -> str:
     open_tag = '<div class="Partners_logosInner__Aoq5_">'
     start = ssr_html.find(open_tag)
     if start == -1:
@@ -65,32 +107,14 @@ def replace_logos_inner_ssr(ssr_html: str, prefix: str) -> str:
     if end == -1:
         raise RuntimeError("Unbalanced div for Partners_logosInner__Aoq5_")
 
-    inner_html = ssr_html[start + len(open_tag) : end - len("</div>")]
-    item_re = re.compile(
-        r'<div class="Partners_logo__eDI8e" data-animation="grid-item"><img src="([^"]+)" alt="([^"]*)"/></div>'
-    )
-    items = item_re.findall(inner_html)
-    if not items:
-        raise RuntimeError("No Partners_logo__eDI8e items found in SSR HTML")
-
-    new_filenames = {fn for fn, _ in NEW_LOGOS}
-    filtered_items = [
-        (src, alt)
-        for src, alt in items
-        if not any(src.endswith("/" + fn) for fn in new_filenames)
-    ]
-
-    for fn, alt in NEW_LOGOS:
-        filtered_items.append((f"{prefix}/{fn}", alt))
-
     rebuilt_inner = "".join(
-        f'<div class="Partners_logo__eDI8e" data-animation="grid-item"><img src="{src}" alt="{alt}"/></div>'
-        for src, alt in filtered_items
+        f'<div class="Partners_logo__eDI8e" data-animation="grid-item"><img src="{logo_url_for(fn, is_dist, cdn_sha)}" alt="{alt}"/></div>'
+        for fn, alt in logos_spec
     )
     return ssr_html[:start] + open_tag + rebuilt_inner + "</div>" + ssr_html[end:]
 
 
-def update_file(rel_path: str, is_dist: bool, cdn_sha: str) -> bool:
+def update_file(rel_path: str, is_dist: bool, logos_spec: list, cdn_sha: str) -> bool:
     fp = os.path.join(ROOT, rel_path)
     with open(fp, "r", encoding="utf-8") as f:
         html = f.read()
@@ -102,15 +126,9 @@ def update_file(rel_path: str, is_dist: bool, cdn_sha: str) -> bool:
     ssr = html[: pushes[0].start()]
     tail = html[pushes[0].start() :]
 
-    if is_dist:
-        prefix = f"https://cdn.jsdelivr.net/gh/Roasist/roasist-web@{cdn_sha}/public/images/clients-white"
-    else:
-        prefix = "/images/clients-white"
-
-    ssr_updated = replace_logos_inner_ssr(ssr, prefix)
+    ssr_updated = replace_logos_inner_ssr(ssr, logos_spec, is_dist, cdn_sha)
 
     flight_ok = False
-    new_filenames = {fn for fn, _ in NEW_LOGOS}
 
     def mut(records):
         nonlocal flight_ok
@@ -125,43 +143,30 @@ def update_file(rel_path: str, is_dist: bool, cdn_sha: str) -> bool:
             logos_inner = find_node_by_class(ast, "Partners_logosInner__Aoq5_")
             if not logos_inner:
                 continue
-            children = logos_inner[3].get("children", [])
-            filtered_children = []
-            for child in children:
-                try:
-                    img_src = child[3]["children"][3]["src"]
-                except (IndexError, KeyError, TypeError):
-                    img_src = ""
-                if any(img_src.endswith("/" + fn) for fn in new_filenames):
-                    continue
-                filtered_children.append(child)
 
-            for fn, alt in NEW_LOGOS:
-                filtered_children.append(
-                    [
-                        "$",
-                        "div",
-                        str(len(filtered_children)),
-                        {
-                            "className": "Partners_logo__eDI8e",
-                            "data-animation": "grid-item",
-                            "children": [
-                                "$",
-                                "img",
-                                None,
-                                {
-                                    "src": f"{prefix}/{fn}",
-                                    "alt": alt,
-                                },
-                            ],
-                        },
-                    ]
-                )
+            rebuilt_children = [
+                [
+                    "$",
+                    "div",
+                    str(idx),
+                    {
+                        "className": "Partners_logo__eDI8e",
+                        "data-animation": "grid-item",
+                        "children": [
+                            "$",
+                            "img",
+                            None,
+                            {
+                                "src": logo_url_for(fn, is_dist, cdn_sha),
+                                "alt": alt,
+                            },
+                        ],
+                    },
+                ]
+                for idx, (fn, alt) in enumerate(logos_spec)
+            ]
 
-            for idx, child in enumerate(filtered_children):
-                child[2] = str(idx)
-
-            logos_inner[3]["children"] = filtered_children
+            logos_inner[3]["children"] = rebuilt_children
             rec[2] = json.dumps(ast, ensure_ascii=False, separators=(",", ":"))
             flight_ok = True
             changed = True
@@ -192,8 +197,8 @@ def main():
         )
 
     updated = 0
-    for rel_path, is_dist in TARGET_FILES:
-        if update_file(rel_path, is_dist, cdn_sha):
+    for rel_path, is_dist, logos_spec in TARGET_FILES:
+        if update_file(rel_path, is_dist, logos_spec, cdn_sha):
             updated += 1
             print(f"  [OK] {rel_path}")
         else:
