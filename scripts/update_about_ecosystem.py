@@ -64,6 +64,35 @@ ROASIST_ECOSYSTEM_CSS = """
   height:100%;
   touch-action:pan-y;
 }
+/* Hakkımızda / Who We Are — Official Partnerships & Team Heading refinements */
+.BigUps_partners__xRCBU .BigUps_heading__zYN_v{
+  margin-bottom:clamp(2.5rem,5vw,4.5rem)!important;
+}
+.BigUps_partners__xRCBU .BigUps_logo__sSEo5{
+  display:flex!important;
+  align-items:center!important;
+}
+.BigUps_partners__xRCBU .BigUps_logo__sSEo5 img{
+  height:2.25rem!important;
+  width:auto!important;
+  max-width:11rem!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+}
+html[lang="tr"] .Team_heading__C_JZM{
+  font-size:clamp(2.75rem,8.2vw,9.2rem)!important;
+  line-height:1.04!important;
+}
+html[lang="tr"] .Team_heading__C_JZM .Team_bottom__Z7FOL,
+html[lang="tr"] .Team_heading__C_JZM.Team_bottom__Z7FOL{
+  padding-left:7%!important;
+}
+.Team_heading__C_JZM .split-line-mask,
+.Team_heading__C_JZM .split-line{
+  overflow:visible!important;
+  transform:translate(0px,0px)!important;
+  opacity:1!important;
+}
 """
 
 ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
@@ -908,10 +937,8 @@ def update_single_about_ecosystem_tr(fp: str) -> bool:
 
     eco_ssr = build_ssr_ecosystem_block()
     ssr_updated, n_sec = re.subn(
-        r'(<section class="Culture_culture__lmpEt">)'
-        r'(?:<!--\$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/\$-->|<div class="roasist-ecosystem" data-roasist-ecosystem="1">.*?</div></div>)'
-        r'(<div class="container">)',
-        lambda m: m.group(1) + eco_ssr + m.group(2),
+        r'<section class="Culture_culture__lmpEt">.*?</section>',
+        lambda _m: f'<section class="Culture_culture__lmpEt">{eco_ssr}</section>',
         ssr,
         count=1,
         flags=re.S,
@@ -934,10 +961,7 @@ def update_single_about_ecosystem_tr(fp: str) -> bool:
             culture_sec = find_node_by_class(ast, "Culture_culture__lmpEt")
             if not culture_sec:
                 continue
-            c_children = culture_sec[3]["children"]
-            if not isinstance(c_children, list) or len(c_children) < 2:
-                raise RuntimeError(f"Unexpected Culture_culture__lmpEt children in {fp}")
-            c_children[0] = build_flight_ecosystem_node()
+            culture_sec[3]["children"] = [build_flight_ecosystem_node()]
             rec[2] = json.dumps(ast, ensure_ascii=False, separators=(",", ":"))
             flight_ok = True
             changed = True

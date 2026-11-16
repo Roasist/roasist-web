@@ -1204,7 +1204,9 @@ ABOUT_TR_TO_EN_PAIRS = [
         "<p>Our multidisciplinary specialists across performance marketing, enterprise SEO, creative design, and web engineering work as one cohesive team to scale your business.</p>\n",
     ),
     ("Resmi Partnerlikler & Başarılar", "Official Partnerships & Credentials"),
+    ("Resmi Partnerlikler", "Official Partnerships"),
     ("Resmi Ajans Partneri", "Official Agency Partner"),
+    ("Resmi Reklam Partneri", "Official Advertising Partner"),
     ("Resmi Pazarlama Partneri", "Official Marketing Partner"),
     ("Sertifikalı Performans Uzmanlığı", "Certified Performance Specialists"),
     ("Yüksek ROAS & Büyüme Ödülü", "High-ROAS & Growth Excellence"),
@@ -1225,6 +1227,14 @@ ABOUT_TR_TO_EN_PAIRS = [
     (
         '<p>Bize hemen ulaşın:<br />\n<a href="mailto:info@roasist.com">info@roasist.com</a></p>\n',
         '<p>Drop us a line today:<br />\n<a href="mailto:info@roasist.com">info@roasist.com</a></p>\n',
+    ),
+    (
+        '<p>Bize hemen ulaşın:<br />\n<a href="/iletisim/">İletişim Formunu Doldurun</a></p>\n',
+        '<p>Drop us a line today:<br />\n<a href="/en/contact-us/">Fill Out Our Contact Form</a></p>\n',
+    ),
+    (
+        '<p>Bize hemen ulaşın:<br />\n<a href="/roasist-web/iletisim/">İletişim Formunu Doldurun</a></p>\n',
+        '<p>Drop us a line today:<br />\n<a href="/roasist-web/en/contact-us/">Fill Out Our Contact Form</a></p>\n',
     ),
     (
         "Performans pazarlaması, Google & Meta reklamları, SEO, kreatif tasarım ve web yazılım çözümleriyle markanızı kârlı biçimde ölçeklendiren 360° dijital büyüme ajansıyız.",

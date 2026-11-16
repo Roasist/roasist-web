@@ -139,11 +139,163 @@ def strip_single_team_style(ssr: str) -> str:
     return re.sub(r"<style data-roasist-single-team>.*?</style>", "", ssr, flags=re.S)
 
 
+OFFICIAL_PARTNERS_TR = [
+    ("google-partner.svg", "Google Partner", "Resmi Ajans Partneri"),
+    ("yandex-partner.svg", "Yandex Partner", "Resmi Reklam Partneri"),
+    ("meta-partner.svg", "Meta Business Partner", "Resmi Pazarlama Partneri"),
+    ("tiktok-partner.svg", "TikTok Partner", "Resmi Pazarlama Partneri"),
+]
+
+
+def build_ssr_bigups_section(is_dist: bool) -> str:
+    partner_base = "/roasist-web/images/partners" if is_dist else "/images/partners"
+    rows_html = []
+    for svg_file, name, ptype in OFFICIAL_PARTNERS_TR:
+        logo_url = f"{partner_base}/{svg_file}"
+        rows_html.append(
+            '<span class="FadeIn_container__bjQVL" data-fill="false">'
+            '<div class="BigUps_award__D7Yq2">'
+            f'<figure class="BigUps_logo__sSEo5"><img src="{logo_url}" alt="{name}"/></figure>'
+            '<div class="BigUps_nameType__Ysghr">'
+            f'<p class="BigUps_name__ntnRC">{name}</p>'
+            f'<p class="BigUps_type__sHqdy">{ptype}</p>'
+            "</div></div></span>"
+        )
+    return (
+        '<div class="BigUps_partners__xRCBU">'
+        '<div class="DarkThemeSwitch_cover__hn_xc"></div>'
+        '<div class="container">'
+        '<h2 class="BigUps_heading__zYN_v"><span class="BigUps_heading__zYN_v">Resmi Partnerlikler</span></h2>'
+        f'<div class="BigUps_awards__JQZ1R">{"".join(rows_html)}</div>'
+        "</div></div>"
+    )
+
+
+def build_flight_bigups_node(is_dist: bool) -> list:
+    partner_base = "/roasist-web/images/partners" if is_dist else "/images/partners"
+    award_nodes = []
+    for idx, (svg_file, name, ptype) in enumerate(OFFICIAL_PARTNERS_TR):
+        logo_url = f"{partner_base}/{svg_file}"
+        award_nodes.append(
+            [
+                "$",
+                "$L39",
+                str(idx),
+                {
+                    "children": [
+                        "$",
+                        "div",
+                        str(idx),
+                        {
+                            "className": "BigUps_award__D7Yq2",
+                            "children": [
+                                [
+                                    "$",
+                                    "figure",
+                                    None,
+                                    {
+                                        "className": "BigUps_logo__sSEo5",
+                                        "children": ["$", "img", None, {"src": logo_url, "alt": name}],
+                                    },
+                                ],
+                                [
+                                    "$",
+                                    "div",
+                                    None,
+                                    {
+                                        "className": "BigUps_nameType__Ysghr",
+                                        "children": [
+                                            ["$", "p", None, {"className": "BigUps_name__ntnRC", "children": name}],
+                                            ["$", "p", None, {"className": "BigUps_type__sHqdy", "children": ptype}],
+                                        ],
+                                    },
+                                ],
+                            ],
+                        },
+                    ]
+                },
+            ]
+        )
+    return [
+        "$",
+        "div",
+        None,
+        {
+            "className": "BigUps_partners__xRCBU",
+            "children": [
+                ["$", "$L1f", None, {}],
+                [
+                    "$",
+                    "div",
+                    None,
+                    {
+                        "className": "container",
+                        "children": [
+                            [
+                                "$",
+                                "h2",
+                                None,
+                                {
+                                    "className": "BigUps_heading__zYN_v",
+                                    "children": [
+                                        "$",
+                                        "span",
+                                        None,
+                                        {"className": "BigUps_heading__zYN_v", "children": "Resmi Partnerlikler"},
+                                    ],
+                                },
+                            ],
+                            [
+                                "$",
+                                "div",
+                                None,
+                                {
+                                    "className": "BigUps_awards__JQZ1R",
+                                    "children": award_nodes,
+                                },
+                            ],
+                        ],
+                    },
+                ],
+            ],
+        },
+    ]
+
+
+def build_about_cta_subheading_tr(is_dist: bool) -> str:
+    contact_href = "/roasist-web/iletisim/" if is_dist else "/iletisim/"
+    return f'<p>Bize hemen ulaşın:<br />\n<a href="{contact_href}">İletişim Formunu Doldurun</a></p>\n'
+
+
 def update_ssr_team_section(ssr: str, is_dist: bool) -> str:
     ssr = strip_single_team_style(ssr)
     members = build_team_members(is_dist=is_dist)
     first = members[0]
     circle_url = first["secondaryPhoto"]["sourceUrl"]
+
+    # 0A. Replace BigUps_partners__xRCBU block right before Team_team__Z__z1
+    bigups_ssr = build_ssr_bigups_section(is_dist=is_dist)
+    ssr, n_bigups = re.subn(
+        r'<div class="BigUps_partners__xRCBU">.*?(?=<section class="Team_team__Z__z1">)',
+        lambda _m: bigups_ssr,
+        ssr,
+        count=1,
+        flags=re.S,
+    )
+    if n_bigups != 1:
+        raise RuntimeError("Failed to update BigUps_partners__xRCBU in SSR HTML")
+
+    # 0B. Replace LargeCta_subHeading__Cs6d8 mailto link with contact form link
+    cta_sub_html = build_about_cta_subheading_tr(is_dist=is_dist)
+    ssr, n_cta = re.subn(
+        r'(<div class="LargeCta_subHeading__Cs6d8">).*?(</div><p class="LargeCta_mainText__6MrpN">)',
+        lambda m: m.group(1) + cta_sub_html + m.group(2),
+        ssr,
+        count=1,
+        flags=re.S,
+    )
+    if n_cta != 1:
+        raise RuntimeError("Failed to update LargeCta_subHeading__Cs6d8 in SSR HTML")
 
     sec_m = re.search(r'<section class="Team_team__Z__z1">.*?</section>', ssr, re.S)
     if not sec_m:
@@ -179,7 +331,7 @@ def update_ssr_team_section(ssr: str, is_dist: bool) -> str:
     if n_bio != 1:
         raise RuntimeError("Failed to update Team_bio__EVTbV in SSR")
 
-    # 2. Replace slides in Left, Active, and Right Swiper wrappers with [Leyla, Caner]
+    # 2. Replace slides in Left, Active, and Right Swiper wrappers with [Leyla, Caner, Ebru]
     simple_slides = "".join(build_simple_slide_html(m) for m in members)
     active_slides = "".join(build_active_slide_html(m) for m in members)
 
@@ -225,15 +377,18 @@ def update_single_about_team_tr(fp: str, is_dist: bool) -> bool:
 
     # Locate the main Flight chunk containing "Team_team__Z__z1" or "$L3b"
     members = build_team_members(is_dist=is_dist)
+    bigups_node = build_flight_bigups_node(is_dist=is_dist)
+    cta_sub_html = build_about_cta_subheading_tr(is_dist=is_dist)
     out_parts = []
     pos = 0
     rec12_ok = False
     rec3c_ok = False
+    rec92_ok = False
 
     for match in PUSH_RE.finditer(tail):
         out_parts.append(tail[pos : match.start()])
         raw_str = json.loads(match.group(1))
-        if "$L3b" in raw_str or "3c:" in raw_str:
+        if "$L3b" in raw_str or "3c:" in raw_str or "92:" in raw_str:
             records = parse_flight_stream(raw_str)
             changed = False
             for rec in records:
@@ -241,6 +396,7 @@ def update_single_about_team_tr(fp: str, is_dist: bool) -> bool:
                 if kind == "line" and key == "12":
                     ast = json.loads(val)
                     sections = ast[2][3]["children"]
+                    sections[6] = bigups_node
                     team_sec = sections[7]
                     team_sec[3]["data"]["team"] = members
                     rec[2] = json.dumps(ast, ensure_ascii=False, separators=(",", ":"))
@@ -249,6 +405,13 @@ def update_single_about_team_tr(fp: str, is_dist: bool) -> bool:
                 elif kind == "line" and key == "3c":
                     rec[2] = json.dumps(members, ensure_ascii=False, separators=(",", ":"))
                     rec3c_ok = True
+                    changed = True
+                elif kind == "line" and key == "92":
+                    ast92 = json.loads(val)
+                    right_children = ast92[3]["children"][1][3]["children"][3]["children"][1][3]["children"][3]["children"]
+                    right_children[0][3]["dangerouslySetInnerHTML"]["__html"] = cta_sub_html
+                    rec[2] = json.dumps(ast92, ensure_ascii=False, separators=(",", ":"))
+                    rec92_ok = True
                     changed = True
             if changed:
                 new_stream = serialize_flight_stream(records)
@@ -261,8 +424,10 @@ def update_single_about_team_tr(fp: str, is_dist: bool) -> bool:
         pos = match.end()
 
     out_parts.append(tail[pos:])
-    if not rec12_ok or not rec3c_ok:
-        raise RuntimeError(f"Failed to update Flight records in {fp}: rec12={rec12_ok}, rec3c={rec3c_ok}")
+    if not rec12_ok or not rec3c_ok or not rec92_ok:
+        raise RuntimeError(
+            f"Failed to update Flight records in {fp}: rec12={rec12_ok}, rec3c={rec3c_ok}, rec92={rec92_ok}"
+        )
 
     new_html = ssr_updated + "".join(out_parts)
     if new_html != html:

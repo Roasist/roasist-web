@@ -2494,6 +2494,16 @@ ROASIST_UI_SCRIPT_TEMPLATE = """<script data-roasist-ui data-lang="__LANG__" dat
         });
       }
     } else {
+      var trTeamHeading = document.querySelector('h3[class*="Team_heading"]');
+      if (trTeamHeading && trTeamHeading.querySelector('.split-line')) {
+        var thWalker = document.createTreeWalker(trTeamHeading, NodeFilter.SHOW_TEXT, null);
+        var thNode;
+        while ((thNode = thWalker.nextNode())) {
+          var tv = thNode.nodeValue.trim();
+          if (tv === 'Our') thNode.nodeValue = 'Uzman';
+          else if (tv === 'Team') thNode.nodeValue = 'Ekibimiz';
+        }
+      }
       var trFormSec = document.querySelector('section[class*="Form_contactForm"]');
       if (trFormSec && !trFormSec.dataset.roasistTrDone) {
         trFormSec.dataset.roasistTrDone = '1';
