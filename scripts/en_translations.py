@@ -1213,6 +1213,10 @@ ABOUT_TR_TO_EN_PAIRS = [
         "<p>Roasist’te Brand Partner olarak stratejik iş ortaklıkları kuruyor, yeni büyüme fırsatları geliştiriyor ve markaları hedeflerine özel dijital pazarlama çözümleriyle buluşturuyor.</p>\n<p>İş stratejisi, müşteri danışmanlığı ve uzman ekipleri tek köprüde birleştirerek, hizmet sunumunun ötesine geçen kalıcı değer ve sürdürülebilir marka ortaklıkları inşa etmeye odaklanıyor.</p>\n",
         "<p>As a Brand Partner at Roasist, Leyla focuses on building strategic partnerships, developing business opportunities, and connecting brands with tailored digital marketing solutions.</p>\n<p>Bridging business strategy, client advisory, and cross-functional digital expertise, she builds trusted relationships and long-term partnerships that deliver lasting value beyond service delivery.</p>\n",
     ),
+    (
+        "<p>Roasist’te Performance Marketing Manager olarak Google, Meta, TikTok ve LinkedIn ekosistemlerinde veri odaklı ücretli medya stratejilerini ve çok kanallı büyüme kampanyalarını uçtan uca yönetiyor.</p>\n<p>Bütçe optimizasyonu, dönüşüm odaklı ölçümleme ve sürekli test yaklaşımıyla reklam yatırımlarını ölçülebilir ciroya ve sürdürülebilir ROAS artışına dönüştürmeye odaklanıyor.</p>\n",
+        "<p>As Performance Marketing Manager at Roasist, Caner leads data-driven paid media strategies and multi-channel growth campaigns end-to-end across Google, Meta, TikTok, and LinkedIn.</p>\n<p>Through disciplined budget allocation, conversion tracking, and continuous creative testing, he turns ad spend into measurable revenue and sustainable ROAS growth.</p>\n",
+    ),
     ("Markanızı Roasist ile büyütmeye hazır mısınız?", "Ready to scale your brand with Roasist?"),
     (
         '<p>Bize hemen ulaşın:<br />\n<a href="mailto:info@roasist.com">info@roasist.com</a></p>\n',
