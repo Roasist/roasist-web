@@ -2736,11 +2736,13 @@ def main():
     from remove_service_bento_videos import remove_bento_from_all_service_pages
     from update_about_ecosystem import update_about_ecosystem_tr
     from update_about_mission_quote import update_about_mission_quote_tr
+    from update_about_team_leyla import update_about_team_leyla_tr
     from update_discover_more_links import update_discover_more_all_pages
 
     fix_tr_remnants()
     update_about_mission_quote_tr()
     update_about_ecosystem_tr()
+    update_about_team_leyla_tr()
     build_en_homepage()
     build_en_about()
     build_en_services()

@@ -1209,6 +1209,10 @@ ABOUT_TR_TO_EN_PAIRS = [
     ("Sertifikalı Performans Uzmanlığı", "Certified Performance Specialists"),
     ("Yüksek ROAS & Büyüme Ödülü", "High-ROAS & Growth Excellence"),
     ("Pazarlama Direktörü", "Marketing Director"),
+    (
+        "<p>Roasist’te Brand Partner olarak stratejik iş ortaklıkları kuruyor, yeni büyüme fırsatları geliştiriyor ve markaları hedeflerine özel dijital pazarlama çözümleriyle buluşturuyor.</p>\n<p>İş stratejisi, müşteri danışmanlığı ve uzman ekipleri tek köprüde birleştirerek, hizmet sunumunun ötesine geçen kalıcı değer ve sürdürülebilir marka ortaklıkları inşa etmeye odaklanıyor.</p>\n",
+        "<p>As a Brand Partner at Roasist, Leyla focuses on building strategic partnerships, developing business opportunities, and connecting brands with tailored digital marketing solutions.</p>\n<p>Bridging business strategy, client advisory, and cross-functional digital expertise, she builds trusted relationships and long-term partnerships that deliver lasting value beyond service delivery.</p>\n",
+    ),
     ("Markanızı Roasist ile büyütmeye hazır mısınız?", "Ready to scale your brand with Roasist?"),
     (
         '<p>Bize hemen ulaşın:<br />\n<a href="mailto:info@roasist.com">info@roasist.com</a></p>\n',
