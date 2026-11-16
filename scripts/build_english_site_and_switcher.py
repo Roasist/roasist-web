@@ -2604,6 +2604,9 @@ def resolve_language_pair_for_route(route: str) -> tuple[str, str, str]:
 
 
 def inject_hreflang_and_ui_across_all_pages():
+    from update_about_ecosystem import ROASIST_ECOSYSTEM_CSS, ROASIST_ECOSYSTEM_SCRIPT
+
+    combined_ui_css = ROASIST_UI_CSS.replace("</style>", f"{ROASIST_ECOSYSTEM_CSS}</style>", 1)
     count = 0
     for base_name in ("public", "dist"):
         base_dir = os.path.join(ROOT, base_name)
@@ -2621,6 +2624,7 @@ def inject_hreflang_and_ui_across_all_pages():
 
             html = re.sub(r'<link rel="alternate" hreflang="[^"]+" href="[^"]+"\s*/>', "", html)
             html = re.sub(r"<style data-roasist-ui-css>.*?</style>", "", html, flags=re.S)
+            html = re.sub(r"<script data-roasist-ecosystem-js>.*?</script>", "", html, flags=re.S)
             html = re.sub(r"<script data-roasist-ui[^>]*>.*?</script>", "", html, flags=re.S)
 
             hreflang_tags = (
@@ -2633,12 +2637,13 @@ def inject_hreflang_and_ui_across_all_pages():
                 .replace("__TR_ROUTE__", tr_route)
                 .replace("__EN_ROUTE__", en_route)
             )
+            eco_script = ROASIST_ECOSYSTEM_SCRIPT if 'data-roasist-ecosystem="1"' in html else ""
 
-            html = html.replace("</head>", f"{hreflang_tags}{ROASIST_UI_CSS}</head>", 1)
+            html = html.replace("</head>", f"{hreflang_tags}{combined_ui_css}</head>", 1)
             if "</body>" in html:
-                html = html.replace("</body>", f"{ui_script}</body>", 1)
+                html = html.replace("</body>", f"{eco_script}{ui_script}</body>", 1)
             else:
-                html = html + ui_script
+                html = html + eco_script + ui_script
 
             with open(fp, "w", encoding="utf-8") as f:
                 f.write(html)
@@ -2729,11 +2734,13 @@ def generate_sitemap_and_robots():
 
 def main():
     from remove_service_bento_videos import remove_bento_from_all_service_pages
+    from update_about_ecosystem import update_about_ecosystem_tr
     from update_about_mission_quote import update_about_mission_quote_tr
     from update_discover_more_links import update_discover_more_all_pages
 
     fix_tr_remnants()
     update_about_mission_quote_tr()
+    update_about_ecosystem_tr()
     build_en_homepage()
     build_en_about()
     build_en_services()

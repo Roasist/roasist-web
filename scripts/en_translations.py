@@ -1190,6 +1190,10 @@ ABOUT_TR_TO_EN_PAIRS = [
         "<p>We operate with a quality- and process-driven mindset. Because every business has distinct unit economics and growth bottlenecks, we never force copy-paste packages—instead architecting bespoke, full-funnel digital marketing systems.</p>\n<p>We value agility, transparency, and close executive collaboration. Backed by our official Google, Meta, TikTok, and Yandex partnerships, we deploy the latest advertising and attribution technologies directly inside your accounts.</p>\n<p>In digital markets, speed is a competitive moat. We respond swiftly to market shifts while protecting craft and data accuracy—delivering more customers, stronger ROAS, and sustainable scale.</p>\n",
     ),
     ("<em>Özgürlük ve sorumluluk</em> yaptığımız her işin temelidir.", "<em>Freedom and responsibility</em> are at the core of everything we build."),
+    (
+        "Keşfetmek için ilkeleri ve kanalları sürükleyin veya bir düğüme tıklayın.",
+        "Drag or click any principle or channel node to explore.",
+    ),
     ("Randevu Planlayın", "Schedule a Call"),
     (
         "<p>Roasist’in özelleştirilmiş pazarlama yaklaşımlarıyla markanızın gerçek potansiyelini ortaya çıkarıyoruz. Bize güvenen iş ortaklarımızın dijital varlıklarını güçlendiriyor, pazarlama güçlerini ölçülebilir sonuçlarla artırıyoruz.</p>\n",
