@@ -1173,6 +1173,14 @@ ABOUT_TR_TO_EN_PAIRS = [
     ("Özgün", "Tailored"),
     ("Özelleştirilmiş ve veri odaklı stratejilerle markanızın büyüme sorumluluğunu üstleniyoruz.", "We take full ownership of your brand's digital growth with tailored, data-driven strategies."),
     (
+        "Çoğu insan gerçekte özgürlük istemez, çünkü özgürlük sorumluluk gerektirir ve çoğu insan sorumluluktan korkar.",
+        "Most people do not really want freedom, because freedom involves responsibility, and most people are frightened of responsibility.",
+    ),
+    (
+        "<p>Özgürlüğü ve sorumluluğu bir arada benimsiyor; çalıştığımız her markanın dijital büyüme hedeflerini kendi işimiz gibi sahipleniyoruz.</p>\n<p>Roasist, dijital pazarlama sektöründe özelleştirilmiş ve yenilikçi yaklaşımıyla öne çıkan bir dijital pazarlama ajansıdır. Müşterilerimize en güçlü sonuçları sunmak için kanıtlanmış pazarlama prensiplerini modern fikirler ve veri analitiğiyle birleştiriyor; hızla değişen dijital dünyayı yakından takip ederek araştırmaya ve kendimizi geliştirmeye sürekli yatırım yapıyoruz.</p>\n",
+        "<p>We embrace creative freedom and commercial responsibility together, owning every partner brand’s revenue and digital growth targets as if they were our own.</p>\n<p>Roasist stands apart as a tailored, innovation-led digital growth agency. To deliver compounding results, we pair proven marketing fundamentals with modern creative execution and deep analytics—continually investing in research as algorithms, AI search, and buyer behaviors evolve.</p>\n",
+    ),
+    (
         "<p>“Çoğu insan gerçekte özgürlük istemez, çünkü özgürlük sorumluluk gerektirir ve çoğu insan sorumluluktan korkar.” — Sigmund Freud’un bu sözü, Roasist’in kuruluş felsefesini yansıtır. Biz özgürlüğü ve sorumluluğu bir arada benimsiyor; çalıştığımız her markanın dijital büyüme hedeflerini kendi işimiz gibi sahipleniyoruz.</p>\n<p>Roasist, dijital pazarlama sektöründe özelleştirilmiş ve yenilikçi yaklaşımıyla öne çıkan bir dijital pazarlama ajansıdır. Müşterilerimize en güçlü sonuçları sunmak için kanıtlanmış pazarlama prensiplerini modern fikirler ve veri analitiğiyle birleştiriyor; hızla değişen dijital dünyayı yakından takip ederek araştırmaya ve kendimizi geliştirmeye sürekli yatırım yapıyoruz.</p>\n",
         "<p>“Most people do not really want freedom, because freedom involves responsibility, and most people are frightened of responsibility.” — Sigmund Freud’s observation sits at the heart of Roasist’s founding philosophy. We embrace creative freedom and commercial responsibility together, owning every partner brand’s revenue targets as if they were our own.</p>\n<p>Roasist stands apart as a tailored, innovation-led digital growth agency. To deliver compounding results, we pair proven marketing fundamentals with modern creative execution and deep analytics—continually investing in research as algorithms, AI search, and buyer behaviors evolve.</p>\n",
     ),

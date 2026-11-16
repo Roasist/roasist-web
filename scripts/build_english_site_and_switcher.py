@@ -2143,6 +2143,56 @@ ROASIST_UI_CSS = """<style data-roasist-ui-css>
   border-color:#ffffff!important;
 }
 
+/* Hakkımızda / Who We Are — Sigmund Freud quote block */
+.roasist-mission-quote{
+  grid-column:1 / -1;
+  order:0;
+  margin:0;
+  padding:clamp(0.5rem,1.2vw,1.25rem) 0 clamp(0.5rem,1.2vw,1.25rem) 0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+@media (max-width:768px){
+  .roasist-mission-quote{
+    margin-bottom:2.5rem;
+  }
+}
+.roasist-mission-quote__icon{
+  width:clamp(46px,3.9vw,58px);
+  height:auto;
+  color:rgba(100,116,139,0.24);
+  margin-bottom:clamp(1.25rem,2vw,1.75rem);
+  flex-shrink:0;
+}
+.roasist-mission-quote__text{
+  margin:0 0 clamp(1.25rem,1.9vw,1.625rem) 0!important;
+  font-size:clamp(1.125rem,1.38vw,1.35rem)!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:-0.005em;
+  color:#5b6472!important;
+  max-width:96ch;
+  text-wrap:pretty;
+}
+.roasist-mission-quote__author{
+  font-style:normal!important;
+  font-size:clamp(1.05rem,1.2vw,1.22rem)!important;
+  font-weight:700!important;
+  line-height:1.3!important;
+  letter-spacing:-0.015em;
+  color:#334155!important;
+}
+body.dark .roasist-mission-quote__icon{
+  color:rgba(255,255,255,0.22);
+}
+body.dark .roasist-mission-quote__text{
+  color:rgba(255,255,255,0.78)!important;
+}
+body.dark .roasist-mission-quote__author{
+  color:#ffffff!important;
+}
+
 /* Footer bottom bar & TR | EN language switcher */
 .Footer_copyrightTextWrap__uhQWh{
   gap:1.125rem;
@@ -2679,9 +2729,11 @@ def generate_sitemap_and_robots():
 
 def main():
     from remove_service_bento_videos import remove_bento_from_all_service_pages
+    from update_about_mission_quote import update_about_mission_quote_tr
     from update_discover_more_links import update_discover_more_all_pages
 
     fix_tr_remnants()
+    update_about_mission_quote_tr()
     build_en_homepage()
     build_en_about()
     build_en_services()
