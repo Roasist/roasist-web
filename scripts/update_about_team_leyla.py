@@ -88,7 +88,23 @@ def build_active_slide_html(portrait_url: str) -> str:
     )
 
 
+SINGLE_TEAM_STYLE = (
+    "<style data-roasist-single-team>"
+    ".Team_swiperLeft__7m5ib,.Team_swiperRight__N2hNV,.Team_arrows__KD1Ad{display:none!important;pointer-events:none!important;}"
+    ".Team_swiperActive__7qyzg .swiper-slide .Team_name__q_itV,.Team_swiperActive__7qyzg .swiper-slide .Team_title__oEVRD{opacity:1!important;}"
+    "</style>"
+)
+
+
+def upsert_single_team_style(ssr: str) -> str:
+    ssr = re.sub(r"<style data-roasist-single-team>.*?</style>", "", ssr, flags=re.S)
+    if "</head>" not in ssr:
+        raise RuntimeError("Could not locate </head> in SSR HTML")
+    return ssr.replace("</head>", SINGLE_TEAM_STYLE + "</head>", 1)
+
+
 def update_ssr_team_section(ssr: str, is_dist: bool) -> str:
+    ssr = upsert_single_team_style(ssr)
     img_base = "/roasist-web/images/team" if is_dist else "/images/team"
     portrait_url = f"{img_base}/leyla-portrait.jpg"
     circle_url = f"{img_base}/leyla-circle.jpg"
@@ -98,20 +114,6 @@ def update_ssr_team_section(ssr: str, is_dist: bool) -> str:
         raise RuntimeError("Could not locate Team_team__Z__z1 section in SSR HTML")
 
     team_html = sec_m.group(0)
-
-    # Remove any prior injected Leyla slide markers for idempotency (active slide first due to inner divs)
-    team_html = re.sub(
-        r'<div class="swiper-slide" data-roasist-team-leyla="1"><span class="Team_imageContainer__Gef7v">.*?</span></div>(?=(?:<div class="swiper-slide"|</div></div>))',
-        "",
-        team_html,
-        flags=re.S,
-    )
-    team_html = re.sub(
-        r'<div class="swiper-slide" data-roasist-team-leyla="1">.*?</div>(?=(?:<div class="swiper-slide"|</div></div>))',
-        "",
-        team_html,
-        flags=re.S,
-    )
 
     # 1. Update initial popover secondaryPhoto + bio (index 0)
     new_secondary = (
@@ -141,33 +143,33 @@ def update_ssr_team_section(ssr: str, is_dist: bool) -> str:
     if n_bio != 1:
         raise RuntimeError("Failed to update Team_bio__EVTbV in SSR")
 
-    # 2. Prepend Leyla into Left, Active, and Right Swiper wrappers
+    # 2. Replace all slides in Left, Active, and Right Swiper wrappers with ONLY Leyla
     simple_slide = build_simple_slide_html(portrait_url)
     active_slide = build_active_slide_html(portrait_url)
 
     team_html, n_l = re.subn(
-        r'(<div class="Team_swiperLeft__7m5ib">.*?<div class="swiper-wrapper">)',
-        lambda m: m.group(1) + simple_slide,
+        r'(<div class="Team_swiperLeft__7m5ib">.*?<div class="swiper-wrapper">).*?(</div></div></span></span></div>)(?=<div class="Team_swiperActive__7qyzg">)',
+        lambda m: m.group(1) + simple_slide + m.group(2),
         team_html,
         count=1,
         flags=re.S,
     )
     team_html, n_a = re.subn(
-        r'(<div class="Team_swiperActive__7qyzg">.*?<div class="swiper-wrapper">)',
-        lambda m: m.group(1) + active_slide,
+        r'(<div class="Team_swiperActive__7qyzg"><div class="swiper"><div class="swiper-wrapper">).*?(</div></div></div>)(?=<div class="Team_swiperRight__N2hNV">)',
+        lambda m: m.group(1) + active_slide + m.group(2),
         team_html,
         count=1,
         flags=re.S,
     )
     team_html, n_r = re.subn(
-        r'(<div class="Team_swiperRight__N2hNV">.*?<div class="swiper-wrapper">)',
-        lambda m: m.group(1) + simple_slide,
+        r'(<div class="Team_swiperRight__N2hNV">.*?<div class="swiper-wrapper">).*?(</div></div></span></span></div></div></section>)',
+        lambda m: m.group(1) + simple_slide + m.group(2),
         team_html,
         count=1,
         flags=re.S,
     )
     if n_l != 1 or n_a != 1 or n_r != 1:
-        raise RuntimeError(f"Failed to prepend Leyla to all 3 Swipers ({n_l}, {n_a}, {n_r})")
+        raise RuntimeError(f"Failed to replace Swipers with Leyla ({n_l}, {n_a}, {n_r})")
 
     return ssr[: sec_m.start()] + team_html + ssr[sec_m.end() :]
 
@@ -204,17 +206,12 @@ def update_single_about_team_tr(fp: str, is_dist: bool) -> bool:
                     ast = json.loads(val)
                     sections = ast[2][3]["children"]
                     team_sec = sections[7]
-                    team_list = team_sec[3]["data"]["team"]
-                    # Filter out previous Leyla entry for idempotency
-                    filtered = [m for m in team_list if not (isinstance(m, dict) and m.get("name") == LEYLA_NAME)]
-                    team_sec[3]["data"]["team"] = [leyla_obj] + filtered
+                    team_sec[3]["data"]["team"] = [leyla_obj]
                     rec[2] = json.dumps(ast, ensure_ascii=False, separators=(",", ":"))
                     rec12_ok = True
                     changed = True
                 elif kind == "line" and key == "3c":
-                    arr = json.loads(val)
-                    filtered_refs = [x for x in arr if not (isinstance(x, dict) and x.get("name") == LEYLA_NAME)]
-                    rec[2] = json.dumps([leyla_obj] + filtered_refs, ensure_ascii=False, separators=(",", ":"))
+                    rec[2] = json.dumps([leyla_obj], ensure_ascii=False, separators=(",", ":"))
                     rec3c_ok = True
                     changed = True
             if changed:
@@ -245,7 +242,7 @@ def update_about_team_leyla_tr() -> int:
         fp = os.path.join(ROOT, base_name, "hakkimizda", "index.html")
         if update_single_about_team_tr(fp, is_dist=is_dist):
             count += 1
-    print(f"[ABOUT TEAM] Updated {count} TR Hakkımızda files with Brand Partner Leyla")
+    print(f"[ABOUT TEAM] Updated {count} TR Hakkımızda files with Brand Partner Leyla (solo)")
     return count
 
 
