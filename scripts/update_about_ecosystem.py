@@ -19,13 +19,10 @@ import sys
 ROOT = "/home/antigravity/Roasist/roasist-web"
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 
-from apply_phase1_cleanup import PUSH_RE, find_node_by_class, rewrite_flight_in_html  # noqa: E402
-
-DEFAULT_HINT_TR = "Keşfetmek için ilkeleri ve kanalları sürükleyin veya bir düğüme tıklayın."
-DEFAULT_HINT_EN = "Drag or click any principle or channel node to explore."
+from apply_phase1_cleanup import PUSH_RE, ROASIST_LOGO_PATH_D, find_node_by_class, rewrite_flight_in_html  # noqa: E402
 
 ROASIST_ECOSYSTEM_CSS = """
-/* Hakkımızda / Who We Are — Concept A: Magnetic Growth Ecosystem */
+/* Hakkımızda / Who We Are — Concept A: Zero-Gravity Growth Ecosystem */
 .Culture_culture__lmpEt{
   margin:0 0 clamp(4rem,8vh,6.5rem)!important;
   padding:clamp(1rem,2vw,2rem) 0 0;
@@ -67,94 +64,6 @@ ROASIST_ECOSYSTEM_CSS = """
   height:100%;
   touch-action:pan-y;
 }
-.roasist-ecosystem__detail{
-  min-height:48px;
-  max-width:1080px;
-  width:fit-content;
-  margin:0.5rem auto 0;
-  padding:0.55rem 1.35rem;
-  border-radius:999px;
-  background:rgba(255,255,255,0.74);
-  border:1px solid rgba(15,23,42,0.09);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:0.625rem;
-  text-align:center;
-  font-size:clamp(0.84rem,0.95vw,0.93rem);
-  line-height:1.4;
-  color:#475569;
-  font-variant-numeric:tabular-nums;
-  transition:border-color 170ms cubic-bezier(0.22,1,0.36,1),background-color 170ms cubic-bezier(0.22,1,0.36,1),box-shadow 170ms cubic-bezier(0.22,1,0.36,1);
-}
-@media (min-width:1024px){
-  .roasist-ecosystem__detail{
-    height:48px;
-    white-space:nowrap;
-  }
-}
-.roasist-ecosystem__detail.is-active{
-  background:rgba(255,255,255,0.93);
-  border-color:rgba(124,58,237,0.28);
-  box-shadow:0 8px 24px rgba(15,23,42,0.06);
-}
-@media (max-width:768px){
-  .roasist-ecosystem__detail{
-    width:100%;
-    height:76px;
-    min-height:76px;
-    border-radius:16px;
-    flex-direction:column;
-    justify-content:center;
-    padding:0.55rem 1rem;
-    gap:0.25rem;
-  }
-  .roasist-ecosystem__dot{
-    display:none;
-  }
-  .roasist-ecosystem__label:not(:empty)::after{
-    display:none;
-  }
-}
-.roasist-ecosystem__dot{
-  width:7px;
-  height:7px;
-  border-radius:999px;
-  background:#7c3aed;
-  box-shadow:0 0 0 4px rgba(124,58,237,0.14);
-  flex-shrink:0;
-}
-.roasist-ecosystem__label{
-  font-weight:600;
-  color:#0f172a;
-  letter-spacing:-0.01em;
-  white-space:nowrap;
-}
-.roasist-ecosystem__label:empty{
-  display:none;
-}
-.roasist-ecosystem__label:not(:empty)::after{
-  content:"—";
-  margin-left:0.55rem;
-  color:#94a3b8;
-  font-weight:400;
-}
-.roasist-ecosystem__desc{
-  color:#334155;
-}
-body.dark .roasist-ecosystem__detail{
-  background:rgba(15,23,42,0.72);
-  border-color:rgba(255,255,255,0.14);
-  color:rgba(255,255,255,0.78);
-}
-body.dark .roasist-ecosystem__label{
-  color:#ffffff;
-}
-body.dark .roasist-ecosystem__desc{
-  color:rgba(255,255,255,0.82);
-}
 """
 
 ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
@@ -169,64 +78,36 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
     var reducedMotion = false;
     try { reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
 
-    var detailWrap = root.querySelector('.roasist-ecosystem__detail');
-    var labelEl = root.querySelector('.roasist-ecosystem__label');
-    var descEl = root.querySelector('.roasist-ecosystem__desc');
-    var defaultHint = isEn
-      ? 'Drag or click any principle or channel node to explore.'
-      : 'Keşfetmek için ilkeleri ve kanalları sürükleyin veya bir düğüme tıklayın.';
-
-    var CORE_SPEC = isEn
-      ? {
-          id: 'core', kind: 'core', label: 'ROASIST',
-          title: 'ROASIST Core',
-          desc: 'Unified growth architecture uniting paid media, enterprise SEO/AEO, creative, and web engineering.'
-        }
-      : {
-          id: 'core', kind: 'core', label: 'ROASİST',
-          title: 'ROASİST Çekirdek',
-          desc: 'Performans pazarlaması, kurumsal SEO/AEO, kreatif ve web mühendisliğini tek merkezde birleştiren büyüme mimarisi.'
-        };
+    var CORE_SPEC = { id: 'core', kind: 'core', label: 'ROASIST' };
 
     var PILL_SPECS = isEn
       ? [
-          { id: 'p1', kind: 'pill', theme: 'dark',  ax: -0.30, ay: -0.29, tilt: -0.08, label: 'Data-First Decisions',    desc: 'Every strategy is built on verified conversion signals and real search demand—never guesswork.' },
-          { id: 'p2', kind: 'pill', theme: 'light', ax:  0.30, ay: -0.28, tilt:  0.07, label: '100% Account Ownership',  desc: 'Every ad account, pixel, and analytics property belongs 100% to your company from day one.' },
-          { id: 'p3', kind: 'pill', theme: 'dark',  ax: -0.34, ay:  0.05, tilt:  0.05, label: '24/7 Live Reporting',     desc: 'Track spend, CPA, pipeline quality, and net ROAS anytime via live Looker Studio dashboards.' },
-          { id: 'p4', kind: 'pill', theme: 'light', ax:  0.34, ay:  0.06, tilt: -0.06, label: 'Full Accountability',     desc: 'We own your commercial revenue and growth targets with the same discipline as our own business.' },
-          { id: 'p5', kind: 'pill', theme: 'dark',  ax: -0.26, ay:  0.32, tilt: -0.05, label: 'Agile Optimization',      desc: 'Weekly creative A/B testing and bid refinements systematically lower your acquisition costs.' },
-          { id: 'p6', kind: 'pill', theme: 'light', ax:  0.26, ay:  0.32, tilt:  0.06, label: 'Measurable ROAS',         desc: 'Every impression and click is engineered around net revenue, qualified leads, and profitable return.' }
+          { id: 'p1', kind: 'pill', theme: 'dark',  ax: -0.30, ay: -0.29, tilt: -0.07, label: 'Data-First Decisions' },
+          { id: 'p2', kind: 'pill', theme: 'light', ax:  0.30, ay: -0.28, tilt:  0.06, label: '100% Account Ownership' },
+          { id: 'p3', kind: 'pill', theme: 'dark',  ax: -0.34, ay:  0.05, tilt:  0.05, label: '24/7 Live Reporting' },
+          { id: 'p4', kind: 'pill', theme: 'light', ax:  0.34, ay:  0.06, tilt: -0.06, label: 'Full Accountability' },
+          { id: 'p5', kind: 'pill', theme: 'dark',  ax: -0.26, ay:  0.32, tilt: -0.05, label: 'Agile Optimization' },
+          { id: 'p6', kind: 'pill', theme: 'light', ax:  0.26, ay:  0.32, tilt:  0.06, label: 'Measurable ROAS' }
         ]
       : [
-          { id: 'p1', kind: 'pill', theme: 'dark',  ax: -0.30, ay: -0.29, tilt: -0.08, label: 'Veriyle Karar',           desc: 'Tahminlerle değil, gerçek arama hacimleri ve doğrulanmış dönüşüm verileriyle strateji kurarız.' },
-          { id: 'p2', kind: 'pill', theme: 'light', ax:  0.30, ay: -0.28, tilt:  0.07, label: '%100 Hesap Mülkiyeti',    desc: 'Tüm reklam ve analitik hesapları doğrudan sizin adınıza açılır ve daima %100 sizin mülkiyetinizde kalır.' },
-          { id: 'p3', kind: 'pill', theme: 'dark',  ax: -0.34, ay:  0.05, tilt:  0.05, label: '7/24 Canlı Raporlama',    desc: 'Canlı Looker Studio panelleriyle harcama, CPA ve net ROAS metriklerini her an şeffafça izlersiniz.' },
-          { id: 'p4', kind: 'pill', theme: 'light', ax:  0.34, ay:  0.06, tilt: -0.06, label: 'Sorumluluk Bilinci',      desc: 'Bütçenizi sadece harcamaz; ticari büyüme hedeflerinizi kendi işimiz gibi uçtan uca sahipleniriz.' },
-          { id: 'p5', kind: 'pill', theme: 'dark',  ax: -0.26, ay:  0.32, tilt: -0.05, label: 'Çevik Optimizasyon',      desc: 'Haftalık kreatif A/B testleri ve teklif optimizasyonlarıyla edinim maliyetlerini sürekli düşürürüz.' },
-          { id: 'p6', kind: 'pill', theme: 'light', ax:  0.26, ay:  0.32, tilt:  0.06, label: 'Ölçülebilir ROAS',        desc: 'Her tıklamayı ve gösterimi net ciro, nitelikli talep ve kârlı yatırım getirisine bağlarız.' }
+          { id: 'p1', kind: 'pill', theme: 'dark',  ax: -0.30, ay: -0.29, tilt: -0.07, label: 'Veriyle Karar' },
+          { id: 'p2', kind: 'pill', theme: 'light', ax:  0.30, ay: -0.28, tilt:  0.06, label: '%100 Hesap Mülkiyeti' },
+          { id: 'p3', kind: 'pill', theme: 'dark',  ax: -0.34, ay:  0.05, tilt:  0.05, label: '7/24 Canlı Raporlama' },
+          { id: 'p4', kind: 'pill', theme: 'light', ax:  0.34, ay:  0.06, tilt: -0.06, label: 'Sorumluluk Bilinci' },
+          { id: 'p5', kind: 'pill', theme: 'dark',  ax: -0.26, ay:  0.32, tilt: -0.05, label: 'Çevik Optimizasyon' },
+          { id: 'p6', kind: 'pill', theme: 'light', ax:  0.26, ay:  0.32, tilt:  0.06, label: 'Ölçülebilir ROAS' }
         ];
 
-    var DISC_SPECS = isEn
-      ? [
-          { id: 'd1', kind: 'disc', icon: 'google',   ax:  0.00, ay: -0.35, label: 'Google',    title: 'Google Ads',        desc: 'High-intent demand capture across Google Search, Shopping, Performance Max, and YouTube.' },
-          { id: 'd2', kind: 'disc', icon: 'meta',     ax: -0.17, ay: -0.16, label: 'Meta',      title: 'Meta Ads',          desc: 'Server-Side CAPI-powered full-funnel customer acquisition across Instagram and Facebook.' },
-          { id: 'd3', kind: 'disc', icon: 'tiktok',   ax:  0.17, ay: -0.16, label: 'TikTok',    title: 'TikTok Ads',        desc: 'Scroll-stopping creative video hooks engineered for rapid customer acquisition on TikTok.' },
-          { id: 'd4', kind: 'disc', icon: 'linkedin', ax: -0.18, ay:  0.18, label: 'LinkedIn',  title: 'LinkedIn Ads',      desc: 'Precision B2B pipeline targeting decision-makers by role, industry, and company scale.' },
-          { id: 'd5', kind: 'disc', icon: 'yandex',   ax:  0.18, ay:  0.18, label: 'Yandex',    title: 'Yandex Ads',        desc: 'High-converting cross-border acquisition across CIS and global export markets via Yandex Direct.' },
-          { id: 'd6', kind: 'disc', icon: 'ga4',      ax:  0.00, ay:  0.36, label: 'GA4 · GTM', title: 'GA4 & Server GTM',  desc: 'First-party Server-Side GTM, GA4, and Enhanced Conversions measurement infrastructure.' },
-          { id: 'd7', kind: 'disc', icon: 'aeo',      ax:  0.42, ay: -0.12, label: 'SEO · AEO', title: 'Enterprise SEO & AEO', desc: 'Compounding authority across Google Search and AI answer engines like ChatGPT and Perplexity.' },
-          { id: 'd8', kind: 'disc', icon: 'bing',     ax: -0.42, ay: -0.12, label: 'Bing',      title: 'Microsoft Bing Ads', desc: 'High-purchasing-power desktop and enterprise search reach across US, UK, and European markets.' }
-        ]
-      : [
-          { id: 'd1', kind: 'disc', icon: 'google',   ax:  0.00, ay: -0.35, label: 'Google',    title: 'Google Ads',        desc: 'Google Arama, Alışveriş, Performance Max ve YouTube’da yüksek niyetli talep yakalama.' },
-          { id: 'd2', kind: 'disc', icon: 'meta',     ax: -0.17, ay: -0.16, label: 'Meta',      title: 'Meta Ads',          desc: 'Instagram ve Facebook’ta CAPI destekli tam huni dönüşüm ve ölçekleme mimarisi.' },
-          { id: 'd3', kind: 'disc', icon: 'tiktok',   ax:  0.17, ay: -0.16, label: 'TikTok',    title: 'TikTok Ads',        desc: 'Dikkat yakalayan kreatif video kurgularıyla hızlı ölçeklenen yeni nesil müşteri edinimi.' },
-          { id: 'd4', kind: 'disc', icon: 'linkedin', ax: -0.18, ay:  0.18, label: 'LinkedIn',  title: 'LinkedIn Ads',      desc: 'Karar vericileri unvan, sektör ve şirket ölçeğine göre hedefleyen B2B talep üretimi.' },
-          { id: 'd5', kind: 'disc', icon: 'yandex',   ax:  0.18, ay:  0.18, label: 'Yandex',    title: 'Yandex Ads',        desc: 'BDT ve uluslararası pazarlarda Yandex Direct ile yüksek dönüşümlü ihracat ve turizm erişimi.' },
-          { id: 'd6', kind: 'disc', icon: 'ga4',      ax:  0.00, ay:  0.36, label: 'GA4 · GTM', title: 'GA4 & Server GTM',  desc: 'Sunucu taraflı (Server-Side) GTM, GA4 ve gelişmiş dönüşüm ölçümleme altyapısı.' },
-          { id: 'd7', kind: 'disc', icon: 'aeo',      ax:  0.42, ay: -0.12, label: 'SEO · AEO', title: 'Kurumsal SEO & AEO', desc: 'Google organik aramalarda ve ChatGPT, Gemini, Perplexity yanıt motorlarında kalıcı otorite.' },
-          { id: 'd8', kind: 'disc', icon: 'bing',     ax: -0.42, ay: -0.12, label: 'Bing',      title: 'Microsoft Bing Ads', desc: 'ABD, İngiltere ve Avrupa pazarlarında yüksek alım güçlü masaüstü ve kurumsal arama erişimi.' }
-        ];
+    var DISC_SPECS = [
+      { id: 'd1', kind: 'disc', icon: 'google',   ax:  0.00, ay: -0.35, label: 'Google' },
+      { id: 'd2', kind: 'disc', icon: 'meta',     ax: -0.17, ay: -0.16, label: 'Meta' },
+      { id: 'd3', kind: 'disc', icon: 'tiktok',   ax:  0.17, ay: -0.16, label: 'TikTok' },
+      { id: 'd4', kind: 'disc', icon: 'linkedin', ax: -0.18, ay:  0.18, label: 'LinkedIn' },
+      { id: 'd5', kind: 'disc', icon: 'yandex',   ax:  0.18, ay:  0.18, label: 'Yandex' },
+      { id: 'd6', kind: 'disc', icon: 'ga4',      ax:  0.00, ay:  0.36, label: 'GA4 · GTM' },
+      { id: 'd7', kind: 'disc', icon: 'aeo',      ax:  0.42, ay: -0.12, label: 'SEO · AEO' },
+      { id: 'd8', kind: 'disc', icon: 'bing',     ax: -0.42, ay: -0.12, label: 'Bing' }
+    ];
 
     var canvas = document.createElement('canvas');
     stage.innerHTML = '';
@@ -236,31 +117,16 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
     var W = 0, H = 0, DPR = 1;
     var bodies = [];
     var hoveredBody = null;
-    var pinnedBody = null;
     var draggedBody = null;
     var dragOffsetX = 0, dragOffsetY = 0;
     var pointerDownPos = null;
     var pointerMoved = false;
     var pointer = { x: -9999, y: -9999, vx: 0, vy: 0, active: false };
-    var pulseRing = { active: false, r: 0, alpha: 0 };
-    var orbitPhase = 0;
+    var logoTilt = { x: 0, y: 0 };
+    var simTime = 0;
     var isVisible = true;
     var rafId = 0;
     var fontFamily = 'system-ui, -apple-system, sans-serif';
-
-    function updateDetailBar(b) {
-      var target = b || pinnedBody;
-      if (!labelEl || !descEl || !detailWrap) return;
-      if (target) {
-        labelEl.textContent = target.title || target.label;
-        descEl.textContent = target.desc;
-        detailWrap.classList.add('is-active');
-      } else {
-        labelEl.textContent = '';
-        descEl.textContent = defaultHint;
-        detailWrap.classList.remove('is-active');
-      }
-    }
 
     function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
 
@@ -327,8 +193,8 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
       var cx = W * 0.5;
       var cy = H * 0.5;
 
-      var coreH = mobile ? 46 : (tablet ? 54 : 62);
-      var coreW = mobile ? 136 : (tablet ? 162 : 186);
+      var coreW = mobile ? 148 : (tablet ? 186 : 224);
+      var coreH = Math.round((coreW * 200) / 820);
       var pillH = mobile ? 34 : (tablet ? 42 : 48);
       var pillFont = mobile ? 12 : (tablet ? 13.5 : 15);
       var pillPadX = mobile ? 15 : (tablet ? 20 : 24);
@@ -336,23 +202,21 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
 
       bodies = [];
 
-      // 0: Center Core
+      // 0: Center 3D Roasist Logo Core
       bodies.push({
         id: CORE_SPEC.id,
         kind: 'core',
         label: CORE_SPEC.label,
-        title: CORE_SPEC.title,
-        desc: CORE_SPEC.desc,
         x: cx, y: cy, vx: 0, vy: 0,
         angle: 0, omega: 0, restAngle: 0,
         w: coreW, h: coreH,
-        halfSeg: (coreW - coreH) * 0.5,
-        r: coreH * 0.5,
-        mass: 16,
-        invMass: 1 / 16,
-        inertia: 48000,
+        halfSeg: Math.max(0, (coreW - coreH) * 0.5),
+        r: coreH * 0.56,
+        mass: 24,
+        invMass: 1 / 24,
+        inertia: 64000,
         scale: 1,
-        ax: 0, ay: 0
+        phase: 0
       });
 
       ctx.font = '500 ' + pillFont + 'px ' + fontFamily;
@@ -369,8 +233,6 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
           kind: 'pill',
           theme: sp.theme,
           label: sp.label,
-          title: sp.label,
-          desc: sp.desc,
           fontSize: pillFont,
           x: px, y: py, vx: 0, vy: 0,
           angle: sp.tilt, omega: 0, restAngle: sp.tilt * 0.5,
@@ -381,14 +243,12 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
           invMass: 1 / m,
           inertia: Math.max(900, (m * (pw * pw + pillH * pillH)) / 12),
           scale: 1,
-          ax: spreadX, ay: spreadY,
-          orbitDir: idx % 2 === 0 ? 1 : -1
+          phase: idx * 1.17 + 0.4
         });
       });
 
       DISC_SPECS.forEach(function(sp, idx) {
         if (mobile && sp.id === 'd8') return;
-        // On compact mobile, reposition the far-right AEO disc neatly into upper-center balance
         var ax = (mobile && sp.id === 'd7') ? 0.0 : sp.ax;
         var ay = (mobile && sp.id === 'd7') ? -0.18 : sp.ay;
         var px = cx + ax * W;
@@ -400,8 +260,6 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
           kind: 'disc',
           icon: sp.icon,
           label: sp.label,
-          title: sp.title,
-          desc: sp.desc,
           x: px, y: py, vx: 0, vy: 0,
           angle: 0, omega: 0, restAngle: 0,
           w: d, h: d,
@@ -411,14 +269,21 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
           invMass: 1 / m,
           inertia: Math.max(600, 0.5 * m * discR * discR),
           scale: 1,
-          ax: ax, ay: ay,
-          orbitDir: idx % 2 === 0 ? -1 : 1
+          phase: idx * 0.93 + 2.1
         });
       });
 
       // Warm-up 45 physics steps so initial layout has zero overlaps at any screen size
       for (var wStep = 0; wStep < 45; wStep++) {
         stepPhysics(true);
+      }
+      // Give each free-floating body a gentle initial zero-gravity drift
+      if (!reducedMotion) {
+        for (var i = 1; i < bodies.length; i++) {
+          var ang = bodies[i].phase * 2.3;
+          bodies[i].vx = Math.cos(ang) * 0.14;
+          bodies[i].vy = Math.sin(ang) * 0.14;
+        }
       }
     }
 
@@ -445,24 +310,13 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
           b.omega += (0 - b.angle) * 0.12;
           b.omega *= 0.78;
         } else {
-          // Soft magnetic attraction toward each body's home orbital zone around core
-          var tx = cx + b.ax * W;
-          var ty = cy + b.ay * H;
-          var dxHome = tx - b.x;
-          var dyHome = ty - b.y;
-          b.vx += dxHome * 0.0038;
-          b.vy += dyHome * 0.0038;
-
-          // Gentle ambient breathing motion when not reduced-motion
+          // Zero-gravity weightless drift (no return-to-home spring)
           if (!reducedMotion && !isWarmup) {
-            var dxC = b.x - cx;
-            var dyC = b.y - cy;
-            var distC = Math.hypot(dxC, dyC) || 1;
-            b.vx += (-dyC / distC) * 0.012 * b.orbitDir;
-            b.vy += ( dxC / distC) * 0.012 * b.orbitDir;
+            b.vx += Math.sin(simTime * 0.55 + b.phase) * 0.0022;
+            b.vy += Math.cos(simTime * 0.48 + b.phase * 1.3) * 0.0022;
           }
 
-          // Cursor sweep wake (only when sweeping briskly and not hovering slowly to click)
+          // Cursor sweep wake (only when sweeping briskly)
           if (!isWarmup && pointer.active && !draggedBody) {
             var pSpeed = Math.hypot(pointer.vx, pointer.vy);
             if (pSpeed > 4.2) {
@@ -471,50 +325,55 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
               var mDist = Math.hypot(mdx, mdy);
               var wakeR = b.r + 42;
               if (mDist > 0.1 && mDist < wakeR) {
-                var push = (1 - mDist / wakeR) * Math.min(pSpeed * 0.09, 2.4);
-                b.vx += (mdx / mDist) * push + pointer.vx * 0.04;
-                b.vy += (mdy / mDist) * push + pointer.vy * 0.04;
+                var push = (1 - mDist / wakeR) * Math.min(pSpeed * 0.085, 2.2);
+                b.vx += (mdx / mDist) * push + pointer.vx * 0.035;
+                b.vy += (mdy / mDist) * push + pointer.vy * 0.035;
                 if (b.kind === 'pill') {
-                  b.omega += ((mdx * pointer.vy - mdy * pointer.vx) / (wakeR * wakeR)) * 0.05;
+                  b.omega += ((mdx * pointer.vy - mdy * pointer.vx) / (wakeR * wakeR)) * 0.04;
                 }
               }
             }
           }
 
-          b.vx *= 0.945;
-          b.vy *= 0.945;
+          b.vx *= 0.994;
+          b.vy *= 0.994;
+          var speed = Math.hypot(b.vx, b.vy);
+          if (speed > 8.5) {
+            b.vx = (b.vx / speed) * 8.5;
+            b.vy = (b.vy / speed) * 8.5;
+          }
 
           if (b.kind === 'pill') {
-            b.omega += (b.restAngle - b.angle) * 0.016;
-            b.omega *= 0.88;
+            b.omega += (b.restAngle - b.angle) * 0.0025;
+            b.omega *= 0.96;
           } else {
-            b.omega *= 0.85;
+            b.omega *= 0.90;
             b.angle = 0;
           }
         }
 
         b.x += b.vx;
         b.y += b.vy;
-        b.angle = clamp(b.angle + b.omega, -0.58, 0.58);
+        b.angle = clamp(b.angle + b.omega, -0.38, 0.38);
 
-        // Soft stage boundary containment
+        // Soft zero-g stage boundary bounce
         var cosA = Math.cos(b.angle), sinA = Math.sin(b.angle);
         var extX = Math.abs(cosA) * b.halfSeg + b.r;
         var extY = Math.abs(sinA) * b.halfSeg + b.r;
 
         if (b.x - extX < padWall) {
           b.x = padWall + extX;
-          b.vx = Math.abs(b.vx) * 0.55;
+          b.vx = Math.abs(b.vx) * 0.78;
         } else if (b.x + extX > W - padWall) {
           b.x = W - padWall - extX;
-          b.vx = -Math.abs(b.vx) * 0.55;
+          b.vx = -Math.abs(b.vx) * 0.78;
         }
         if (b.y - extY < padWall) {
           b.y = padWall + extY;
-          b.vy = Math.abs(b.vy) * 0.55;
+          b.vy = Math.abs(b.vy) * 0.78;
         } else if (b.y + extY > H - padWall) {
           b.y = H - padWall - extY;
-          b.vy = -Math.abs(b.vy) * 0.55;
+          b.vy = -Math.abs(b.vy) * 0.78;
         }
 
         var targetScale = (b === draggedBody || b === hoveredBody) ? 1.05 : 1.0;
@@ -695,6 +554,10 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
       ctx.restore();
     }
 
+    var ROASIST_LOGO_PATH2D = (typeof Path2D !== 'undefined')
+      ? new Path2D('__ROASIST_LOGO_PATH_D__')
+      : null;
+
     function render() {
       ctx.clearRect(0, 0, W, H);
       var isDarkPage = document.body.classList.contains('dark');
@@ -702,70 +565,30 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
       if (!core) return;
 
       var cx = W * 0.5, cy = H * 0.5;
-      orbitPhase += reducedMotion ? 0 : 0.0025;
+      simTime += 0.016;
 
-      // 1. Subtle orbital field rings
+      // 1. Subtle ambient zero-gravity spatial rings (no attached tether lines)
       ctx.save();
       ctx.translate(cx, cy);
-      ctx.strokeStyle = isDarkPage ? 'rgba(255,255,255,0.10)' : 'rgba(15,23,42,0.08)';
+      ctx.strokeStyle = isDarkPage ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.06)';
       ctx.lineWidth = 1;
       ctx.setLineDash([5, 7]);
-      ctx.save();
-      ctx.rotate(orbitPhase);
       ctx.beginPath();
       ctx.ellipse(0, 0, W * 0.22, H * 0.26, 0, 0, Math.PI * 2);
       ctx.stroke();
-      ctx.restore();
 
       ctx.setLineDash([]);
-      ctx.strokeStyle = isDarkPage ? 'rgba(255,255,255,0.06)' : 'rgba(15,23,42,0.05)';
+      ctx.strokeStyle = isDarkPage ? 'rgba(255,255,255,0.05)' : 'rgba(15,23,42,0.038)';
       ctx.beginPath();
       ctx.ellipse(0, 0, W * 0.38, H * 0.40, 0, 0, Math.PI * 2);
       ctx.stroke();
       ctx.restore();
 
-      // Optional pulse wave when clicking core or nodes
-      if (pulseRing.active) {
-        pulseRing.r += 4.5;
-        pulseRing.alpha *= 0.93;
-        if (pulseRing.alpha < 0.02) {
-          pulseRing.active = false;
-        } else {
-          ctx.save();
-          ctx.strokeStyle = 'rgba(124,58,237,' + pulseRing.alpha.toFixed(3) + ')';
-          ctx.lineWidth = 1.5;
-          ctx.beginPath();
-          ctx.arc(core.x, core.y, pulseRing.r, 0, Math.PI * 2);
-          ctx.stroke();
-          ctx.restore();
-        }
-      }
-
-      // 2. Subtle magnetic tether lines from core to nodes
-      var activeNode = hoveredBody || pinnedBody;
-      ctx.save();
-      for (var i = 1; i < bodies.length; i++) {
-        var nb = bodies[i];
-        var isFocus = (nb === activeNode || nb === draggedBody);
-        ctx.beginPath();
-        ctx.moveTo(core.x, core.y);
-        ctx.lineTo(nb.x, nb.y);
-        if (isFocus) {
-          ctx.strokeStyle = 'rgba(124,58,237,0.38)';
-          ctx.lineWidth = 1.5;
-        } else {
-          ctx.strokeStyle = isDarkPage ? 'rgba(255,255,255,0.05)' : 'rgba(15,23,42,0.045)';
-          ctx.lineWidth = 1;
-        }
-        ctx.stroke();
-      }
-      ctx.restore();
-
-      // 3. Render Discs & Capsules (Core rendered last so it stays crisp at center)
+      // 2. Render Discs & Capsules first, Core (3D Roasist Logo) rendered last
       var renderOrder = bodies.slice(1).concat([core]);
       for (var rIdx = 0; rIdx < renderOrder.length; rIdx++) {
         var b = renderOrder[rIdx];
-        var isSel = (b === hoveredBody || b === pinnedBody || b === draggedBody);
+        var isSel = (b === hoveredBody || b === draggedBody);
 
         ctx.save();
         ctx.translate(b.x, b.y);
@@ -773,38 +596,86 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
         ctx.scale(b.scale, b.scale);
 
         if (b.kind === 'core') {
-          // Outer soft magnetic aura
-          ctx.save();
-          drawRoundedPill(b.w + 14, b.h + 14);
-          ctx.strokeStyle = isSel ? 'rgba(124,58,237,0.34)' : (isDarkPage ? 'rgba(255,255,255,0.12)' : 'rgba(15,23,42,0.09)');
-          ctx.lineWidth = 1.25;
-          ctx.stroke();
-          ctx.restore();
+          // 3D ROASIST LOGO: Standalone floating logo without button or background container
+          // Dynamic tilt tracking pointer and free floating motion
+          var targetTiltX = 0, targetTiltY = 0;
+          if (pointer.active) {
+            targetTiltX = clamp((pointer.x - b.x) / (W * 0.4), -1, 1);
+            targetTiltY = clamp((pointer.y - b.y) / (H * 0.4), -1, 1);
+          } else if (!reducedMotion) {
+            targetTiltX = Math.sin(simTime * 0.8) * 0.35;
+            targetTiltY = Math.cos(simTime * 0.7) * 0.35;
+          }
+          logoTilt.x += (targetTiltX - logoTilt.x) * 0.12;
+          logoTilt.y += (targetTiltY - logoTilt.y) * 0.12;
 
-          ctx.shadowColor = 'rgba(15,23,42,0.20)';
-          ctx.shadowBlur = 24;
-          ctx.shadowOffsetY = 8;
-          drawRoundedPill(b.w, b.h);
-          ctx.fillStyle = '#0f172a';
-          ctx.fill();
-          ctx.shadowColor = 'transparent';
+          var logoScale = b.w / 820;
 
-          ctx.lineWidth = isSel ? 1.75 : 1;
-          ctx.strokeStyle = isSel ? '#7c3aed' : 'rgba(255,255,255,0.18)';
-          ctx.stroke();
+          if (ROASIST_LOGO_PATH2D) {
+            ctx.save();
+            ctx.scale(logoScale, logoScale);
+            // Center the 820x200 path at (0, 0)
+            ctx.translate(-410, -100);
 
-          // Live accent dot + ROASIST wordmark
-          var coreFont = W < 700 ? 13.5 : 16;
-          ctx.font = '700 ' + coreFont + 'px ' + fontFamily;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillStyle = '#7c3aed';
-          ctx.beginPath();
-          ctx.arc(-b.w * 0.30, 0, 4, 0, Math.PI * 2);
-          ctx.fill();
+            // Layer 1: Ambient deep ground glow & drop shadow
+            ctx.save();
+            ctx.shadowColor = isDarkPage ? 'rgba(124,58,237,0.45)' : 'rgba(124,58,237,0.28)';
+            ctx.shadowBlur = 38;
+            ctx.shadowOffsetY = 16;
+            ctx.fillStyle = isDarkPage ? 'rgba(15,23,42,0.85)' : 'rgba(15,23,42,0.18)';
+            ctx.fill(ROASIST_LOGO_PATH2D);
+            ctx.restore();
 
-          ctx.fillStyle = '#ffffff';
-          ctx.fillText(b.label, 7, 0.5);
+            // Layer 2: 3D Depth Extrusion Layers (4 successive stepped depth offsets)
+            var depthSteps = 5;
+            var maxDx = logoTilt.x * 5.5;
+            var maxDy = 3.5 + logoTilt.y * 3.5;
+            for (var dStep = depthSteps; dStep >= 1; dStep--) {
+              var t = dStep / depthSteps;
+              ctx.save();
+              ctx.translate(maxDx * t, maxDy * t);
+              ctx.fillStyle = isDarkPage
+                ? 'rgba(' + Math.round(70 + (1 - t) * 40) + ', 25, ' + Math.round(140 + (1 - t) * 60) + ', 0.88)'
+                : 'rgba(' + Math.round(15 + (1 - t) * 35) + ', ' + Math.round(23 + (1 - t) * 20) + ', ' + Math.round(42 + (1 - t) * 80) + ', 0.85)';
+              ctx.fill(ROASIST_LOGO_PATH2D);
+              ctx.restore();
+            }
+
+            // Layer 3: Top Front Face with rich metallic gradient
+            var frontGrad = ctx.createLinearGradient(
+              410 - logoTilt.x * 200, 0,
+              410 + logoTilt.x * 200, 200
+            );
+            if (isDarkPage) {
+              frontGrad.addColorStop(0, '#ffffff');
+              frontGrad.addColorStop(0.55, '#c084fc');
+              frontGrad.addColorStop(1, '#9333ea');
+            } else {
+              frontGrad.addColorStop(0, '#1e1b4b');
+              frontGrad.addColorStop(0.48, '#4338ca');
+              frontGrad.addColorStop(0.85, '#6366f1');
+              frontGrad.addColorStop(1, '#7c3aed');
+            }
+            ctx.fillStyle = frontGrad;
+            ctx.fill(ROASIST_LOGO_PATH2D);
+
+            // Layer 4: Beveled light rim highlight
+            ctx.save();
+            ctx.lineWidth = 1.4;
+            ctx.strokeStyle = isDarkPage ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.55)';
+            ctx.stroke(ROASIST_LOGO_PATH2D);
+            ctx.restore();
+
+            ctx.restore();
+          } else {
+            // Fallback if Path2D is unavailable
+            var coreFont = W < 700 ? 18 : 22;
+            ctx.font = '800 ' + coreFont + 'px ' + fontFamily;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = isDarkPage ? '#c084fc' : '#4338ca';
+            ctx.fillText('ROASIST', 0, 0);
+          }
         } else if (b.kind === 'pill') {
           var darkPill = (b.theme === 'dark');
           ctx.shadowColor = darkPill ? 'rgba(15,23,42,0.15)' : 'rgba(15,23,42,0.08)';
@@ -873,21 +744,6 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
       return { x: ev.clientX - r.left, y: ev.clientY - r.top };
     }
 
-    function triggerPulse(originBody) {
-      pulseRing.active = true;
-      pulseRing.r = (originBody ? originBody.r : 30);
-      pulseRing.alpha = 0.42;
-      if (originBody && originBody.kind === 'core') {
-        for (var i = 1; i < bodies.length; i++) {
-          var nb = bodies[i];
-          var dx = nb.x - originBody.x, dy = nb.y - originBody.y;
-          var d = Math.hypot(dx, dy) || 1;
-          nb.vx += (dx / d) * 2.6;
-          nb.vy += (dy / d) * 2.6;
-        }
-      }
-    }
-
     canvas.addEventListener('pointerdown', function(ev) {
       var pt = getLocalCoords(ev);
       pointer.x = pt.x; pointer.y = pt.y;
@@ -903,7 +759,6 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
         dragOffsetY = hit.y - pt.y;
         hoveredBody = hit;
         canvas.style.cursor = 'grabbing';
-        updateDetailBar(hit);
         if (ev.pointerType === 'mouse' && canvas.setPointerCapture) {
           try { canvas.setPointerCapture(ev.pointerId); } catch (e) {}
         }
@@ -918,19 +773,17 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
       pointer.y = pt.y;
       pointer.active = true;
 
-      if (pointerDownPos && Math.hypot(pt.x - pointerDownPos.x, pt.y - pointerDownPos.y) > 7) {
+      if (pointerDownPos && Math.hypot(pt.x - pointerDownPos.x, pt.y - pointerDownPos.y) > 6) {
         pointerMoved = true;
       }
 
       if (draggedBody) {
-        if (draggedBody.kind !== 'core') {
-          var nx = pt.x + dragOffsetX;
-          var ny = pt.y + dragOffsetY;
-          draggedBody.vx = (nx - draggedBody.x) * 0.45;
-          draggedBody.vy = (ny - draggedBody.y) * 0.45;
-          draggedBody.x = nx;
-          draggedBody.y = ny;
-        }
+        var nx = pt.x + dragOffsetX;
+        var ny = pt.y + dragOffsetY;
+        draggedBody.vx = (nx - draggedBody.x) * 0.45;
+        draggedBody.vy = (ny - draggedBody.y) * 0.45;
+        draggedBody.x = nx;
+        draggedBody.y = ny;
         return;
       }
 
@@ -938,24 +791,19 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
       if (hit !== hoveredBody) {
         hoveredBody = hit;
         canvas.style.cursor = hit ? 'grab' : 'default';
-        updateDetailBar(hit);
       }
     });
 
-    function releasePointer(ev) {
+    function releasePointer() {
       if (draggedBody) {
-        if (!pointerMoved) {
-          pinnedBody = (pinnedBody === draggedBody) ? null : draggedBody;
-          triggerPulse(draggedBody);
-          updateDetailBar(hoveredBody || pinnedBody);
-        } else if (draggedBody.kind !== 'core') {
-          draggedBody.vx = clamp(pointer.vx * 0.55, -9, 9);
-          draggedBody.vy = clamp(pointer.vy * 0.55, -9, 9);
+        if (pointerMoved) {
+          draggedBody.vx = clamp(pointer.vx * 0.50, -8, 8);
+          draggedBody.vy = clamp(pointer.vy * 0.50, -8, 8);
+        } else {
+          draggedBody.vx *= 0.5;
+          draggedBody.vy *= 0.5;
         }
         draggedBody = null;
-      } else if (ev && ev.type === 'pointerup' && !pointerMoved) {
-        pinnedBody = null;
-        updateDetailBar(hoveredBody);
       }
       pointerDownPos = null;
       canvas.style.cursor = hoveredBody ? 'grab' : 'default';
@@ -972,7 +820,6 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
       if (!draggedBody) {
         hoveredBody = null;
         canvas.style.cursor = 'default';
-        updateDetailBar(null);
       }
     });
 
@@ -995,7 +842,6 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
     }
 
     buildScene();
-    updateDetailBar(null);
     render();
     rafId = window.requestAnimationFrame(tick);
 
@@ -1023,18 +869,14 @@ ROASIST_ECOSYSTEM_SCRIPT = r"""<script data-roasist-ecosystem-js>
     scheduleMount();
   }
 })();
-</script>"""
+</script>""".replace("__ROASIST_LOGO_PATH_D__", ROASIST_LOGO_PATH_D)
 
 
 def build_ssr_ecosystem_block() -> str:
     return (
         '<div class="roasist-ecosystem" data-roasist-ecosystem="1">'
         '<div class="roasist-ecosystem__stage"></div>'
-        '<div class="roasist-ecosystem__detail" aria-live="polite">'
-        '<span class="roasist-ecosystem__dot" aria-hidden="true"></span>'
-        '<strong class="roasist-ecosystem__label"></strong>'
-        f'<span class="roasist-ecosystem__desc">{DEFAULT_HINT_TR}</span>'
-        "</div></div>"
+        '</div>'
     )
 
 
@@ -1048,28 +890,6 @@ def build_flight_ecosystem_node() -> list:
             "data-roasist-ecosystem": "1",
             "children": [
                 ["$", "div", None, {"className": "roasist-ecosystem__stage"}],
-                [
-                    "$",
-                    "div",
-                    None,
-                    {
-                        "className": "roasist-ecosystem__detail",
-                        "aria-live": "polite",
-                        "children": [
-                            ["$", "span", None, {"className": "roasist-ecosystem__dot", "aria-hidden": "true"}],
-                            ["$", "strong", None, {"className": "roasist-ecosystem__label"}],
-                            [
-                                "$",
-                                "span",
-                                None,
-                                {
-                                    "className": "roasist-ecosystem__desc",
-                                    "children": DEFAULT_HINT_TR,
-                                },
-                            ],
-                        ],
-                    },
-                ],
             ],
         },
     ]
