@@ -1217,6 +1217,10 @@ ABOUT_TR_TO_EN_PAIRS = [
         "<p>Roasist’te Performance Marketing Manager olarak Google, Meta, TikTok ve LinkedIn ekosistemlerinde veri odaklı ücretli medya stratejilerini ve çok kanallı büyüme kampanyalarını uçtan uca yönetiyor.</p>\n<p>Bütçe optimizasyonu, dönüşüm odaklı ölçümleme ve sürekli test yaklaşımıyla reklam yatırımlarını ölçülebilir ciroya ve sürdürülebilir ROAS artışına dönüştürmeye odaklanıyor.</p>\n",
         "<p>As Performance Marketing Manager at Roasist, Caner leads data-driven paid media strategies and multi-channel growth campaigns end-to-end across Google, Meta, TikTok, and LinkedIn.</p>\n<p>Through disciplined budget allocation, conversion tracking, and continuous creative testing, he turns ad spend into measurable revenue and sustainable ROAS growth.</p>\n",
     ),
+    (
+        "<p>Roasist’te Lead Generation Executive olarak potansiyel müşteri kazanımı süreçlerini yönetiyor, doğru hedef kitle analiziyle yüksek dönüşüm potansiyelli iş fırsatlarını markalarla buluşturuyor.</p>\n<p>Çok kanallı erişim stratejileri, nitelikli talep oluşturma ve sistematik aday takibiyle satış hunisini besleyerek sürdürülebilir müşteri büyümesine doğrudan katkı sağlıyor.</p>\n",
+        "<p>As Lead Generation Executive at Roasist, Ebru drives B2B and B2C client acquisition pipelines, connecting ambitious brands with high-intent growth opportunities through precise audience targeting.</p>\n<p>Through multi-channel outreach, qualified demand generation, and structured pipeline management, she fuels the sales funnel and accelerates sustainable revenue growth.</p>\n",
+    ),
     ("Markanızı Roasist ile büyütmeye hazır mısınız?", "Ready to scale your brand with Roasist?"),
     (
         '<p>Bize hemen ulaşın:<br />\n<a href="mailto:info@roasist.com">info@roasist.com</a></p>\n',

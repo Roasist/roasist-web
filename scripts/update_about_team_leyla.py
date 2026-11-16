@@ -57,6 +57,23 @@ CANER_BIO_EN = (
     "he turns ad spend into measurable revenue and sustainable ROAS growth.</p>\n"
 )
 
+EBRU_NAME = "Ebru"
+EBRU_TITLE = "Lead Generation Executive"
+
+EBRU_BIO_TR = (
+    "<p>Roasist’te Lead Generation Executive olarak potansiyel müşteri kazanımı süreçlerini yönetiyor, "
+    "doğru hedef kitle analiziyle yüksek dönüşüm potansiyelli iş fırsatlarını markalarla buluşturuyor.</p>\n"
+    "<p>Çok kanallı erişim stratejileri, nitelikli talep oluşturma ve sistematik aday takibiyle satış "
+    "hunisini besleyerek sürdürülebilir müşteri büyümesine doğrudan katkı sağlıyor.</p>\n"
+)
+
+EBRU_BIO_EN = (
+    "<p>As Lead Generation Executive at Roasist, Ebru drives B2B and B2C client acquisition pipelines, "
+    "connecting ambitious brands with high-intent growth opportunities through precise audience targeting.</p>\n"
+    "<p>Through multi-channel outreach, qualified demand generation, and structured pipeline management, "
+    "she fuels the sales funnel and accelerates sustainable revenue growth.</p>\n"
+)
+
 
 def build_member_obj(name: str, title: str, bio_tr: str, slug: str, is_dist: bool) -> dict:
     img_base = "/roasist-web/images/team" if is_dist else "/images/team"
@@ -85,6 +102,7 @@ def build_team_members(is_dist: bool) -> list[dict]:
     return [
         build_member_obj(LEYLA_NAME, LEYLA_TITLE, LEYLA_BIO_TR, "leyla", is_dist),
         build_member_obj(CANER_NAME, CANER_TITLE, CANER_BIO_TR, "caner", is_dist),
+        build_member_obj(EBRU_NAME, EBRU_TITLE, EBRU_BIO_TR, "ebru", is_dist),
     ]
 
 
@@ -187,7 +205,7 @@ def update_ssr_team_section(ssr: str, is_dist: bool) -> str:
         flags=re.S,
     )
     if n_l != 1 or n_a != 1 or n_r != 1:
-        raise RuntimeError(f"Failed to replace Swipers with [Leyla, Caner] ({n_l}, {n_a}, {n_r})")
+        raise RuntimeError(f"Failed to replace Swipers with [Leyla, Caner, Ebru] ({n_l}, {n_a}, {n_r})")
 
     return ssr[: sec_m.start()] + team_html + ssr[sec_m.end() :]
 
@@ -260,7 +278,7 @@ def update_about_team_leyla_tr() -> int:
         fp = os.path.join(ROOT, base_name, "hakkimizda", "index.html")
         if update_single_about_team_tr(fp, is_dist=is_dist):
             count += 1
-    print(f"[ABOUT TEAM] Updated {count} TR Hakkımızda files with Leyla & Caner")
+    print(f"[ABOUT TEAM] Updated {count} TR Hakkımızda files with Leyla, Caner & Ebru")
     return count
 
 
