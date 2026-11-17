@@ -1959,10 +1959,10 @@ body.roasist-footer-in-view [class*="FloatingStartButton_"] {
     var sy = window.scrollY || window.pageYOffset || 0;
     var vh = window.innerHeight || 900;
 
-    // 1. Top Page Title Row arrows: 45deg (pointing straight left <- at page title) at top -> -45deg (pointing straight down v) on scroll
+    // 1. Top Page Title Row arrows: 45deg (pointing straight left <- at page title) at top -> 0deg (bottom-left ↙) on scroll
     var heroArrows = document.querySelectorAll('.roasist-hero-title-arrow svg');
     var heroProg = clamp((sy - 2) / 105, 0, 1);
-    var heroAngle = 45 - 90 * heroProg;
+    var heroAngle = 45 - 45 * heroProg;
     for (var i = 0; i < heroArrows.length; i++) {
       heroArrows[i].style.setProperty('--roasist-arrow-rot', heroAngle.toFixed(2) + 'deg');
     }
@@ -1978,7 +1978,7 @@ body.roasist-footer-in-view [class*="FloatingStartButton_"] {
       var el = secArrows[j];
       var r = el.getBoundingClientRect();
       var prog = clamp((startY - r.top) / span, 0, 1);
-      var angle = 45 - 90 * prog;
+      var angle = 45 - 45 * prog;
       el.style.setProperty('--roasist-arrow-rot', angle.toFixed(2) + 'deg');
     }
 
