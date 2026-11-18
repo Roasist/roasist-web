@@ -2601,8 +2601,8 @@ html body .roasist-scale-globe-canvas {
       arcHeight: 0.20,
       phaseOffset: 0.52,
       showBadge: true,
-      labelDx: -32,
-      labelDy: 22
+      labelDx: 10,
+      labelDy: 14
     },
     {
       id: 'riyadh',
@@ -2638,8 +2638,8 @@ html body .roasist-scale-globe-canvas {
     c.fillStyle = '#0B0914';
     c.fillRect(0, 0, 1020, 788);
 
-    const grad = c.createRadialGradient(365, 396, 30, 365, 396, 410);
-    grad.addColorStop(0, 'rgba(118, 1, 255, 0.15)');
+    const grad = c.createRadialGradient(510, 394, 40, 510, 394, 440);
+    grad.addColorStop(0, 'rgba(118, 1, 255, 0.16)');
     grad.addColorStop(0.55, 'rgba(30, 27, 75, 0.06)');
     grad.addColorStop(1, 'rgba(11, 9, 20, 0)');
     c.fillStyle = grad;
@@ -2898,291 +2898,6 @@ html body .roasist-scale-globe-canvas {
     return pOrigin;
   }
 
-  function drawLeftGlobeCalloutsS5(c, pOrigin, cam, radius) {
-    const boxW = 192;
-    const boxH = 58;
-    const bx = 38;
-
-    const by1 = 194;
-    const anchor1X = pOrigin.x;
-    const anchor1Y = pOrigin.y;
-    const elbow1X = bx + boxW + 24;
-    const start1Y = by1 + boxH * 0.5;
-
-    c.save();
-    c.beginPath();
-    c.moveTo(bx + boxW + 6, start1Y);
-    c.lineTo(elbow1X, start1Y);
-    c.lineTo(anchor1X, anchor1Y);
-    c.strokeStyle = 'rgba(167, 139, 250, 0.38)';
-    c.lineWidth = 1.2;
-    c.stroke();
-
-    roundRectPath(c, bx, by1, boxW, boxH, 10);
-    c.fillStyle = 'rgba(15, 13, 26, 0.90)';
-    c.fill();
-    c.strokeStyle = 'rgba(255, 255, 255, 0.11)';
-    c.lineWidth = 1;
-    c.stroke();
-
-    c.beginPath();
-    c.arc(bx + 14, by1 + 16, 3.2, 0, Math.PI * 2);
-    c.fillStyle = '#7601FF';
-    c.fill();
-
-    c.fillStyle = '#94A3B8';
-    c.font = `700 9px 'Inter', sans-serif`;
-    c.textAlign = 'left';
-    c.textBaseline = 'middle';
-    if ('letterSpacing' in c) c.letterSpacing = '0.05em';
-    c.fillText('MERKEZ // İSTANBUL HUB', bx + 23, by1 + 16);
-
-    c.fillStyle = '#FFFFFF';
-    c.font = `700 12px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '-0.02em';
-    c.fillText('Global Kampanya Üssü', bx + 14, by1 + 33);
-
-    c.fillStyle = '#94A3B8';
-    c.font = `500 9.5px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0px';
-    c.fillText('Veri & Çok Dilli Reklam Kurgusu', bx + 14, by1 + 48);
-
-    const by2 = 524;
-    const start2Y = by2 + boxH * 0.5;
-    const ringAnchorX = cam.cx - radius * 0.86;
-    const ringAnchorY = cam.cy + radius * 0.52;
-
-    c.beginPath();
-    c.moveTo(bx + boxW + 6, start2Y);
-    c.lineTo(ringAnchorX, ringAnchorY);
-    c.strokeStyle = 'rgba(16, 185, 129, 0.35)';
-    c.lineWidth = 1.2;
-    c.stroke();
-
-    c.beginPath();
-    c.arc(ringAnchorX, ringAnchorY, 3.5, 0, Math.PI * 2);
-    c.fillStyle = '#10B981';
-    c.fill();
-
-    roundRectPath(c, bx, by2, boxW, boxH, 10);
-    c.fillStyle = 'rgba(15, 13, 26, 0.90)';
-    c.fill();
-    c.strokeStyle = 'rgba(255, 255, 255, 0.11)';
-    c.lineWidth = 1;
-    c.stroke();
-
-    c.beginPath();
-    c.arc(bx + 14, by2 + 16, 3.2, 0, Math.PI * 2);
-    c.fillStyle = '#10B981';
-    c.fill();
-
-    c.fillStyle = '#94A3B8';
-    c.font = `700 9px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0.05em';
-    c.fillText('ÖLÇEK // YENİ LANSMAN', bx + 23, by2 + 16);
-
-    c.fillStyle = '#E2E8F0';
-    c.font = `700 12px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '-0.02em';
-    c.fillText('Sınır Ötesi Büyüme Ağı', bx + 14, by2 + 33);
-
-    c.fillStyle = '#94A3B8';
-    c.font = `500 9.5px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0px';
-    c.fillText('5 Global Bölge · Sıfır Kayıp', bx + 14, by2 + 48);
-
-    c.restore();
-  }
-
-  function drawRightGlobalScaleCardS5(c, elapsed, compoundGrowth, globalRoas, activeCorridorIdx) {
-    const cardX = 638;
-    const cardY = 136;
-    const cardW = 340;
-    const cardH = 516;
-
-    c.save();
-    const floatY = Math.sin(elapsed * 1.4) * 3.5;
-    c.translate(0, floatY);
-
-    for (let s = 6; s >= 1; s--) {
-      roundRectPath(c, cardX - s * 0.8, cardY + s * 1.1, cardW, cardH, 18);
-      c.fillStyle = '#CBD5E1';
-      c.fill();
-    }
-
-    c.save();
-    roundRectPath(c, cardX, cardY, cardW, cardH, 18);
-    c.fillStyle = '#F8FAFC';
-    c.shadowColor = 'rgba(0, 0, 0, 0.65)';
-    c.shadowBlur = 42;
-    c.shadowOffsetX = -12;
-    c.shadowOffsetY = 18;
-    c.fill();
-    c.restore();
-
-    roundRectPath(c, cardX, cardY, cardW, cardH, 18);
-    c.fillStyle = '#F8FAFC';
-    c.fill();
-    c.strokeStyle = '#FFFFFF';
-    c.lineWidth = 1.5;
-    c.stroke();
-
-    c.save();
-    roundRectPath(c, cardX, cardY, cardW, cardH, 18);
-    c.clip();
-
-    c.fillStyle = '#FFFFFF';
-    c.fillRect(cardX, cardY, cardW, 48);
-    c.fillStyle = 'rgba(15, 23, 42, 0.08)';
-    c.fillRect(cardX, cardY + 48, cardW, 1);
-
-    c.fillStyle = '#0F172A';
-    c.font = `800 12px 'Inter', sans-serif`;
-    c.textAlign = 'left';
-    c.textBaseline = 'middle';
-    if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-    c.fillText('ROASİST SCALE', cardX + 22, cardY + 24);
-
-    const pillW = 124;
-    const pillX = cardX + cardW - pillW - 18;
-    roundRectPath(c, pillX, cardY + 12, pillW, 24, 999);
-    c.fillStyle = '#F1F5F9';
-    c.fill();
-    c.beginPath();
-    c.arc(pillX + 13, cardY + 24, 3.5, 0, Math.PI * 2);
-    c.fillStyle = '#10B981';
-    c.fill();
-    c.fillStyle = '#0F172A';
-    c.font = `600 9.5px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0px';
-    c.fillText('14 Ülke · Aktif Ağ', pillX + 22, cardY + 24.5);
-
-    const pad = 22;
-    const ix = cardX + pad;
-    let curY = cardY + 70;
-
-    c.fillStyle = '#7601FF';
-    c.font = `700 9.5px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0.04em';
-    c.fillText('SÜRDÜRÜLEBİLİR ÖLÇEKLENME', ix, curY);
-
-    curY += 26;
-    c.fillStyle = '#0F172A';
-    c.font = `800 22px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-    c.fillText('Yeni Lansmandan', ix, curY);
-    curY += 26;
-    c.fillText('Global Pazarlara.', ix, curY);
-
-    curY += 24;
-    const heroH = 92;
-    const innerW = cardW - pad * 2;
-
-    c.save();
-    roundRectPath(c, ix, curY, innerW, heroH, 12);
-    c.fillStyle = '#FFFFFF';
-    c.shadowColor = 'rgba(15, 23, 42, 0.06)';
-    c.shadowBlur = 16;
-    c.shadowOffsetY = 5;
-    c.fill();
-    c.restore();
-
-    roundRectPath(c, ix, curY, innerW, heroH, 12);
-    c.strokeStyle = 'rgba(15, 23, 42, 0.08)';
-    c.lineWidth = 1;
-    c.stroke();
-
-    c.fillStyle = '#64748B';
-    c.font = `600 9px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0.03em';
-    c.fillText('BİLEŞİK GELİR & PAZAR ÖLÇEĞİ', ix + 18, curY + 20);
-
-    c.fillStyle = '#0F172A';
-    c.font = `800 31px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-    c.fillText(`+%${Math.round(compoundGrowth)}`, ix + 18, curY + 54);
-
-    c.fillStyle = '#10B981';
-    c.font = `700 11px 'Inter', sans-serif`;
-    c.textAlign = 'right';
-    if ('letterSpacing' in c) c.letterSpacing = '0px';
-    c.fillText(`${globalRoas.toFixed(1)}x Global ROAS`, ix + innerW - 18, curY + 46);
-
-    c.fillStyle = '#64748B';
-    c.font = `500 9.5px 'Inter', sans-serif`;
-    c.fillText('Birim Ekonomi Korunarak', ix + innerW - 18, curY + 64);
-
-    curY += heroH + 18;
-    c.textAlign = 'left';
-    c.fillStyle = '#475569';
-    c.font = `700 9.5px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0.03em';
-    c.fillText('CANLI PAZAR AÇILIM KORİDORLARI', ix, curY);
-
-    curY += 14;
-    const corridors = [
-      { region: 'AVRUPA & DACH', cities: 'Berlin · Amsterdam', roas: '5.1x ROAS', lift: '+210%' },
-      { region: 'İNGİLTERE & ABD', cities: 'Londra · New York', roas: '5.8x ROAS', lift: '+195%' },
-      { region: 'MENA & KÖRFEZ', cities: 'Dubai · Riyad', roas: '6.2x ROAS', lift: '+240%' }
-    ];
-
-    corridors.forEach((cor, i) => {
-      const ry = curY + i * 54;
-      const isActive = i === activeCorridorIdx;
-
-      roundRectPath(c, ix, ry, innerW, 46, 10);
-      c.fillStyle = isActive ? '#FFFFFF' : '#F1F5F9';
-      c.fill();
-      c.strokeStyle = isActive ? 'rgba(118, 1, 255, 0.35)' : 'rgba(15, 23, 42, 0.06)';
-      c.lineWidth = isActive ? 1.4 : 1;
-      c.stroke();
-
-      c.beginPath();
-      c.arc(ix + 15, ry + 23, 3.6, 0, Math.PI * 2);
-      c.fillStyle = isActive ? '#7601FF' : '#10B981';
-      c.fill();
-
-      c.fillStyle = '#0F172A';
-      c.font = `700 11px 'Inter', sans-serif`;
-      c.textAlign = 'left';
-      if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
-      c.fillText(cor.region, ix + 27, ry + 16);
-
-      c.fillStyle = '#64748B';
-      c.font = `500 9.5px 'Inter', sans-serif`;
-      if ('letterSpacing' in c) c.letterSpacing = '0px';
-      c.fillText(cor.cities, ix + 27, ry + 32);
-
-      c.fillStyle = '#0F172A';
-      c.font = `700 11px 'Inter', sans-serif`;
-      c.textAlign = 'right';
-      c.fillText(cor.lift, ix + innerW - 14, ry + 16);
-
-      c.fillStyle = isActive ? '#7601FF' : '#10B981';
-      c.font = `600 9.5px 'Inter', sans-serif`;
-      c.fillText(cor.roas, ix + innerW - 14, ry + 32);
-    });
-
-    const btnY = cardY + cardH - 60;
-    roundRectPath(c, ix, btnY, innerW, 42, 10);
-    c.fillStyle = '#0F172A';
-    c.fill();
-
-    drawCheckIconS3(c, ix + 22, btnY + 21, 9.5, '#10B981');
-    c.fillStyle = '#FFFFFF';
-    c.font = `700 11px 'Inter', sans-serif`;
-    c.textAlign = 'left';
-    if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
-    c.fillText('Global Ölçekleme Altyapısı Hazır', ix + 36, btnY + 21.5);
-
-    c.fillStyle = '#A78BFA';
-    c.textAlign = 'right';
-    c.fillText('→', ix + innerW - 18, btnY + 21.5);
-
-    c.restore();
-    c.restore();
-  }
-
   function renderSlide5ScaleGlobe(ctx, width, height, dpr, elapsed) {
     const t = elapsed % LOOP_DURATION_S5;
     const phase = (t / LOOP_DURATION_S5) * Math.PI * 2;
@@ -3196,7 +2911,7 @@ html body .roasist-scale-globe-canvas {
     const roll = (rollDeg * Math.PI) / 180;
 
     const cam = {
-      cx: 392,
+      cx: 510,
       cy: 394,
       cosYaw: Math.cos(yaw),
       sinYaw: Math.sin(yaw),
@@ -3206,12 +2921,7 @@ html body .roasist-scale-globe-canvas {
       sinRoll: Math.sin(roll)
     };
 
-    const globeRadius = 212;
-    const wave01 = 0.5 - 0.5 * Math.cos(phase);
-    const compoundGrowth = lerp(285, 340, wave01);
-    const globalRoas = lerp(5.2, 5.8, wave01);
-    const activeMarketsCount = 14;
-    const activeCorridorIdx = Math.floor((t / LOOP_DURATION_S5) * 3) % 3;
+    const globeRadius = 266;
 
     ctx.save();
     ctx.scale(dpr, dpr);
@@ -3223,10 +2933,8 @@ html body .roasist-scale-globe-canvas {
     ctx.translate((width - 1020 * scale) * 0.5, (height - 788 * scale) * 0.5);
     ctx.scale(scale, scale);
 
-    drawStudioBackdropAndHUDS5(ctx, activeMarketsCount, compoundGrowth, globalRoas);
-    const pOrigin = draw3DGlobeAndArcsS5(ctx, globeRadius, cam, elapsed);
-    drawLeftGlobeCalloutsS5(ctx, pOrigin, cam, globeRadius);
-    drawRightGlobalScaleCardS5(ctx, elapsed, compoundGrowth, globalRoas, activeCorridorIdx);
+    drawStudioBackdropAndHUDS5(ctx);
+    draw3DGlobeAndArcsS5(ctx, globeRadius, cam, elapsed);
 
     ctx.restore();
   }
