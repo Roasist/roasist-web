@@ -44,6 +44,16 @@ html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aq
   z-index: 3 !important;
 }
 
+html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx::after,
+html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx::after,
+html body #carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx::after,
+html body #carousel .swiper-slide:nth-child(4) .CarouselSlides_carouselMedia__aqYWx::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  opacity: 0 !important;
+}
+
 html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx video,
 html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx video,
 html body #carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx video,
@@ -1487,6 +1497,20 @@ html body .roasist-convert-broll-canvas {
     c.restore();
   }
 
+  function drawCheckIconS3(c, x, y, size, color) {
+    c.save();
+    c.strokeStyle = color;
+    c.lineWidth = 1.8;
+    c.lineCap = 'round';
+    c.lineJoin = 'round';
+    c.beginPath();
+    c.moveTo(x - size * 0.45, y + size * 0.02);
+    c.lineTo(x - size * 0.12, y + size * 0.36);
+    c.lineTo(x + size * 0.48, y - size * 0.32);
+    c.stroke();
+    c.restore();
+  }
+
   function drawLayer1TechnicalSEOS4(c, W, H, z1, cam, explode, elapsed) {
     if (explode <= 0.01) return;
 
@@ -2519,7 +2543,10 @@ html body .roasist-convert-broll-canvas {
   }
 
   function tick(now) {
-    ensureCanvasesMounted();
+    requestAnimationFrame(tick);
+    try {
+      ensureCanvasesMounted();
+    } catch {}
 
     if (isCarouselVisible && !document.hidden) {
       const elapsedSeconds = (now - startTime) * 0.001;
@@ -2584,21 +2611,19 @@ html body .roasist-convert-broll-canvas {
 
       // Render Slide 2 ("Yaratıcı ve cesur fikir")
       if (s2Ctx) {
-        renderSlide2Bento(s2Ctx, s2W, s2H, s2Dpr, elapsedSeconds);
+        try { renderSlide2Bento(s2Ctx, s2W, s2H, s2Dpr, elapsedSeconds); } catch {}
       }
 
       // Render Slide 3 ("Kusursuz süreç yönetimi")
       if (s3Ctx) {
-        renderSlide3ProcessCockpit(s3Ctx, s3W, s3H, s3Dpr, elapsedSeconds);
+        try { renderSlide3ProcessCockpit(s3Ctx, s3W, s3H, s3Dpr, elapsedSeconds); } catch {}
       }
 
       // Render Slide 4 ("Dönüşüm için tasarla")
       if (s4Ctx) {
-        renderSlide4ConvertBroll(s4Ctx, s4W, s4H, s4Dpr, elapsedSeconds);
+        try { renderSlide4ConvertBroll(s4Ctx, s4W, s4H, s4Dpr, elapsedSeconds); } catch {}
       }
     }
-
-    requestAnimationFrame(tick);
   }
 
   requestAnimationFrame(tick);
@@ -2630,25 +2655,43 @@ def main():
         )
 
         # Eliminate the MP4 video downloads from RSC payload for Slides 1, 2, 3 & 4
+        # IMPORTANT: Keep a valid https:// URL so Next.js/React new URL(mediaItemUrl) never throws!
         html = re.sub(
             r'https://roasist\.github\.io/roasist-web/images/methodology/01-veri-ve-strateji\.mp4(\?v=\d+)?',
-            "",
+            "https://roasist.github.io/roasist-web/images/methodology/01-veri-ve-strateji.jpg",
             html,
         )
         html = re.sub(
             r'https://roasist\.github\.io/roasist-web/images/methodology/02-yaratici-ve-cesur-fikir\.mp4(\?v=\d+)?',
-            "",
+            "https://roasist.github.io/roasist-web/images/methodology/02-yaratici-ve-cesur-fikir.jpg",
             html,
         )
         html = re.sub(
             r'https://roasist\.github\.io/roasist-web/images/methodology/03-kusursuz-surec-yonetimi\.mp4(\?v=\d+)?',
-            "",
+            "https://roasist.github.io/roasist-web/images/methodology/03-kusursuz-surec-yonetimi.jpg",
             html,
         )
         html = re.sub(
             r'https://kota-content\.b-cdn\.net/app/uploads/2026/07/Create-To-Convert-compress\.mp4',
-            "",
+            "https://roasist.github.io/roasist-web/images/methodology/04-donusum-icin-tasarla.jpg",
             html,
+        )
+        # Also repair any already-emptied mediaItemUrl:"" in slides
+        html = html.replace(
+            r'\"media\":{\"mediaItemUrl\":\"\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/01-veri-ve-strateji.jpg',
+            r'\"media\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/01-veri-ve-strateji.jpg\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/01-veri-ve-strateji.jpg',
+        )
+        html = html.replace(
+            r'\"media\":{\"mediaItemUrl\":\"\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/02-yaratici-ve-cesur-fikir.jpg',
+            r'\"media\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/02-yaratici-ve-cesur-fikir.jpg\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/02-yaratici-ve-cesur-fikir.jpg',
+        )
+        html = html.replace(
+            r'\"media\":{\"mediaItemUrl\":\"\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/03-kusursuz-surec-yonetimi.jpg',
+            r'\"media\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/03-kusursuz-surec-yonetimi.jpg\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/03-kusursuz-surec-yonetimi.jpg',
+        )
+        html = html.replace(
+            r'\"media\":{\"mediaItemUrl\":\"\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/04-donusum-icin-tasarla.jpg',
+            r'\"media\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/04-donusum-icin-tasarla.jpg\",\"mimeType\":\"video/mp4\"},\"image\":{\"mediaItemUrl\":\"https://roasist.github.io/roasist-web/images/methodology/04-donusum-icin-tasarla.jpg',
         )
         html = re.sub(
             r'https://kota-content\.b-cdn\.net/app/uploads/2026/07/create-to-convert\.jpg',
