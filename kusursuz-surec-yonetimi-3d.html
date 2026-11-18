@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kusursuz Süreç Yönetimi — Çevik Sprint & Performans İvme Paneli</title>
+  <title>Kusursuz Süreç Yönetimi — 3D Çevik Sprint & İvme Mimarisi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap&subset=latin,latin-ext" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&subset=latin,latin-ext" rel="stylesheet" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -17,7 +17,7 @@
     html, body {
       width: 100%;
       height: 100%;
-      background-color: #06050B;
+      background-color: #060609;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -34,12 +34,12 @@
       width: min(100%, 1280px);
       aspect-ratio: 562 / 434;
       max-height: calc(100vh - 48px);
-      background-color: #0B0914;
+      background-color: #09090D;
       border-radius: 24px;
       overflow: hidden;
-      border: 1px solid rgba(167, 139, 250, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow:
-        0 30px 80px -20px rgba(0, 0, 0, 0.85),
+        0 32px 80px -20px rgba(0, 0, 0, 0.9),
         inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
       isolation: isolate;
     }
@@ -53,7 +53,7 @@
 </head>
 <body>
   <div class="process-stage" id="stage">
-    <canvas id="processCanvas" aria-label="Kusursuz süreç yönetimi çevik sprint ve gerçek zamanlı performans paneli animasyonu"></canvas>
+    <canvas id="processCanvas" aria-label="Kusursuz süreç yönetimi 3 boyutlu çevik sprint ve gerçek zamanlı ivme animasyonu"></canvas>
   </div>
 
   <script>
@@ -75,11 +75,6 @@
         canvas.height = height * dpr;
       }
 
-      function roundRectPath(c, x, y, w, h, r) {
-        c.beginPath();
-        c.roundRect(x, y, w, h, r);
-      }
-
       function smoothstep(edge0, edge1, x) {
         const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
         return t * t * (3 - 2 * t);
@@ -89,677 +84,698 @@
         return a + (b - a) * t;
       }
 
-      function drawBadge(c, x, y, text, bg, fg, borderCol, fontSize = 11, padX = 12, padY = 5, dotColor = null) {
+      function springEase(t) {
+        const c = Math.max(0, Math.min(1, t));
+        return 1 - Math.pow(1 - c, 3) * Math.cos(c * Math.PI * 0.65);
+      }
+
+      // ============================================================================
+      // 3D CAMERA & HOMOGRAPHY ENGINE
+      // ============================================================================
+      const cam = {
+        cx: 510,
+        cy: 394,
+        fov: 1200,
+        rotX: -0.23,
+        rotY: -0.16,
+        rotZ: 0.025
+      };
+
+      function project3D(x, y, z) {
+        const cosZ = Math.cos(cam.rotZ), sinZ = Math.sin(cam.rotZ);
+        const x1 = x * cosZ - y * sinZ;
+        const y1 = x * sinZ + y * cosZ;
+        const z1 = z;
+
+        const cosX = Math.cos(cam.rotX), sinX = Math.sin(cam.rotX);
+        const y2 = y1 * cosX - z1 * sinX;
+        const z2 = y1 * sinX + z1 * cosX;
+        const x2 = x1;
+
+        const cosY = Math.cos(cam.rotY), sinY = Math.sin(cam.rotY);
+        const x3 = x2 * cosY + z2 * sinY;
+        const z3 = -x2 * sinY + z2 * cosY;
+        const y3 = y2;
+
+        const scale = cam.fov / Math.max(260, cam.fov - z3);
+        return {
+          x: cam.cx + x3 * scale,
+          y: cam.cy + y3 * scale,
+          z: z3,
+          scale
+        };
+      }
+
+      function applyPlaneTransform(c, zPlane, offsetX = 0, offsetY = 0) {
+        const p0 = project3D(offsetX, offsetY, zPlane);
+        const px = project3D(offsetX + 100, offsetY, zPlane);
+        const py = project3D(offsetX, offsetY + 100, zPlane);
+
+        const a = (px.x - p0.x) / 100;
+        const b = (px.y - p0.y) / 100;
+        const cMat = (py.x - p0.x) / 100;
+        const d = (py.y - p0.y) / 100;
+
+        c.transform(a, b, cMat, d, p0.x, p0.y);
+      }
+
+      function roundRectPath(c, x, y, w, h, r) {
+        c.beginPath();
+        c.roundRect(x, y, w, h, r);
+      }
+
+      function drawExtrudedSlab(c, x, y, w, h, zTop, thickness, radius, topFill, sideFill, borderStroke, lineWidth = 1.2) {
         c.save();
-        c.font = `600 ${fontSize}px 'Inter', sans-serif`;
-        const dotSpace = dotColor ? 14 : 0;
-        const tw = c.measureText(text).width + dotSpace;
-        const pw = tw + padX * 2;
-        const ph = fontSize + padY * 2;
-        roundRectPath(c, x, y, pw, ph, 999);
-        c.fillStyle = bg;
+        applyPlaneTransform(c, zTop - thickness);
+        roundRectPath(c, x, y, w, h, radius);
+        c.fillStyle = sideFill;
         c.fill();
-        if (borderCol) {
-          c.strokeStyle = borderCol;
-          c.lineWidth = 1;
+        c.restore();
+
+        c.save();
+        applyPlaneTransform(c, zTop);
+        roundRectPath(c, x, y, w, h, radius);
+        c.fillStyle = topFill;
+        c.fill();
+        if (borderStroke) {
+          c.strokeStyle = borderStroke;
+          c.lineWidth = lineWidth;
           c.stroke();
         }
-        if (dotColor) {
-          c.beginPath();
-          c.arc(x + padX + 4, y + ph * 0.5, 3.8, 0, Math.PI * 2);
-          c.fillStyle = dotColor;
-          c.shadowColor = dotColor;
-          c.shadowBlur = 8;
-          c.fill();
-          c.shadowBlur = 0;
-        }
-        c.fillStyle = fg;
-        c.textBaseline = 'middle';
-        c.textAlign = 'left';
-        c.fillText(text, x + padX + dotSpace, y + ph * 0.5 + 0.5);
-        c.restore();
-        return pw;
-      }
-
-      function drawTaskCard(c, x, y, w, h, tagText, tagBg, tagFg, rightLabel, rightColor, titleLines, footLeft, footRight, footRightColor, borderColor = 'rgba(255,255,255,0.08)', bgColor = '#131122', glowColor = null) {
-        c.save();
-        if (glowColor) {
-          c.shadowColor = glowColor;
-          c.shadowBlur = 24;
-        }
-        roundRectPath(c, x, y, w, h, 14);
-        c.fillStyle = bgColor;
-        c.fill();
-        c.shadowBlur = 0;
-        c.strokeStyle = borderColor;
-        c.lineWidth = glowColor ? 1.8 : 1;
-        c.stroke();
-
-        // Tag
-        c.font = `700 9.5px 'Inter', sans-serif`;
-        const tw = c.measureText(tagText).width + 16;
-        roundRectPath(c, x + 16, y + 14, tw, 20, 6);
-        c.fillStyle = tagBg;
-        c.fill();
-        c.fillStyle = tagFg;
-        c.textAlign = 'left';
-        c.textBaseline = 'middle';
-        c.fillText(tagText, x + 24, y + 24.5);
-
-        // Right status
-        c.fillStyle = rightColor;
-        c.font = `600 10.5px 'Inter', sans-serif`;
-        c.textAlign = 'right';
-        c.fillText(rightLabel, x + w - 16, y + 24.5);
-
-        // Title lines
-        c.fillStyle = '#FFFFFF';
-        c.font = `600 14.5px 'Inter', sans-serif`;
-        c.textAlign = 'left';
-        if ('letterSpacing' in c) c.letterSpacing = '-0.015em';
-        for (let i = 0; i < titleLines.length; i++) {
-          c.fillText(titleLines[i], x + 16, y + 56 + i * 20);
-        }
-
-        // Footer
-        c.fillStyle = '#94A3B8';
-        c.font = `500 11px 'Inter', sans-serif`;
-        if ('letterSpacing' in c) c.letterSpacing = '0px';
-        c.fillText(footLeft, x + 16, y + h - 18);
-
-        c.fillStyle = footRightColor;
-        c.font = `700 11px 'Inter', sans-serif`;
-        c.textAlign = 'right';
-        c.fillText(footRight, x + w - 16, y + h - 18);
         c.restore();
       }
 
-      // ======================================================================
-      // SAHNE A: Şeffaf Süreç & Çevik Sprint Yönetimi (Kanban + İvme Hattı)
-      // ======================================================================
-      function drawSprintBoardScene(c, progress, alpha) {
-        if (alpha <= 0.005) return;
+      // ============================================================================
+      // 1. STUDIO BACKDROP (CLEAN OBSIDIAN STAGE — NO HUD OVERLAYS)
+      // ============================================================================
+      function drawStudioBackdrop(c) {
+        c.fillStyle = '#09090D';
+        c.fillRect(0, 0, 1020, 788);
+
+        const glow = c.createRadialGradient(510, 394, 20, 510, 394, 520);
+        glow.addColorStop(0, 'rgba(30, 41, 59, 0.36)');
+        glow.addColorStop(0.55, 'rgba(15, 23, 42, 0.14)');
+        glow.addColorStop(1, 'rgba(9, 9, 13, 0)');
+        c.fillStyle = glow;
+        c.fillRect(0, 0, 1020, 788);
+      }
+
+      // ============================================================================
+      // 2. UNDERLYING 3D ENGINEERING GRID PLANE (z = -36)
+      // ============================================================================
+      function drawBaseEngineeringPlane(c, zBase, liftFactor) {
+        if (liftFactor <= 0.02) return;
+        const W = 700;
+        const H = 452;
+        const hw = W / 2;
+        const hh = H / 2;
+
         c.save();
-        c.globalAlpha = alpha;
-
-        // Kamera hafif yakınlaşma ve süzülme
-        const zoom = lerp(0.96, 1.01, progress);
-        const panX = lerp(-12, 12, progress);
-        const panY = lerp(8, -8, progress);
-        c.translate(510 + panX, 394 + panY);
-        c.scale(zoom, zoom);
-        c.translate(-510, -394);
-
-        const px = 24, py = 22, pw = 972, ph = 744;
-        roundRectPath(c, px, py, pw, ph, 22);
-        c.fillStyle = '#0E0C1A';
+        applyPlaneTransform(c, zBase - 22);
+        roundRectPath(c, -hw - 12, -hh - 12, W + 24, H + 24, 24);
+        c.fillStyle = 'rgba(0, 0, 0, 0.55)';
+        c.shadowColor = 'rgba(0, 0, 0, 0.8)';
+        c.shadowBlur = 40;
         c.fill();
-        c.strokeStyle = 'rgba(167, 139, 250, 0.18)';
-        c.lineWidth = 1.4;
-        c.stroke();
+        c.restore();
 
-        // Üst Başlık Barı
-        c.fillStyle = '#A78BFA';
-        c.font = `800 18px 'Inter', sans-serif`;
-        c.textAlign = 'left';
-        c.textBaseline = 'middle';
-        if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-        c.fillText('ROASİST', px + 32, py + 42);
-
-        c.fillStyle = 'rgba(255,255,255,0.14)';
-        c.fillRect(px + 124, py + 30, 1, 24);
-
-        c.fillStyle = '#E2E8F0';
-        c.font = `500 14.5px 'Inter', sans-serif`;
-        if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
-        c.fillText('Şeffaf Süreç & Çevik Sprint Yönetimi', px + 140, py + 42);
-
-        drawBadge(
-          c, px + pw - 365, py + 28,
-          'Canlı Müşteri Paneli Aktif',
-          'rgba(16, 185, 129, 0.11)', '#6EE7B7', 'rgba(16, 185, 129, 0.28)',
-          11.5, 14, 7, '#10B981'
-        );
-        drawBadge(
-          c, px + pw - 160, py + 28,
-          'Sprint #04 · Hafta 6',
-          '#7601FF', '#FFFFFF', null,
-          11.5, 14, 7, null
+        c.save();
+        c.globalAlpha = 0.88 * smoothstep(0, 0.3, liftFactor);
+        drawExtrudedSlab(
+          c, -hw, -hh, W, H, zBase, 5, 18,
+          '#0E1118', '#07080C', 'rgba(148, 163, 184, 0.20)', 1.2
         );
 
-        c.fillStyle = 'rgba(255,255,255,0.07)';
-        c.fillRect(px + 32, py + 72, pw - 64, 1);
+        applyPlaneTransform(c, zBase + 0.5);
+        roundRectPath(c, -hw, -hh, W, H, 18);
+        c.clip();
 
-        // 4 Aşamalı Sprint İlerleme Barı Kartı
-        const tx = px + 32, ty = py + 92, tw = pw - 64, th = 126;
-        roundRectPath(c, tx, ty, tw, th, 16);
-        c.fillStyle = '#131122';
-        c.fill();
-        c.strokeStyle = 'rgba(255,255,255,0.08)';
+        c.strokeStyle = 'rgba(148, 163, 184, 0.07)';
         c.lineWidth = 1;
+        for (let gx = -hw + 38; gx < hw; gx += 38) {
+          c.beginPath();
+          c.moveTo(gx, -hh);
+          c.lineTo(gx, hh);
+          c.stroke();
+        }
+        for (let gy = -hh + 38; gy < hh; gy += 38) {
+          c.beginPath();
+          c.moveTo(-hw, gy);
+          c.lineTo(hw, gy);
+          c.stroke();
+        }
+        c.restore();
+
+        const corners = [
+          [-hw + 22, -hh + 22],
+          [hw - 22, -hh + 22],
+          [hw - 22, hh - 22],
+          [-hw + 22, hh - 22]
+        ];
+        c.save();
+        c.strokeStyle = `rgba(148, 163, 184, ${0.24 * liftFactor})`;
+        c.lineWidth = 1.1;
+        c.setLineDash([3, 4]);
+        for (const [cx, cy] of corners) {
+          const pA = project3D(cx, cy, zBase);
+          const pB = project3D(cx, cy, 0);
+          c.beginPath();
+          c.moveTo(pA.x, pA.y);
+          c.lineTo(pB.x, pB.y);
+          c.stroke();
+        }
+        c.setLineDash([]);
+        c.restore();
+      }
+
+      // ============================================================================
+      // 3. MAIN 3D PORCELAIN SPRINT DECK & ELEVATING SPRINT MODULES
+      // ============================================================================
+      const SPRINT_ROWS = [
+        {
+          num: '01',
+          title: 'Veri & Analitik Kurulumu',
+          sub: 'GA4 · Server-Side GTM · CRM',
+          barX: -102,
+          barW: 162,
+          barLabel: 'Veri & Takip Mimarisi',
+          metric: '%100',
+          startT: 0.02,
+          endT: 0.25,
+          isPrimary: false
+        },
+        {
+          num: '02',
+          title: 'Kreatif & Huni Mimarisi',
+          sub: 'Mesaj · Akış · Medya Planı',
+          barX: -22,
+          barW: 174,
+          barLabel: 'Kreatif & Huni Kurulumu',
+          metric: '%100',
+          startT: 0.22,
+          endT: 0.50,
+          isPrimary: false
+        },
+        {
+          num: '03',
+          title: 'Çevik A/B Test & CRO',
+          sub: 'Haftalık Deney & Optimizasyon',
+          barX: 66,
+          barW: 168,
+          barLabel: 'Hızlı A/B Test & CRO',
+          metric: '+%38 CVR',
+          startT: 0.45,
+          endT: 0.76,
+          isPrimary: false
+        },
+        {
+          num: '04',
+          title: 'Kârlı Ölçeklendirme',
+          sub: 'Sürekli Büyüme & ROAS İvmesi',
+          barX: 156,
+          barW: 172,
+          barLabel: 'Sürekli İvme & Ölçek',
+          metric: '5.4x ROAS',
+          startT: 0.68,
+          endT: 0.96,
+          isPrimary: true
+        }
+      ];
+
+      function drawPorcelainSprintDeck(c, timelineProgress, depthLift) {
+        const W = 700;
+        const H = 452;
+        const hw = W / 2; // 350
+        const hh = H / 2; // 226
+
+        // Soft shadow cast by porcelain deck onto base layer
+        c.save();
+        applyPlaneTransform(c, -14 * depthLift - 4);
+        roundRectPath(c, -hw + 4, -hh + 8, W, H, 18);
+        c.fillStyle = `rgba(2, 6, 23, ${0.42 * depthLift + 0.18})`;
+        c.fill();
+        c.restore();
+
+        // Main Porcelain Deck Slab (z = 0)
+        drawExtrudedSlab(
+          c, -hw, -hh, W, H, 0, 7, 18,
+          '#FFFFFF', '#CBD5E1', '#E2E8F0', 1.4
+        );
+
+        // Draw surface content on Porcelain Deck (z = 0.5)
+        c.save();
+        applyPlaneTransform(c, 0.5);
+        roundRectPath(c, -hw, -hh, W, H, 18);
+        c.clip();
+
+        // 1. Top Architectural Header Bar (y: -226 to -174)
+        c.fillStyle = '#F8FAFC';
+        c.fillRect(-hw, -hh, W, 52);
+        c.strokeStyle = '#E2E8F0';
+        c.lineWidth = 1;
+        c.beginPath();
+        c.moveTo(-hw, -hh + 52);
+        c.lineTo(hw, -hh + 52);
         c.stroke();
 
-        c.fillStyle = '#94A3B8';
-        c.font = `700 11px 'Inter', sans-serif`;
-        c.textAlign = 'left';
-        c.fillText('PROJE İVME HATTI', tx + 22, ty + 26);
-
-        c.textAlign = 'right';
-        c.fillStyle = '#10B981';
-        c.font = `600 12px 'Inter', sans-serif`;
-        c.fillText('Teslimat Zamanlaması: %100 Planlanan Takvimde', tx + tw - 22, ty + 26);
-
-        // Progress Bar Çizgisi
-        const barX = tx + 22, barY = ty + 52, barW = tw - 44, barH = 7;
-        roundRectPath(c, barX, barY, barW, barH, 99);
-        c.fillStyle = 'rgba(255,255,255,0.08)';
+        // Precision Chronometer Emblem (Clean geometric square + pulse dot, NOT browser dots)
+        roundRectPath(c, -hw + 24, -hh + 16, 20, 20, 6);
+        c.fillStyle = '#F1F5F9';
         c.fill();
-
-        const fillProg = lerp(0.56, 0.88, smoothstep(0.05, 0.85, progress));
-        const fillGrad = c.createLinearGradient(barX, 0, barX + barW * fillProg, 0);
-        fillGrad.addColorStop(0, '#7601FF');
-        fillGrad.addColorStop(1, '#A78BFA');
-        roundRectPath(c, barX, barY, barW * fillProg, barH, 99);
-        c.fillStyle = fillGrad;
-        c.fill();
-
-        const stages = [
-          { code: '01 · GÜN 1–7', name: 'Veri & Takip Kurulumu', active: true },
-          { code: '02 · HAFTA 2–3', name: 'Kreatif & Huni Üretimi', active: true },
-          { code: '03 · HAFTA 4–6', name: 'Hızlı A/B Test & CRO', active: true },
-          { code: '04 · SÜREKLİ İVME', name: 'Kârlı Ölçeklendirme', active: fillProg > 0.78 }
-        ];
-        const colW = (tw - 44) / 4;
-        c.textAlign = 'left';
-        for (let i = 0; i < 4; i++) {
-          const sx = tx + 22 + i * colW;
-          c.fillStyle = stages[i].active ? '#A78BFA' : '#64748B';
-          c.font = `700 10px 'Inter', sans-serif`;
-          c.fillText(stages[i].code, sx, ty + 82);
-
-          c.fillStyle = stages[i].active ? '#FFFFFF' : '#94A3B8';
-          c.font = `600 13.5px 'Inter', sans-serif`;
-          c.fillText(stages[i].name, sx, ty + 102);
-        }
-
-        // 3 Sütunlu Çevik Kanban Panosu
-        const ky = ty + th + 20;
-        const kh = ph - (ky - py) - 28;
-        const kw = (tw - 36) / 3;
-
-        const cols = [
-          { title: 'Sıradaki Adımlar', badge: '2 Görev', badgeBg: 'rgba(255,255,255,0.07)', badgeFg: '#94A3B8', border: 'rgba(255,255,255,0.07)', dot: null },
-          { title: 'Aktif Sprint #04', badge: 'Devam Eden', badgeBg: 'rgba(118,1,255,0.20)', badgeFg: '#D8B4FE', border: 'rgba(167,139,250,0.28)', dot: '#A78BFA' },
-          { title: 'Tamamlandı & Yayında', badge: 'Doğrulandı', badgeBg: 'rgba(16,185,129,0.14)', badgeFg: '#6EE7B7', border: 'rgba(16,185,129,0.24)', dot: '#10B981' }
-        ];
-
-        for (let i = 0; i < 3; i++) {
-          const cx = tx + i * (kw + 18);
-          roundRectPath(c, cx, ky, kw, kh, 18);
-          c.fillStyle = '#110F1E';
-          c.fill();
-          c.strokeStyle = cols[i].border;
-          c.lineWidth = 1.2;
-          c.stroke();
-
-          let titleX = cx + 18;
-          if (cols[i].dot) {
-            c.beginPath();
-            c.arc(cx + 22, ky + 26, 4, 0, Math.PI * 2);
-            c.fillStyle = cols[i].dot;
-            c.fill();
-            titleX += 14;
-          }
-          c.fillStyle = '#FFFFFF';
-          c.font = `600 13px 'Inter', sans-serif`;
-          c.textAlign = 'left';
-          c.fillText(cols[i].title, titleX, ky + 26);
-
-          drawBadge(c, cx + kw - 92, ky + 15, cols[i].badge, cols[i].badgeBg, cols[i].badgeFg, null, 10, 10, 4);
-        }
-
-        const c1x = tx;
-        const c2x = tx + (kw + 18);
-        const c3x = tx + 2 * (kw + 18);
-        const cardW = kw - 32;
-        const cardH = 128;
-
-        // Sütun 1 Kartları
-        drawTaskCard(
-          c, c1x + 16, ky + 52, cardW, cardH,
-          'YENİ PAZAR', 'rgba(118,1,255,0.18)', '#C4B5FD', 'Sprint #05', '#94A3B8',
-          ['Almanya & İngiltere Çok Dilli', 'Kampanya Genişlemesi'],
-          'Medya Planlama', 'Hazır %85', '#E2E8F0'
-        );
-        drawTaskCard(
-          c, c1x + 16, ky + 52 + cardH + 14, cardW, cardH,
-          'AEO & SEO', 'rgba(255,255,255,0.08)', '#CBD5E1', 'Sprint #05', '#94A3B8',
-          ['Yapay Zeka Arama Görünürlük', '& İçerik Kümeleri'],
-          'Organik Büyüme', 'Planlandı', '#E2E8F0'
-        );
-
-        // Sütun 2 Kesikli Yuva (Kart buradan Sütun 3'e kayar)
-        roundRectPath(c, c2x + 16, ky + 52, cardW, cardH, 14);
-        c.fillStyle = 'rgba(118, 1, 255, 0.04)';
-        c.fill();
-        c.save();
-        c.setLineDash([6, 5]);
-        c.strokeStyle = 'rgba(167, 139, 250, 0.28)';
+        c.strokeStyle = '#CBD5E1';
         c.lineWidth = 1.2;
         c.stroke();
-        c.restore();
-        c.fillStyle = 'rgba(216, 180, 254, 0.45)';
-        c.font = `500 12px 'Inter', sans-serif`;
-        c.textAlign = 'center';
-        c.fillText('Canlı Yayına Aktarıldı', c2x + 16 + cardW * 0.5, ky + 52 + cardH * 0.5);
-
-        // Sütun 2 Alt Kart
-        drawTaskCard(
-          c, c2x + 16, ky + 52 + cardH + 14, cardW, cardH,
-          'KREATİF TEST', 'rgba(118,1,255,0.18)', '#D8B4FE', 'Canlı Test', '#C4B5FD',
-          ['Video Kanca A/B Varyasyonları', '(İlk 3 Saniye Kurgusu)'],
-          'Test İlerlemesi', '%78 Tamamlandı', '#A78BFA'
-        );
-
-        // Sütun 3 Üst Kart
-        drawTaskCard(
-          c, c3x + 16, ky + 52, cardW, cardH,
-          'VERİ ALTYAPISI', 'rgba(16,185,129,0.15)', '#6EE7B7', '✓ Aktif', '#6EE7B7',
-          ['GA4 + Server-Side GTM &', 'CRM Dönüşüm Eşleşmesi'],
-          'Veri Doğruluğu', '%98.4 Eşleşme', '#6EE7B7',
-          'rgba(16,185,129,0.24)'
-        );
-
-        // Sütun 3 Hedef Kesikli Yuva
-        const destX = c3x + 16;
-        const destY = ky + 52 + cardH + 14;
-        roundRectPath(c, destX, destY, cardW, cardH, 14);
-        c.save();
-        c.setLineDash([6, 5]);
-        c.strokeStyle = 'rgba(255, 255, 255, 0.10)';
-        c.stroke();
-        c.restore();
-
-        // HAREKETLİ SPRINT KARTI (Sütun 2 Üst Yuvadan -> Sütun 3 Alt Yuvaya Süzülür)
-        const moveT = smoothstep(0.18, 0.68, progress);
-        const startX = c2x + 16;
-        const startY = ky + 52;
-        const curX = lerp(startX, destX, moveT);
-        const curY = lerp(startY, destY, moveT) - Math.sin(moveT * Math.PI) * 18;
-        const isDone = moveT > 0.75;
-
-        drawTaskCard(
-          c, curX, curY, cardW, cardH,
-          'CRO & PERFORMANS',
-          isDone ? 'rgba(16,185,129,0.20)' : '#7601FF',
-          isDone ? '#6EE7B7' : '#FFFFFF',
-          isDone ? '✓ Yayında' : 'Yayına Alınıyor...',
-          isDone ? '#6EE7B7' : '#D8B4FE',
-          ['Açılış Sayfası Hız & Teklif', 'Kurgusu Optimizasyonu'],
-          'Sprint #04',
-          '+%38 Dönüşüm Artışı',
-          isDone ? '#6EE7B7' : '#FFFFFF',
-          isDone ? '#10B981' : '#A78BFA',
-          isDone ? '#111F1D' : '#1B1630',
-          isDone ? 'rgba(16, 185, 129, 0.35)' : 'rgba(118, 1, 255, 0.42)'
-        );
-
-        c.restore();
-      }
-
-      // ======================================================================
-      // SAHNE B: Gerçek Zamanlı Performans & ROAS İvme Paneli (Canlı Spline)
-      // ======================================================================
-      function drawMomentumCockpitScene(c, progress, alpha) {
-        if (alpha <= 0.005) return;
-        c.save();
-        c.globalAlpha = alpha;
-
-        const zoom = lerp(0.97, 1.01, progress);
-        c.translate(510, 394);
-        c.scale(zoom, zoom);
-        c.translate(-510, -394);
-
-        const px = 24, py = 22, pw = 972, ph = 744;
-        roundRectPath(c, px, py, pw, ph, 22);
-        c.fillStyle = '#0E0C1A';
+        c.beginPath();
+        c.arc(-hw + 34, -hh + 26, 3.5, 0, Math.PI * 2);
+        c.fillStyle = '#0F172A';
         c.fill();
-        c.strokeStyle = 'rgba(167, 139, 250, 0.18)';
-        c.lineWidth = 1.4;
-        c.stroke();
 
-        // Üst Bar
-        c.fillStyle = '#A78BFA';
-        c.font = `800 18px 'Inter', sans-serif`;
+        // Brand & Module Title
+        c.fillStyle = '#0F172A';
+        c.font = `800 13px 'Inter', sans-serif`;
         c.textAlign = 'left';
-        c.textBaseline = 'middle';
-        if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-        c.fillText('ROASİST', px + 32, py + 42);
+        if ('letterSpacing' in c) c.letterSpacing = '-0.02em';
+        c.fillText('ROASİST', -hw + 54, -hh + 30.5);
 
-        c.fillStyle = 'rgba(255,255,255,0.14)';
-        c.fillRect(px + 124, py + 30, 1, 24);
-
-        c.fillStyle = '#E2E8F0';
-        c.font = `500 14.5px 'Inter', sans-serif`;
-        if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
-        c.fillText('Gerçek Zamanlı Performans & İvme Paneli', px + 140, py + 42);
-
-        drawBadge(
-          c, px + pw - 365, py + 28,
-          'Google Ads · Meta · TikTok · GA4',
-          'rgba(255,255,255,0.06)', '#CBD5E1', null,
-          11, 14, 7, null
-        );
-        drawBadge(
-          c, px + pw - 138, py + 28,
-          'CANLI VERİ',
-          'rgba(16, 185, 129, 0.12)', '#6EE7B7', 'rgba(16, 185, 129, 0.30)',
-          11, 14, 7, '#10B981'
-        );
-
-        // Üst 3 KPI Kartı (Canlı Sayaçlarla)
-        const curveT = smoothstep(0.06, 0.78, progress);
-        const currentRoas = lerp(2.5, 6.4, curveT);
-        const currentCpa = Math.round(lerp(12, 38, curveT));
-
-        const kpiY = py + 82;
-        const kpiH = 118;
-        const kpiW = (pw - 64 - 32) / 3;
-
-        // KPI 1: ROAS
-        {
-          const kx = px + 32;
-          roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
-          const g = c.createLinearGradient(kx, kpiY, kx, kpiY + kpiH);
-          g.addColorStop(0, '#1A1430');
-          g.addColorStop(1, '#121020');
-          c.fillStyle = g;
-          c.fill();
-          c.strokeStyle = 'rgba(167, 139, 250, 0.35)';
-          c.lineWidth = 1.2;
-          c.stroke();
-
-          c.fillStyle = '#A1A1AA';
-          c.font = `600 10.5px 'Inter', sans-serif`;
-          c.textAlign = 'left';
-          c.fillText('BİRLEŞİK KÂRLILIK (ROAS)', kx + 20, kpiY + 28);
-
-          c.fillStyle = '#FFFFFF';
-          c.font = `800 38px 'Inter', sans-serif`;
-          if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-          c.fillText(`${currentRoas.toFixed(1)}x`, kx + 20, kpiY + 76);
-
-          drawBadge(c, kx + 125, kpiY + 62, '+106% İvme', 'rgba(118, 1, 255, 0.26)', '#D8B4FE', null, 11, 10, 4);
-        }
-
-        // KPI 2: CPA
-        {
-          const kx = px + 32 + kpiW + 16;
-          roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
-          c.fillStyle = '#131122';
-          c.fill();
-          c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-          c.lineWidth = 1;
-          c.stroke();
-
-          c.fillStyle = '#A1A1AA';
-          c.font = `600 10.5px 'Inter', sans-serif`;
-          c.textAlign = 'left';
-          c.fillText('EDİNME MALİYETİ (CPA)', kx + 20, kpiY + 28);
-
-          c.fillStyle = '#FFFFFF';
-          c.font = `800 38px 'Inter', sans-serif`;
-          if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-          c.fillText(`-%${currentCpa}`, kx + 20, kpiY + 76);
-
-          drawBadge(c, kx + 135, kpiY + 62, 'Optimize', 'rgba(16, 185, 129, 0.16)', '#6EE7B7', null, 11, 10, 4);
-        }
-
-        // KPI 3: SPRINT TESLİMAT HIZI
-        {
-          const kx = px + 32 + (kpiW + 16) * 2;
-          roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
-          c.fillStyle = '#131122';
-          c.fill();
-          c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-          c.lineWidth = 1;
-          c.stroke();
-
-          c.fillStyle = '#A1A1AA';
-          c.font = `600 10.5px 'Inter', sans-serif`;
-          c.textAlign = 'left';
-          c.fillText('SPRINT TESLİMAT HIZI', kx + 20, kpiY + 28);
-
-          c.fillStyle = '#FFFFFF';
-          c.font = `800 38px 'Inter', sans-serif`;
-          if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
-          c.fillText('%98.2', kx + 20, kpiY + 76);
-
-          c.fillStyle = '#94A3B8';
-          c.font = `500 11.5px 'Inter', sans-serif`;
-          if ('letterSpacing' in c) c.letterSpacing = '0px';
-          c.fillText('Haftalık Hedef', kx + 148, kpiY + 78);
-        }
-
-        // Ana Grafik Kartı: Sprint Bazlı Büyüme & ROAS İvmesi
-        const cx = px + 32, cy = kpiY + kpiH + 20, cw = pw - 64, ch = ph - (cy - py) - 28;
-        roundRectPath(c, cx, cy, cw, ch, 18);
-        c.fillStyle = '#110F1E';
-        c.fill();
-        c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-        c.lineWidth = 1;
-        c.stroke();
-
-        c.fillStyle = '#FFFFFF';
-        c.font = `700 16px 'Inter', sans-serif`;
-        c.textAlign = 'left';
-        c.fillText('Sprint Bazlı Büyüme & ROAS İvmesi', cx + 24, cy + 32);
-
-        c.fillStyle = '#94A3B8';
-        c.font = `500 12px 'Inter', sans-serif`;
-        c.fillText('Her iki haftalık sprint sonunda doğrulanan kümülatif reklam verimliliği', cx + 24, cy + 52);
-
-        // Lejant
-        c.fillStyle = '#7601FF';
-        roundRectPath(c, cx + cw - 260, cy + 28, 10, 10, 3);
-        c.fill();
-        c.fillStyle = '#CBD5E1';
+        c.fillStyle = '#64748B';
         c.font = `500 11.5px 'Inter', sans-serif`;
-        c.fillText('Gerçekleşen ROAS', cx + cw - 244, cy + 33.5);
+        if ('letterSpacing' in c) c.letterSpacing = '0px';
+        c.fillText('Çevik Sprint & Şeffaf Süreç Yönetimi', -hw + 122, -hh + 30.5);
 
-        c.fillStyle = '#475569';
-        c.fillRect(cx + cw - 120, cy + 32, 10, 2);
-        c.fillStyle = '#94A3B8';
-        c.fillText('Başlangıç Bazı', cx + cw - 104, cy + 33.5);
+        // Top-right status pill (Neutral Slate outline + Emerald live dot)
+        roundRectPath(c, hw - 204, -hh + 13, 180, 26, 13);
+        c.fillStyle = '#FFFFFF';
+        c.fill();
+        c.strokeStyle = '#E2E8F0';
+        c.lineWidth = 1;
+        c.stroke();
 
-        // Grafik Izgara Çizgileri
-        const plotX0 = cx + 68, plotX1 = cx + cw - 36;
-        const plotY0 = cy + 96, plotY1 = cy + ch - 58;
-        const yLabels = ['7.0x', '5.5x', '4.0x', '2.5x'];
+        c.beginPath();
+        c.arc(hw - 189, -hh + 26, 3.8, 0, Math.PI * 2);
+        c.fillStyle = '#10B981';
+        c.fill();
 
+        c.fillStyle = '#0F172A';
+        c.font = `700 10.5px 'Inter', sans-serif`;
+        c.fillText('SPRINT #04 · %100 TAKVİM', hw - 178, -hh + 29.5);
+
+        // 2. Chronometer Timeline Subheader (y: -174 to -134)
+        c.fillStyle = '#FFFFFF';
+        c.fillRect(-hw, -174, W, 40);
+        c.strokeStyle = '#E2E8F0';
+        c.beginPath();
+        c.moveTo(-hw, -134);
+        c.lineTo(hw, -134);
+        c.stroke();
+
+        // Left column header
+        c.fillStyle = '#64748B';
+        c.font = `700 9.5px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '0.06em';
+        c.fillText('SÜREÇ & SPRİNT FAZI', -hw + 24, -150);
+
+        const gridLeft = -114;
+        const gridRight = 334;
+        const gridW = gridRight - gridLeft; // 448
+        const colW = gridW / 4; // 112
+
+        c.strokeStyle = '#E2E8F0';
+        c.beginPath();
+        c.moveTo(gridLeft, -174);
+        c.lineTo(gridLeft, 122);
+        c.stroke();
+
+        const weekLabels = ['01 · HAFTA 1', '02 · HAFTA 2', '03 · HAFTA 3', '04 · SÜREKLİ İVME'];
         for (let i = 0; i < 4; i++) {
-          const gy = lerp(plotY0, plotY1, i / 3);
-          c.fillStyle = '#64748B';
-          c.font = `500 11px 'Inter', sans-serif`;
-          c.textAlign = 'left';
-          c.fillText(yLabels[i], cx + 24, gy);
+          const cx = gridLeft + i * colW;
+          if (i > 0) {
+            c.strokeStyle = '#F1F5F9';
+            c.beginPath();
+            c.moveTo(cx, -174);
+            c.lineTo(cx, 122);
+            c.stroke();
+          }
 
+          const isReached = timelineProgress >= i * 0.23;
+          c.fillStyle = isReached ? '#0F172A' : '#94A3B8';
+          c.font = `700 9.5px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '0.04em';
+          c.fillText(weekLabels[i], cx + 12, -150);
+
+          // Swiss chronometer ruler ticks along y = -134
+          c.strokeStyle = '#CBD5E1';
+          for (let t = 0; t < 5; t++) {
+            const tx = cx + (t / 5) * colW;
+            const tickH = t === 0 ? 6 : 3.5;
+            c.beginPath();
+            c.moveTo(tx, -134 - tickH);
+            c.lineTo(tx, -134);
+            c.stroke();
+          }
+        }
+
+        // 3. 4 Horizontal Sprint Lanes (y: -134 to +122, each row = 64px)
+        const rowTopStart = -134;
+        const rowH = 64;
+
+        for (let r = 0; r < SPRINT_ROWS.length; r++) {
+          const row = SPRINT_ROWS[r];
+          const ry = rowTopStart + r * rowH;
+
+          if (r % 2 === 1) {
+            c.fillStyle = 'rgba(248, 250, 252, 0.65)';
+            c.fillRect(-hw, ry, W, rowH);
+          }
+
+          c.strokeStyle = '#F1F5F9';
           c.beginPath();
-          c.moveTo(plotX0, gy);
-          c.lineTo(plotX1, gy);
-          c.strokeStyle = (i === 3) ? 'rgba(148, 163, 184, 0.22)' : 'rgba(255, 255, 255, 0.05)';
+          c.moveTo(-hw, ry + rowH);
+          c.lineTo(hw, ry + rowH);
+          c.stroke();
+
+          // Left column: Clean neutral slate phase number badge (No competing dark solid blocks)
+          const isRowActive = timelineProgress >= row.startT;
+          roundRectPath(c, -hw + 22, ry + 15, 25, 22, 6);
+          c.fillStyle = isRowActive ? '#F1F5F9' : '#F8FAFC';
+          c.fill();
+          c.strokeStyle = isRowActive ? '#CBD5E1' : '#E2E8F0';
           c.lineWidth = 1;
           c.stroke();
-        }
 
-        // X Ekseni Sprint Etiketleri
-        const sprints = [
-          'Sprint 01 · Kurulum',
-          'Sprint 02 · Kreatif',
-          'Sprint 03 · CRO',
-          'Sprint 04 · Ölçek',
-          'Sprint 05 · Otomasyon',
-          'Sprint 06 · 6.4x ROAS'
-        ];
-        const pts = [];
-        const roasValues = [2.5, 3.2, 4.1, 5.0, 5.8, 6.4];
-
-        for (let i = 0; i < 6; i++) {
-          const sx = lerp(plotX0, plotX1, i / 5);
-          const normVal = (roasValues[i] - 2.5) / (7.0 - 2.5);
-          const sy = lerp(plotY1, plotY0, normVal);
-          pts.push({ x: sx, y: sy, val: roasValues[i] });
-
-          c.fillStyle = (i === 5) ? '#D8B4FE' : '#94A3B8';
-          c.font = `600 11px 'Inter', sans-serif`;
+          c.fillStyle = isRowActive ? '#0F172A' : '#94A3B8';
+          c.font = `700 10px 'Inter', sans-serif`;
           c.textAlign = 'center';
-          c.fillText(sprints[i], sx, cy + ch - 24);
-        }
+          if ('letterSpacing' in c) c.letterSpacing = '0px';
+          c.fillText(row.num, -hw + 34.5, ry + 29.5);
 
-        // Canlı Büyüme Eğrisi (curveT ilerledikçe soldan sağa çizilir)
-        const totalSegs = 5;
-        const activeFloat = curveT * totalSegs;
-        const activeIdx = Math.min(totalSegs - 1, Math.floor(activeFloat));
-        const segFrac = activeFloat - activeIdx;
+          c.textAlign = 'left';
+          c.fillStyle = '#0F172A';
+          c.font = `700 12px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '-0.015em';
+          c.fillText(row.title, -hw + 56, ry + 27);
 
-        const tipX = lerp(pts[activeIdx].x, pts[activeIdx + 1].x, segFrac);
-        const tipY = lerp(pts[activeIdx].y, pts[activeIdx + 1].y, segFrac);
+          c.fillStyle = '#64748B';
+          c.font = `500 10px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '0px';
+          c.fillText(row.sub, -hw + 56, ry + 44);
 
-        // Eğri Altı Gradyan Dolgu
-        c.save();
-        c.beginPath();
-        c.moveTo(pts[0].x, plotY1);
-        for (let i = 0; i <= activeIdx; i++) {
-          c.lineTo(pts[i].x, pts[i].y);
-        }
-        c.lineTo(tipX, tipY);
-        c.lineTo(tipX, plotY1);
-        c.closePath();
-        const areaGrad = c.createLinearGradient(0, plotY0, 0, plotY1);
-        areaGrad.addColorStop(0, 'rgba(118, 1, 255, 0.34)');
-        areaGrad.addColorStop(1, 'rgba(118, 1, 255, 0.0)');
-        c.fillStyle = areaGrad;
-        c.fill();
-        c.restore();
-
-        // Parlayan Ana Eğri Çizgisi
-        c.save();
-        c.beginPath();
-        c.moveTo(pts[0].x, pts[0].y);
-        for (let i = 1; i <= activeIdx; i++) {
-          c.lineTo(pts[i].x, pts[i].y);
-        }
-        c.lineTo(tipX, tipY);
-        c.strokeStyle = '#9333EA';
-        c.lineWidth = 3.5;
-        c.shadowColor = '#7601FF';
-        c.shadowBlur = 16;
-        c.stroke();
-        c.restore();
-
-        // Veri Noktaları
-        for (let i = 0; i <= activeIdx; i++) {
+          // Sleek single horizontal guide rail across the lane (instead of a duplicate grey box)
+          const railY = ry + 32;
+          c.strokeStyle = '#E2E8F0';
+          c.lineWidth = 1.2;
           c.beginPath();
-          c.arc(pts[i].x, pts[i].y, 4.5, 0, Math.PI * 2);
-          c.fillStyle = '#FFFFFF';
-          c.fill();
-          c.strokeStyle = '#7601FF';
-          c.lineWidth = 2;
+          c.moveTo(gridLeft + 12, railY);
+          c.lineTo(gridRight - 12, railY);
           c.stroke();
         }
 
-        // Eğri Ucu Canlı Nokta + Yüzen Rozet (CANLI İVME: 6.4x ROAS)
-        c.save();
+        // 4. Bottom Footer Strip on Porcelain Board (y: 122 to 226)
+        c.fillStyle = '#F8FAFC';
+        c.fillRect(-hw, 122, W, 104);
+        c.strokeStyle = '#E2E8F0';
+        c.lineWidth = 1;
         c.beginPath();
-        c.arc(tipX, tipY, 6, 0, Math.PI * 2);
-        c.fillStyle = '#FFFFFF';
-        c.shadowColor = '#10B981';
-        c.shadowBlur = 14;
-        c.fill();
-        c.strokeStyle = '#10B981';
-        c.lineWidth = 2.5;
-        c.stroke();
-        c.restore();
-
-        const badgeW = 190, badgeH = 64;
-        const bx = Math.min(plotX1 - badgeW, Math.max(plotX0, tipX - badgeW * 0.75));
-        const by = tipY - badgeH - 18;
-        c.save();
-        c.shadowColor = 'rgba(118, 1, 255, 0.45)';
-        c.shadowBlur = 24;
-        roundRectPath(c, bx, by, badgeW, badgeH, 14);
-        c.fillStyle = '#7601FF';
-        c.fill();
-        c.shadowBlur = 0;
-        c.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-        c.lineWidth = 1.2;
+        c.moveTo(-hw, 122);
+        c.lineTo(hw, 122);
         c.stroke();
 
-        c.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        c.fillStyle = '#64748B';
         c.font = `700 9.5px 'Inter', sans-serif`;
-        c.textAlign = 'left';
-        c.fillText('CANLI İVME', bx + 14, by + 20);
+        if ('letterSpacing' in c) c.letterSpacing = '0.06em';
+        c.fillText('GERÇEK ZAMANLI PROJE İVMESİ & TESLİMAT HIZI', -hw + 24, 148);
 
-        c.fillStyle = '#FFFFFF';
-        c.font = `800 19px 'Inter', sans-serif`;
-        c.fillText(`${currentRoas.toFixed(1)}x ROAS`, bx + 14, by + 44);
+        c.fillStyle = '#0F172A';
+        c.font = `800 21px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '-0.025em';
+        c.fillText('%99.4', -hw + 24, 178);
 
-        drawBadge(c, bx + badgeW - 64, by + 22, '+106%', 'rgba(255,255,255,0.18)', '#FFFFFF', null, 11, 8, 4);
+        c.fillStyle = '#10B981';
+        c.font = `700 11px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '0px';
+        c.fillText('● Sıfır Gecikme · Şeffaf Raporlama', -hw + 94, 176);
+
+        c.fillStyle = '#64748B';
+        c.font = `500 10.5px 'Inter', sans-serif`;
+        c.fillText('İlk günden itibaren canlı veri panelleri ve haftalık sprint çıktıları.', -hw + 24, 200);
+
         c.restore();
 
+        // ============================================================================
+        // 4.CHRONOMETER PLAYHEAD LINE & HEADER PILL (DRAWN BEFORE SPRINT BARS SO BARS SIT ABOVE LINE)
+        // ============================================================================
+        const playheadX = lerp(-96, 314, timelineProgress);
+
+        c.save();
+        applyPlaneTransform(c, 1.5);
+        c.strokeStyle = 'rgba(16, 185, 129, 0.45)';
+        c.lineWidth = 1.5;
+        c.setLineDash([4, 3]);
+        c.beginPath();
+        c.moveTo(playheadX, -134);
+        c.lineTo(playheadX, 122);
+        c.stroke();
+        c.setLineDash([]);
+
+        c.beginPath();
+        c.arc(playheadX, -134, 3.5, 0, Math.PI * 2);
+        c.fillStyle = '#10B981';
+        c.fill();
+        c.beginPath();
+        c.arc(playheadX, 122, 3.5, 0, Math.PI * 2);
+        c.fillStyle = '#10B981';
+        c.fill();
+        c.restore();
+
+        // ============================================================================
+        // 5. ELEVATED 3D SPRINT MODULES (LIFTING IN Z-SPACE AS PLAYHEAD PASSES)
+        // ============================================================================
+        const rowTopStart3D = -134;
+        const rowH3D = 64;
+
+        for (let r = 0; r < SPRINT_ROWS.length; r++) {
+          const row = SPRINT_ROWS[r];
+          const ry = rowTopStart3D + r * rowH3D;
+          const barY = ry + 11;
+          const barH = 42;
+
+          const rawFill = smoothstep(row.startT - 0.04, row.endT, timelineProgress);
+          const liftWave = smoothstep(row.startT - 0.06, row.startT + 0.10, timelineProgress);
+          const baseZ = (10 + r * 11) * depthLift;
+          const activeZBoost = liftWave * (12 + r * 5) * depthLift;
+          const zBar = Math.max(2, baseZ + activeZBoost);
+
+          // Soft 3D Shadow cast onto the porcelain board (z = 1.2)
+          if (zBar > 3) {
+            c.save();
+            applyPlaneTransform(c, 1.2);
+            const shOffset = zBar * 0.16;
+            roundRectPath(c, row.barX + shOffset * 0.5, barY + shOffset, row.barW, barH, 10);
+            c.fillStyle = `rgba(15, 23, 42, ${Math.min(0.16, 0.04 + zBar * 0.002)})`;
+            c.fill();
+            c.restore();
+          }
+
+          // Single Primary Solid Dark CTA/Module Rule: ONLY row 4 (isPrimary) is solid #0F172A
+          const topFill = row.isPrimary ? '#0F172A' : '#FFFFFF';
+          const sideFill = row.isPrimary ? '#020617' : '#CBD5E1';
+          const borderCol = row.isPrimary
+            ? '#1E293B'
+            : (rawFill > 0.1 ? '#0F172A' : '#CBD5E1');
+
+          drawExtrudedSlab(
+            c, row.barX, barY, row.barW, barH, zBar, 4.5, 10,
+            topFill, sideFill, borderCol, row.isPrimary || rawFill > 0.1 ? 1.4 : 1.1
+          );
+
+          c.save();
+          applyPlaneTransform(c, zBar + 0.4);
+          roundRectPath(c, row.barX, barY, row.barW, barH, 10);
+          c.clip();
+
+          // Left status indicator circle (Emerald check or active pulse)
+          const iconCx = row.barX + 18;
+          const iconCy = barY + barH * 0.5;
+          c.beginPath();
+          c.arc(iconCx, iconCy, 7, 0, Math.PI * 2);
+          c.fillStyle = rawFill >= 0.92
+            ? '#10B981'
+            : (row.isPrimary ? 'rgba(16, 185, 129, 0.20)' : '#F1F5F9');
+          c.fill();
+
+          if (rawFill >= 0.92) {
+            c.strokeStyle = '#FFFFFF';
+            c.lineWidth = 1.6;
+            c.beginPath();
+            c.moveTo(iconCx - 3, iconCy + 0.2);
+            c.lineTo(iconCx - 0.6, iconCy + 2.5);
+            c.lineTo(iconCx + 3.4, iconCy - 2.2);
+            c.stroke();
+          } else {
+            c.beginPath();
+            c.arc(iconCx, iconCy, 3, 0, Math.PI * 2);
+            c.fillStyle = '#10B981';
+            c.fill();
+          }
+
+          // Sprint Bar Label (Generous right padding so text never touches border)
+          c.textAlign = 'left';
+          c.fillStyle = row.isPrimary ? '#FFFFFF' : '#0F172A';
+          c.font = `700 10.5px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '-0.015em';
+          c.fillText(row.barLabel, row.barX + 32, barY + 17.5);
+
+          // Bottom mini progress track + right metric
+          const trackX = row.barX + 32;
+          const trackY = barY + 27.5;
+          const trackW = row.barW - 94;
+          roundRectPath(c, trackX, trackY, trackW, 4, 2);
+          c.fillStyle = row.isPrimary ? 'rgba(255, 255, 255, 0.16)' : '#E2E8F0';
+          c.fill();
+
+          roundRectPath(c, trackX, trackY, Math.max(6, trackW * Math.max(0.22, rawFill)), 4, 2);
+          c.fillStyle = '#10B981';
+          c.fill();
+
+          c.textAlign = 'right';
+          c.fillStyle = row.isPrimary ? '#10B981' : '#0F172A';
+          c.font = `800 10px 'Inter', sans-serif`;
+          c.fillText(row.metric, row.barX + row.barW - 12, barY + 31);
+
+          c.restore();
+        }
+
+        // ============================================================================
+        // 6. FLOATING 3D LIVE VELOCITY & MOMENTUM MODULE (BOTTOM-RIGHT, z = +48)
+        // ============================================================================
+        const cardX = 36;
+        const cardY = 132;
+        const cardW = 294;
+        const cardH = 80;
+        const zCard = 16 + 34 * depthLift;
+
+        c.save();
+        applyPlaneTransform(c, 1.5);
+        roundRectPath(c, cardX + 5, cardY + 8, cardW, cardH, 12);
+        c.fillStyle = `rgba(15, 23, 42, ${0.12 * depthLift + 0.04})`;
+        c.fill();
+        c.restore();
+
+        drawExtrudedSlab(
+          c, cardX, cardY, cardW, cardH, zCard, 4.5, 12,
+          '#FFFFFF', '#CBD5E1', '#0F172A', 1.4
+        );
+
+        c.save();
+        applyPlaneTransform(c, zCard + 0.5);
+        roundRectPath(c, cardX, cardY, cardW, cardH, 12);
+        c.clip();
+
+        c.textAlign = 'left';
+        c.fillStyle = '#64748B';
+        c.font = `700 9px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '0.05em';
+        c.fillText('CANLI İVME HATTI (SPRINT #01 → #04)', cardX + 18, cardY + 21);
+
+        c.fillStyle = '#0F172A';
+        c.font = `800 19px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '-0.02em';
+        const velocityVal = lerp(1.4, 3.8, smoothstep(0.0, 0.9, timelineProgress)).toFixed(1);
+        c.fillText(`${velocityVal}x Hız`, cardX + 18, cardY + 46);
+
+        c.fillStyle = '#10B981';
+        c.font = `700 10.5px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '0px';
+        c.fillText('+184% İvme Artışı', cardX + 18, cardY + 64);
+
+        const spX = cardX + 122;
+        const spY = cardY + 60;
+        const spW = 154;
+        const spH = 38;
+        const pts = [
+          [0.0, 0.15],
+          [0.25, 0.34],
+          [0.50, 0.54],
+          [0.75, 0.78],
+          [1.0, 0.98]
+        ];
+
+        c.beginPath();
+        for (let i = 0; i < pts.length; i++) {
+          const px = spX + pts[i][0] * spW;
+          const py = spY - pts[i][1] * spH;
+          if (i === 0) c.moveTo(px, py);
+          else c.lineTo(px, py);
+        }
+        c.lineTo(spX + spW, spY + 4);
+        c.lineTo(spX, spY + 4);
+        c.closePath();
+        c.fillStyle = 'rgba(16, 185, 129, 0.12)';
+        c.fill();
+
+        c.beginPath();
+        for (let i = 0; i < pts.length; i++) {
+          const px = spX + pts[i][0] * spW;
+          const py = spY - pts[i][1] * spH;
+          if (i === 0) c.moveTo(px, py);
+          else c.lineTo(px, py);
+        }
+        c.strokeStyle = '#0F172A';
+        c.lineWidth = 2;
+        c.stroke();
+
+        for (let i = 0; i < pts.length; i++) {
+          const px = spX + pts[i][0] * spW;
+          const py = spY - pts[i][1] * spH;
+          const reached = timelineProgress >= pts[i][0] * 0.9;
+          c.beginPath();
+          c.arc(px, py, reached ? 3.5 : 2.5, 0, Math.PI * 2);
+          c.fillStyle = reached ? '#10B981' : '#CBD5E1';
+          c.fill();
+        }
         c.restore();
       }
 
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas, { passive: true });
+      // ============================================================================
+      // MAIN ANIMATION LOOP (60 FPS)
+      // ============================================================================
+      function render(now) {
+        const t = now * 0.001 + 4.2;
+        const cycleDuration = 8.4;
+        const cycle = (t % cycleDuration) / cycleDuration;
 
-      const startTime = performance.now();
-      const CYCLE_SECONDS = 12.0; // 6sn Çevik Sprint Panosu + 6sn Gerçek Zamanlı Performans Kokpiti
+        const sweepIn = smoothstep(0.04, 0.84, cycle);
+        const sweepOut = 1 - smoothstep(0.90, 0.99, cycle);
+        const timelineProgress = lerp(0.08, 0.96, sweepIn) * sweepOut + 0.08 * (1 - sweepOut);
 
-      function renderFrame(now) {
-        const elapsed = (now - startTime) * 0.001;
-        const cycleTime = elapsed % CYCLE_SECONDS;
+        const liftIn = springEase(smoothstep(0.05, 0.28, cycle));
+        const liftOut = 1 - smoothstep(0.86, 0.97, cycle);
+        const depthLift = Math.max(0.24, Math.min(1.08, liftIn * liftOut));
+
+        cam.rotX = lerp(-0.18, -0.25, depthLift) + Math.sin(t * 0.7) * 0.014;
+        cam.rotY = lerp(-0.14, 0.15, sweepIn * sweepOut) + Math.cos(t * 0.55) * 0.018;
+        cam.rotZ = lerp(0.01, 0.03, depthLift);
 
         ctx.save();
-        ctx.scale(dpr, dpr);
+        ctx.scale((width * dpr) / 1020, (height * dpr) / 788);
 
-        ctx.fillStyle = '#0B0914';
-        ctx.fillRect(0, 0, width, height);
-
-        const scale = Math.min(width / 1020, height / 788);
-        ctx.translate((width - 1020 * scale) * 0.5, (height - 788 * scale) * 0.5);
-        ctx.scale(scale, scale);
-
-        // Yumuşak geçiş (Crossfade: 0..6sn Sahne A, 6..12sn Sahne B)
-        let alphaA = 0, alphaB = 0;
-        const fadeDur = 0.85;
-        if (cycleTime < 6.0 - fadeDur) {
-          alphaA = cycleTime < fadeDur ? smoothstep(0, fadeDur, cycleTime) : 1;
-          alphaB = cycleTime < fadeDur ? 1 - alphaA : 0;
-        } else if (cycleTime < 6.0) {
-          const t = (cycleTime - (6.0 - fadeDur)) / fadeDur;
-          alphaA = 1 - smoothstep(0, 1, t);
-          alphaB = smoothstep(0, 1, t);
-        } else if (cycleTime < 12.0 - fadeDur) {
-          alphaA = 0;
-          alphaB = 1;
-        } else {
-          const t = (cycleTime - (12.0 - fadeDur)) / fadeDur;
-          alphaB = 1 - smoothstep(0, 1, t);
-          alphaA = smoothstep(0, 1, t);
-        }
-
-        const progA = Math.min(1, cycleTime / 6.0);
-        const progB = cycleTime >= 6.0 ? Math.min(1, (cycleTime - 6.0) / 6.0) : 1.0;
-
-        drawSprintBoardScene(ctx, progA, alphaA);
-        drawMomentumCockpitScene(ctx, progB, alphaB);
+        drawStudioBackdrop(ctx);
+        drawBaseEngineeringPlane(ctx, -36 * depthLift, depthLift);
+        drawPorcelainSprintDeck(ctx, timelineProgress, depthLift);
 
         ctx.restore();
-        requestAnimationFrame(renderFrame);
+        requestAnimationFrame(render);
       }
 
-      requestAnimationFrame(renderFrame);
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          requestAnimationFrame(render);
+        });
+      } else {
+        requestAnimationFrame(render);
+      }
     })();
   </script>
 </body>
