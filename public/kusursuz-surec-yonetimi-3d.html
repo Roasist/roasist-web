@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kusursuz Süreç Yönetimi — Çevik Sprint & Performans İvme Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap&subset=latin,latin-ext" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #06050B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+    }
+
+    .process-stage {
+      position: relative;
+      width: min(100%, 1280px);
+      aspect-ratio: 562 / 434;
+      max-height: calc(100vh - 48px);
+      background-color: #0B0914;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(167, 139, 250, 0.16);
+      box-shadow:
+        0 30px 80px -20px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+      isolation: isolate;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="process-stage" id="stage">
+    <canvas id="processCanvas" aria-label="Kusursuz süreç yönetimi çevik sprint ve gerçek zamanlı performans paneli animasyonu"></canvas>
+  </div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('processCanvas');
+      const stage = document.getElementById('stage');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      let width = 1020;
+      let height = 788;
+      let dpr = 1;
+
+      function resizeCanvas() {
+        const rect = stage.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.max(320, Math.floor(rect.width));
+        height = Math.max(240, Math.floor(rect.height));
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+      }
+
+      function roundRectPath(c, x, y, w, h, r) {
+        c.beginPath();
+        c.roundRect(x, y, w, h, r);
+      }
+
+      function smoothstep(edge0, edge1, x) {
+        const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+        return t * t * (3 - 2 * t);
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function drawBadge(c, x, y, text, bg, fg, borderCol, fontSize = 11, padX = 12, padY = 5, dotColor = null) {
+        c.save();
+        c.font = `600 ${fontSize}px 'Inter', sans-serif`;
+        const dotSpace = dotColor ? 14 : 0;
+        const tw = c.measureText(text).width + dotSpace;
+        const pw = tw + padX * 2;
+        const ph = fontSize + padY * 2;
+        roundRectPath(c, x, y, pw, ph, 999);
+        c.fillStyle = bg;
+        c.fill();
+        if (borderCol) {
+          c.strokeStyle = borderCol;
+          c.lineWidth = 1;
+          c.stroke();
+        }
+        if (dotColor) {
+          c.beginPath();
+          c.arc(x + padX + 4, y + ph * 0.5, 3.8, 0, Math.PI * 2);
+          c.fillStyle = dotColor;
+          c.shadowColor = dotColor;
+          c.shadowBlur = 8;
+          c.fill();
+          c.shadowBlur = 0;
+        }
+        c.fillStyle = fg;
+        c.textBaseline = 'middle';
+        c.textAlign = 'left';
+        c.fillText(text, x + padX + dotSpace, y + ph * 0.5 + 0.5);
+        c.restore();
+        return pw;
+      }
+
+      function drawTaskCard(c, x, y, w, h, tagText, tagBg, tagFg, rightLabel, rightColor, titleLines, footLeft, footRight, footRightColor, borderColor = 'rgba(255,255,255,0.08)', bgColor = '#131122', glowColor = null) {
+        c.save();
+        if (glowColor) {
+          c.shadowColor = glowColor;
+          c.shadowBlur = 24;
+        }
+        roundRectPath(c, x, y, w, h, 14);
+        c.fillStyle = bgColor;
+        c.fill();
+        c.shadowBlur = 0;
+        c.strokeStyle = borderColor;
+        c.lineWidth = glowColor ? 1.8 : 1;
+        c.stroke();
+
+        // Tag
+        c.font = `700 9.5px 'Inter', sans-serif`;
+        const tw = c.measureText(tagText).width + 16;
+        roundRectPath(c, x + 16, y + 14, tw, 20, 6);
+        c.fillStyle = tagBg;
+        c.fill();
+        c.fillStyle = tagFg;
+        c.textAlign = 'left';
+        c.textBaseline = 'middle';
+        c.fillText(tagText, x + 24, y + 24.5);
+
+        // Right status
+        c.fillStyle = rightColor;
+        c.font = `600 10.5px 'Inter', sans-serif`;
+        c.textAlign = 'right';
+        c.fillText(rightLabel, x + w - 16, y + 24.5);
+
+        // Title lines
+        c.fillStyle = '#FFFFFF';
+        c.font = `600 14.5px 'Inter', sans-serif`;
+        c.textAlign = 'left';
+        if ('letterSpacing' in c) c.letterSpacing = '-0.015em';
+        for (let i = 0; i < titleLines.length; i++) {
+          c.fillText(titleLines[i], x + 16, y + 56 + i * 20);
+        }
+
+        // Footer
+        c.fillStyle = '#94A3B8';
+        c.font = `500 11px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '0px';
+        c.fillText(footLeft, x + 16, y + h - 18);
+
+        c.fillStyle = footRightColor;
+        c.font = `700 11px 'Inter', sans-serif`;
+        c.textAlign = 'right';
+        c.fillText(footRight, x + w - 16, y + h - 18);
+        c.restore();
+      }
+
+      // ======================================================================
+      // SAHNE A: Şeffaf Süreç & Çevik Sprint Yönetimi (Kanban + İvme Hattı)
+      // ======================================================================
+      function drawSprintBoardScene(c, progress, alpha) {
+        if (alpha <= 0.005) return;
+        c.save();
+        c.globalAlpha = alpha;
+
+        // Kamera hafif yakınlaşma ve süzülme
+        const zoom = lerp(0.96, 1.01, progress);
+        const panX = lerp(-12, 12, progress);
+        const panY = lerp(8, -8, progress);
+        c.translate(510 + panX, 394 + panY);
+        c.scale(zoom, zoom);
+        c.translate(-510, -394);
+
+        const px = 24, py = 22, pw = 972, ph = 744;
+        roundRectPath(c, px, py, pw, ph, 22);
+        c.fillStyle = '#0E0C1A';
+        c.fill();
+        c.strokeStyle = 'rgba(167, 139, 250, 0.18)';
+        c.lineWidth = 1.4;
+        c.stroke();
+
+        // Üst Başlık Barı
+        c.fillStyle = '#A78BFA';
+        c.font = `800 18px 'Inter', sans-serif`;
+        c.textAlign = 'left';
+        c.textBaseline = 'middle';
+        if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+        c.fillText('ROASİST', px + 32, py + 42);
+
+        c.fillStyle = 'rgba(255,255,255,0.14)';
+        c.fillRect(px + 124, py + 30, 1, 24);
+
+        c.fillStyle = '#E2E8F0';
+        c.font = `500 14.5px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
+        c.fillText('Şeffaf Süreç & Çevik Sprint Yönetimi', px + 140, py + 42);
+
+        drawBadge(
+          c, px + pw - 365, py + 28,
+          'Canlı Müşteri Paneli Aktif',
+          'rgba(16, 185, 129, 0.11)', '#6EE7B7', 'rgba(16, 185, 129, 0.28)',
+          11.5, 14, 7, '#10B981'
+        );
+        drawBadge(
+          c, px + pw - 160, py + 28,
+          'Sprint #04 · Hafta 6',
+          '#7601FF', '#FFFFFF', null,
+          11.5, 14, 7, null
+        );
+
+        c.fillStyle = 'rgba(255,255,255,0.07)';
+        c.fillRect(px + 32, py + 72, pw - 64, 1);
+
+        // 4 Aşamalı Sprint İlerleme Barı Kartı
+        const tx = px + 32, ty = py + 92, tw = pw - 64, th = 126;
+        roundRectPath(c, tx, ty, tw, th, 16);
+        c.fillStyle = '#131122';
+        c.fill();
+        c.strokeStyle = 'rgba(255,255,255,0.08)';
+        c.lineWidth = 1;
+        c.stroke();
+
+        c.fillStyle = '#94A3B8';
+        c.font = `700 11px 'Inter', sans-serif`;
+        c.textAlign = 'left';
+        c.fillText('PROJE İVME HATTI', tx + 22, ty + 26);
+
+        c.textAlign = 'right';
+        c.fillStyle = '#10B981';
+        c.font = `600 12px 'Inter', sans-serif`;
+        c.fillText('Teslimat Zamanlaması: %100 Planlanan Takvimde', tx + tw - 22, ty + 26);
+
+        // Progress Bar Çizgisi
+        const barX = tx + 22, barY = ty + 52, barW = tw - 44, barH = 7;
+        roundRectPath(c, barX, barY, barW, barH, 99);
+        c.fillStyle = 'rgba(255,255,255,0.08)';
+        c.fill();
+
+        const fillProg = lerp(0.56, 0.88, smoothstep(0.05, 0.85, progress));
+        const fillGrad = c.createLinearGradient(barX, 0, barX + barW * fillProg, 0);
+        fillGrad.addColorStop(0, '#7601FF');
+        fillGrad.addColorStop(1, '#A78BFA');
+        roundRectPath(c, barX, barY, barW * fillProg, barH, 99);
+        c.fillStyle = fillGrad;
+        c.fill();
+
+        const stages = [
+          { code: '01 · GÜN 1–7', name: 'Veri & Takip Kurulumu', active: true },
+          { code: '02 · HAFTA 2–3', name: 'Kreatif & Huni Üretimi', active: true },
+          { code: '03 · HAFTA 4–6', name: 'Hızlı A/B Test & CRO', active: true },
+          { code: '04 · SÜREKLİ İVME', name: 'Kârlı Ölçeklendirme', active: fillProg > 0.78 }
+        ];
+        const colW = (tw - 44) / 4;
+        c.textAlign = 'left';
+        for (let i = 0; i < 4; i++) {
+          const sx = tx + 22 + i * colW;
+          c.fillStyle = stages[i].active ? '#A78BFA' : '#64748B';
+          c.font = `700 10px 'Inter', sans-serif`;
+          c.fillText(stages[i].code, sx, ty + 82);
+
+          c.fillStyle = stages[i].active ? '#FFFFFF' : '#94A3B8';
+          c.font = `600 13.5px 'Inter', sans-serif`;
+          c.fillText(stages[i].name, sx, ty + 102);
+        }
+
+        // 3 Sütunlu Çevik Kanban Panosu
+        const ky = ty + th + 20;
+        const kh = ph - (ky - py) - 28;
+        const kw = (tw - 36) / 3;
+
+        const cols = [
+          { title: 'Sıradaki Adımlar', badge: '2 Görev', badgeBg: 'rgba(255,255,255,0.07)', badgeFg: '#94A3B8', border: 'rgba(255,255,255,0.07)', dot: null },
+          { title: 'Aktif Sprint #04', badge: 'Devam Eden', badgeBg: 'rgba(118,1,255,0.20)', badgeFg: '#D8B4FE', border: 'rgba(167,139,250,0.28)', dot: '#A78BFA' },
+          { title: 'Tamamlandı & Yayında', badge: 'Doğrulandı', badgeBg: 'rgba(16,185,129,0.14)', badgeFg: '#6EE7B7', border: 'rgba(16,185,129,0.24)', dot: '#10B981' }
+        ];
+
+        for (let i = 0; i < 3; i++) {
+          const cx = tx + i * (kw + 18);
+          roundRectPath(c, cx, ky, kw, kh, 18);
+          c.fillStyle = '#110F1E';
+          c.fill();
+          c.strokeStyle = cols[i].border;
+          c.lineWidth = 1.2;
+          c.stroke();
+
+          let titleX = cx + 18;
+          if (cols[i].dot) {
+            c.beginPath();
+            c.arc(cx + 22, ky + 26, 4, 0, Math.PI * 2);
+            c.fillStyle = cols[i].dot;
+            c.fill();
+            titleX += 14;
+          }
+          c.fillStyle = '#FFFFFF';
+          c.font = `600 13px 'Inter', sans-serif`;
+          c.textAlign = 'left';
+          c.fillText(cols[i].title, titleX, ky + 26);
+
+          drawBadge(c, cx + kw - 92, ky + 15, cols[i].badge, cols[i].badgeBg, cols[i].badgeFg, null, 10, 10, 4);
+        }
+
+        const c1x = tx;
+        const c2x = tx + (kw + 18);
+        const c3x = tx + 2 * (kw + 18);
+        const cardW = kw - 32;
+        const cardH = 128;
+
+        // Sütun 1 Kartları
+        drawTaskCard(
+          c, c1x + 16, ky + 52, cardW, cardH,
+          'YENİ PAZAR', 'rgba(118,1,255,0.18)', '#C4B5FD', 'Sprint #05', '#94A3B8',
+          ['Almanya & İngiltere Çok Dilli', 'Kampanya Genişlemesi'],
+          'Medya Planlama', 'Hazır %85', '#E2E8F0'
+        );
+        drawTaskCard(
+          c, c1x + 16, ky + 52 + cardH + 14, cardW, cardH,
+          'AEO & SEO', 'rgba(255,255,255,0.08)', '#CBD5E1', 'Sprint #05', '#94A3B8',
+          ['Yapay Zeka Arama Görünürlük', '& İçerik Kümeleri'],
+          'Organik Büyüme', 'Planlandı', '#E2E8F0'
+        );
+
+        // Sütun 2 Kesikli Yuva (Kart buradan Sütun 3'e kayar)
+        roundRectPath(c, c2x + 16, ky + 52, cardW, cardH, 14);
+        c.fillStyle = 'rgba(118, 1, 255, 0.04)';
+        c.fill();
+        c.save();
+        c.setLineDash([6, 5]);
+        c.strokeStyle = 'rgba(167, 139, 250, 0.28)';
+        c.lineWidth = 1.2;
+        c.stroke();
+        c.restore();
+        c.fillStyle = 'rgba(216, 180, 254, 0.45)';
+        c.font = `500 12px 'Inter', sans-serif`;
+        c.textAlign = 'center';
+        c.fillText('Canlı Yayına Aktarıldı', c2x + 16 + cardW * 0.5, ky + 52 + cardH * 0.5);
+
+        // Sütun 2 Alt Kart
+        drawTaskCard(
+          c, c2x + 16, ky + 52 + cardH + 14, cardW, cardH,
+          'KREATİF TEST', 'rgba(118,1,255,0.18)', '#D8B4FE', 'Canlı Test', '#C4B5FD',
+          ['Video Kanca A/B Varyasyonları', '(İlk 3 Saniye Kurgusu)'],
+          'Test İlerlemesi', '%78 Tamamlandı', '#A78BFA'
+        );
+
+        // Sütun 3 Üst Kart
+        drawTaskCard(
+          c, c3x + 16, ky + 52, cardW, cardH,
+          'VERİ ALTYAPISI', 'rgba(16,185,129,0.15)', '#6EE7B7', '✓ Aktif', '#6EE7B7',
+          ['GA4 + Server-Side GTM &', 'CRM Dönüşüm Eşleşmesi'],
+          'Veri Doğruluğu', '%98.4 Eşleşme', '#6EE7B7',
+          'rgba(16,185,129,0.24)'
+        );
+
+        // Sütun 3 Hedef Kesikli Yuva
+        const destX = c3x + 16;
+        const destY = ky + 52 + cardH + 14;
+        roundRectPath(c, destX, destY, cardW, cardH, 14);
+        c.save();
+        c.setLineDash([6, 5]);
+        c.strokeStyle = 'rgba(255, 255, 255, 0.10)';
+        c.stroke();
+        c.restore();
+
+        // HAREKETLİ SPRINT KARTI (Sütun 2 Üst Yuvadan -> Sütun 3 Alt Yuvaya Süzülür)
+        const moveT = smoothstep(0.18, 0.68, progress);
+        const startX = c2x + 16;
+        const startY = ky + 52;
+        const curX = lerp(startX, destX, moveT);
+        const curY = lerp(startY, destY, moveT) - Math.sin(moveT * Math.PI) * 18;
+        const isDone = moveT > 0.75;
+
+        drawTaskCard(
+          c, curX, curY, cardW, cardH,
+          'CRO & PERFORMANS',
+          isDone ? 'rgba(16,185,129,0.20)' : '#7601FF',
+          isDone ? '#6EE7B7' : '#FFFFFF',
+          isDone ? '✓ Yayında' : 'Yayına Alınıyor...',
+          isDone ? '#6EE7B7' : '#D8B4FE',
+          ['Açılış Sayfası Hız & Teklif', 'Kurgusu Optimizasyonu'],
+          'Sprint #04',
+          '+%38 Dönüşüm Artışı',
+          isDone ? '#6EE7B7' : '#FFFFFF',
+          isDone ? '#10B981' : '#A78BFA',
+          isDone ? '#111F1D' : '#1B1630',
+          isDone ? 'rgba(16, 185, 129, 0.35)' : 'rgba(118, 1, 255, 0.42)'
+        );
+
+        c.restore();
+      }
+
+      // ======================================================================
+      // SAHNE B: Gerçek Zamanlı Performans & ROAS İvme Paneli (Canlı Spline)
+      // ======================================================================
+      function drawMomentumCockpitScene(c, progress, alpha) {
+        if (alpha <= 0.005) return;
+        c.save();
+        c.globalAlpha = alpha;
+
+        const zoom = lerp(0.97, 1.01, progress);
+        c.translate(510, 394);
+        c.scale(zoom, zoom);
+        c.translate(-510, -394);
+
+        const px = 24, py = 22, pw = 972, ph = 744;
+        roundRectPath(c, px, py, pw, ph, 22);
+        c.fillStyle = '#0E0C1A';
+        c.fill();
+        c.strokeStyle = 'rgba(167, 139, 250, 0.18)';
+        c.lineWidth = 1.4;
+        c.stroke();
+
+        // Üst Bar
+        c.fillStyle = '#A78BFA';
+        c.font = `800 18px 'Inter', sans-serif`;
+        c.textAlign = 'left';
+        c.textBaseline = 'middle';
+        if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+        c.fillText('ROASİST', px + 32, py + 42);
+
+        c.fillStyle = 'rgba(255,255,255,0.14)';
+        c.fillRect(px + 124, py + 30, 1, 24);
+
+        c.fillStyle = '#E2E8F0';
+        c.font = `500 14.5px 'Inter', sans-serif`;
+        if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
+        c.fillText('Gerçek Zamanlı Performans & İvme Paneli', px + 140, py + 42);
+
+        drawBadge(
+          c, px + pw - 365, py + 28,
+          'Google Ads · Meta · TikTok · GA4',
+          'rgba(255,255,255,0.06)', '#CBD5E1', null,
+          11, 14, 7, null
+        );
+        drawBadge(
+          c, px + pw - 138, py + 28,
+          'CANLI VERİ',
+          'rgba(16, 185, 129, 0.12)', '#6EE7B7', 'rgba(16, 185, 129, 0.30)',
+          11, 14, 7, '#10B981'
+        );
+
+        // Üst 3 KPI Kartı (Canlı Sayaçlarla)
+        const curveT = smoothstep(0.06, 0.78, progress);
+        const currentRoas = lerp(2.5, 6.4, curveT);
+        const currentCpa = Math.round(lerp(12, 38, curveT));
+
+        const kpiY = py + 82;
+        const kpiH = 118;
+        const kpiW = (pw - 64 - 32) / 3;
+
+        // KPI 1: ROAS
+        {
+          const kx = px + 32;
+          roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
+          const g = c.createLinearGradient(kx, kpiY, kx, kpiY + kpiH);
+          g.addColorStop(0, '#1A1430');
+          g.addColorStop(1, '#121020');
+          c.fillStyle = g;
+          c.fill();
+          c.strokeStyle = 'rgba(167, 139, 250, 0.35)';
+          c.lineWidth = 1.2;
+          c.stroke();
+
+          c.fillStyle = '#A1A1AA';
+          c.font = `600 10.5px 'Inter', sans-serif`;
+          c.textAlign = 'left';
+          c.fillText('BİRLEŞİK KÂRLILIK (ROAS)', kx + 20, kpiY + 28);
+
+          c.fillStyle = '#FFFFFF';
+          c.font = `800 38px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+          c.fillText(`${currentRoas.toFixed(1)}x`, kx + 20, kpiY + 76);
+
+          drawBadge(c, kx + 125, kpiY + 62, '+106% İvme', 'rgba(118, 1, 255, 0.26)', '#D8B4FE', null, 11, 10, 4);
+        }
+
+        // KPI 2: CPA
+        {
+          const kx = px + 32 + kpiW + 16;
+          roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
+          c.fillStyle = '#131122';
+          c.fill();
+          c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+          c.lineWidth = 1;
+          c.stroke();
+
+          c.fillStyle = '#A1A1AA';
+          c.font = `600 10.5px 'Inter', sans-serif`;
+          c.textAlign = 'left';
+          c.fillText('EDİNME MALİYETİ (CPA)', kx + 20, kpiY + 28);
+
+          c.fillStyle = '#FFFFFF';
+          c.font = `800 38px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+          c.fillText(`-%${currentCpa}`, kx + 20, kpiY + 76);
+
+          drawBadge(c, kx + 135, kpiY + 62, 'Optimize', 'rgba(16, 185, 129, 0.16)', '#6EE7B7', null, 11, 10, 4);
+        }
+
+        // KPI 3: SPRINT TESLİMAT HIZI
+        {
+          const kx = px + 32 + (kpiW + 16) * 2;
+          roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
+          c.fillStyle = '#131122';
+          c.fill();
+          c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+          c.lineWidth = 1;
+          c.stroke();
+
+          c.fillStyle = '#A1A1AA';
+          c.font = `600 10.5px 'Inter', sans-serif`;
+          c.textAlign = 'left';
+          c.fillText('SPRINT TESLİMAT HIZI', kx + 20, kpiY + 28);
+
+          c.fillStyle = '#FFFFFF';
+          c.font = `800 38px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+          c.fillText('%98.2', kx + 20, kpiY + 76);
+
+          c.fillStyle = '#94A3B8';
+          c.font = `500 11.5px 'Inter', sans-serif`;
+          if ('letterSpacing' in c) c.letterSpacing = '0px';
+          c.fillText('Haftalık Hedef', kx + 148, kpiY + 78);
+        }
+
+        // Ana Grafik Kartı: Sprint Bazlı Büyüme & ROAS İvmesi
+        const cx = px + 32, cy = kpiY + kpiH + 20, cw = pw - 64, ch = ph - (cy - py) - 28;
+        roundRectPath(c, cx, cy, cw, ch, 18);
+        c.fillStyle = '#110F1E';
+        c.fill();
+        c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        c.lineWidth = 1;
+        c.stroke();
+
+        c.fillStyle = '#FFFFFF';
+        c.font = `700 16px 'Inter', sans-serif`;
+        c.textAlign = 'left';
+        c.fillText('Sprint Bazlı Büyüme & ROAS İvmesi', cx + 24, cy + 32);
+
+        c.fillStyle = '#94A3B8';
+        c.font = `500 12px 'Inter', sans-serif`;
+        c.fillText('Her iki haftalık sprint sonunda doğrulanan kümülatif reklam verimliliği', cx + 24, cy + 52);
+
+        // Lejant
+        c.fillStyle = '#7601FF';
+        roundRectPath(c, cx + cw - 260, cy + 28, 10, 10, 3);
+        c.fill();
+        c.fillStyle = '#CBD5E1';
+        c.font = `500 11.5px 'Inter', sans-serif`;
+        c.fillText('Gerçekleşen ROAS', cx + cw - 244, cy + 33.5);
+
+        c.fillStyle = '#475569';
+        c.fillRect(cx + cw - 120, cy + 32, 10, 2);
+        c.fillStyle = '#94A3B8';
+        c.fillText('Başlangıç Bazı', cx + cw - 104, cy + 33.5);
+
+        // Grafik Izgara Çizgileri
+        const plotX0 = cx + 68, plotX1 = cx + cw - 36;
+        const plotY0 = cy + 96, plotY1 = cy + ch - 58;
+        const yLabels = ['7.0x', '5.5x', '4.0x', '2.5x'];
+
+        for (let i = 0; i < 4; i++) {
+          const gy = lerp(plotY0, plotY1, i / 3);
+          c.fillStyle = '#64748B';
+          c.font = `500 11px 'Inter', sans-serif`;
+          c.textAlign = 'left';
+          c.fillText(yLabels[i], cx + 24, gy);
+
+          c.beginPath();
+          c.moveTo(plotX0, gy);
+          c.lineTo(plotX1, gy);
+          c.strokeStyle = (i === 3) ? 'rgba(148, 163, 184, 0.22)' : 'rgba(255, 255, 255, 0.05)';
+          c.lineWidth = 1;
+          c.stroke();
+        }
+
+        // X Ekseni Sprint Etiketleri
+        const sprints = [
+          'Sprint 01 · Kurulum',
+          'Sprint 02 · Kreatif',
+          'Sprint 03 · CRO',
+          'Sprint 04 · Ölçek',
+          'Sprint 05 · Otomasyon',
+          'Sprint 06 · 6.4x ROAS'
+        ];
+        const pts = [];
+        const roasValues = [2.5, 3.2, 4.1, 5.0, 5.8, 6.4];
+
+        for (let i = 0; i < 6; i++) {
+          const sx = lerp(plotX0, plotX1, i / 5);
+          const normVal = (roasValues[i] - 2.5) / (7.0 - 2.5);
+          const sy = lerp(plotY1, plotY0, normVal);
+          pts.push({ x: sx, y: sy, val: roasValues[i] });
+
+          c.fillStyle = (i === 5) ? '#D8B4FE' : '#94A3B8';
+          c.font = `600 11px 'Inter', sans-serif`;
+          c.textAlign = 'center';
+          c.fillText(sprints[i], sx, cy + ch - 24);
+        }
+
+        // Canlı Büyüme Eğrisi (curveT ilerledikçe soldan sağa çizilir)
+        const totalSegs = 5;
+        const activeFloat = curveT * totalSegs;
+        const activeIdx = Math.min(totalSegs - 1, Math.floor(activeFloat));
+        const segFrac = activeFloat - activeIdx;
+
+        const tipX = lerp(pts[activeIdx].x, pts[activeIdx + 1].x, segFrac);
+        const tipY = lerp(pts[activeIdx].y, pts[activeIdx + 1].y, segFrac);
+
+        // Eğri Altı Gradyan Dolgu
+        c.save();
+        c.beginPath();
+        c.moveTo(pts[0].x, plotY1);
+        for (let i = 0; i <= activeIdx; i++) {
+          c.lineTo(pts[i].x, pts[i].y);
+        }
+        c.lineTo(tipX, tipY);
+        c.lineTo(tipX, plotY1);
+        c.closePath();
+        const areaGrad = c.createLinearGradient(0, plotY0, 0, plotY1);
+        areaGrad.addColorStop(0, 'rgba(118, 1, 255, 0.34)');
+        areaGrad.addColorStop(1, 'rgba(118, 1, 255, 0.0)');
+        c.fillStyle = areaGrad;
+        c.fill();
+        c.restore();
+
+        // Parlayan Ana Eğri Çizgisi
+        c.save();
+        c.beginPath();
+        c.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i <= activeIdx; i++) {
+          c.lineTo(pts[i].x, pts[i].y);
+        }
+        c.lineTo(tipX, tipY);
+        c.strokeStyle = '#9333EA';
+        c.lineWidth = 3.5;
+        c.shadowColor = '#7601FF';
+        c.shadowBlur = 16;
+        c.stroke();
+        c.restore();
+
+        // Veri Noktaları
+        for (let i = 0; i <= activeIdx; i++) {
+          c.beginPath();
+          c.arc(pts[i].x, pts[i].y, 4.5, 0, Math.PI * 2);
+          c.fillStyle = '#FFFFFF';
+          c.fill();
+          c.strokeStyle = '#7601FF';
+          c.lineWidth = 2;
+          c.stroke();
+        }
+
+        // Eğri Ucu Canlı Nokta + Yüzen Rozet (CANLI İVME: 6.4x ROAS)
+        c.save();
+        c.beginPath();
+        c.arc(tipX, tipY, 6, 0, Math.PI * 2);
+        c.fillStyle = '#FFFFFF';
+        c.shadowColor = '#10B981';
+        c.shadowBlur = 14;
+        c.fill();
+        c.strokeStyle = '#10B981';
+        c.lineWidth = 2.5;
+        c.stroke();
+        c.restore();
+
+        const badgeW = 190, badgeH = 64;
+        const bx = Math.min(plotX1 - badgeW, Math.max(plotX0, tipX - badgeW * 0.75));
+        const by = tipY - badgeH - 18;
+        c.save();
+        c.shadowColor = 'rgba(118, 1, 255, 0.45)';
+        c.shadowBlur = 24;
+        roundRectPath(c, bx, by, badgeW, badgeH, 14);
+        c.fillStyle = '#7601FF';
+        c.fill();
+        c.shadowBlur = 0;
+        c.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        c.lineWidth = 1.2;
+        c.stroke();
+
+        c.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        c.font = `700 9.5px 'Inter', sans-serif`;
+        c.textAlign = 'left';
+        c.fillText('CANLI İVME', bx + 14, by + 20);
+
+        c.fillStyle = '#FFFFFF';
+        c.font = `800 19px 'Inter', sans-serif`;
+        c.fillText(`${currentRoas.toFixed(1)}x ROAS`, bx + 14, by + 44);
+
+        drawBadge(c, bx + badgeW - 64, by + 22, '+106%', 'rgba(255,255,255,0.18)', '#FFFFFF', null, 11, 8, 4);
+        c.restore();
+
+        c.restore();
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas, { passive: true });
+
+      const startTime = performance.now();
+      const CYCLE_SECONDS = 12.0; // 6sn Çevik Sprint Panosu + 6sn Gerçek Zamanlı Performans Kokpiti
+
+      function renderFrame(now) {
+        const elapsed = (now - startTime) * 0.001;
+        const cycleTime = elapsed % CYCLE_SECONDS;
+
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        ctx.fillStyle = '#0B0914';
+        ctx.fillRect(0, 0, width, height);
+
+        const scale = Math.min(width / 1020, height / 788);
+        ctx.translate((width - 1020 * scale) * 0.5, (height - 788 * scale) * 0.5);
+        ctx.scale(scale, scale);
+
+        // Yumuşak geçiş (Crossfade: 0..6sn Sahne A, 6..12sn Sahne B)
+        let alphaA = 0, alphaB = 0;
+        const fadeDur = 0.85;
+        if (cycleTime < 6.0 - fadeDur) {
+          alphaA = cycleTime < fadeDur ? smoothstep(0, fadeDur, cycleTime) : 1;
+          alphaB = cycleTime < fadeDur ? 1 - alphaA : 0;
+        } else if (cycleTime < 6.0) {
+          const t = (cycleTime - (6.0 - fadeDur)) / fadeDur;
+          alphaA = 1 - smoothstep(0, 1, t);
+          alphaB = smoothstep(0, 1, t);
+        } else if (cycleTime < 12.0 - fadeDur) {
+          alphaA = 0;
+          alphaB = 1;
+        } else {
+          const t = (cycleTime - (12.0 - fadeDur)) / fadeDur;
+          alphaB = 1 - smoothstep(0, 1, t);
+          alphaA = smoothstep(0, 1, t);
+        }
+
+        const progA = Math.min(1, cycleTime / 6.0);
+        const progB = cycleTime >= 6.0 ? Math.min(1, (cycleTime - 6.0) / 6.0) : 1.0;
+
+        drawSprintBoardScene(ctx, progA, alphaA);
+        drawMomentumCockpitScene(ctx, progB, alphaB);
+
+        ctx.restore();
+        requestAnimationFrame(renderFrame);
+      }
+
+      requestAnimationFrame(renderFrame);
+    })();
+  </script>
+</body>
+</html>

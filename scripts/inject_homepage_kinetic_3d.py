@@ -1,7 +1,8 @@
-"""Inject the 60 FPS HTML + CSS + Canvas animations for BOTH:
+"""Inject the 60 FPS HTML + CSS + Canvas animations for ALL THREE methodology cards:
   - Slide 1 ('Önce veri ve strateji'): 3D Z-Axis Kinetic Typography (15 words)
   - Slide 2 ('Yaratıcı ve cesur fikir'): 3D Perspective Creative Bento & Particle Sphere
-and eliminate the 9.5 MB MP4 video downloads for Slides 1 & 2 across public/ and dist/."""
+  - Slide 3 ('Kusursuz süreç yönetimi'): Agile Sprint Kanban Board & Real-Time ROAS Momentum Cockpit
+and eliminate the 12.6 MB MP4 video downloads for Slides 1, 2 & 3 across public/ and dist/."""
 
 import pathlib
 import re
@@ -19,7 +20,8 @@ KINETIC_3D_BLOCK = """<style data-roasist-kinetic-3d-style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap&subset=latin,latin-ext');
 
 html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx,
-html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx {
+html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx,
+html body #carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx {
   background-color: #0B0914 !important;
   border-radius: 24px !important;
   overflow: hidden !important;
@@ -41,12 +43,14 @@ html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aq
 }
 
 html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx video,
-html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx video {
+html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx video,
+html body #carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx video {
   display: none !important;
 }
 
 html body .roasist-kinetic-3d-canvas,
-html body .roasist-creative-bento-canvas {
+html body .roasist-creative-bento-canvas,
+html body .roasist-process-cockpit-canvas {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
@@ -734,10 +738,650 @@ html body .roasist-creative-bento-canvas {
   }
 
   // ==========================================================================
+  // SLIDE 3: "Kusursuz süreç yönetimi" — Agile Sprint Kanban & ROAS Cockpit
+  // ==========================================================================
+  function smoothstepS3(edge0, edge1, x) {
+    const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+    return t * t * (3 - 2 * t);
+  }
+
+  function lerpS3(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function drawBadgeS3(c, x, y, text, bg, fg, borderCol, fontSize = 11, padX = 12, padY = 5, dotColor = null) {
+    c.save();
+    c.font = `600 ${fontSize}px 'Inter', sans-serif`;
+    const dotSpace = dotColor ? 14 : 0;
+    const tw = c.measureText(text).width + dotSpace;
+    const pw = tw + padX * 2;
+    const ph = fontSize + padY * 2;
+    roundRectPath(c, x, y, pw, ph, 999);
+    c.fillStyle = bg;
+    c.fill();
+    if (borderCol) {
+      c.strokeStyle = borderCol;
+      c.lineWidth = 1;
+      c.stroke();
+    }
+    if (dotColor) {
+      c.beginPath();
+      c.arc(x + padX + 4, y + ph * 0.5, 3.8, 0, Math.PI * 2);
+      c.fillStyle = dotColor;
+      c.shadowColor = dotColor;
+      c.shadowBlur = 8;
+      c.fill();
+      c.shadowBlur = 0;
+    }
+    c.fillStyle = fg;
+    c.textBaseline = 'middle';
+    c.textAlign = 'left';
+    c.fillText(text, x + padX + dotSpace, y + ph * 0.5 + 0.5);
+    c.restore();
+    return pw;
+  }
+
+  function drawTaskCardS3(c, x, y, w, h, tagText, tagBg, tagFg, rightLabel, rightColor, titleLines, footLeft, footRight, footRightColor, borderColor = 'rgba(255,255,255,0.08)', bgColor = '#131122', glowColor = null) {
+    c.save();
+    if (glowColor) {
+      c.shadowColor = glowColor;
+      c.shadowBlur = 24;
+    }
+    roundRectPath(c, x, y, w, h, 14);
+    c.fillStyle = bgColor;
+    c.fill();
+    c.shadowBlur = 0;
+    c.strokeStyle = borderColor;
+    c.lineWidth = glowColor ? 1.8 : 1;
+    c.stroke();
+
+    c.font = `700 9.5px 'Inter', sans-serif`;
+    const tw = c.measureText(tagText).width + 16;
+    roundRectPath(c, x + 16, y + 14, tw, 20, 6);
+    c.fillStyle = tagBg;
+    c.fill();
+    c.fillStyle = tagFg;
+    c.textAlign = 'left';
+    c.textBaseline = 'middle';
+    c.fillText(tagText, x + 24, y + 24.5);
+
+    c.fillStyle = rightColor;
+    c.font = `600 10.5px 'Inter', sans-serif`;
+    c.textAlign = 'right';
+    c.fillText(rightLabel, x + w - 16, y + 24.5);
+
+    c.fillStyle = '#FFFFFF';
+    c.font = `600 14.5px 'Inter', sans-serif`;
+    c.textAlign = 'left';
+    if ('letterSpacing' in c) c.letterSpacing = '-0.015em';
+    for (let i = 0; i < titleLines.length; i++) {
+      c.fillText(titleLines[i], x + 16, y + 56 + i * 20);
+    }
+
+    c.fillStyle = '#94A3B8';
+    c.font = `500 11px 'Inter', sans-serif`;
+    if ('letterSpacing' in c) c.letterSpacing = '0px';
+    c.fillText(footLeft, x + 16, y + h - 18);
+
+    c.fillStyle = footRightColor;
+    c.font = `700 11px 'Inter', sans-serif`;
+    c.textAlign = 'right';
+    c.fillText(footRight, x + w - 16, y + h - 18);
+    c.restore();
+  }
+
+  function drawSprintBoardScene(c, progress, alpha) {
+    if (alpha <= 0.005) return;
+    c.save();
+    c.globalAlpha = alpha;
+
+    const zoom = lerpS3(0.96, 1.01, progress);
+    const panX = lerpS3(-12, 12, progress);
+    const panY = lerpS3(8, -8, progress);
+    c.translate(510 + panX, 394 + panY);
+    c.scale(zoom, zoom);
+    c.translate(-510, -394);
+
+    const px = 24, py = 22, pw = 972, ph = 744;
+    roundRectPath(c, px, py, pw, ph, 22);
+    c.fillStyle = '#0E0C1A';
+    c.fill();
+    c.strokeStyle = 'rgba(167, 139, 250, 0.18)';
+    c.lineWidth = 1.4;
+    c.stroke();
+
+    c.fillStyle = '#A78BFA';
+    c.font = `800 18px 'Inter', sans-serif`;
+    c.textAlign = 'left';
+    c.textBaseline = 'middle';
+    if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+    c.fillText('ROASİST', px + 32, py + 42);
+
+    c.fillStyle = 'rgba(255,255,255,0.14)';
+    c.fillRect(px + 124, py + 30, 1, 24);
+
+    c.fillStyle = '#E2E8F0';
+    c.font = `500 14.5px 'Inter', sans-serif`;
+    if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
+    c.fillText('Şeffaf Süreç & Çevik Sprint Yönetimi', px + 140, py + 42);
+
+    drawBadgeS3(
+      c, px + pw - 365, py + 28,
+      'Canlı Müşteri Paneli Aktif',
+      'rgba(16, 185, 129, 0.11)', '#6EE7B7', 'rgba(16, 185, 129, 0.28)',
+      11.5, 14, 7, '#10B981'
+    );
+    drawBadgeS3(
+      c, px + pw - 160, py + 28,
+      'Sprint #04 · Hafta 6',
+      '#7601FF', '#FFFFFF', null,
+      11.5, 14, 7, null
+    );
+
+    c.fillStyle = 'rgba(255,255,255,0.07)';
+    c.fillRect(px + 32, py + 72, pw - 64, 1);
+
+    const tx = px + 32, ty = py + 92, tw = pw - 64, th = 126;
+    roundRectPath(c, tx, ty, tw, th, 16);
+    c.fillStyle = '#131122';
+    c.fill();
+    c.strokeStyle = 'rgba(255,255,255,0.08)';
+    c.lineWidth = 1;
+    c.stroke();
+
+    c.fillStyle = '#94A3B8';
+    c.font = `700 11px 'Inter', sans-serif`;
+    c.textAlign = 'left';
+    c.fillText('PROJE İVME HATTI', tx + 22, ty + 26);
+
+    c.textAlign = 'right';
+    c.fillStyle = '#10B981';
+    c.font = `600 12px 'Inter', sans-serif`;
+    c.fillText('Teslimat Zamanlaması: %100 Planlanan Takvimde', tx + tw - 22, ty + 26);
+
+    const barX = tx + 22, barY = ty + 52, barW = tw - 44, barH = 7;
+    roundRectPath(c, barX, barY, barW, barH, 99);
+    c.fillStyle = 'rgba(255,255,255,0.08)';
+    c.fill();
+
+    const fillProg = lerpS3(0.56, 0.88, smoothstepS3(0.05, 0.85, progress));
+    const fillGrad = c.createLinearGradient(barX, 0, barX + barW * fillProg, 0);
+    fillGrad.addColorStop(0, '#7601FF');
+    fillGrad.addColorStop(1, '#A78BFA');
+    roundRectPath(c, barX, barY, barW * fillProg, barH, 99);
+    c.fillStyle = fillGrad;
+    c.fill();
+
+    const stages = [
+      { code: '01 · GÜN 1–7', name: 'Veri & Takip Kurulumu', active: true },
+      { code: '02 · HAFTA 2–3', name: 'Kreatif & Huni Üretimi', active: true },
+      { code: '03 · HAFTA 4–6', name: 'Hızlı A/B Test & CRO', active: true },
+      { code: '04 · SÜREKLİ İVME', name: 'Kârlı Ölçeklendirme', active: fillProg > 0.78 }
+    ];
+    const colW = (tw - 44) / 4;
+    c.textAlign = 'left';
+    for (let i = 0; i < 4; i++) {
+      const sx = tx + 22 + i * colW;
+      c.fillStyle = stages[i].active ? '#A78BFA' : '#64748B';
+      c.font = `700 10px 'Inter', sans-serif`;
+      c.fillText(stages[i].code, sx, ty + 82);
+
+      c.fillStyle = stages[i].active ? '#FFFFFF' : '#94A3B8';
+      c.font = `600 13.5px 'Inter', sans-serif`;
+      c.fillText(stages[i].name, sx, ty + 102);
+    }
+
+    const ky = ty + th + 20;
+    const kh = ph - (ky - py) - 28;
+    const kw = (tw - 36) / 3;
+
+    const cols = [
+      { title: 'Sıradaki Adımlar', badge: '2 Görev', badgeBg: 'rgba(255,255,255,0.07)', badgeFg: '#94A3B8', border: 'rgba(255,255,255,0.07)', dot: null },
+      { title: 'Aktif Sprint #04', badge: 'Devam Eden', badgeBg: 'rgba(118,1,255,0.20)', badgeFg: '#D8B4FE', border: 'rgba(167,139,250,0.28)', dot: '#A78BFA' },
+      { title: 'Tamamlandı & Yayında', badge: 'Doğrulandı', badgeBg: 'rgba(16,185,129,0.14)', badgeFg: '#6EE7B7', border: 'rgba(16,185,129,0.24)', dot: '#10B981' }
+    ];
+
+    for (let i = 0; i < 3; i++) {
+      const cx = tx + i * (kw + 18);
+      roundRectPath(c, cx, ky, kw, kh, 18);
+      c.fillStyle = '#110F1E';
+      c.fill();
+      c.strokeStyle = cols[i].border;
+      c.lineWidth = 1.2;
+      c.stroke();
+
+      let titleX = cx + 18;
+      if (cols[i].dot) {
+        c.beginPath();
+        c.arc(cx + 22, ky + 26, 4, 0, Math.PI * 2);
+        c.fillStyle = cols[i].dot;
+        c.fill();
+        titleX += 14;
+      }
+      c.fillStyle = '#FFFFFF';
+      c.font = `600 13px 'Inter', sans-serif`;
+      c.textAlign = 'left';
+      c.fillText(cols[i].title, titleX, ky + 26);
+
+      drawBadgeS3(c, cx + kw - 92, ky + 15, cols[i].badge, cols[i].badgeBg, cols[i].badgeFg, null, 10, 10, 4);
+    }
+
+    const c1x = tx;
+    const c2x = tx + (kw + 18);
+    const c3x = tx + 2 * (kw + 18);
+    const cardW = kw - 32;
+    const cardH = 128;
+
+    drawTaskCardS3(
+      c, c1x + 16, ky + 52, cardW, cardH,
+      'YENİ PAZAR', 'rgba(118,1,255,0.18)', '#C4B5FD', 'Sprint #05', '#94A3B8',
+      ['Almanya & İngiltere Çok Dilli', 'Kampanya Genişlemesi'],
+      'Medya Planlama', 'Hazır %85', '#E2E8F0'
+    );
+    drawTaskCardS3(
+      c, c1x + 16, ky + 52 + cardH + 14, cardW, cardH,
+      'AEO & SEO', 'rgba(255,255,255,0.08)', '#CBD5E1', 'Sprint #05', '#94A3B8',
+      ['Yapay Zeka Arama Görünürlük', '& İçerik Kümeleri'],
+      'Organik Büyüme', 'Planlandı', '#E2E8F0'
+    );
+
+    roundRectPath(c, c2x + 16, ky + 52, cardW, cardH, 14);
+    c.fillStyle = 'rgba(118, 1, 255, 0.04)';
+    c.fill();
+    c.save();
+    c.setLineDash([6, 5]);
+    c.strokeStyle = 'rgba(167, 139, 250, 0.28)';
+    c.lineWidth = 1.2;
+    c.stroke();
+    c.restore();
+    c.fillStyle = 'rgba(216, 180, 254, 0.45)';
+    c.font = `500 12px 'Inter', sans-serif`;
+    c.textAlign = 'center';
+    c.fillText('Canlı Yayına Aktarıldı', c2x + 16 + cardW * 0.5, ky + 52 + cardH * 0.5);
+
+    drawTaskCardS3(
+      c, c2x + 16, ky + 52 + cardH + 14, cardW, cardH,
+      'KREATİF TEST', 'rgba(118,1,255,0.18)', '#D8B4FE', 'Canlı Test', '#C4B5FD',
+      ['Video Kanca A/B Varyasyonları', '(İlk 3 Saniye Kurgusu)'],
+      'Test İlerlemesi', '%78 Tamamlandı', '#A78BFA'
+    );
+
+    drawTaskCardS3(
+      c, c3x + 16, ky + 52, cardW, cardH,
+      'VERİ ALTYAPISI', 'rgba(16,185,129,0.15)', '#6EE7B7', '✓ Aktif', '#6EE7B7',
+      ['GA4 + Server-Side GTM &', 'CRM Dönüşüm Eşleşmesi'],
+      'Veri Doğruluğu', '%98.4 Eşleşme', '#6EE7B7',
+      'rgba(16,185,129,0.24)'
+    );
+
+    const destX = c3x + 16;
+    const destY = ky + 52 + cardH + 14;
+    roundRectPath(c, destX, destY, cardW, cardH, 14);
+    c.save();
+    c.setLineDash([6, 5]);
+    c.strokeStyle = 'rgba(255, 255, 255, 0.10)';
+    c.stroke();
+    c.restore();
+
+    const moveT = smoothstepS3(0.18, 0.68, progress);
+    const startX = c2x + 16;
+    const startY = ky + 52;
+    const curX = lerpS3(startX, destX, moveT);
+    const curY = lerpS3(startY, destY, moveT) - Math.sin(moveT * Math.PI) * 18;
+    const isDone = moveT > 0.75;
+
+    drawTaskCardS3(
+      c, curX, curY, cardW, cardH,
+      'CRO & PERFORMANS',
+      isDone ? 'rgba(16,185,129,0.20)' : '#7601FF',
+      isDone ? '#6EE7B7' : '#FFFFFF',
+      isDone ? '✓ Yayında' : 'Yayına Alınıyor...',
+      isDone ? '#6EE7B7' : '#D8B4FE',
+      ['Açılış Sayfası Hız & Teklif', 'Kurgusu Optimizasyonu'],
+      'Sprint #04',
+      '+%38 Dönüşüm Artışı',
+      isDone ? '#6EE7B7' : '#FFFFFF',
+      isDone ? '#10B981' : '#A78BFA',
+      isDone ? '#111F1D' : '#1B1630',
+      isDone ? 'rgba(16, 185, 129, 0.35)' : 'rgba(118, 1, 255, 0.42)'
+    );
+
+    c.restore();
+  }
+
+  function drawMomentumCockpitScene(c, progress, alpha) {
+    if (alpha <= 0.005) return;
+    c.save();
+    c.globalAlpha = alpha;
+
+    const zoom = lerpS3(0.97, 1.01, progress);
+    c.translate(510, 394);
+    c.scale(zoom, zoom);
+    c.translate(-510, -394);
+
+    const px = 24, py = 22, pw = 972, ph = 744;
+    roundRectPath(c, px, py, pw, ph, 22);
+    c.fillStyle = '#0E0C1A';
+    c.fill();
+    c.strokeStyle = 'rgba(167, 139, 250, 0.18)';
+    c.lineWidth = 1.4;
+    c.stroke();
+
+    c.fillStyle = '#A78BFA';
+    c.font = `800 18px 'Inter', sans-serif`;
+    c.textAlign = 'left';
+    c.textBaseline = 'middle';
+    if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+    c.fillText('ROASİST', px + 32, py + 42);
+
+    c.fillStyle = 'rgba(255,255,255,0.14)';
+    c.fillRect(px + 124, py + 30, 1, 24);
+
+    c.fillStyle = '#E2E8F0';
+    c.font = `500 14.5px 'Inter', sans-serif`;
+    if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
+    c.fillText('Gerçek Zamanlı Performans & İvme Paneli', px + 140, py + 42);
+
+    drawBadgeS3(
+      c, px + pw - 365, py + 28,
+      'Google Ads · Meta · TikTok · GA4',
+      'rgba(255,255,255,0.06)', '#CBD5E1', null,
+      11, 14, 7, null
+    );
+    drawBadgeS3(
+      c, px + pw - 138, py + 28,
+      'CANLI VERİ',
+      'rgba(16, 185, 129, 0.12)', '#6EE7B7', 'rgba(16, 185, 129, 0.30)',
+      11, 14, 7, '#10B981'
+    );
+
+    const curveT = smoothstepS3(0.06, 0.78, progress);
+    const currentRoas = lerpS3(2.5, 6.4, curveT);
+    const currentCpa = Math.round(lerpS3(12, 38, curveT));
+
+    const kpiY = py + 82;
+    const kpiH = 118;
+    const kpiW = (pw - 64 - 32) / 3;
+
+    {
+      const kx = px + 32;
+      roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
+      const g = c.createLinearGradient(kx, kpiY, kx, kpiY + kpiH);
+      g.addColorStop(0, '#1A1430');
+      g.addColorStop(1, '#121020');
+      c.fillStyle = g;
+      c.fill();
+      c.strokeStyle = 'rgba(167, 139, 250, 0.35)';
+      c.lineWidth = 1.2;
+      c.stroke();
+
+      c.fillStyle = '#A1A1AA';
+      c.font = `600 10.5px 'Inter', sans-serif`;
+      c.textAlign = 'left';
+      c.fillText('BİRLEŞİK KÂRLILIK (ROAS)', kx + 20, kpiY + 28);
+
+      c.fillStyle = '#FFFFFF';
+      c.font = `800 38px 'Inter', sans-serif`;
+      if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+      c.fillText(`${currentRoas.toFixed(1)}x`, kx + 20, kpiY + 76);
+
+      drawBadgeS3(c, kx + 125, kpiY + 62, '+106% İvme', 'rgba(118, 1, 255, 0.26)', '#D8B4FE', null, 11, 10, 4);
+    }
+
+    {
+      const kx = px + 32 + kpiW + 16;
+      roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
+      c.fillStyle = '#131122';
+      c.fill();
+      c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      c.lineWidth = 1;
+      c.stroke();
+
+      c.fillStyle = '#A1A1AA';
+      c.font = `600 10.5px 'Inter', sans-serif`;
+      c.textAlign = 'left';
+      c.fillText('EDİNME MALİYETİ (CPA)', kx + 20, kpiY + 28);
+
+      c.fillStyle = '#FFFFFF';
+      c.font = `800 38px 'Inter', sans-serif`;
+      if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+      c.fillText(`-%${currentCpa}`, kx + 20, kpiY + 76);
+
+      drawBadgeS3(c, kx + 135, kpiY + 62, 'Optimize', 'rgba(16, 185, 129, 0.16)', '#6EE7B7', null, 11, 10, 4);
+    }
+
+    {
+      const kx = px + 32 + (kpiW + 16) * 2;
+      roundRectPath(c, kx, kpiY, kpiW, kpiH, 16);
+      c.fillStyle = '#131122';
+      c.fill();
+      c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      c.lineWidth = 1;
+      c.stroke();
+
+      c.fillStyle = '#A1A1AA';
+      c.font = `600 10.5px 'Inter', sans-serif`;
+      c.textAlign = 'left';
+      c.fillText('SPRINT TESLİMAT HIZI', kx + 20, kpiY + 28);
+
+      c.fillStyle = '#FFFFFF';
+      c.font = `800 38px 'Inter', sans-serif`;
+      if ('letterSpacing' in c) c.letterSpacing = '-0.03em';
+      c.fillText('%98.2', kx + 20, kpiY + 76);
+
+      c.fillStyle = '#94A3B8';
+      c.font = `500 11.5px 'Inter', sans-serif`;
+      if ('letterSpacing' in c) c.letterSpacing = '0px';
+      c.fillText('Haftalık Hedef', kx + 148, kpiY + 78);
+    }
+
+    const cx = px + 32, cy = kpiY + kpiH + 20, cw = pw - 64, ch = ph - (cy - py) - 28;
+    roundRectPath(c, cx, cy, cw, ch, 18);
+    c.fillStyle = '#110F1E';
+    c.fill();
+    c.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    c.lineWidth = 1;
+    c.stroke();
+
+    c.fillStyle = '#FFFFFF';
+    c.font = `700 16px 'Inter', sans-serif`;
+    c.textAlign = 'left';
+    c.fillText('Sprint Bazlı Büyüme & ROAS İvmesi', cx + 24, cy + 32);
+
+    c.fillStyle = '#94A3B8';
+    c.font = `500 12px 'Inter', sans-serif`;
+    c.fillText('Her iki haftalık sprint sonunda doğrulanan kümülatif reklam verimliliği', cx + 24, cy + 52);
+
+    c.fillStyle = '#7601FF';
+    roundRectPath(c, cx + cw - 260, cy + 28, 10, 10, 3);
+    c.fill();
+    c.fillStyle = '#CBD5E1';
+    c.font = `500 11.5px 'Inter', sans-serif`;
+    c.fillText('Gerçekleşen ROAS', cx + cw - 244, cy + 33.5);
+
+    c.fillStyle = '#475569';
+    c.fillRect(cx + cw - 120, cy + 32, 10, 2);
+    c.fillStyle = '#94A3B8';
+    c.fillText('Başlangıç Bazı', cx + cw - 104, cy + 33.5);
+
+    const plotX0 = cx + 68, plotX1 = cx + cw - 36;
+    const plotY0 = cy + 96, plotY1 = cy + ch - 58;
+    const yLabels = ['7.0x', '5.5x', '4.0x', '2.5x'];
+
+    for (let i = 0; i < 4; i++) {
+      const gy = lerpS3(plotY0, plotY1, i / 3);
+      c.fillStyle = '#64748B';
+      c.font = `500 11px 'Inter', sans-serif`;
+      c.textAlign = 'left';
+      c.fillText(yLabels[i], cx + 24, gy);
+
+      c.beginPath();
+      c.moveTo(plotX0, gy);
+      c.lineTo(plotX1, gy);
+      c.strokeStyle = (i === 3) ? 'rgba(148, 163, 184, 0.22)' : 'rgba(255, 255, 255, 0.05)';
+      c.lineWidth = 1;
+      c.stroke();
+    }
+
+    const sprints = [
+      'Sprint 01 · Kurulum',
+      'Sprint 02 · Kreatif',
+      'Sprint 03 · CRO',
+      'Sprint 04 · Ölçek',
+      'Sprint 05 · Otomasyon',
+      'Sprint 06 · 6.4x ROAS'
+    ];
+    const pts = [];
+    const roasValues = [2.5, 3.2, 4.1, 5.0, 5.8, 6.4];
+
+    for (let i = 0; i < 6; i++) {
+      const sx = lerpS3(plotX0, plotX1, i / 5);
+      const normVal = (roasValues[i] - 2.5) / (7.0 - 2.5);
+      const sy = lerpS3(plotY1, plotY0, normVal);
+      pts.push({ x: sx, y: sy, val: roasValues[i] });
+
+      c.fillStyle = (i === 5) ? '#D8B4FE' : '#94A3B8';
+      c.font = `600 11px 'Inter', sans-serif`;
+      c.textAlign = 'center';
+      c.fillText(sprints[i], sx, cy + ch - 24);
+    }
+
+    const totalSegs = 5;
+    const activeFloat = curveT * totalSegs;
+    const activeIdx = Math.min(totalSegs - 1, Math.floor(activeFloat));
+    const segFrac = activeFloat - activeIdx;
+
+    const tipX = lerpS3(pts[activeIdx].x, pts[activeIdx + 1].x, segFrac);
+    const tipY = lerpS3(pts[activeIdx].y, pts[activeIdx + 1].y, segFrac);
+
+    c.save();
+    c.beginPath();
+    c.moveTo(pts[0].x, plotY1);
+    for (let i = 0; i <= activeIdx; i++) {
+      c.lineTo(pts[i].x, pts[i].y);
+    }
+    c.lineTo(tipX, tipY);
+    c.lineTo(tipX, plotY1);
+    c.closePath();
+    const areaGrad = c.createLinearGradient(0, plotY0, 0, plotY1);
+    areaGrad.addColorStop(0, 'rgba(118, 1, 255, 0.34)');
+    areaGrad.addColorStop(1, 'rgba(118, 1, 255, 0.0)');
+    c.fillStyle = areaGrad;
+    c.fill();
+    c.restore();
+
+    c.save();
+    c.beginPath();
+    c.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i <= activeIdx; i++) {
+      c.lineTo(pts[i].x, pts[i].y);
+    }
+    c.lineTo(tipX, tipY);
+    c.strokeStyle = '#9333EA';
+    c.lineWidth = 3.5;
+    c.shadowColor = '#7601FF';
+    c.shadowBlur = 16;
+    c.stroke();
+    c.restore();
+
+    for (let i = 0; i <= activeIdx; i++) {
+      c.beginPath();
+      c.arc(pts[i].x, pts[i].y, 4.5, 0, Math.PI * 2);
+      c.fillStyle = '#FFFFFF';
+      c.fill();
+      c.strokeStyle = '#7601FF';
+      c.lineWidth = 2;
+      c.stroke();
+    }
+
+    c.save();
+    c.beginPath();
+    c.arc(tipX, tipY, 6, 0, Math.PI * 2);
+    c.fillStyle = '#FFFFFF';
+    c.shadowColor = '#10B981';
+    c.shadowBlur = 14;
+    c.fill();
+    c.strokeStyle = '#10B981';
+    c.lineWidth = 2.5;
+    c.stroke();
+    c.restore();
+
+    const badgeW = 190, badgeH = 64;
+    const bx = Math.min(plotX1 - badgeW, Math.max(plotX0, tipX - badgeW * 0.75));
+    const by = tipY - badgeH - 18;
+    c.save();
+    c.shadowColor = 'rgba(118, 1, 255, 0.45)';
+    c.shadowBlur = 24;
+    roundRectPath(c, bx, by, badgeW, badgeH, 14);
+    c.fillStyle = '#7601FF';
+    c.fill();
+    c.shadowBlur = 0;
+    c.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+    c.lineWidth = 1.2;
+    c.stroke();
+
+    c.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    c.font = `700 9.5px 'Inter', sans-serif`;
+    c.textAlign = 'left';
+    c.fillText('CANLI İVME', bx + 14, by + 20);
+
+    c.fillStyle = '#FFFFFF';
+    c.font = `800 19px 'Inter', sans-serif`;
+    c.fillText(`${currentRoas.toFixed(1)}x ROAS`, bx + 14, by + 44);
+
+    drawBadgeS3(c, bx + badgeW - 64, by + 22, '+106%', 'rgba(255,255,255,0.18)', '#FFFFFF', null, 11, 8, 4);
+    c.restore();
+
+    c.restore();
+  }
+
+  function renderSlide3ProcessCockpit(ctx, width, height, dpr, elapsed) {
+    const CYCLE_SECONDS = 12.0;
+    const cycleTime = elapsed % CYCLE_SECONDS;
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    ctx.fillStyle = '#0B0914';
+    ctx.fillRect(0, 0, width, height);
+
+    const scale = Math.min(width / 1020, height / 788);
+    ctx.translate((width - 1020 * scale) * 0.5, (height - 788 * scale) * 0.5);
+    ctx.scale(scale, scale);
+
+    let alphaA = 0, alphaB = 0;
+    const fadeDur = 0.85;
+    if (cycleTime < 6.0 - fadeDur) {
+      alphaA = cycleTime < fadeDur ? smoothstepS3(0, fadeDur, cycleTime) : 1;
+      alphaB = cycleTime < fadeDur ? 1 - alphaA : 0;
+    } else if (cycleTime < 6.0) {
+      const t = (cycleTime - (6.0 - fadeDur)) / fadeDur;
+      alphaA = 1 - smoothstepS3(0, 1, t);
+      alphaB = smoothstepS3(0, 1, t);
+    } else if (cycleTime < 12.0 - fadeDur) {
+      alphaA = 0;
+      alphaB = 1;
+    } else {
+      const t = (cycleTime - (12.0 - fadeDur)) / fadeDur;
+      alphaB = 1 - smoothstepS3(0, 1, t);
+      alphaA = smoothstepS3(0, 1, t);
+    }
+
+    const progA = Math.min(1, cycleTime / 6.0);
+    const progB = cycleTime >= 6.0 ? Math.min(1, (cycleTime - 6.0) / 6.0) : 1.0;
+
+    drawSprintBoardScene(ctx, progA, alphaA);
+    drawMomentumCockpitScene(ctx, progB, alphaB);
+
+    ctx.restore();
+  }
+
+  // ==========================================================================
   // MOUNT & INTERSECTION OBSERVER LIFECYCLE
   // ==========================================================================
   let s1Canvas = null, s1Ctx = null, s1W = 562, s1H = 434, s1Dpr = 1;
   let s2Canvas = null, s2Ctx = null, s2W = 562, s2H = 434, s2Dpr = 1;
+  let s3Canvas = null, s3Ctx = null, s3W = 562, s3H = 434, s3Dpr = 1;
   let isCarouselVisible = true;
   let observerAttached = false;
   const startTime = performance.now();
@@ -814,6 +1458,30 @@ html body .roasist-creative-bento-canvas {
         }
       }
     }
+
+    // Slide 3
+    const c3 = document.querySelector('#carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx');
+    if (c3) {
+      stopSlideVideo(c3);
+      let cv3 = c3.querySelector('canvas.roasist-process-cockpit-canvas');
+      if (!cv3) {
+        cv3 = document.createElement('canvas');
+        cv3.className = 'roasist-process-cockpit-canvas';
+        cv3.setAttribute('aria-hidden', 'true');
+        c3.appendChild(cv3);
+        s3Canvas = cv3;
+        s3Ctx = cv3.getContext('2d', { alpha: false });
+      }
+      const r3 = c3.getBoundingClientRect();
+      if (r3.width > 40 && r3.height > 40) {
+        const d = Math.min(window.devicePixelRatio || 1, 2);
+        const tw = Math.floor(r3.width), th = Math.floor(r3.height);
+        if (s3W !== tw || s3H !== th || s3Dpr !== d || cv3.width !== tw * d) {
+          s3W = tw; s3H = th; s3Dpr = d;
+          cv3.width = tw * d; cv3.height = th * d;
+        }
+      }
+    }
   }
 
   function tick(now) {
@@ -884,6 +1552,11 @@ html body .roasist-creative-bento-canvas {
       if (s2Ctx) {
         renderSlide2Bento(s2Ctx, s2W, s2H, s2Dpr, elapsedSeconds);
       }
+
+      // Render Slide 3 ("Kusursuz süreç yönetimi")
+      if (s3Ctx) {
+        renderSlide3ProcessCockpit(s3Ctx, s3W, s3H, s3Dpr, elapsedSeconds);
+      }
     }
 
     requestAnimationFrame(tick);
@@ -917,7 +1590,7 @@ def main():
             flags=re.DOTALL,
         )
 
-        # Eliminate the 3.9 MB + 5.6 MB MP4 video downloads from RSC payload for Slide 1 & Slide 2
+        # Eliminate the 3.9 MB + 5.6 MB + 3.1 MB = 12.6 MB MP4 video downloads from RSC payload for Slides 1, 2 & 3
         html = re.sub(
             r'https://roasist\.github\.io/roasist-web/images/methodology/01-veri-ve-strateji\.mp4(\?v=\d+)?',
             "",
@@ -925,6 +1598,11 @@ def main():
         )
         html = re.sub(
             r'https://roasist\.github\.io/roasist-web/images/methodology/02-yaratici-ve-cesur-fikir\.mp4(\?v=\d+)?',
+            "",
+            html,
+        )
+        html = re.sub(
+            r'https://roasist\.github\.io/roasist-web/images/methodology/03-kusursuz-surec-yonetimi\.mp4(\?v=\d+)?',
             "",
             html,
         )
@@ -936,8 +1614,9 @@ def main():
             html = html.replace("__PROTECTED_T712_BLOCK__", protected)
 
         p.write_text(html, encoding="utf-8")
-        print(f"Injected Slide 1 & Slide 2 Canvas + removed 9.5 MB video loads in {rel}")
+        print(f"Injected Slides 1, 2 & 3 Canvas + removed 12.6 MB video loads in {rel}")
 
 
 if __name__ == "__main__":
     main()
+
