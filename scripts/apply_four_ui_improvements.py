@@ -618,14 +618,11 @@ FOUR_ITEMS_CSS = """
   justify-content: space-between !important;
   gap: 1.5rem !important;
   margin: 0 0 clamp(2rem, 3.6vw, 3.25rem) 0 !important;
-  padding: 0 0 clamp(1.1rem, 1.8vw, 1.6rem) 0 !important;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.12) !important;
+  padding: 0 !important;
+  border-bottom: none !important;
   position: relative !important;
   z-index: 4 !important;
   order: -10 !important;
-}
-body.dark .roasist-hero-title-row {
-  border-bottom-color: rgba(255, 255, 255, 0.14) !important;
 }
 .roasist-hero-title-row .roasist-hero-page-label {
   position: static !important;
