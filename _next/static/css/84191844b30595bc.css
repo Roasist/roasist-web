@@ -167,10 +167,11 @@
   box-shadow: 0 24px 64px -18px rgba(118, 2, 255, 0.25) !important;
 }
 .StatisticsPanel_heading__UrLlt {
-  background: linear-gradient(90deg, #7602FF, #00D2FF, #A855F7, #7602FF) !important;
+  background-image: linear-gradient(90deg, #7602FF, #00D2FF, #EC4899, #7602FF) !important;
   background-size: 200% 200% !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
+  animation: StatisticsPanel_rainbow__FRjps 3s ease-in-out infinite !important;
 }
 .StatisticsPanel_logo__Y5wQT img {
   height: 68px !important;
