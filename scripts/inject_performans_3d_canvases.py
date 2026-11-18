@@ -199,6 +199,121 @@ html body .TextImageRows_row__PPlpB:nth-child(1) .gads-svg {
   68%, 92%  { opacity: 1; transform: translateX(0); }
   98%, 100% { opacity: 0; transform: translateX(0); }
 }
+
+/* Row 2: Instagram & Facebook (Meta Ads) Official Brand Motion SVG Stage */
+html body .TextImageRows_row__PPlpB:nth-child(2) .TextImageRows_media__twu3R .ImageEnter_image__FSEP_ {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 24px 60px -18px rgba(15, 23, 42, 0.12) !important;
+}
+
+html body .TextImageRows_row__PPlpB:nth-child(2) .meta-anim-stage {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  background: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  z-index: 4 !important;
+  pointer-events: none !important;
+}
+
+html body .TextImageRows_row__PPlpB:nth-child(2) .meta-svg {
+  width: 96% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.meta-anim-stage .meta-grid-lines {
+  opacity: 0;
+  transform-origin: 300px 150px;
+  animation: metaGridFade 7s ease-in-out infinite;
+}
+
+.meta-anim-stage .meta-col-ig {
+  transform-origin: 200px 220px;
+  animation: metaBarLeft 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.meta-anim-stage .meta-col-fb {
+  transform-origin: 300px 220px;
+  animation: metaBarMid 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.meta-anim-stage .meta-col-conv {
+  transform-origin: 400px 220px;
+  animation: metaBarRight 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.meta-anim-stage .meta-logo-assembly {
+  transform-origin: 300px 160px;
+  animation: metaLogoSeq 7s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.meta-anim-stage .meta-infinity-ribbon {
+  stroke-dasharray: 560;
+  stroke-dashoffset: 560;
+  animation: metaRibbonDraw 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.meta-anim-stage .meta-ribbon-crossover {
+  animation: metaCrossFade 7s ease-out infinite;
+}
+
+.meta-anim-stage .meta-brand-text {
+  animation: metaTextReveal 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes metaGridFade {
+  0%, 6%   { opacity: 0; transform: scaleX(0.6); }
+  14%, 30% { opacity: 1; transform: scaleX(1); }
+  38%, 100%{ opacity: 0; transform: scaleX(0.8); }
+}
+
+@keyframes metaBarLeft {
+  0%        { opacity: 0; transform: translateY(80px) scaleY(0.3); }
+  10%, 28%  { opacity: 1; transform: translateY(0) scaleY(1); }
+  36%, 100% { opacity: 0; transform: translateX(75px) translateY(45px) scale(0.4); }
+}
+
+@keyframes metaBarMid {
+  0%, 3%    { opacity: 0; transform: translateY(80px) scaleY(0.3); }
+  13%, 28%  { opacity: 1; transform: translateY(0) scaleY(1); }
+  36%, 100% { opacity: 0; transform: translateY(35px) scale(0.4); }
+}
+
+@keyframes metaBarRight {
+  0%, 6%    { opacity: 0; transform: translateY(80px) scaleY(0.3); }
+  16%, 27%  { opacity: 1; transform: translateY(0) scaleY(1); }
+  35%, 100% { opacity: 0; transform: translateX(-75px) translateY(45px) scale(0.4); }
+}
+
+@keyframes metaLogoSeq {
+  0%, 32%   { opacity: 0; transform: translateX(0) scale(1.08); }
+  37%       { opacity: 1; transform: translateX(0) scale(1.08); }
+  52%       { opacity: 1; transform: translateX(0) scale(0.76); }
+  62%, 92%  { opacity: 1; transform: translateX(-118px) scale(0.76); }
+  98%, 100% { opacity: 0; transform: translateX(-118px) scale(0.76); }
+}
+
+@keyframes metaRibbonDraw {
+  0%, 32%   { stroke-dashoffset: 560; }
+  49%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes metaCrossFade {
+  0%, 44%   { opacity: 0; }
+  52%, 100% { opacity: 1; }
+}
+
+@keyframes metaTextReveal {
+  0%, 58%   { opacity: 0; transform: translateX(-18px); }
+  68%, 92%  { opacity: 1; transform: translateX(0); }
+  98%, 100% { opacity: 0; transform: translateX(0); }
+}
 </style>
 <script data-roasist-perf-channels-3d-script>
 (() => {
@@ -1671,6 +1786,103 @@ html body .TextImageRows_row__PPlpB:nth-child(1) .gads-svg {
   </svg>
 </div>`;
 
+  const META_SVG_HTML = `<div class="meta-anim-stage" aria-hidden="true">
+  <svg viewBox="0 0 600 320" class="meta-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="metaGradIg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#E1306C" stop-opacity="0.92"/>
+        <stop offset="100%" stop-color="#E1306C" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="metaGradIgCircle" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#F58529"/>
+        <stop offset="48%" stop-color="#DD2A7B"/>
+        <stop offset="100%" stop-color="#8134AF"/>
+      </linearGradient>
+      <linearGradient id="metaGradFb" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0081FB" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#0081FB" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="metaGradConv" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0064E0" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#0064E0" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="metaInfinityGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#0064E0"/>
+        <stop offset="50%" stop-color="#0081FB"/>
+        <stop offset="100%" stop-color="#0064E0"/>
+      </linearGradient>
+      <linearGradient id="metaCrossShadow" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#004BB5"/>
+        <stop offset="100%" stop-color="#0081FB"/>
+      </linearGradient>
+    </defs>
+
+    <!-- 1. Arka Plan Grafik Çizgileri -->
+    <g class="meta-grid-lines">
+      <line x1="120" y1="95"  x2="480" y2="95"  stroke="#CBD5E1" stroke-width="1.5"/>
+      <line x1="120" y1="130" x2="480" y2="130" stroke="#CBD5E1" stroke-width="1.5"/>
+      <line x1="120" y1="165" x2="480" y2="165" stroke="#CBD5E1" stroke-width="1.5"/>
+      <line x1="120" y1="200" x2="480" y2="200" stroke="#CBD5E1" stroke-width="1.5"/>
+    </g>
+
+    <!-- 2. Yükselen Sosyal Performans Sütunları (Instagram, Facebook, Dönüşüm/Katalog) -->
+    <g class="meta-bars-phase">
+      <!-- Sol Sütun: Instagram -->
+      <g class="meta-col-ig">
+        <rect x="172" y="100" width="56" height="145" fill="url(#metaGradIg)"/>
+        <circle cx="200" cy="100" r="28" fill="url(#metaGradIgCircle)"/>
+        <rect x="188" y="88" width="24" height="24" rx="6.5" fill="none" stroke="#FFFFFF" stroke-width="2.4"/>
+        <circle cx="200" cy="100" r="5.5" fill="none" stroke="#FFFFFF" stroke-width="2.3"/>
+        <circle cx="206.8" cy="93.2" r="1.6" fill="#FFFFFF"/>
+      </g>
+
+      <!-- Orta Sütun: Facebook -->
+      <g class="meta-col-fb">
+        <rect x="272" y="100" width="56" height="145" fill="url(#metaGradFb)"/>
+        <circle cx="300" cy="100" r="28" fill="#0081FB"/>
+        <path d="M303.5 114v-12.2h4.1l.6-4.7h-4.7v-3c0-1.4.4-2.3 2.4-2.3h2.5v-4.2c-.4-.1-1.9-.2-3.6-.2-3.6 0-6.1 2.2-6.1 6.2v3.5h-4.1v4.7h4.1V114h4.8z" fill="#FFFFFF"/>
+      </g>
+
+      <!-- Sağ Sütun: DPA Katalog / Dönüşüm Sepeti -->
+      <g class="meta-col-conv">
+        <rect x="372" y="100" width="56" height="145" fill="url(#metaGradConv)"/>
+        <circle cx="400" cy="100" r="28" fill="#0064E0"/>
+        <path d="M390 95h20l-1.6 15.5a2 2 0 0 1-2 1.8h-12.8a2 2 0 0 1-2-1.8L390 95z" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linejoin="round"/>
+        <path d="M395.5 95v-2.5a4.5 4.5 0 0 1 9 0V95" fill="none" stroke="#FFFFFF" stroke-width="2.3" stroke-linecap="round"/>
+      </g>
+    </g>
+
+    <!-- 3. Resmi Meta Sonsuzluk (Infinity) Logosuna Dönüşüm & Sola Kayma -->
+    <g class="meta-logo-assembly">
+      <path
+        class="meta-infinity-ribbon"
+        d="M 300 156 C 282 126, 268 116, 250 116 C 228 116, 216 140, 216 168 C 216 192, 229 204, 246 204 C 265 204, 281 186, 300 156 C 319 126, 332 116, 350 116 C 372 116, 384 140, 384 168 C 384 192, 371 204, 354 204 C 335 204, 319 186, 300 156 Z"
+        fill="none"
+        stroke="url(#metaInfinityGrad)"
+        stroke-width="17"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <!-- Merkez geçiş derinlik gölgesi (resmi Meta şerit katmanı) -->
+      <path
+        class="meta-ribbon-crossover"
+        d="M 284 130 C 292 142, 300 156, 316 182"
+        fill="none"
+        stroke="url(#metaCrossShadow)"
+        stroke-width="17.2"
+        stroke-linecap="round"
+      />
+    </g>
+
+    <!-- 4. Meta Ads Metni -->
+    <g class="meta-brand-text">
+      <text x="268" y="175" font-family="'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="44" font-weight="600" fill="#1C2B33" letter-spacing="-0.8">
+        Meta Ads
+      </text>
+    </g>
+  </svg>
+</div>`;
+
   function ensureMounted() {
     const rows = document.querySelectorAll('.TextImageRows_row__PPlpB');
     if (!rows || rows.length === 0) return;
@@ -1710,6 +1922,18 @@ html body .TextImageRows_row__PPlpB:nth-child(1) .gads-svg {
         rowStates[0].ctx = null;
         if (!mediaBox.querySelector('.gads-anim-stage')) {
           mediaBox.insertAdjacentHTML('beforeend', GADS_SVG_HTML);
+        }
+        return;
+      }
+
+      // Row 2 (Instagram & Facebook / Meta Ads): Mount official SVG brand-motion stage
+      if (idx === 1) {
+        const oldCv = mediaBox.querySelector('canvas.roasist-perf-channel-canvas');
+        if (oldCv) oldCv.remove();
+        rowStates[1].canvas = null;
+        rowStates[1].ctx = null;
+        if (!mediaBox.querySelector('.meta-anim-stage')) {
+          mediaBox.insertAdjacentHTML('beforeend', META_SVG_HTML);
         }
         return;
       }
