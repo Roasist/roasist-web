@@ -629,7 +629,7 @@ FOUR_ITEMS_CSS = """
   margin: 0 !important;
   padding: 0 !important;
   font-family: var(--syne) !important;
-  font-size: var(--fs-60) !important;
+  font-size: clamp(1.35rem, 2.2vw, 2.15rem) !important;
   font-weight: 700 !important;
   text-transform: lowercase !important;
   letter-spacing: calc(-30em / 1000) !important;
@@ -659,8 +659,8 @@ body.dark .roasist-hero-title-row .roasist-hero-page-label {
   align-items: center !important;
   justify-content: flex-end !important;
   flex-shrink: 0 !important;
-  width: clamp(2.5rem, 4.2vw, 4.25rem) !important;
-  height: clamp(2.5rem, 4.2vw, 4.25rem) !important;
+  width: clamp(1.5rem, 2.3vw, 2.35rem) !important;
+  height: clamp(1.5rem, 2.3vw, 2.35rem) !important;
   color: #000000 !important;
 }
 body.dark .roasist-hero-title-arrow {
@@ -671,6 +671,19 @@ body.dark .roasist-hero-title-arrow {
   height: 100% !important;
   display: block !important;
   fill: currentColor !important;
+}
+@media (max-width: 768px) {
+  .roasist-hero-title-row {
+    gap: 0.75rem !important;
+    margin: 0 0 1.35rem 0 !important;
+  }
+  .roasist-hero-title-row .roasist-hero-page-label {
+    font-size: clamp(1.1rem, 4.4vw, 1.35rem) !important;
+  }
+  .roasist-hero-title-arrow {
+    width: clamp(1.15rem, 4.2vw, 1.4rem) !important;
+    height: clamp(1.15rem, 4.2vw, 1.4rem) !important;
+  }
 }
 
 /* Hide legacy bottom/displaced hero page labels and arrows so only the top row shows */
