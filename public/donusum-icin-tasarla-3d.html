@@ -991,9 +991,9 @@
       }
 
       // ============================================================================
-      // STUDIO FLOOR GRID & MINIMAL EDITORIAL HUD (ZERO BOX-IN-BOX)
+      // STUDIO BACKDROP (CLEAN ARCHITECTURAL STAGE, ZERO TOP/BOTTOM HUD TEXT)
       // ============================================================================
-      function drawStudioBackdropAndHUD(c, explode, clickProgress, roasVal, cvrVal) {
+      function drawStudioBackdropAndHUD(c) {
         c.fillStyle = '#0B0914';
         c.fillRect(0, 0, 1020, 788);
 
@@ -1003,59 +1003,6 @@
         grad.addColorStop(1, 'rgba(11, 9, 20, 0)');
         c.fillStyle = grad;
         c.fillRect(0, 0, 1020, 788);
-
-        c.save();
-        c.fillStyle = '#94A3B8';
-        c.font = `600 11px 'Inter', sans-serif`;
-        c.textAlign = 'left';
-        c.textBaseline = 'middle';
-        if ('letterSpacing' in c) c.letterSpacing = '0.06em';
-        c.fillText('04 // DÖNÜŞÜM İÇİN TASARLA', 42, 42);
-
-        const stateText = explode > 0.35
-          ? '3D MİMARİ ANATOMİ · 3 KATMAN'
-          : (clickProgress > 0.3 ? 'CANLI DÖNÜŞÜM · AKTİF' : 'BİRLEŞİK WEB DENEYİMİ');
-        const dotCol = explode > 0.35 ? '#A78BFA' : '#10B981';
-
-        c.textAlign = 'right';
-        c.fillStyle = '#E2E8F0';
-        c.font = `600 11px 'Inter', sans-serif`;
-        if ('letterSpacing' in c) c.letterSpacing = '0.04em';
-        c.fillText(stateText, 1020 - 42, 42);
-
-        const tw = c.measureText(stateText).width;
-        c.beginPath();
-        c.arc(1020 - 42 - tw - 12, 42, 3.8, 0, Math.PI * 2);
-        c.fillStyle = dotCol;
-        c.fill();
-
-        const botY = 788 - 38;
-        c.fillStyle = 'rgba(255, 255, 255, 0.08)';
-        c.fillRect(42, botY - 22, 1020 - 84, 1);
-
-        const specs = [
-          { label: 'TEKNİK SEO & HIZ', val: '100/100 · 0.4s LCP' },
-          { label: 'KULLANICI DENEYİMİ (UX)', val: '12-Sütun Sürtünmesiz Akış' },
-          { label: 'DÖNÜŞÜM ORANI (CVR)', val: `%${cvrVal.toFixed(2)} (+148%)` },
-          { label: 'REKLAM GETİRİSİ (ROAS)', val: `${roasVal.toFixed(1)}x Çarpan` }
-        ];
-
-        const colW = (1020 - 84) / 4;
-        specs.forEach((sp, i) => {
-          const sx = 42 + i * colW;
-          c.fillStyle = '#64748B';
-          c.font = `600 9.5px 'Inter', sans-serif`;
-          c.textAlign = 'left';
-          if ('letterSpacing' in c) c.letterSpacing = '0.04em';
-          c.fillText(sp.label, sx, botY - 4);
-
-          c.fillStyle = i >= 2 ? '#FFFFFF' : '#CBD5E1';
-          c.font = `700 12.5px 'Inter', sans-serif`;
-          if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
-          c.fillText(sp.val, sx, botY + 13);
-        });
-
-        c.restore();
       }
 
       // ============================================================================
