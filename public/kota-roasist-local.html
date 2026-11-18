@@ -1091,6 +1091,22 @@ body.roasist-footer-in-view [class*="FloatingStartButton_"] {
   pointer-events: none !important;
 }
 
+/* Animated Gradient Wave on Ölçülebilir Sonuçlar (StatisticsPanel_heading) */
+@keyframes roasist-stat-rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.StatisticsPanel_heading__UrLlt,
+[class*="StatisticsPanel_heading__"] {
+  background-image: linear-gradient(90deg, #7602FF, #00D2FF, #EC4899, #7602FF) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  animation: roasist-stat-rainbow 3s ease-in-out infinite !important;
+}
+
 /* Item 1: Redesigned Footer (.roasist-footer-v2) inside untouched dark WebGL Footer_footer__pQtti */
 .Footer_footer__pQtti .roasist-footer-container {
   display: block !important;
