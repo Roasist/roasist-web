@@ -2634,7 +2634,7 @@ html body .roasist-scale-globe-canvas {
     };
   }
 
-  function drawStudioBackdropAndHUDS5(c, activeMarketsCount, compoundGrowth, globalRoas) {
+  function drawStudioBackdropAndHUDS5(c) {
     c.fillStyle = '#0B0914';
     c.fillRect(0, 0, 1020, 788);
 
@@ -2644,55 +2644,6 @@ html body .roasist-scale-globe-canvas {
     grad.addColorStop(1, 'rgba(11, 9, 20, 0)');
     c.fillStyle = grad;
     c.fillRect(0, 0, 1020, 788);
-
-    c.save();
-    c.fillStyle = '#94A3B8';
-    c.font = `600 11px 'Inter', sans-serif`;
-    c.textAlign = 'left';
-    c.textBaseline = 'middle';
-    if ('letterSpacing' in c) c.letterSpacing = '0.06em';
-    c.fillText('05 // ÖLÇEKLENEBİLİR BÜYÜME', 42, 42);
-
-    const stateText = 'GLOBAL PAZAR AÇILIMI & BİLEŞİK ÖLÇEKLEME';
-    c.textAlign = 'right';
-    c.fillStyle = '#E2E8F0';
-    c.font = `600 11px 'Inter', sans-serif`;
-    if ('letterSpacing' in c) c.letterSpacing = '0.04em';
-    c.fillText(stateText, 1020 - 42, 42);
-
-    const tw = c.measureText(stateText).width;
-    c.beginPath();
-    c.arc(1020 - 42 - tw - 12, 42, 3.8, 0, Math.PI * 2);
-    c.fillStyle = '#10B981';
-    c.fill();
-
-    const botY = 788 - 38;
-    c.fillStyle = 'rgba(255, 255, 255, 0.08)';
-    c.fillRect(42, botY - 22, 1020 - 84, 1);
-
-    const specs = [
-      { label: 'AKTİF PAZAR & BÖLGE', val: `${activeMarketsCount} Ülke · 4 Kıta` },
-      { label: 'KAMPANYA ALTYAPISI', val: 'Çok Dilli & Çoklu Para Birimi' },
-      { label: 'BİLEŞİK BÜYÜME HACMİ', val: `+%${Math.round(compoundGrowth)} Ölçeklenme` },
-      { label: 'GLOBAL BİRİM ROAS', val: `${globalRoas.toFixed(1)}x Sürdürülebilir` }
-    ];
-
-    const colW = (1020 - 84) / 4;
-    specs.forEach((sp, i) => {
-      const sx = 42 + i * colW;
-      c.fillStyle = '#64748B';
-      c.font = `600 9.5px 'Inter', sans-serif`;
-      c.textAlign = 'left';
-      if ('letterSpacing' in c) c.letterSpacing = '0.04em';
-      c.fillText(sp.label, sx, botY - 4);
-
-      c.fillStyle = i >= 2 ? '#FFFFFF' : '#CBD5E1';
-      c.font = `700 12.5px 'Inter', sans-serif`;
-      if ('letterSpacing' in c) c.letterSpacing = '-0.01em';
-      c.fillText(sp.val, sx, botY + 13);
-    });
-
-    c.restore();
   }
 
   function drawOrbitalScaleRingHalfS5(c, radius, cam, elapsed, isFrontHalf) {
