@@ -584,7 +584,7 @@ def build_case_study_page(template_html: str, cs: dict, lang: str, is_dist: bool
         flags=re.DOTALL,
     )
     html, n3 = re.subn(
-        r'(<div class="roasist-hero-page-label"><span><i></i>)([^<]*)(</span></div>)',
+        r'(<div class="roasist-hero-page-label"[^>]*><span><i></i>)([^<]*)(</span></div>)',
         lambda m: m.group(1) + hero_page_label + m.group(3),
         html,
         count=1,
@@ -752,19 +752,24 @@ def build_case_study_page(template_html: str, cs: dict, lang: str, is_dist: bool
     # Update f_obj[2] article tree
     article_children = f_obj[2][3]["children"]
     hero_container_children = article_children[0][3]["children"][3]["children"]
+    offset = 1 if (isinstance(hero_container_children[0], list) and hero_container_children[0][3].get("className") == "roasist-hero-title-row") else 0
+    if offset == 1:
+        hero_container_children[0][3]["children"][0][3]["children"][1] = hero_page_label
+
     # hero_left
-    hero_left_children = hero_container_children[0][3]["children"]
+    hero_left_children = hero_container_children[0 + offset][3]["children"]
     hero_left_children[0][3]["children"][3]["children"][3]["children"][0][3]["children"] = category
     hero_left_children[1][3]["children"][3]["children"][3]["children"] = title
-    hero_left_children[2][3]["children"][3]["children"][1] = hero_page_label
+    if offset == 0 and len(hero_left_children) > 2:
+        hero_left_children[2][3]["children"][3]["children"][1] = hero_page_label
 
     # hero_right
-    hero_author_children = hero_container_children[1][3]["children"][3]["children"]
+    hero_author_children = hero_container_children[1 + offset][3]["children"][3]["children"]
     hero_author_children[1][3]["children"][3]["children"][3]["children"] = period
     hero_author_children[2][3]["children"][3]["children"][3]["children"] = [client_prefix, brand]
 
     # hero_image
-    hero_img_props = hero_container_children[2][3]["children"][3]["children"][3]["image"]
+    hero_img_props = hero_container_children[2 + offset][3]["children"][3]["children"][3]["image"]
     hero_img_props["altText"] = title
     hero_img_props["srcSet"] = f"{hero_img_url} 1400w"
     hero_img_props["sourceUrl"] = hero_img_url
