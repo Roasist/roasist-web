@@ -219,8 +219,13 @@ def render_ssr_slide(item, url_prefix=""):
     )
 
 
-def update_target_page(target_path, home_stats, is_gh_pages=False):
+def update_target_page(target_path, home_stats, is_en=False, is_gh_pages=False):
     text = open(target_path, "r", encoding="utf-8").read()
+
+    # 0. Update section heading to match Homepage ('ÖLÇÜLEBİLİR SONUÇLAR' / 'MEASURABLE RESULTS')
+    old_heading = "Strategic Craft. Measurable Growth." if is_en else "Estetik Tasarım. Ölçülebilir Büyüme."
+    new_heading = "MEASURABLE RESULTS" if is_en else "ÖLÇÜLEBİLİR SONUÇLAR"
+    text = text.replace(old_heading, new_heading)
 
     # 1. Inject / replace CSS style block in <head>
     style_re = re.compile(rf'<style id="{STYLE_ID}">.*?</style>', re.S)
@@ -288,40 +293,44 @@ def update_target_page(target_path, home_stats, is_gh_pages=False):
 
     with open(target_path, "w", encoding="utf-8") as f:
         f.write(text)
-    print(f"[OK] Synced {len(home_stats)} Homepage Statistics cards into {os.path.relpath(target_path, REPO_ROOT)} ({len(text):,} bytes)")
+    print(f"[OK] Synced {len(home_stats)} Homepage Statistics cards & heading ({new_heading}) into {os.path.relpath(target_path, REPO_ROOT)} ({len(text):,} bytes)")
 
 
 def main():
     jobs = [
-        # (home_source, target_page, is_gh_pages)
+        # (home_source, target_page, is_en, is_gh_pages)
         (
             os.path.join(REPO_ROOT, "public", "kota-roasist-local.html"),
             os.path.join(REPO_ROOT, "public", "hizmetler", "performans-pazarlamasi", "index.html"),
+            False,
             False,
         ),
         (
             os.path.join(REPO_ROOT, "public", "en", "index.html"),
             os.path.join(REPO_ROOT, "public", "en", "performance-marketing", "index.html"),
+            True,
             False,
         ),
         (
             os.path.join(REPO_ROOT, "dist", "index.html"),
             os.path.join(REPO_ROOT, "dist", "hizmetler", "performans-pazarlamasi", "index.html"),
+            False,
             True,
         ),
         (
             os.path.join(REPO_ROOT, "dist", "en", "index.html"),
             os.path.join(REPO_ROOT, "dist", "en", "performance-marketing", "index.html"),
             True,
+            True,
         ),
     ]
 
-    for home_src, target, is_gh in jobs:
+    for home_src, target, is_en, is_gh in jobs:
         if not os.path.exists(home_src) or not os.path.exists(target):
             print(f"[SKIP] Missing {os.path.relpath(target, REPO_ROOT)} or {os.path.relpath(home_src, REPO_ROOT)}")
             continue
         stats = get_homepage_statistics(home_src)
-        update_target_page(target, stats, is_gh_pages=is_gh)
+        update_target_page(target, stats, is_en=is_en, is_gh_pages=is_gh)
 
 
 if __name__ == "__main__":
