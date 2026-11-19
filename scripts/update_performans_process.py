@@ -275,8 +275,10 @@ def update_page(target_path, steps, is_en=False, is_gh_pages=False):
     work_label = "Work involved" if is_en else "Neler Yapıyoruz"
 
     # 2. Replace SSR Timeline_inner__J706Z and Timeline_bottomTimeline__2F2yN
+    # Note: render_ssr_bottom() already closes its own last .Timeline_blockTime__5jxQS </div>,
+    # so only 4 closing </div> tags follow it (bottomTimeline, StaggeredItems_grid, scroller, container).
     inner_re = re.compile(
-        r'(<div class="Timeline_inner__J706Z">)(.*?)(</div><div class="Timeline_bottomTimeline__2F2yN"[^>]*>)(.*?)(</div></div></div></div></div></section>)',
+        r'(<div class="Timeline_inner__J706Z">)(.*?)(</div><div class="Timeline_bottomTimeline__2F2yN"[^>]*>)(.*?)(?:</div>){4,6}</section>',
         re.S,
     )
     if not inner_re.search(text):
@@ -285,7 +287,7 @@ def update_page(target_path, steps, is_en=False, is_gh_pages=False):
     new_blocks_html = render_ssr_blocks(steps, img_url=img_url, work_label=work_label)
     new_bottom_html = render_ssr_bottom(steps)
     text = inner_re.sub(
-        lambda m: m.group(1) + new_blocks_html + m.group(3) + new_bottom_html + m.group(5),
+        lambda m: m.group(1) + new_blocks_html + m.group(3) + new_bottom_html + "</div></div></div></div></section>",
         text,
         count=1,
     )
