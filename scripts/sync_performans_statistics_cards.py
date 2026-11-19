@@ -95,6 +95,14 @@ DARK_STATS_CSS = f"""<style id="{STYLE_ID}">
 .StatisticsCarousel_swiperNavNext__OgPJn::before {{
   color: #ffffff !important;
 }}
+/* Prevent top clipping of uppercase Turkish diacritics (Ö, Ü, İ, Ğ, Ş) in LineByLine headings */
+.LineByLine_headingOuter__JmusT .split-line {{
+  padding-top: 0.26em !important;
+  margin-top: -0.26em !important;
+}}
+.Statistics_heading__Yy8O7 {{
+  line-height: 1.18 !important;
+}}
 </style>"""
 
 ARROW_SVG = (
