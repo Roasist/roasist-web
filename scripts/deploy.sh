@@ -11,7 +11,6 @@ CODE_ZIP="/tmp/roasist-veridyen-code.zip"
 
 echo "[1/5] Veridyen üretim paketi derleniyor ve doğrulanıyor..."
 python3 scripts/build_veridyen_package.py "$BUILD_DIR" "$FULL_ZIP"
-cp -f "$REPO_ROOT/.cpanel.yml" "$BUILD_DIR/.cpanel.yml"
 
 rm -f "$CODE_ZIP"
 (

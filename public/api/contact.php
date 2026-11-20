@@ -1,19 +1,46 @@
 <?php
 /**
- * Roasist Corporate Website — Native cPanel / Veridyen Lead Endpoint
- * Receives JSON POST from /iletisim/, /start-your-project/, /en/contact-us/, /en/start-your-project/
- * 1. Validates fields & blocks honeypot / header-injection / rapid spam
- * 2. Stores a private backup record in api/_leads_private/leads.jsonl
- * 3. Sends a UTF-8 HTML email to info@roasist.com with Reply-To set to the visitor
+ * Roasist Corporate Website — Hardened Native cPanel / Veridyen Lead Endpoint
+ * Security controls:
+ *   1. POST-only + JSON Content-Type + X-Requested-With custom header + Origin/Referer validation
+ *   2. Honeypot + strict field & Reply-To sanitization (blocks SMTP header injection)
+ *   3. KVKK-safe HMAC-SHA256 IP hashing with auto-generated private server salt + stale rate-file cleanup
+ *   4. Protected backup lead storage (api/_leads_private/leads.jsonl) with 5 MB log rotation
  */
 
+@ini_set('display_errors', '0');
+@header_remove('X-Powered-By');
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
+header('Cache-Control: no-store, no-cache, must-revalidate');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     http_response_code(405);
     echo json_encode(['ok' => false, 'error' => 'Method Not Allowed']);
     exit;
+}
+
+// Require custom AJAX header + JSON Content-Type (blocks cross-site form CSRF & simple bots)
+$contentType   = strtolower((string)($_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_CONTENT_TYPE'] ?? ''));
+$requestedWith = (string)($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '');
+if (strpos($contentType, 'application/json') === false || $requestedWith !== 'RoasistWebForm') {
+    http_response_code(403);
+    echo json_encode(['ok' => false, 'error' => 'Forbidden request context']);
+    exit;
+}
+
+// Validate Origin / Referer against allowed hosts
+$allowedHosts = ['www.roasist.com', 'roasist.com', '127.0.0.1', 'localhost'];
+$originHeader = (string)($_SERVER['HTTP_ORIGIN'] ?? '');
+$refererHeader = (string)($_SERVER['HTTP_REFERER'] ?? '');
+$sourceUrl = $originHeader !== '' ? $originHeader : $refererHeader;
+if ($sourceUrl !== '') {
+    $parsedHost = strtolower((string)(parse_url($sourceUrl, PHP_URL_HOST) ?? ''));
+    if ($parsedHost === '' || !in_array($parsedHost, $allowedHosts, true)) {
+        http_response_code(403);
+        echo json_encode(['ok' => false, 'error' => 'Origin not permitted']);
+        exit;
+    }
 }
 
 $raw = file_get_contents('php://input');
@@ -36,20 +63,21 @@ if (!empty($data['honeypot'])) {
     exit;
 }
 
-function clean_line($val, $max = 300) {
+function clean_line($val, int $max = 300): string {
     $s = trim((string)$val);
     $s = str_replace(["\r", "\n", "\0"], ' ', $s);
     return mb_substr($s, 0, $max, 'UTF-8');
 }
 
 $name     = clean_line($data['name'] ?? ($data['Ad_Soyad'] ?? ''), 160);
-$email    = clean_line($data['email'] ?? ($data['Eposta'] ?? ''), 160);
+$rawEmail = clean_line($data['email'] ?? ($data['Eposta'] ?? ''), 160);
+$email    = str_replace([' ', '<', '>', ',', ';', '"', "'"], '', $rawEmail);
 $services = clean_line($data['services'] ?? ($data['Hizmetler'] ?? '-'), 500);
 $budget   = clean_line($data['budget'] ?? ($data['Butce'] ?? '-'), 160);
 $page     = clean_line($data['page'] ?? ($data['Sayfa'] ?? '-'), 300);
 $subject  = clean_line($data['subject'] ?? 'Yeni Proje & Teklif Talebi — Roasist Web', 200);
 $message  = trim((string)($data['message'] ?? ($data['Mesaj'] ?? '-')));
-$message  = mb_substr($message, 0, 4000, 'UTF-8');
+$message  = str_replace("\0", '', mb_substr($message, 0, 4000, 'UTF-8'));
 
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(422);
@@ -61,16 +89,44 @@ if ($name === '') {
     $name = 'Web Ziyaretçisi';
 }
 
-// Private backup directory + lightweight IP rate limiting (max 6 req / 10 min)
+// Private backup directory + server-local secret salt for KVKK-compliant IP hashing
 $privateDir = __DIR__ . '/_leads_private';
 if (!is_dir($privateDir)) {
     @mkdir($privateDir, 0750, true);
 }
 
-$ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
-$ipHash = substr(hash('sha256', $ip . date('Y-m-d')), 0, 16);
+$saltFile = $privateDir . '/.ip_salt';
+$salt = @file_get_contents($saltFile);
+if (!is_string($salt) || strlen($salt) < 32) {
+    try {
+        $salt = bin2hex(random_bytes(32));
+    } catch (Throwable $e) {
+        $salt = hash('sha256', __FILE__ . '|' . php_uname() . '|' . microtime(true));
+    }
+    @file_put_contents($saltFile, $salt, LOCK_EX);
+}
+
+$now    = time();
+$ip     = (string)($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+$ipHash = substr(hash_hmac('sha256', $ip . '|' . gmdate('Y-m-d'), $salt), 0, 16);
+
+// Opportunistic cleanup of expired rate_*.json files (> 15 min old) to protect cPanel inode quota
+$staleFiles = @glob($privateDir . '/rate_*.json');
+if (is_array($staleFiles)) {
+    $checked = 0;
+    foreach ($staleFiles as $sf) {
+        if (++$checked > 40) {
+            break;
+        }
+        $mtime = @filemtime($sf);
+        if ($mtime !== false && ($now - $mtime) > 900) {
+            @unlink($sf);
+        }
+    }
+}
+
+// Per-IP rate limiting: max 6 submissions per 10 minutes
 $rateFile = $privateDir . '/rate_' . $ipHash . '.json';
-$now = time();
 $hits = [];
 if (is_file($rateFile)) {
     $decodedHits = json_decode((string)@file_get_contents($rateFile), true);
@@ -90,7 +146,12 @@ if (count($hits) >= 6) {
 $hits[] = $now;
 @file_put_contents($rateFile, json_encode($hits), LOCK_EX);
 
-// 1. Save private backup record so zero leads are ever lost
+// 1. Save private backup record with 5 MB rotation cap
+$leadsFile = $privateDir . '/leads.jsonl';
+if (is_file($leadsFile) && @filesize($leadsFile) > 5242880) {
+    @rename($leadsFile, $privateDir . '/leads.1.jsonl');
+}
+
 $record = [
     'timestamp' => gmdate('c'),
     'name'      => $name,
@@ -102,7 +163,7 @@ $record = [
     'ip_hash'   => $ipHash,
 ];
 @file_put_contents(
-    $privateDir . '/leads.jsonl',
+    $leadsFile,
     json_encode($record, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n",
     FILE_APPEND | LOCK_EX
 );

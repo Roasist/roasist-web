@@ -126,7 +126,7 @@ After changes, always verify:
 
 ## Roasist Production Site & Zero-Touch Auto-Deployment (CRITICAL RULE)
 
-- **Live Production URL:** `https://www.roasist.com/` (hosted on Veridyen cPanel `/home/roasistc/public_html`).
+- **Live Production URL:** `https://www.roasist.com/` (hosted on Veridyen cPanel `public_html`).
 - **Source of Truth:** Static bilingual (TR `/` + EN `/en/`) pages and assets live under `public/` (with Turkish homepage at `public/kota-roasist-local.html`, promoted to `index.html` during packaging by `scripts/build_veridyen_package.py`) and generator/update scripts in `scripts/`.
 - **Flight Stream Byte-Length Rule:** HTML pages contain Next.js React Flight records (`<id>:T<hex_byte_len>,<raw_utf8_text>`). NEVER run raw `.replace()` across full HTML if target strings appear inside Flight text chunks; always use `parse_flight_stream` / `serialize_flight_stream` (`apply_replacements_flight_safe`).
 - **Mandatory Zero-Touch Deployment (`./scripts/deploy.sh`):**

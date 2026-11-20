@@ -90,12 +90,25 @@ FORM_CSS = f"""<style id="{FORM_STYLE_ID}">
 def build_form_script(is_en: bool) -> str:
     cfg = {
         "sending": "Sending..." if is_en else "Gönderiliyor...",
+        "retryBtn": "Send Inquiry" if is_en else "Gönder",
         "sentBtn": "Request Received ✓" if is_en else "Talebiniz Alındı ✓",
         "okTitle": "Thank you! Your project inquiry has been received." if is_en else "Teşekkürler! Proje talebiniz başarıyla alındı.",
         "okDesc": (
             "Our strategy team will review your details and reply within the same business day. For immediate priority, you can also send your brief directly via WhatsApp or Email below:"
             if is_en
             else "Uzman ekibimiz bilgilerinizi inceleyerek aynı iş günü içinde sizinle iletişime geçecektir. Dilerseniz tek tıkla WhatsApp hattımızdan veya e-posta ile de anında iletebilirsiniz:"
+        ),
+        "errEmailTitle": "Please check your email address." if is_en else "Lütfen geçerli bir e-posta adresi girin.",
+        "errEmailDesc": (
+            "Enter a valid corporate or personal email address and try again, or reach us directly via WhatsApp below."
+            if is_en
+            else "İletişime geçebilmemiz için e-posta adresinizi kontrol edip tekrar deneyebilir veya doğrudan WhatsApp hattımızdan yazabilirsiniz."
+        ),
+        "errRateTitle": "Too many requests in a short time." if is_en else "Kısa sürede çok fazla gönderim yapıldı.",
+        "errRateDesc": (
+            "Please wait a few minutes before submitting again, or contact us directly via WhatsApp or Email below."
+            if is_en
+            else "Lütfen birkaç dakika bekleyip tekrar deneyin veya aşağıdaki bağlantılardan doğrudan bize ulaşın."
         ),
         "waBtn": "Confirm via WhatsApp →" if is_en else "WhatsApp ile Hızlı Onayla →",
         "mailBtn": "Send via Email" if is_en else "E-posta Uygulamasıyla Gönder",
@@ -105,6 +118,52 @@ def build_form_script(is_en: bool) -> str:
     return f"""<script id="{FORM_SCRIPT_ID}">
 (function() {{
   var CFG = {json.dumps(cfg, ensure_ascii=False)};
+
+  function renderStatusCard(form, titleText, descText, waUrl, mailUrl) {{
+    var box = form.querySelector('.roasist-form-status');
+    if (!box) {{
+      box = document.createElement('div');
+      box.className = 'roasist-form-status';
+      form.appendChild(box);
+    }}
+    while (box.firstChild) {{
+      box.removeChild(box.firstChild);
+    }}
+
+    var titleEl = document.createElement('p');
+    titleEl.className = 'roasist-form-status__title';
+    titleEl.textContent = titleText;
+    box.appendChild(titleEl);
+
+    var descEl = document.createElement('p');
+    descEl.className = 'roasist-form-status__desc';
+    descEl.textContent = descText;
+    box.appendChild(descEl);
+
+    var actionsEl = document.createElement('div');
+    actionsEl.className = 'roasist-form-status__actions';
+
+    if (typeof waUrl === 'string' && waUrl.indexOf('https://wa.me/') === 0) {{
+      var waLink = document.createElement('a');
+      waLink.className = 'roasist-form-status__btn roasist-form-status__btn--primary';
+      waLink.setAttribute('href', waUrl);
+      waLink.setAttribute('target', '_blank');
+      waLink.setAttribute('rel', 'noopener noreferrer');
+      waLink.textContent = CFG.waBtn;
+      actionsEl.appendChild(waLink);
+    }}
+
+    if (typeof mailUrl === 'string' && mailUrl.indexOf('mailto:') === 0) {{
+      var mailLink = document.createElement('a');
+      mailLink.className = 'roasist-form-status__btn roasist-form-status__btn--outline';
+      mailLink.setAttribute('href', mailUrl);
+      mailLink.textContent = CFG.mailBtn;
+      actionsEl.appendChild(mailLink);
+    }}
+
+    box.appendChild(actionsEl);
+  }}
+
   function handleFormSubmit(e) {{
     var form = e.target;
     if (!form || !form.classList || !form.classList.contains('Form_form___noC4')) return;
@@ -139,13 +198,6 @@ def build_form_script(is_en: bool) -> str:
     }});
     var serviceStr = services.length ? services.join(', ') : '-';
 
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({{
-      event: 'generate_lead',
-      form_location: window.location.pathname,
-      lead_services: serviceStr
-    }});
-
     var summaryLines = [
       CFG.waIntro,
       '',
@@ -172,45 +224,53 @@ def build_form_script(is_en: bool) -> str:
       _captcha: 'false'
     }};
 
-    function sendFallback() {{
-      return fetch('https://formsubmit.co/ajax/info@roasist.com', {{
+    var isPreviewHost = window.location.hostname.indexOf('github.io') !== -1;
+
+    if (isPreviewHost) {{
+      fetch('https://formsubmit.co/ajax/info@roasist.com', {{
         method: 'POST',
         headers: {{ 'Content-Type': 'application/json', 'Accept': 'application/json' }},
         body: JSON.stringify(payload)
+      }}).catch(function() {{}}).finally(function() {{
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({{ event: 'generate_lead', form_location: window.location.pathname, lead_services: serviceStr }});
+        if (btnLabel) btnLabel.textContent = CFG.sentBtn;
+        renderStatusCard(form, CFG.okTitle, CFG.okDesc, waUrl, mailUrl);
       }});
+      return;
     }}
 
-    var req = (window.location.hostname.indexOf('github.io') !== -1)
-      ? sendFallback()
-      : fetch('/api/contact.php', {{
-          method: 'POST',
-          headers: {{ 'Content-Type': 'application/json', 'Accept': 'application/json' }},
-          body: JSON.stringify(payload)
-        }}).then(function(r) {{
-          if (!r.ok) return sendFallback();
-          return r.json().then(function(d) {{
-            if (!d || d.ok !== true) return sendFallback();
-            return d;
-          }});
-        }}).catch(function() {{
-          return sendFallback();
-        }});
-
-    req.catch(function() {{}}).finally(function() {{
-      if (btnLabel) btnLabel.textContent = CFG.sentBtn;
-      var box = form.querySelector('.roasist-form-status');
-      if (!box) {{
-        box = document.createElement('div');
-        box.className = 'roasist-form-status';
-        form.appendChild(box);
+    fetch('/api/contact.php', {{
+      method: 'POST',
+      headers: {{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-Requested-With': 'RoasistWebForm'
+      }},
+      body: JSON.stringify(payload)
+    }}).then(function(r) {{
+      if (r.status === 422) {{
+        if (btn) btn.disabled = false;
+        if (btnLabel) btnLabel.textContent = CFG.retryBtn;
+        renderStatusCard(form, CFG.errEmailTitle, CFG.errEmailDesc, waUrl, mailUrl);
+        return null;
       }}
-      box.innerHTML =
-        '<p class="roasist-form-status__title">' + CFG.okTitle + '</p>' +
-        '<p class="roasist-form-status__desc">' + CFG.okDesc + '</p>' +
-        '<div class="roasist-form-status__actions">' +
-          '<a class="roasist-form-status__btn roasist-form-status__btn--primary" href="' + waUrl + '" target="_blank" rel="noopener noreferrer">' + CFG.waBtn + '</a>' +
-          '<a class="roasist-form-status__btn roasist-form-status__btn--outline" href="' + mailUrl + '">' + CFG.mailBtn + '</a>' +
-        '</div>';
+      if (r.status === 429) {{
+        if (btn) btn.disabled = false;
+        if (btnLabel) btnLabel.textContent = CFG.retryBtn;
+        renderStatusCard(form, CFG.errRateTitle, CFG.errRateDesc, waUrl, mailUrl);
+        return null;
+      }}
+      return r.json().catch(function() {{ return {{ ok: r.ok }}; }});
+    }}).then(function(res) {{
+      if (res === null) return;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({{ event: 'generate_lead', form_location: window.location.pathname, lead_services: serviceStr }});
+      if (btnLabel) btnLabel.textContent = CFG.sentBtn;
+      renderStatusCard(form, CFG.okTitle, CFG.okDesc, waUrl, mailUrl);
+    }}).catch(function() {{
+      if (btnLabel) btnLabel.textContent = CFG.sentBtn;
+      renderStatusCard(form, CFG.okTitle, CFG.okDesc, waUrl, mailUrl);
     }});
   }}
   document.addEventListener('submit', handleFormSubmit, true);

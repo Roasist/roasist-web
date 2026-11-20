@@ -1,8 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/roasistc/public_html/
-    - /bin/cp -fR * $DEPLOYPATH
-    - /bin/cp -f .htaccess $DEPLOYPATH/.htaccess 2>/dev/null || true
-    - /bin/cp -f deploy_webhook.php $DEPLOYPATH/deploy_webhook.php 2>/dev/null || true
-    - /bin/cp -f opcache_clear.php $DEPLOYPATH/opcache_clear.php 2>/dev/null || true
