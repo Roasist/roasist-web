@@ -1690,22 +1690,6 @@ input[name="budget"] {
   font-weight: 500;
 }
 
-/* Frosted Glass Scrolled Header So Content Never Collides Behind Fixed Logo/CTA */
-body.roasist-scrolled header.Header_header__KwdYD {
-  background: rgba(236, 236, 238, 0.88) !important;
-  backdrop-filter: blur(12px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.07) !important;
-  padding-top: 0.9rem !important;
-  padding-bottom: 0.9rem !important;
-  pointer-events: auto !important;
-  transition: background 180ms var(--roasist-ease), padding 180ms var(--roasist-ease) !important;
-}
-body.dark.roasist-scrolled header.Header_header__KwdYD {
-  background: rgba(12, 12, 18, 0.86) !important;
-  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
-}
-
 /* 5. Preserve Identical Hero Display Typography When Promoted to Semantic <h1> */
 .Hero_hero__18Xqo .Hero_top__fPz2U h1.roasist-promoted-h1 {
   position: static !important;
@@ -1780,9 +1764,10 @@ body.dark.roasist-scrolled header.Header_header__KwdYD {
   align-items: center;
   gap: 0.4rem;
   margin-top: 1.25rem;
-  padding: 0.35rem;
+  padding: 0.3rem;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.06);
+  background: transparent;
+  border: 1px solid rgba(15, 23, 42, 0.14);
 }
 .roasist-menu-lang a {
   display: inline-flex;
@@ -1848,14 +1833,14 @@ body.dark.roasist-scrolled header.Header_header__KwdYD {
   font-size: 0.88rem;
   font-weight: 500;
   color: #0f172a;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: transparent;
+  border: 1px solid rgba(15, 23, 42, 0.22);
   text-decoration: none;
   transition: border-color 160ms var(--roasist-ease), background 160ms var(--roasist-ease), color 160ms var(--roasist-ease);
 }
 .roasist-channel-pill:hover {
   border-color: #0f172a;
-  background: #ffffff;
+  background: transparent;
 }
 .roasist-channel-pill.is-active {
   background: #0f172a;
