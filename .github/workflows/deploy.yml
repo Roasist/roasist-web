@@ -1,0 +1,62 @@
+name: Deploy to Veridyen (www.roasist.com)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: veridyen-production-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build & verify Veridyen production tree
+        run: |
+          python3 scripts/build_veridyen_package.py /tmp/roasist-veridyen-public_html /tmp/roasist-veridyen-public_html.zip
+          cp -f .cpanel.yml /tmp/roasist-veridyen-public_html/.cpanel.yml
+
+      - name: Sync veridyen-production branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd /tmp/roasist-veridyen-public_html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git init -q -b veridyen-production
+          git add -A
+          git commit -q -m "build(veridyen): sync from ${{ github.sha }}"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" veridyen-production
+
+      - name: Trigger Veridyen Automated Deployment & LiteSpeed Purge
+        if: ${{ secrets.ROASIST_WEB_DEPLOY_SECRET != '' }}
+        env:
+          DEPLOY_SECRET: ${{ secrets.ROASIST_WEB_DEPLOY_SECRET }}
+        run: |
+          STATUS=$(curl -s -o /tmp/deploy_out.json -w "%{http_code}" \
+            -X POST \
+            -H "X-Roasist-Deploy-Secret: ${DEPLOY_SECRET}" \
+            "https://www.roasist.com/deploy_webhook.php?mode=github_pull")
+          cat /tmp/deploy_out.json || true
+          echo ""
+          if [ "$STATUS" != "200" ]; then
+            echo "Veridyen webhook returned HTTP $STATUS"
+            exit 1
+          fi
+          curl -fsS -X POST \
+            -H "X-Roasist-Deploy-Secret: ${DEPLOY_SECRET}" \
+            "https://www.roasist.com/opcache_clear.php"

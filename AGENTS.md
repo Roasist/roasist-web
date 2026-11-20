@@ -121,3 +121,22 @@ After changes, always verify:
 2. `npm run check` passes (astro check + ESLint + Prettier)
 3. Visual check in browser: homepage, blog, dark mode, mobile menu
 4. Structured data describes the site it is on: the `WebSite` / `Organization` block in `src/pages/index.astro` is built only from `config.yaml`; anything you add there must be true for your site
+
+---
+
+## Roasist Production Site & Zero-Touch Auto-Deployment (CRITICAL RULE)
+
+- **Live Production URL:** `https://www.roasist.com/` (hosted on Veridyen cPanel `/home/roasistc/public_html`).
+- **Source of Truth:** Static bilingual (TR `/` + EN `/en/`) pages and assets live under `public/` (with Turkish homepage at `public/kota-roasist-local.html`, promoted to `index.html` during packaging by `scripts/build_veridyen_package.py`) and generator/update scripts in `scripts/`.
+- **Flight Stream Byte-Length Rule:** HTML pages contain Next.js React Flight records (`<id>:T<hex_byte_len>,<raw_utf8_text>`). NEVER run raw `.replace()` across full HTML if target strings appear inside Flight text chunks; always use `parse_flight_stream` / `serialize_flight_stream` (`apply_replacements_flight_safe`).
+- **Mandatory Zero-Touch Deployment (`./scripts/deploy.sh`):**
+  - The user must NEVER be asked to manually upload files, create ZIPs, or touch cPanel/GitHub.
+  - After completing and verifying any requested change in `public/` (and updating the corresponding script in `scripts/`), ALWAYS deploy automatically by running:
+    ```bash
+    ./scripts/deploy.sh "<descriptive commit message>"
+    ```
+  - `./scripts/deploy.sh` automatically:
+    1. Builds & validates the Veridyen production tree (`0` missing images, `0` foreign CDN refs, `0` Flight stream parse errors).
+    2. Commits & pushes `main` and updates the `veridyen-production` branch on GitHub.
+    3. Triggers `https://www.roasist.com/deploy_webhook.php` (authenticated via `~/.gemini/roasist_web_deploy_secret` or GitHub Actions secret `ROASIST_WEB_DEPLOY_SECRET`) and purges OPcache + LiteSpeed Web Cache (`opcache_clear.php`).
+
