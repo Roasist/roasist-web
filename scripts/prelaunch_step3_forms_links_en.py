@@ -327,8 +327,10 @@ def create_en_start_your_project(root_dir: str, is_gh_pages: bool):
 
     if os.path.exists(tr_syp):
         t_tr = open(tr_syp, "r", encoding="utf-8").read()
-        t_tr = t_tr.replace('data-en-route="/en/contact-us/"', 'data-en-route="/en/start-your-project/"')
-        t_tr = t_tr.replace("İletişim | Roasist Dijital Pazarlama Ajansı", "Projeye Başlayın | Roasist Dijital Pazarlama Ajansı")
+        t_tr = apply_replacements_flight_safe(t_tr, [
+            ('data-en-route="/en/contact-us/"', 'data-en-route="/en/start-your-project/"'),
+            ("İletişim | Roasist Dijital Pazarlama Ajansı", "Projeye Başlayın | Roasist Dijital Pazarlama Ajansı"),
+        ])
         open(tr_syp, "w", encoding="utf-8").write(t_tr)
 
 
