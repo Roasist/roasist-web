@@ -4,7 +4,7 @@ Pre-Launch Step 4:
 1. Updates `sitemap.xml` (in both public/ and dist/) with full hreflang="tr", "en", and
    "x-default" entries for the newly added routes:
      - /hizmetler/donusum-optimizasyonu/ <-> /en/conversion-optimization/
-     - /hizmetler/yapay-zeka-seo/ <-> /en/ai-search-aeo-geo/
+     - /hizmetler/aeo-geo/ <-> /en/aeo-geo/
      - /start-your-project/ <-> /en/start-your-project/
    and refreshes `<lastmod>` to 2026-11-20.
 2. Creates a clean, bilingual, brand-aligned `404.html` page (in both public/ and dist/)
@@ -22,7 +22,7 @@ REPO_ROOT = os.path.dirname(SCRIPT_DIR)
 
 NEW_SITEMAP_PAIRS = [
     ("/hizmetler/donusum-optimizasyonu/", "/en/conversion-optimization/", "0.9"),
-    ("/hizmetler/yapay-zeka-seo/", "/en/ai-search-aeo-geo/", "0.9"),
+    ("/hizmetler/aeo-geo/", "/en/aeo-geo/", "0.9"),
     ("/start-your-project/", "/en/start-your-project/", "0.8"),
 ]
 
@@ -216,7 +216,7 @@ def fix_aeo_titles(root_dir: str):
     sys.path.insert(0, SCRIPT_DIR)
     from prelaunch_step3_forms_links_en import apply_replacements_flight_safe
 
-    tr_aeo = os.path.join(root_dir, "hizmetler", "yapay-zeka-seo", "index.html")
+    tr_aeo = os.path.join(root_dir, "hizmetler", "aeo-geo", "index.html")
     if os.path.exists(tr_aeo):
         t = open(tr_aeo, "r", encoding="utf-8").read()
         t2 = apply_replacements_flight_safe(
@@ -232,7 +232,7 @@ def fix_aeo_titles(root_dir: str):
             open(tr_aeo, "w", encoding="utf-8").write(t2)
             print(f"[OK] Updated <title> in {os.path.relpath(tr_aeo, REPO_ROOT)}")
 
-    en_aeo = os.path.join(root_dir, "en", "ai-search-aeo-geo", "index.html")
+    en_aeo = os.path.join(root_dir, "en", "aeo-geo", "index.html")
     if os.path.exists(en_aeo):
         t = open(en_aeo, "r", encoding="utf-8").read()
         t2 = apply_replacements_flight_safe(

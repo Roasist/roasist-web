@@ -26,7 +26,9 @@ AddDefaultCharset UTF-8
   RewriteRule ^(wp-admin|wp-includes)(/.*)?$ - [G,L]
   RewriteRule ^(wp-login\.php|xmlrpc\.php|wp-cron\.php|wp-config\.php|readme\.html|license\.txt)$ - [G,L]
 
-  # 4. Legacy WordPress 301 SEO Redirects -> New Roasist Routes
+  # 4. Legacy WordPress & Renamed Route 301 SEO Redirects -> New Roasist Routes
+  RewriteRule ^hizmetler/yapay-zeka-seo/?$ /hizmetler/aeo-geo/ [R=301,L]
+  RewriteRule ^en/ai-search-aeo-geo/?$ /en/aeo-geo/ [R=301,L]
   RewriteRule ^hizmetlerimiz/?$ /hizmetler/ [R=301,L]
   RewriteRule ^hizmetlerimiz/(.*)$ /hizmetler/$1 [R=301,L]
   RewriteRule ^(hizmetler/)?arama-motoru-optimizasyonu(-seo)?/?$ /hizmetler/seo/ [R=301,L]

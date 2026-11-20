@@ -2,8 +2,8 @@
 """
 Upgrades all 3 services under 'SEO, AEO & 360° Dijital Büyüme' (TR & EN, public/ and dist/):
   1. Teknik & Kurumsal SEO (/hizmetler/seo/ & /en/seo/)
-  2. Yapay Zeka Aramaları (AEO & GEO) — creates dedicated /hizmetler/yapay-zeka-seo/
-     & /en/ai-search-aeo-geo/ pages and wires the Homepage pill straight to them.
+  2. Yapay Zeka Aramaları (AEO & GEO) — creates dedicated /hizmetler/aeo-geo/
+     & /en/aeo-geo/ pages and wires the Homepage pill straight to them.
   3. 360° Dijital Pazarlama Yönetimi (/hizmetler/360-derece-dijital-pazarlama-yonetimi/
      & /en/360-digital-marketing-management/)
 
@@ -555,8 +555,8 @@ def create_aeo_page_from_seo(src_path, dst_path, is_en=False):
              "We track Share of Model across target buyer prompts on ChatGPT, Gemini, Perplexity, and Google AI Overviews alongside GA4 AI-referral traffic and conversions."),
             ("Contact us for a complimentary technical SEO &amp; AI visibility audit.", "Contact us for a complimentary AI Search (AEO &amp; GEO) visibility audit."),
             ("Contact us for a complimentary technical SEO & AI visibility audit.", "Contact us for a complimentary AI Search (AEO & GEO) visibility audit."),
-            ("/en/seo/", "/en/ai-search-aeo-geo/"),
-            ("/hizmetler/seo/", "/hizmetler/yapay-zeka-seo/"),
+            ("/en/seo/", "/en/aeo-geo/"),
+            ("/hizmetler/seo/", "/hizmetler/aeo-geo/"),
         ]
     else:
         replacements = [
@@ -589,8 +589,8 @@ def create_aeo_page_from_seo(src_path, dst_path, is_en=False):
             ("Roasist ile SEO (Arama Motoru Optimizasyonu) çalışmalarına nasıl başlayabiliriz?", "Roasist ile AEO & GEO çalışmalarına nasıl başlayabiliriz?"),
             ("İletişim sayfamızdan veya 'Projeye Başlayın' butonundan bize ulaştığınızda, mevcut dijital varlıklarınızı ücretsiz analiz ediyor ve markanıza özel büyüme yol haritasını sunuyoruz.",
              "İletişim sayfamızdan bize ulaştığınızda markanızın ChatGPT, Gemini ve Google AI Overviews üzerindeki mevcut görünürlüğünü ücretsiz analiz edip size özel AEO & GEO yol haritasını sunuyoruz."),
-            ("/hizmetler/seo/", "/hizmetler/yapay-zeka-seo/"),
-            ("/en/seo/", "/en/ai-search-aeo-geo/"),
+            ("/hizmetler/seo/", "/hizmetler/aeo-geo/"),
+            ("/en/seo/", "/en/aeo-geo/"),
         ]
 
     matches, _, full = extract_flight_chunks(text)
@@ -644,7 +644,7 @@ def wire_aeo_link_on_homepage(home_path, is_en=False):
             text = text.replace(old_fl2, '\\"slug\\":\\"ai-search-aeo-geo\\",\\"title\\":\\"AI Search (AEO & GEO)\\"', 1)
             changed = True
         if "'ai-search-aeo-geo':" not in text and "'seo':" in text:
-            text = text.replace("'seo': '/en/seo/',", "'seo': '/en/seo/',\n    'ai-search-aeo-geo': '/en/ai-search-aeo-geo/',")
+            text = text.replace("'seo': '/en/seo/',", "'seo': '/en/seo/',\n    'ai-search-aeo-geo': '/en/aeo-geo/',")
             changed = True
     else:
         old_ssr = '<a class="ServicesPanel_tag__JYwRk" href="service/seo">Yapay Zeka Aramaları (AEO &amp; GEO)</a>'
@@ -661,7 +661,7 @@ def wire_aeo_link_on_homepage(home_path, is_en=False):
             text = text.replace(old_fl2, '\\"slug\\":\\"yapay-zeka-seo\\",\\"title\\":\\"Yapay Zeka Aramaları (AEO & GEO)\\"', 1)
             changed = True
         if "'yapay-zeka-seo':" not in text and "'seo':" in text:
-            text = text.replace("'seo': '/hizmetler/seo/',", "'seo': '/hizmetler/seo/',\n    'yapay-zeka-seo': '/hizmetler/yapay-zeka-seo/',")
+            text = text.replace("'seo': '/hizmetler/seo/',", "'seo': '/hizmetler/seo/',\n    'yapay-zeka-seo': '/hizmetler/aeo-geo/',")
             changed = True
 
     if changed:
@@ -708,10 +708,10 @@ def main():
 
     # 3. Create & upgrade dedicated AEO & GEO pages
     aeo_jobs = [
-        ("public/kota-roasist-local.html", "public/hizmetler/seo/index.html", "public/hizmetler/yapay-zeka-seo/index.html", False, False),
-        ("public/en/index.html", "public/en/seo/index.html", "public/en/ai-search-aeo-geo/index.html", True, False),
-        ("dist/index.html", "dist/hizmetler/seo/index.html", "dist/hizmetler/yapay-zeka-seo/index.html", False, True),
-        ("dist/en/index.html", "dist/en/seo/index.html", "dist/en/ai-search-aeo-geo/index.html", True, True),
+        ("public/kota-roasist-local.html", "public/hizmetler/seo/index.html", "public/hizmetler/aeo-geo/index.html", False, False),
+        ("public/en/index.html", "public/en/seo/index.html", "public/en/aeo-geo/index.html", True, False),
+        ("dist/index.html", "dist/hizmetler/seo/index.html", "dist/hizmetler/aeo-geo/index.html", False, True),
+        ("dist/en/index.html", "dist/en/seo/index.html", "dist/en/aeo-geo/index.html", True, True),
     ]
     for home_rel, src_rel, dst_rel, is_en, is_gh in aeo_jobs:
         home_src = os.path.join(REPO_ROOT, home_rel)

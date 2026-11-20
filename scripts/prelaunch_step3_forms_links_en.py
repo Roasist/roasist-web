@@ -188,6 +188,7 @@ def build_form_script(is_en: bool) -> str:
     var lastName = (fd.get('lastName') || '').toString().trim();
     var fullName = (firstName + ' ' + lastName).trim();
     var email = (fd.get('email') || '').toString().trim();
+    var contactPhone = (fd.get('contactPhone') || '-').toString().trim() || '-';
     var budget = (fd.get('budget') || '-').toString().trim() || '-';
     var message = (fd.get('message') || '-').toString().trim() || '-';
 
@@ -202,6 +203,7 @@ def build_form_script(is_en: bool) -> str:
       CFG.waIntro,
       '',
       'Name: ' + fullName,
+      'Phone: ' + contactPhone,
       'Email: ' + email,
       'Services: ' + serviceStr,
       'Budget: ' + budget,
@@ -215,6 +217,7 @@ def build_form_script(is_en: bool) -> str:
       subject: CFG.subject,
       _subject: CFG.subject + ' — ' + fullName,
       name: fullName,
+      phone: contactPhone,
       email: email,
       services: serviceStr,
       budget: budget,
@@ -359,6 +362,8 @@ def upgrade_form_page(path: str, is_en: bool, is_gh_pages: bool):
             ('"href":"/roasist-web/faqs","target":"_blank"', f'"href":"{svcs_href}"'),
             (">Branding<", ">Performans Pazarlaması (Ads)<"),
             ('"Branding"', '"Performans Pazarlaması (Ads)"'),
+            (">E-Ticaret<", ">Dönüşüm Optimizasyonu (CRO)<"),
+            ('"E-Ticaret"', '"Dönüşüm Optimizasyonu (CRO)"'),
             ("Lorem Ipsum", "Yapay Zeka Aramaları (AEO & GEO)"),
             ("First name*", "Adınız*"),
             ("Last name*", "Soyadınız*"),

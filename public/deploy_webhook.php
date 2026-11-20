@@ -74,9 +74,16 @@ $debug        = [];
 $filesCopied  = 0;
 $deployMethod = 'NONE';
 
-// Remove legacy exposed .cpanel.yml from public_html if present
+// Remove legacy exposed .cpanel.yml & retired route directories so .htaccess 301 redirects take effect
 if (file_exists($targetDir . '/.cpanel.yml')) {
     @unlink($targetDir . '/.cpanel.yml');
+}
+foreach (['/hizmetler/yapay-zeka-seo', '/en/ai-search-aeo-geo'] as $retiredRel) {
+    $retiredAbs = $targetDir . $retiredRel;
+    if (is_dir($retiredAbs)) {
+        @unlink($retiredAbs . '/index.html');
+        @rmdir($retiredAbs);
+    }
 }
 
 /**

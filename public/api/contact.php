@@ -72,6 +72,10 @@ function clean_line($val, int $max = 300): string {
 $name     = clean_line($data['name'] ?? ($data['Ad_Soyad'] ?? ''), 160);
 $rawEmail = clean_line($data['email'] ?? ($data['Eposta'] ?? ''), 160);
 $email    = str_replace([' ', '<', '>', ',', ';', '"', "'"], '', $rawEmail);
+$phone    = clean_line($data['phone'] ?? ($data['contactPhone'] ?? ($data['Telefon'] ?? '-')), 60);
+if ($phone === '') {
+    $phone = '-';
+}
 $services = clean_line($data['services'] ?? ($data['Hizmetler'] ?? '-'), 500);
 $budget   = clean_line($data['budget'] ?? ($data['Butce'] ?? '-'), 160);
 $page     = clean_line($data['page'] ?? ($data['Sayfa'] ?? '-'), 300);
@@ -156,6 +160,7 @@ $record = [
     'timestamp' => gmdate('c'),
     'name'      => $name,
     'email'     => $email,
+    'phone'     => $phone,
     'services'  => $services,
     'budget'    => $budget,
     'message'   => $message,
@@ -174,11 +179,17 @@ $encodedSubject = '=?UTF-8?B?' . base64_encode($subject . ' (' . $name . ')') . 
 
 $safeName     = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $safeEmail    = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$safePhone    = htmlspecialchars($phone, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$telHref      = preg_replace('/[^0-9+]/', '', $phone);
 $safeServices = htmlspecialchars($services, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $safeBudget   = htmlspecialchars($budget, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $safePage     = htmlspecialchars($page, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $safeMessage  = nl2br(htmlspecialchars($message, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'));
 $dateStr      = date('d.m.Y H:i');
+
+$phoneCell = ($telHref !== '')
+    ? "<a href=\"tel:{$telHref}\" style=\"color:#0f172a;\">{$safePhone}</a>"
+    : $safePhone;
 
 $htmlBody = <<<HTML
 <!DOCTYPE html>
@@ -189,6 +200,7 @@ $htmlBody = <<<HTML
     <h2 style="margin:0 0 16px;font-size:18px;color:#0f172a;">Yeni Web Formu Talebi — Roasist</h2>
     <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6;">
       <tr><td style="padding:8px 0;color:#64748b;width:160px;"><strong>Ad Soyad:</strong></td><td style="padding:8px 0;color:#0f172a;">{$safeName}</td></tr>
+      <tr><td style="padding:8px 0;color:#64748b;"><strong>Telefon / WhatsApp:</strong></td><td style="padding:8px 0;color:#0f172a;">{$phoneCell}</td></tr>
       <tr><td style="padding:8px 0;color:#64748b;"><strong>E-posta:</strong></td><td style="padding:8px 0;"><a href="mailto:{$safeEmail}" style="color:#0f172a;">{$safeEmail}</a></td></tr>
       <tr><td style="padding:8px 0;color:#64748b;"><strong>Hizmetler:</strong></td><td style="padding:8px 0;color:#0f172a;">{$safeServices}</td></tr>
       <tr><td style="padding:8px 0;color:#64748b;"><strong>Aylık Bütçe:</strong></td><td style="padding:8px 0;color:#0f172a;">{$safeBudget}</td></tr>
