@@ -3050,13 +3050,18 @@ html body .roasist-scale-globe-canvas {
     }
   }
 
+  let lastMountCheck = -1000;
   function tick(now) {
     requestAnimationFrame(tick);
-    try {
-      ensureCanvasesMounted();
-    } catch {}
+    if (document.hidden) return;
+    if (!observerAttached || (isCarouselVisible && (now - lastMountCheck > 600))) {
+      lastMountCheck = now;
+      try {
+        ensureCanvasesMounted();
+      } catch {}
+    }
 
-    if (isCarouselVisible && !document.hidden) {
+    if (isCarouselVisible) {
       const elapsedSeconds = (now - startTime) * 0.001;
 
       // Render Slide 1 ("Önce veri ve strateji")

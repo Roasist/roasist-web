@@ -184,6 +184,26 @@ function sync_directory(string $sourceDir, string $targetDir): int {
     if (file_exists($sourceDir . '/.htaccess')) {
         @copy($sourceDir . '/.htaccess', $targetDir . '/.htaccess');
     }
+
+    // Prune deleted orphan media files in target/images when full images directory is synced
+    if (is_dir($sourceDir . '/images') && is_dir($targetDir . '/images')) {
+        $imgIter = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($targetDir . '/images', RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($imgIter as $tItem) {
+            $relImg = str_replace('\\', '/', $imgIter->getSubPathName());
+            $srcImg = $sourceDir . '/images/' . $relImg;
+            if (!file_exists($srcImg)) {
+                if ($tItem->isDir() && !$tItem->isLink()) {
+                    @rmdir($tItem->getRealPath());
+                } else {
+                    @unlink($tItem->getPathname());
+                }
+            }
+        }
+    }
+
     return $copied;
 }
 
