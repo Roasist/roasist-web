@@ -34,37 +34,84 @@ from update_tiktok_yandex_pages import extract_flight_chunks
 LAZY_VIDEO_SCRIPT_ID = "roasist-lazy-video"
 LAZY_VIDEO_SCRIPT = f"""<script id="{LAZY_VIDEO_SCRIPT_ID}">
 (function() {{
-  if (!('IntersectionObserver' in window)) {{
-    document.querySelectorAll('video.ProjectCard_video__AheFz[data-src]').forEach(function(v) {{
-      v.src = v.getAttribute('data-src');
+  function ensureInlineAttrs(v) {{
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.loop = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
+  }}
+
+  function primeAndPlay(v) {{
+    if (!v) return;
+    ensureInlineAttrs(v);
+    var ds = v.getAttribute('data-src');
+    if (ds && !v.getAttribute('src')) {{
+      v.setAttribute('src', ds);
+      try {{ v.load(); }} catch (e) {{}}
+    }}
+    if (v.getAttribute('src')) {{
+      var p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(function() {{}});
+    }}
+  }}
+
+  function initHeroVideos() {{
+    document.querySelectorAll('video[class*="Hero_video__"]').forEach(function(v) {{
+      if (window.getComputedStyle && window.getComputedStyle(v).display === 'none') return;
+      primeAndPlay(v);
     }});
+  }}
+
+  var SELECTOR = 'video.ProjectCard_video__AheFz[data-src], .ServiceMedia_mediaContainer__WGgZa video[data-src]';
+
+  if (!('IntersectionObserver' in window)) {{
+    initHeroVideos();
+    document.querySelectorAll(SELECTOR).forEach(primeAndPlay);
     return;
   }}
+
+  var visibleSet = new Set();
   var io = new IntersectionObserver(function(entries) {{
     entries.forEach(function(entry) {{
       var v = entry.target;
       if (entry.isIntersecting) {{
-        var ds = v.getAttribute('data-src');
-        if (ds && !v.getAttribute('src')) {{
-          v.src = ds;
-          v.load();
+        visibleSet.add(v);
+        primeAndPlay(v);
+      }} else {{
+        visibleSet.delete(v);
+        if (v.getAttribute('src') && !v.paused) {{
+          try {{ v.pause(); }} catch (e) {{}}
         }}
-        var p = v.play();
-        if (p && typeof p.catch === 'function') p.catch(function() {{}});
-      }} else if (v.getAttribute('src') && !v.paused) {{
-        try {{ v.pause(); }} catch (e) {{}}
       }}
     }});
-  }}, {{ rootMargin: '320px 0px' }});
+  }}, {{ rootMargin: '320px 0px', threshold: 0.01 }});
 
   function observeVideos(root) {{
-    (root || document).querySelectorAll('video.ProjectCard_video__AheFz[data-src]').forEach(function(v) {{
+    initHeroVideos();
+    (root || document).querySelectorAll(SELECTOR).forEach(function(v) {{
       if (!v.dataset.roasistObserved) {{
         v.dataset.roasistObserved = '1';
         io.observe(v);
       }}
     }});
   }}
+
+  function resumeVisible() {{
+    visibleSet.forEach(function(v) {{
+      if (v.paused) primeAndPlay(v);
+    }});
+    document.querySelectorAll('.ServiceMedia_mediaContainer__WGgZa video, .AutoplayVideo_video__zckWy video, video[class*="Hero_video__"]').forEach(function(v) {{
+      if (window.getComputedStyle && window.getComputedStyle(v).display === 'none') return;
+      if ((v.getAttribute('src') || v.getAttribute('data-src')) && v.paused) {{
+        primeAndPlay(v);
+      }}
+    }});
+  }}
+  window.addEventListener('touchstart', resumeVisible, {{ passive: true, once: false }});
 
   if (document.readyState === 'loading') {{
     document.addEventListener('DOMContentLoaded', function() {{ observeVideos(document); }});
