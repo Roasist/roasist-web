@@ -159,20 +159,44 @@ def build_form_script(is_en: bool) -> str:
     var waUrl = 'https://wa.me/905405075350?text=' + encodeURIComponent(summaryLines.join('\\n'));
     var mailUrl = 'mailto:info@roasist.com?subject=' + encodeURIComponent(CFG.subject + ' (' + fullName + ')') + '&body=' + encodeURIComponent(summaryLines.join('\\n'));
 
-    fetch('https://formsubmit.co/ajax/info@roasist.com', {{
-      method: 'POST',
-      headers: {{ 'Content-Type': 'application/json', 'Accept': 'application/json' }},
-      body: JSON.stringify({{
-        _subject: CFG.subject + ' — ' + fullName,
-        name: fullName,
-        email: email,
-        services: serviceStr,
-        budget: budget,
-        message: message,
-        page: window.location.href,
-        _captcha: 'false'
-      }})
-    }}).catch(function() {{}}).finally(function() {{
+    var payload = {{
+      subject: CFG.subject,
+      _subject: CFG.subject + ' — ' + fullName,
+      name: fullName,
+      email: email,
+      services: serviceStr,
+      budget: budget,
+      message: message,
+      page: window.location.href,
+      honeypot: hp ? hp.value : '',
+      _captcha: 'false'
+    }};
+
+    function sendFallback() {{
+      return fetch('https://formsubmit.co/ajax/info@roasist.com', {{
+        method: 'POST',
+        headers: {{ 'Content-Type': 'application/json', 'Accept': 'application/json' }},
+        body: JSON.stringify(payload)
+      }});
+    }}
+
+    var req = (window.location.hostname.indexOf('github.io') !== -1)
+      ? sendFallback()
+      : fetch('/api/contact.php', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json', 'Accept': 'application/json' }},
+          body: JSON.stringify(payload)
+        }}).then(function(r) {{
+          if (!r.ok) return sendFallback();
+          return r.json().then(function(d) {{
+            if (!d || d.ok !== true) return sendFallback();
+            return d;
+          }});
+        }}).catch(function() {{
+          return sendFallback();
+        }});
+
+    req.catch(function() {{}}).finally(function() {{
       if (btnLabel) btnLabel.textContent = CFG.sentBtn;
       var box = form.querySelector('.roasist-form-status');
       if (!box) {{
@@ -283,6 +307,13 @@ def upgrade_form_page(path: str, is_en: bool, is_gh_pages: bool):
             ('placeholder="Message"', 'placeholder="Projeniz veya Hedefleriniz"'),
             ('"placeholder":"Message"', '"placeholder":"Projeniz veya Hedefleriniz"'),
         ]
+
+    reps.extend([
+        ("/roasist-web/images/work/23projects.jpg", f"{prefix}/images/projects/23-projects.jpg"),
+        ("/images/work/23projects.jpg", f"{prefix}/images/projects/23-projects.jpg"),
+        ("/roasist-web/images/work/summerhomes.jpg", f"{prefix}/images/projects/summer-homes.jpg"),
+        ("/images/work/summerhomes.jpg", f"{prefix}/images/projects/summer-homes.jpg"),
+    ])
 
     text = apply_replacements_flight_safe(text, reps)
 

@@ -211,6 +211,68 @@ def write_404(root_dir: str):
     print(f"[OK] Created {os.path.relpath(p, REPO_ROOT)}")
 
 
+def fix_aeo_titles(root_dir: str):
+    import sys
+    sys.path.insert(0, SCRIPT_DIR)
+    from prelaunch_step3_forms_links_en import apply_replacements_flight_safe
+
+    tr_aeo = os.path.join(root_dir, "hizmetler", "yapay-zeka-seo", "index.html")
+    if os.path.exists(tr_aeo):
+        t = open(tr_aeo, "r", encoding="utf-8").read()
+        t2 = apply_replacements_flight_safe(
+            t,
+            [
+                (
+                    "Roasist - SEO - Çevrimiçi Varlığınızı Güçlendirin",
+                    "Yapay Zeka Aramaları (AEO & GEO) | ChatGPT & Gemini Görünürlüğü | Roasist",
+                )
+            ],
+        )
+        if t2 != t:
+            open(tr_aeo, "w", encoding="utf-8").write(t2)
+            print(f"[OK] Updated <title> in {os.path.relpath(tr_aeo, REPO_ROOT)}")
+
+    en_aeo = os.path.join(root_dir, "en", "ai-search-aeo-geo", "index.html")
+    if os.path.exists(en_aeo):
+        t = open(en_aeo, "r", encoding="utf-8").read()
+        t2 = apply_replacements_flight_safe(
+            t,
+            [
+                (
+                    "Enterprise SEO &amp; AI Search (AEO) Agency | Roasist",
+                    "AI Search Optimization (AEO &amp; GEO) Agency | ChatGPT &amp; Perplexity | Roasist",
+                ),
+                (
+                    "Enterprise SEO & AI Search (AEO) Agency | Roasist",
+                    "AI Search Optimization (AEO & GEO) Agency | ChatGPT & Perplexity | Roasist",
+                ),
+            ],
+        )
+        if t2 != t:
+            open(en_aeo, "w", encoding="utf-8").write(t2)
+            print(f"[OK] Updated <title> in {os.path.relpath(en_aeo, REPO_ROOT)}")
+
+    en_seo = os.path.join(root_dir, "en", "seo", "index.html")
+    if os.path.exists(en_seo):
+        t = open(en_seo, "r", encoding="utf-8").read()
+        t2 = apply_replacements_flight_safe(
+            t,
+            [
+                (
+                    "Enterprise SEO &amp; AI Search (AEO) Agency | Roasist",
+                    "Technical &amp; Enterprise SEO Agency | Organic Search Growth | Roasist",
+                ),
+                (
+                    "Enterprise SEO & AI Search (AEO) Agency | Roasist",
+                    "Technical & Enterprise SEO Agency | Organic Search Growth | Roasist",
+                ),
+            ],
+        )
+        if t2 != t:
+            open(en_seo, "w", encoding="utf-8").write(t2)
+            print(f"[OK] Updated <title> in {os.path.relpath(en_seo, REPO_ROOT)}")
+
+
 def main():
     for root_name in ["public", "dist"]:
         root_dir = os.path.join(REPO_ROOT, root_name)
@@ -218,7 +280,9 @@ def main():
             continue
         update_sitemap(os.path.join(root_dir, "sitemap.xml"))
         write_404(root_dir)
+        fix_aeo_titles(root_dir)
 
 
 if __name__ == "__main__":
     main()
+

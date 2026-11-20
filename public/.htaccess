@@ -1,27 +1,75 @@
+# ==============================================================================
+# Roasist Corporate Website — Veridyen (LiteSpeed / Apache) Production Config
+# ==============================================================================
+Options -Indexes
+DirectoryIndex index.html index.php
+AddDefaultCharset UTF-8
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Legacy WordPress 301 Redirects to preserve SEO link equity
-  RewriteRule ^hizmetlerimiz/(.*)$ /hizmetler/$1 [R=301,L]
-  RewriteRule ^blog/hello-world/?$ /blog/ [R=301,L]
+  # 1. Force HTTPS + canonical www.roasist.com on production domain
+  RewriteCond %{HTTP_HOST} ^(www\.)?roasist\.com$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^ https://www.roasist.com%{REQUEST_URI} [R=301,L]
 
-  # Enforce trailing slash on directories if file does not exist
+  RewriteCond %{HTTP_HOST} ^roasist\.com$ [NC]
+  RewriteRule ^ https://www.roasist.com%{REQUEST_URI} [R=301,L]
+
+  # 2. Block & retire legacy WordPress system/attack endpoints cleanly (410 Gone)
+  RewriteRule ^(wp-admin|wp-includes)(/.*)?$ - [G,L]
+  RewriteRule ^(wp-login\.php|xmlrpc\.php|wp-cron\.php|wp-config\.php|readme\.html|license\.txt)$ - [G,L]
+
+  # 3. Legacy WordPress 301 SEO Redirects -> New Roasist Routes
+  RewriteRule ^hizmetlerimiz/?$ /hizmetler/ [R=301,L]
+  RewriteRule ^hizmetlerimiz/(.*)$ /hizmetler/$1 [R=301,L]
+  RewriteRule ^(hizmetler/)?arama-motoru-optimizasyonu(-seo)?/?$ /hizmetler/seo/ [R=301,L]
+  RewriteRule ^360-derece-dijital-pazarlama-yonetimi/?$ /hizmetler/360-derece-dijital-pazarlama-yonetimi/ [R=301,L]
+  RewriteRule ^performans-pazarlamasi/?$ /hizmetler/performans-pazarlamasi/ [R=301,L]
+  RewriteRule ^web-tasarim/?$ /hizmetler/web-tasarim/ [R=301,L]
+  RewriteRule ^grafik-tasarim/?$ /hizmetler/grafik-tasarim/ [R=301,L]
+  RewriteRule ^(iletisim-2|bize-ulasin|randevu)/?$ /iletisim/ [R=301,L]
+  RewriteRule ^(hakkimizda-2|biz-kimiz)/?$ /hakkimizda/ [R=301,L]
+  RewriteRule ^(referanslarimiz|portfolyo)/?$ /referanslar/ [R=301,L]
+  RewriteRule ^(gizlilik-politikasi|kullanim-sartlari|kvkk)/?$ /gizlilik-politikasi-ve-kullanim-sartlari/ [R=301,L]
+  RewriteRule ^(blog/hello-world|feed|comments/feed)/?$ /blog/ [R=301,L]
+  RewriteRule ^wp-sitemap\.xml$ /sitemap.xml [R=301,L]
+  RewriteRule ^sitemap_index\.xml$ /sitemap.xml [R=301,L]
+
+  # 4. Enforce trailing slash on clean directory routes (skip /api/ and files)
   RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !^/api/
   RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{2,5}$
   RewriteCond %{REQUEST_URI} !/$
   RewriteRule ^(.*)$ /$1/ [R=301,L]
-
-  # Custom 404 page
-  ErrorDocument 404 /404.html
 </IfModule>
 
+# 5. Custom Bilingual 404 Page
+ErrorDocument 404 /404.html
+
+# 6. Security Headers (allows same-origin 3D methodology iframes)
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 7. Browser & LiteSpeed Static Asset Caching
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 hour"
+  ExpiresByType text/xml "access plus 1 hour"
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
