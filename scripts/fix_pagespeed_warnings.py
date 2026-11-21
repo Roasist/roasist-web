@@ -184,6 +184,7 @@ def prepare_inline_css(css_path: str, cache: dict) -> str:
     raw = raw.replace("url(../media/", "url(/_next/static/media/")
     raw = raw.replace('url("../media/', 'url("/_next/static/media/')
     raw = raw.replace("url('../media/", "url('/_next/static/media/")
+    raw = raw.replace("noise-w.ea6f056b.png", "noise-w.ea6f056b.webp")
     # Strip block comments & compact line breaks safely (preserving calc() spaces and SVG data URIs)
     raw = re.sub(r"/\*.*?\*/", "", raw, flags=re.S)
     raw = re.sub(r"[ \t]*\n+[ \t]*", "", raw)
