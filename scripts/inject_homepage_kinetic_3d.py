@@ -19,8 +19,6 @@ TARGET_FILES = [
 ]
 
 KINETIC_3D_BLOCK = """<style data-roasist-kinetic-3d-style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap&subset=latin,latin-ext');
-
 html body #carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx,
 html body #carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx,
 html body #carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx,
