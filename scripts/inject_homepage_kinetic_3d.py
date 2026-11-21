@@ -2891,15 +2891,16 @@ html body .roasist-scale-globe-canvas {
   }
 
   // ==========================================================================
-  // MOUNT & INTERSECTION OBSERVER LIFECYCLE
+  // MOUNT & INTERSECTION OBSERVER LIFECYCLE (Zero-Reflow & Zero-Idle-RAF)
   // ==========================================================================
   let s1Canvas = null, s1Ctx = null, s1W = 562, s1H = 434, s1Dpr = 1;
   let s2Canvas = null, s2Ctx = null, s2W = 562, s2H = 434, s2Dpr = 1;
   let s3Canvas = null, s3Ctx = null, s3W = 562, s3H = 434, s3Dpr = 1;
   let s4Canvas = null, s4Ctx = null, s4W = 562, s4H = 434, s4Dpr = 1;
   let s5Canvas = null, s5Ctx = null, s5W = 562, s5H = 434, s5Dpr = 1;
-  let isCarouselVisible = true;
-  let observerAttached = false;
+  let isCarouselVisible = false;
+  let rafHandle = 0;
+  let lastMountCheck = -1000;
   const startTime = performance.now();
 
   function stopSlideVideo(container) {
@@ -2916,20 +2917,18 @@ html body .roasist-scale-globe-canvas {
   }
 
   function ensureCanvasesMounted() {
-    const carouselEl = document.getElementById('carousel');
-    if (carouselEl && !observerAttached && 'IntersectionObserver' in window) {
-      observerAttached = true;
-      const io = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          isCarouselVisible = entry.isIntersecting;
-        }
-      }, { threshold: 0.02 });
-      io.observe(carouselEl);
-    }
+    // PHASE 1: Batch-read all slide container geometries BEFORE any DOM writes (0 forced reflow!)
+    const sel = (n) => document.querySelector(`#carousel .swiper-slide:nth-child(${n}) .CarouselSlides_carouselMedia__aqYWx`);
+    const c1 = sel(1), c2 = sel(2), c3 = sel(3), c4 = sel(4), c5 = sel(5);
+    const r1 = c1 ? c1.getBoundingClientRect() : null;
+    const r2 = c2 ? c2.getBoundingClientRect() : null;
+    const r3 = c3 ? c3.getBoundingClientRect() : null;
+    const r4 = c4 ? c4.getBoundingClientRect() : null;
+    const r5 = c5 ? c5.getBoundingClientRect() : null;
+    const d = Math.min(window.devicePixelRatio || 1, 2);
 
-    // Slide 1
-    const c1 = document.querySelector('#carousel .swiper-slide:nth-child(1) .CarouselSlides_carouselMedia__aqYWx');
-    if (c1) {
+    // PHASE 2: Perform DOM mutations & canvas sizing
+    if (c1 && r1) {
       stopSlideVideo(c1);
       let cv1 = c1.querySelector('canvas.roasist-kinetic-3d-canvas');
       if (!cv1) {
@@ -2940,9 +2939,7 @@ html body .roasist-scale-globe-canvas {
         s1Canvas = cv1;
         s1Ctx = cv1.getContext('2d', { alpha: false });
       }
-      const r1 = c1.getBoundingClientRect();
       if (r1.width > 40 && r1.height > 40) {
-        const d = Math.min(window.devicePixelRatio || 1, 2);
         const tw = Math.floor(r1.width), th = Math.floor(r1.height);
         if (s1W !== tw || s1H !== th || s1Dpr !== d || cv1.width !== tw * d) {
           s1W = tw; s1H = th; s1Dpr = d;
@@ -2951,9 +2948,7 @@ html body .roasist-scale-globe-canvas {
       }
     }
 
-    // Slide 2
-    const c2 = document.querySelector('#carousel .swiper-slide:nth-child(2) .CarouselSlides_carouselMedia__aqYWx');
-    if (c2) {
+    if (c2 && r2) {
       stopSlideVideo(c2);
       let cv2 = c2.querySelector('canvas.roasist-creative-bento-canvas');
       if (!cv2) {
@@ -2964,9 +2959,7 @@ html body .roasist-scale-globe-canvas {
         s2Canvas = cv2;
         s2Ctx = cv2.getContext('2d', { alpha: false });
       }
-      const r2 = c2.getBoundingClientRect();
       if (r2.width > 40 && r2.height > 40) {
-        const d = Math.min(window.devicePixelRatio || 1, 2);
         const tw = Math.floor(r2.width), th = Math.floor(r2.height);
         if (s2W !== tw || s2H !== th || s2Dpr !== d || cv2.width !== tw * d) {
           s2W = tw; s2H = th; s2Dpr = d;
@@ -2975,9 +2968,7 @@ html body .roasist-scale-globe-canvas {
       }
     }
 
-    // Slide 3
-    const c3 = document.querySelector('#carousel .swiper-slide:nth-child(3) .CarouselSlides_carouselMedia__aqYWx');
-    if (c3) {
+    if (c3 && r3) {
       stopSlideVideo(c3);
       let cv3 = c3.querySelector('canvas.roasist-process-cockpit-canvas');
       if (!cv3) {
@@ -2988,9 +2979,7 @@ html body .roasist-scale-globe-canvas {
         s3Canvas = cv3;
         s3Ctx = cv3.getContext('2d', { alpha: false });
       }
-      const r3 = c3.getBoundingClientRect();
       if (r3.width > 40 && r3.height > 40) {
-        const d = Math.min(window.devicePixelRatio || 1, 2);
         const tw = Math.floor(r3.width), th = Math.floor(r3.height);
         if (s3W !== tw || s3H !== th || s3Dpr !== d || cv3.width !== tw * d) {
           s3W = tw; s3H = th; s3Dpr = d;
@@ -2999,9 +2988,7 @@ html body .roasist-scale-globe-canvas {
       }
     }
 
-    // Slide 4
-    const c4 = document.querySelector('#carousel .swiper-slide:nth-child(4) .CarouselSlides_carouselMedia__aqYWx');
-    if (c4) {
+    if (c4 && r4) {
       stopSlideVideo(c4);
       let cv4 = c4.querySelector('canvas.roasist-convert-broll-canvas');
       if (!cv4) {
@@ -3012,9 +2999,7 @@ html body .roasist-scale-globe-canvas {
         s4Canvas = cv4;
         s4Ctx = cv4.getContext('2d', { alpha: false });
       }
-      const r4 = c4.getBoundingClientRect();
       if (r4.width > 40 && r4.height > 40) {
-        const d = Math.min(window.devicePixelRatio || 1, 2);
         const tw = Math.floor(r4.width), th = Math.floor(r4.height);
         if (s4W !== tw || s4H !== th || s4Dpr !== d || cv4.width !== tw * d) {
           s4W = tw; s4H = th; s4Dpr = d;
@@ -3023,9 +3008,7 @@ html body .roasist-scale-globe-canvas {
       }
     }
 
-    // Slide 5
-    const c5 = document.querySelector('#carousel .swiper-slide:nth-child(5) .CarouselSlides_carouselMedia__aqYWx');
-    if (c5) {
+    if (c5 && r5) {
       stopSlideVideo(c5);
       let cv5 = c5.querySelector('canvas.roasist-scale-globe-canvas');
       if (!cv5) {
@@ -3036,9 +3019,7 @@ html body .roasist-scale-globe-canvas {
         s5Canvas = cv5;
         s5Ctx = cv5.getContext('2d', { alpha: false });
       }
-      const r5 = c5.getBoundingClientRect();
       if (r5.width > 40 && r5.height > 40) {
-        const d = Math.min(window.devicePixelRatio || 1, 2);
         const tw = Math.floor(r5.width), th = Math.floor(r5.height);
         if (s5W !== tw || s5H !== th || s5Dpr !== d || cv5.width !== tw * d) {
           s5W = tw; s5H = th; s5Dpr = d;
@@ -3048,101 +3029,141 @@ html body .roasist-scale-globe-canvas {
     }
   }
 
-  let lastMountCheck = -1000;
+  function isSlideActiveOrNear(cv, fallbackFirst) {
+    if (!cv) return false;
+    const slide = cv.closest('.swiper-slide');
+    if (!slide) return fallbackFirst;
+    const sw = slide.parentElement && slide.parentElement.parentElement;
+    if (!sw || !sw.classList.contains('swiper-initialized')) return fallbackFirst;
+    return (
+      slide.classList.contains('swiper-slide-active') ||
+      slide.classList.contains('swiper-slide-next') ||
+      slide.classList.contains('swiper-slide-prev')
+    );
+  }
+
   function tick(now) {
-    requestAnimationFrame(tick);
+    if (!isCarouselVisible) {
+      rafHandle = 0;
+      return;
+    }
+    rafHandle = requestAnimationFrame(tick);
     if (document.hidden) return;
-    if (!observerAttached || (isCarouselVisible && (now - lastMountCheck > 600))) {
+
+    if (now - lastMountCheck > 800) {
       lastMountCheck = now;
-      try {
-        ensureCanvasesMounted();
-      } catch {}
+      try { ensureCanvasesMounted(); } catch {}
     }
 
-    if (isCarouselVisible) {
-      const elapsedSeconds = (now - startTime) * 0.001;
+    const elapsedSeconds = (now - startTime) * 0.001;
 
-      // Render Slide 1 ("Önce veri ve strateji")
-      if (s1Ctx) {
-        const cameraProgress = (elapsedSeconds / LOOP_DURATION_S1) % 1.0;
+    // Render Slide 1 ("Önce veri ve strateji")
+    if (s1Ctx && isSlideActiveOrNear(s1Canvas, true)) {
+      const cameraProgress = (elapsedSeconds / LOOP_DURATION_S1) % 1.0;
+      s1Ctx.save();
+      s1Ctx.scale(s1Dpr, s1Dpr);
+      s1Ctx.fillStyle = COLOR_BG;
+      s1Ctx.fillRect(0, 0, s1W, s1H);
+
+      const centerX = s1W * 0.5;
+      const centerY = s1H * 0.5;
+      const viewportScale = Math.min(s1W / 1020, s1H / 788);
+      const refBaseFont = 34 * viewportScale;
+
+      for (let i = 0; i < TOTAL_NODES; i++) {
+        const node = s1Nodes[i];
+        let z = (node.zBase - cameraProgress) % 1.0;
+        if (z < 0) z += 1.0;
+        s1RenderList[i] = { node, z };
+      }
+
+      s1RenderList.sort((a, b) => b.z - a.z);
+      s1Ctx.textAlign = 'center';
+      s1Ctx.textBaseline = 'middle';
+
+      for (let i = 0; i < TOTAL_NODES; i++) {
+        const { node, z } = s1RenderList[i];
+        const alpha = computeOpacity(z);
+        if (alpha <= 0.005) continue;
+
+        const scale = getScaleAtZ(z, node.sizeMultiplier);
+        const parallax = getParallaxAtZ(z);
+
+        const screenX = centerX + node.x * parallax * viewportScale;
+        const screenY = centerY + node.y * parallax * viewportScale;
+        const fontSize = refBaseFont * scale;
+
         s1Ctx.save();
-        s1Ctx.scale(s1Dpr, s1Dpr);
-        s1Ctx.fillStyle = COLOR_BG;
-        s1Ctx.fillRect(0, 0, s1W, s1H);
-
-        const centerX = s1W * 0.5;
-        const centerY = s1H * 0.5;
-        const viewportScale = Math.min(s1W / 1020, s1H / 788);
-        const refBaseFont = 34 * viewportScale;
-
-        for (let i = 0; i < TOTAL_NODES; i++) {
-          const node = s1Nodes[i];
-          let z = (node.zBase - cameraProgress) % 1.0;
-          if (z < 0) z += 1.0;
-          s1RenderList[i] = { node, z };
+        s1Ctx.font = `800 ${fontSize.toFixed(2)}px 'Inter', -apple-system, BlinkMacSystemFont, sans-serif`;
+        if ('letterSpacing' in s1Ctx) {
+          s1Ctx.letterSpacing = `${(-0.03 * fontSize).toFixed(2)}px`;
         }
 
-        s1RenderList.sort((a, b) => b.z - a.z);
-        s1Ctx.textAlign = 'center';
-        s1Ctx.textBaseline = 'middle';
+        s1Ctx.globalAlpha = alpha;
+        s1Ctx.fillStyle = node.color;
 
-        for (let i = 0; i < TOTAL_NODES; i++) {
-          const { node, z } = s1RenderList[i];
-          const alpha = computeOpacity(z);
-          if (alpha <= 0.005) continue;
-
-          const scale = getScaleAtZ(z, node.sizeMultiplier);
-          const parallax = getParallaxAtZ(z);
-
-          const screenX = centerX + node.x * parallax * viewportScale;
-          const screenY = centerY + node.y * parallax * viewportScale;
-          const fontSize = refBaseFont * scale;
-
-          s1Ctx.save();
-          s1Ctx.font = `800 ${fontSize.toFixed(2)}px 'Inter', -apple-system, BlinkMacSystemFont, sans-serif`;
-          if ('letterSpacing' in s1Ctx) {
-            s1Ctx.letterSpacing = `${(-0.03 * fontSize).toFixed(2)}px`;
-          }
-
-          s1Ctx.globalAlpha = alpha;
-          s1Ctx.fillStyle = node.color;
-
-          if (node.isHighlight) {
-            s1Ctx.shadowColor = 'rgba(167, 139, 250, 0.72)';
-            s1Ctx.shadowBlur = Math.min(26, Math.max(4, 15 * scale * viewportScale));
-          } else {
-            s1Ctx.shadowBlur = 0;
-          }
-
-          s1Ctx.fillText(node.text, screenX, screenY);
-          s1Ctx.restore();
+        if (node.isHighlight) {
+          s1Ctx.shadowColor = 'rgba(167, 139, 250, 0.72)';
+          s1Ctx.shadowBlur = Math.min(26, Math.max(4, 15 * scale * viewportScale));
+        } else {
+          s1Ctx.shadowBlur = 0;
         }
+
+        s1Ctx.fillText(node.text, screenX, screenY);
         s1Ctx.restore();
       }
+      s1Ctx.restore();
+    }
 
-      // Render Slide 2 ("Yaratıcı ve cesur fikir")
-      if (s2Ctx) {
-        try { renderSlide2Bento(s2Ctx, s2W, s2H, s2Dpr, elapsedSeconds); } catch {}
-      }
+    // Render Slide 2 ("Yaratıcı ve cesur fikir")
+    if (s2Ctx && isSlideActiveOrNear(s2Canvas, false)) {
+      try { renderSlide2Bento(s2Ctx, s2W, s2H, s2Dpr, elapsedSeconds); } catch {}
+    }
 
-      // Render Slide 3 ("Kusursuz süreç yönetimi")
-      if (s3Ctx) {
-        try { renderSlide3ProcessCockpit(s3Ctx, s3W, s3H, s3Dpr, elapsedSeconds); } catch {}
-      }
+    // Render Slide 3 ("Kusursuz süreç yönetimi")
+    if (s3Ctx && isSlideActiveOrNear(s3Canvas, false)) {
+      try { renderSlide3ProcessCockpit(s3Ctx, s3W, s3H, s3Dpr, elapsedSeconds); } catch {}
+    }
 
-      // Render Slide 4 ("Dönüşüm için tasarla")
-      if (s4Ctx) {
-        try { renderSlide4ConvertBroll(s4Ctx, s4W, s4H, s4Dpr, elapsedSeconds); } catch {}
-      }
+    // Render Slide 4 ("Dönüşüm için tasarla")
+    if (s4Ctx && isSlideActiveOrNear(s4Canvas, false)) {
+      try { renderSlide4ConvertBroll(s4Ctx, s4W, s4H, s4Dpr, elapsedSeconds); } catch {}
+    }
 
-      // Render Slide 5 ("Ölçeklenebilir büyüme")
-      if (s5Ctx) {
-        try { renderSlide5ScaleGlobe(s5Ctx, s5W, s5H, s5Dpr, elapsedSeconds); } catch {}
-      }
+    // Render Slide 5 ("Ölçeklenebilir büyüme")
+    if (s5Ctx && isSlideActiveOrNear(s5Canvas, false)) {
+      try { renderSlide5ScaleGlobe(s5Ctx, s5W, s5H, s5Dpr, elapsedSeconds); } catch {}
     }
   }
 
-  requestAnimationFrame(tick);
+  function bindCarouselObserver() {
+    const carouselEl = document.getElementById('carousel');
+    if (!carouselEl) return;
+    if (!('IntersectionObserver' in window)) {
+      isCarouselVisible = true;
+      ensureCanvasesMounted();
+      if (!rafHandle) rafHandle = requestAnimationFrame(tick);
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      const vis = !!entries[0].isIntersecting;
+      isCarouselVisible = vis;
+      if (vis) {
+        try { ensureCanvasesMounted(); } catch {}
+        if (!rafHandle) rafHandle = requestAnimationFrame(tick);
+      } else if (rafHandle) {
+        cancelAnimationFrame(rafHandle);
+        rafHandle = 0;
+      }
+    }, { rootMargin: '250px 0px', threshold: 0.01 });
+    io.observe(carouselEl);
+  }
+
+  if (document.readyState === 'complete') {
+    bindCarouselObserver();
+  } else {
+    window.addEventListener('load', bindCarouselObserver, { once: true });
+  }
 })();
 </script>"""
 
