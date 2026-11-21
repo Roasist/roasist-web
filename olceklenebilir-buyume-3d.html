@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ölçeklenebilir Büyüme — 3D Global Pazar Açılımı & Ölçekleme Mimarisi</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #06050B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+    }
+
+    .stage-container {
+      position: relative;
+      width: min(100%, 1280px);
+      aspect-ratio: 562 / 434;
+      max-height: calc(100vh - 48px);
+      background-color: #0B0914;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 30px 80px -20px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+      isolation: isolate;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage-container" id="stage">
+    <canvas id="scaleCanvas" aria-label="Ölçeklenebilir büyüme: 3D Global Pazar Açılımı ve Sürdürülebilir Ölçekleme Mimarisi"></canvas>
+  </div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('scaleCanvas');
+      const stage = document.getElementById('stage');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      let width = 1020;
+      let height = 788;
+      let dpr = 1;
+
+      function resizeCanvas() {
+        const rect = stage.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.max(320, Math.floor(rect.width));
+        height = Math.max(240, Math.floor(rect.height));
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+      }
+
+      function roundRectPath(c, x, y, w, h, r) {
+        c.beginPath();
+        c.roundRect(x, y, w, h, r);
+      }
+
+      function clamp01(x) {
+        return Math.max(0, Math.min(1, x));
+      }
+
+      function smoothstep(edge0, edge1, x) {
+        const t = clamp01((x - edge0) / (edge1 - edge0));
+        return t * t * (3 - 2 * t);
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      // Convert (latDeg, lonDeg) to 3D unit sphere vector (Y up, Z front at lon=0, X right at lon=90E)
+      function latLonToVec3(latDeg, lonDeg) {
+        const lat = (latDeg * Math.PI) / 180;
+        const lon = (lonDeg * Math.PI) / 180;
+        const cosLat = Math.cos(lat);
+        return {
+          x: cosLat * Math.sin(lon),
+          y: -Math.sin(lat),
+          z: cosLat * Math.cos(lon)
+        };
+      }
+
+      // Rotate 3D point by globe yaw (around Y) and camera pitch (around X) + axial tilt (around Z)
+      function projectGlobeVec3(v, radius, cam) {
+        // 1. Rotate around Y by yaw
+        const x1 = v.x * cam.cosYaw + v.z * cam.sinYaw;
+        const y1 = v.y;
+        const z1 = -v.x * cam.sinYaw + v.z * cam.cosYaw;
+
+        // 2. Rotate around X by pitch
+        const x2 = x1;
+        const y2 = y1 * cam.cosPitch - z1 * cam.sinPitch;
+        const z2 = y1 * cam.sinPitch + z1 * cam.cosPitch;
+
+        // 3. Subtle axial tilt around Z
+        const x3 = x2 * cam.cosRoll - y2 * cam.sinRoll;
+        const y3 = x2 * cam.sinRoll + y2 * cam.cosRoll;
+
+        return {
+          x: cam.cx + x3 * radius,
+          y: cam.cy + y3 * radius,
+          z: z2, // > 0 means front hemisphere facing viewer
+          nx: x3,
+          ny: y3
+        };
+      }
+
+      // Approximate continental landmass test for (lat, lon) so our Fibonacci sphere forms real continents!
+      const CONTINENT_BOXES = [
+        // Europe & UK & Scandinavia
+        [36, 60, -10, 30],
+        [50, 70, 4, 32],
+        [51, 59, -8, 2],
+        // Türkiye & Anatolia
+        [36, 42.5, 26, 45],
+        // MENA & Arabian Peninsula
+        [13, 35, 34, 60],
+        // Africa
+        [5, 36, -17, 51],
+        [-35, 5, 9, 42],
+        // Central & East Asia / India
+        [20, 66, 45, 142],
+        [8, 25, 70, 108],
+        // North America (East Coast, Midwest, Canada, West)
+        [25, 52, -125, -66],
+        [52, 68, -135, -60],
+        [15, 25, -106, -77],
+        // South America
+        [-24, 11, -80, -35],
+        [-54, -24, -74, -48]
+      ];
+
+      function isLandmass(lat, lon) {
+        // Carve out Mediterranean & Black Sea & Red Sea gaps for crisp coastline recognition
+        if (lat > 31 && lat < 36.2 && lon > 11 && lon < 34.5) return false;
+        if (lat > 41.5 && lat < 46.5 && lon > 28 && lon < 41.5) return false;
+        for (let i = 0; i < CONTINENT_BOXES.length; i++) {
+          const b = CONTINENT_BOXES[i];
+          if (lat >= b[0] && lat <= b[1] && lon >= b[2] && lon <= b[3]) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      // Pre-compute 1,450 Fibonacci sphere surface nodes
+      const GLOBE_DOTS = (() => {
+        const N = 1450;
+        const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+        const list = [];
+        for (let i = 0; i < N; i++) {
+          const y = 1 - (i / (N - 1)) * 2; // [-1, 1]
+          const latDeg = Math.asin(-y) * (180 / Math.PI);
+          const theta = goldenAngle * i;
+          let lonDeg = ((theta * 180) / Math.PI) % 360;
+          if (lonDeg > 180) lonDeg -= 360;
+          if (lonDeg < -180) lonDeg += 360;
+
+          const land = isLandmass(latDeg, lonDeg);
+          const vec = latLonToVec3(latDeg, lonDeg);
+          // Highlight Europe / TR / MENA / East US region slightly brighter
+          const isCoreRegion = land && latDeg > 20 && latDeg < 58 && lonDeg > -85 && lonDeg < 60;
+          list.push({
+            vec,
+            land,
+            isCoreRegion,
+            size: land ? (isCoreRegion ? 1.85 : 1.45) : 0.85
+          });
+        }
+        return list;
+      })();
+
+      // Pre-compute latitude & longitude graticule wireframes
+      const GRATICULE_LINES = (() => {
+        const lines = [];
+        // Parallels (latitudes)
+        for (let lat = -60; lat <= 60; lat += 20) {
+          const pts = [];
+          for (let lon = -180; lon <= 180; lon += 6) {
+            pts.push(latLonToVec3(lat, lon));
+          }
+          lines.push(pts);
+        }
+        // Meridians (longitudes)
+        for (let lon = -180; lon < 180; lon += 20) {
+          const pts = [];
+          for (let lat = -80; lat <= 80; lat += 5) {
+            pts.push(latLonToVec3(lat, lon));
+          }
+          lines.push(pts);
+        }
+        return lines;
+      })();
+
+      // Global Expansion Markets radiating from İSTANBUL HUB
+      const ORIGIN_HUB = {
+        name: 'İSTANBUL',
+        tag: 'MERKEZ HUB',
+        lat: 41.01,
+        lon: 28.97,
+        vec: latLonToVec3(41.01, 28.97)
+      };
+
+      const EXPANSION_MARKETS = [
+        {
+          id: 'berlin',
+          name: 'BERLİN',
+          region: 'DACH',
+          metric: '5.1x ROAS',
+          growth: '+210%',
+          lat: 52.52,
+          lon: 13.40,
+          vec: latLonToVec3(52.52, 13.40),
+          arcHeight: 0.16,
+          phaseOffset: 0.0,
+          showBadge: true,
+          labelDx: 10,
+          labelDy: -22
+        },
+        {
+          id: 'amsterdam',
+          name: 'AMSTERDAM',
+          region: 'EU',
+          metric: '5.1x ROAS',
+          growth: '+172%',
+          lat: 52.37,
+          lon: 4.90,
+          vec: latLonToVec3(52.37, 4.90),
+          arcHeight: 0.18,
+          phaseOffset: 0.34,
+          showBadge: false,
+          labelDx: 0,
+          labelDy: 0
+        },
+        {
+          id: 'london',
+          name: 'LONDRA',
+          region: 'UK',
+          metric: '5.8x ROAS',
+          growth: '+184%',
+          lat: 51.51,
+          lon: -0.13,
+          vec: latLonToVec3(51.51, -0.13),
+          arcHeight: 0.22,
+          phaseOffset: 0.16,
+          showBadge: true,
+          labelDx: -108,
+          labelDy: -16
+        },
+        {
+          id: 'newyork',
+          name: 'NEW YORK',
+          region: 'US',
+          metric: '5.8x ROAS',
+          growth: '+195%',
+          lat: 40.71,
+          lon: -64.0,
+          vec: latLonToVec3(40.71, -64.0),
+          arcHeight: 0.34,
+          phaseOffset: 0.68,
+          showBadge: true,
+          labelDx: -46,
+          labelDy: 22
+        },
+        {
+          id: 'dubai',
+          name: 'DUBAİ',
+          region: 'MENA',
+          metric: '6.2x ROAS',
+          growth: '+240%',
+          lat: 25.20,
+          lon: 55.27,
+          vec: latLonToVec3(25.20, 55.27),
+          arcHeight: 0.20,
+          phaseOffset: 0.52,
+          showBadge: true,
+          labelDx: 10,
+          labelDy: 14
+        },
+        {
+          id: 'riyadh',
+          name: 'RİYAD',
+          region: 'MENA',
+          metric: '6.2x ROAS',
+          growth: '+225%',
+          lat: 24.71,
+          lon: 46.67,
+          vec: latLonToVec3(24.71, 46.67),
+          arcHeight: 0.17,
+          phaseOffset: 0.82,
+          showBadge: false,
+          labelDx: 0,
+          labelDy: 0
+        }
+      ];
+
+      // Sample great-circle elevated 3D point between v0 and v1 at u in [0, 1]
+      function sampleArcVec3(v0, v1, u, maxAltitude) {
+        const x = lerp(v0.x, v1.x, u);
+        const y = lerp(v0.y, v1.y, u);
+        const z = lerp(v0.z, v1.z, u);
+        const len = Math.hypot(x, y, z) || 1;
+        const elev = 1 + maxAltitude * 4 * u * (1 - u);
+        return {
+          x: (x / len) * elev,
+          y: (y / len) * elev,
+          z: (z / len) * elev
+        };
+      }
+
+      function drawCheckIcon(c, x, y, size, color) {
+        c.save();
+        c.strokeStyle = color;
+        c.lineWidth = 1.8;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.beginPath();
+        c.moveTo(x - size * 0.45, y + size * 0.02);
+        c.lineTo(x - size * 0.12, y + size * 0.36);
+        c.lineTo(x + size * 0.48, y - size * 0.32);
+        c.stroke();
+        c.restore();
+      }
+
+      // ============================================================================
+      // 1. STUDIO BACKDROP (CLEAN ARCHITECTURAL STAGE, ZERO TOP/BOTTOM HUD TEXT)
+      // ============================================================================
+      function drawStudioBackdropAndHUD(c) {
+        c.fillStyle = '#0B0914';
+        c.fillRect(0, 0, 1020, 788);
+
+        // Subtle atmospheric spotlight centered behind the 3D Globe (x=510, y=394)
+        const grad = c.createRadialGradient(510, 394, 40, 510, 394, 440);
+        grad.addColorStop(0, 'rgba(118, 1, 255, 0.16)');
+        grad.addColorStop(0.55, 'rgba(30, 27, 75, 0.06)');
+        grad.addColorStop(1, 'rgba(11, 9, 20, 0)');
+        c.fillStyle = grad;
+        c.fillRect(0, 0, 1020, 788);
+      }
+
+      // ============================================================================
+      // 2. 3D ARCHITECTURAL GLOBE, CONTINENT MATRIX, ORBITAL RING & EXPANSION ARCS
+      // ============================================================================
+      function drawOrbitalScaleRingHalf(c, radius, cam, elapsed, isFrontHalf) {
+        const ringR = radius * 1.22;
+        const segments = 90;
+
+        c.save();
+        c.beginPath();
+        let started = false;
+
+        for (let i = 0; i <= segments; i++) {
+          const a = (i / segments) * Math.PI * 2;
+          const v = {
+            x: Math.cos(a),
+            y: Math.sin(a) * 0.22,
+            z: Math.sin(a)
+          };
+          const p = projectGlobeVec3(v, ringR, cam);
+          const inFront = p.z >= 0;
+          if (inFront === isFrontHalf) {
+            if (!started) {
+              c.moveTo(p.x, p.y);
+              started = true;
+            } else {
+              c.lineTo(p.x, p.y);
+            }
+          } else {
+            started = false;
+          }
+        }
+
+        c.strokeStyle = isFrontHalf ? 'rgba(167, 139, 250, 0.34)' : 'rgba(148, 163, 184, 0.12)';
+        c.lineWidth = isFrontHalf ? 1.4 : 1.0;
+        c.setLineDash([5, 5]);
+        c.stroke();
+        c.setLineDash([]);
+
+        // Orbiting scale nodes along the ring
+        for (let k = 0; k < 3; k++) {
+          const angle = elapsed * 0.55 + k * ((Math.PI * 2) / 3);
+          const v = {
+            x: Math.cos(angle),
+            y: Math.sin(angle) * 0.22,
+            z: Math.sin(angle)
+          };
+          const p = projectGlobeVec3(v, ringR, cam);
+          if ((p.z >= 0) === isFrontHalf) {
+            c.beginPath();
+            c.arc(p.x, p.y, isFrontHalf ? 3.4 : 2.2, 0, Math.PI * 2);
+            c.fillStyle = k === 0 ? '#10B981' : '#A78BFA';
+            if (isFrontHalf) {
+              c.shadowColor = k === 0 ? '#10B981' : '#A78BFA';
+              c.shadowBlur = 8;
+            }
+            c.fill();
+            c.shadowBlur = 0;
+          }
+        }
+
+        c.restore();
+      }
+
+      function draw3DGlobeAndArcs(c, radius, cam, elapsed) {
+        // A. Back half of orbital scale ring (behind globe)
+        drawOrbitalScaleRingHalf(c, radius, cam, elapsed, false);
+
+        // B. Globe physical sphere body & atmospheric rim light
+        c.save();
+        c.beginPath();
+        c.arc(cam.cx, cam.cy, radius, 0, Math.PI * 2);
+        const sphereGrad = c.createRadialGradient(
+          cam.cx - radius * 0.28,
+          cam.cy - radius * 0.28,
+          radius * 0.1,
+          cam.cx,
+          cam.cy,
+          radius
+        );
+        sphereGrad.addColorStop(0, '#17132B');
+        sphereGrad.addColorStop(0.68, '#0D0B18');
+        sphereGrad.addColorStop(1, '#080610');
+        c.fillStyle = sphereGrad;
+        c.fill();
+
+        // Crisp architectural rim border
+        c.strokeStyle = 'rgba(167, 139, 250, 0.32)';
+        c.lineWidth = 1.5;
+        c.stroke();
+        c.restore();
+
+        // C. Latitude & Longitude CAD Graticule Lines (Front Hemisphere)
+        c.save();
+        c.beginPath();
+        c.arc(cam.cx, cam.cy, radius - 1, 0, Math.PI * 2);
+        c.clip();
+
+        c.strokeStyle = 'rgba(148, 163, 184, 0.09)';
+        c.lineWidth = 0.9;
+        for (let l = 0; l < GRATICULE_LINES.length; l++) {
+          const pts = GRATICULE_LINES[l];
+          c.beginPath();
+          let drawing = false;
+          for (let i = 0; i < pts.length; i++) {
+            const p = projectGlobeVec3(pts[i], radius, cam);
+            if (p.z > 0.02) {
+              if (!drawing) {
+                c.moveTo(p.x, p.y);
+                drawing = true;
+              } else {
+                c.lineTo(p.x, p.y);
+              }
+            } else {
+              drawing = false;
+            }
+          }
+          c.stroke();
+        }
+
+        // D. Continental Landmass Fibonacci Dot Matrix
+        for (let i = 0; i < GLOBE_DOTS.length; i++) {
+          const d = GLOBE_DOTS[i];
+          const p = projectGlobeVec3(d.vec, radius, cam);
+          if (p.z <= 0.04) continue; // Back hemisphere culling
+
+          const limbFade = smoothstep(0.04, 0.35, p.z);
+          c.beginPath();
+          c.arc(p.x, p.y, d.size, 0, Math.PI * 2);
+          if (d.land) {
+            const alpha = (d.isCoreRegion ? 0.82 : 0.48) * limbFade;
+            c.fillStyle = d.isCoreRegion
+              ? `rgba(226, 232, 240, ${alpha.toFixed(3)})`
+              : `rgba(148, 163, 184, ${alpha.toFixed(3)})`;
+          } else {
+            c.fillStyle = `rgba(148, 163, 184, ${(0.07 * limbFade).toFixed(3)})`;
+          }
+          c.fill();
+        }
+        c.restore();
+
+        // E. 3D Great-Circle Ballistic Expansion Arcs from İSTANBUL to Global Markets
+        const pOrigin = projectGlobeVec3(ORIGIN_HUB.vec, radius, cam);
+
+        EXPANSION_MARKETS.forEach((mkt, idx) => {
+          // Draw full arc trajectory in 3D space
+          const steps = 36;
+          const arcPts = [];
+          for (let s = 0; s <= steps; s++) {
+            const u = s / steps;
+            const vArc = sampleArcVec3(ORIGIN_HUB.vec, mkt.vec, u, mkt.arcHeight);
+            arcPts.push(projectGlobeVec3(vArc, radius, cam));
+          }
+
+          // Base dashed guide arc
+          c.save();
+          c.beginPath();
+          arcPts.forEach((pt, i) => {
+            if (i === 0) c.moveTo(pt.x, pt.y);
+            else c.lineTo(pt.x, pt.y);
+          });
+          c.strokeStyle = 'rgba(167, 139, 250, 0.24)';
+          c.lineWidth = 1.2;
+          c.setLineDash([4, 4]);
+          c.stroke();
+          c.setLineDash([]);
+
+          // Active glowing packet stream along the 3D arc
+          const cycle = ((elapsed * 0.42) + mkt.phaseOffset) % 1.0;
+          const headIdx = Math.min(steps, Math.floor(cycle * steps));
+          const tailIdx = Math.max(0, headIdx - 11);
+
+          if (headIdx > tailIdx) {
+            c.beginPath();
+            for (let i = tailIdx; i <= headIdx; i++) {
+              if (i === tailIdx) c.moveTo(arcPts[i].x, arcPts[i].y);
+              else c.lineTo(arcPts[i].x, arcPts[i].y);
+            }
+            c.strokeStyle = idx % 2 === 0 ? '#A78BFA' : '#10B981';
+            c.lineWidth = 2.4;
+            c.lineCap = 'round';
+            c.stroke();
+
+            const headPt = arcPts[headIdx];
+            c.beginPath();
+            c.arc(headPt.x, headPt.y, 3.6, 0, Math.PI * 2);
+            c.fillStyle = '#FFFFFF';
+            c.shadowColor = idx % 2 === 0 ? '#A78BFA' : '#10B981';
+            c.shadowBlur = 10;
+            c.fill();
+            c.shadowBlur = 0;
+          }
+          c.restore();
+
+          // Destination Market Pin & Floating 3D City Badge
+          const pDest = projectGlobeVec3(mkt.vec, radius, cam);
+          if (pDest.z > 0.08) {
+            const vis = smoothstep(0.08, 0.28, pDest.z);
+            c.save();
+            c.globalAlpha = vis;
+
+            // Surface shockwave ring
+            const ringPhase = ((elapsed * 0.85) + mkt.phaseOffset) % 1.0;
+            c.beginPath();
+            c.arc(pDest.x, pDest.y, 4 + ringPhase * 14, 0, Math.PI * 2);
+            c.strokeStyle = `rgba(16, 185, 129, ${(0.65 * (1 - ringPhase)).toFixed(3)})`;
+            c.lineWidth = 1.4;
+            c.stroke();
+
+            // City node core
+            c.beginPath();
+            c.arc(pDest.x, pDest.y, 4.2, 0, Math.PI * 2);
+            c.fillStyle = '#10B981';
+            c.fill();
+            c.lineWidth = 1.5;
+            c.strokeStyle = '#FFFFFF';
+            c.stroke();
+
+            // Clean floating city tag next to the 3D coordinate (for primary regional hubs)
+            if (mkt.showBadge) {
+              const lx = pDest.x + mkt.labelDx;
+              const ly = pDest.y + mkt.labelDy;
+              const tagText = `${mkt.name} · ${mkt.growth}`;
+              c.font = `700 9.5px 'Inter', sans-serif`;
+              const tw = c.measureText(tagText).width;
+              const pw = tw + 16;
+              const ph = 20;
+
+              roundRectPath(c, lx, ly - ph * 0.5, pw, ph, 6);
+              c.fillStyle = 'rgba(15, 13, 26, 0.90)';
+              c.fill();
+              c.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+              c.lineWidth = 1;
+              c.stroke();
+
+              c.fillStyle = '#FFFFFF';
+              c.textAlign = 'left';
+              c.textBaseline = 'middle';
+              c.fillText(tagText, lx + 8, ly + 0.5);
+            }
+
+            c.restore();
+          }
+        });
+
+        // F. Origin Hub (İSTANBUL) Beacon on Globe
+        if (pOrigin.z > 0.1) {
+          c.save();
+          const pulseR = 6 + ((elapsed * 14) % 16);
+          const pulseA = 1 - ((pulseR - 6) / 16);
+          c.beginPath();
+          c.arc(pOrigin.x, pOrigin.y, pulseR, 0, Math.PI * 2);
+          c.strokeStyle = `rgba(118, 1, 255, ${(0.8 * pulseA).toFixed(3)})`;
+          c.lineWidth = 2;
+          c.stroke();
+
+          c.beginPath();
+          c.arc(pOrigin.x, pOrigin.y, 5.5, 0, Math.PI * 2);
+          c.fillStyle = '#7601FF';
+          c.fill();
+          c.lineWidth = 2;
+          c.strokeStyle = '#FFFFFF';
+          c.stroke();
+          c.restore();
+        }
+
+        // G. Front half of orbital scale ring (passes in front of globe!)
+        drawOrbitalScaleRingHalf(c, radius, cam, elapsed, true);
+
+        return pOrigin;
+      }
+
+      // ============================================================================
+      // MAIN 12-SECOND SEAMLESS CHOREOGRAPHY (CENTERED 3D GLOBE ONLY)
+      // ============================================================================
+      const LOOP_DURATION = 12.0;
+      const startTime = performance.now();
+
+      function render(now) {
+        const elapsed = (now - startTime) * 0.001;
+        const t = elapsed % LOOP_DURATION;
+        const phase = (t / LOOP_DURATION) * Math.PI * 2;
+
+        // Smooth camera longitude sweep centered on Europe / TR / MENA / Atlantic
+        // pitchDeg = -32 tilts the Northern Hemisphere toward the viewer so 25°N-52°N sits dead-center on the globe
+        const yawDeg = -4 + Math.sin(phase) * 10;
+        const pitchDeg = -32 + Math.cos(phase) * 3;
+        const rollDeg = -5;
+
+        const yaw = (yawDeg * Math.PI) / 180;
+        const pitch = (pitchDeg * Math.PI) / 180;
+        const roll = (rollDeg * Math.PI) / 180;
+
+        const cam = {
+          cx: 510,
+          cy: 394,
+          cosYaw: Math.cos(yaw),
+          sinYaw: Math.sin(yaw),
+          cosPitch: Math.cos(pitch),
+          sinPitch: Math.sin(pitch),
+          cosRoll: Math.cos(roll),
+          sinRoll: Math.sin(roll)
+        };
+
+        const globeRadius = 266;
+
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        const scaleX = width / 1020;
+        const scaleY = height / 788;
+        const uniformScale = Math.min(scaleX, scaleY);
+        const offsetX = (width - 1020 * uniformScale) * 0.5;
+        const offsetY = (height - 788 * uniformScale) * 0.5;
+
+        ctx.fillStyle = '#0B0914';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(uniformScale, uniformScale);
+
+        drawStudioBackdropAndHUD(ctx);
+        draw3DGlobeAndArcs(ctx, globeRadius, cam, elapsed);
+
+        ctx.restore();
+        requestAnimationFrame(render);
+      }
+
+      window.addEventListener('resize', resizeCanvas, { passive: true });
+      resizeCanvas();
+      requestAnimationFrame(render);
+    })();
+  </script>
+</body>
+</html>
