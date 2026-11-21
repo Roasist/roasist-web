@@ -620,3 +620,64 @@ body:not(.roasist-ink-ready).roasist-scrolled .Header_header__KwdYD .Header_logo
     grid-column: 1 / span 7 !important;
   }
 }
+
+
+/* === MOBILE CTA HIERARCHY & STABLE FLOATING 'TEKLİF AL' BUTTON === */
+@media (max-width: 768px) {
+  .Header_header__KwdYD .Header_button__yG4_K,
+  header[class*="Header_header"] a[class*="Header_button"],
+  .PrimaryNavigation_buttonContainer__iiKTy,
+  nav[class*="PrimaryNavigation_navigation"] [class*="PrimaryNavigation_buttonContainer"] {
+    display: none !important;
+  }
+}
+
+.FloatingStartButton_linkContainer__eZz7z {
+  z-index: 88 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translate3d(0, 12px, 0) !important;
+  pointer-events: none !important;
+  transition:
+    opacity 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    bottom 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 180ms !important;
+}
+
+@media (max-width: 640px) {
+  .FloatingStartButton_linkContainer__eZz7z {
+    padding: 1rem 1.125rem !important;
+  }
+  body.roasist-cookie-open .FloatingStartButton_linkContainer__eZz7z {
+    bottom: 132px !important;
+  }
+}
+
+body.roasist-show-floating-cta:not(.roasist-footer-in-view):not(.roasist-menu-open) .FloatingStartButton_linkContainer__eZz7z {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+body.roasist-show-floating-cta:not(.roasist-footer-in-view):not(.roasist-menu-open) .FloatingStartButton_button__Ncnrf {
+  pointer-events: auto !important;
+}
+
+.FloatingStartButton_button__Ncnrf {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 10px 28px -6px rgba(15, 23, 42, 0.42) !important;
+  font-weight: 600 !important;
+  transition: background-color 170ms cubic-bezier(0.22, 1, 0.36, 1), transform 170ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.FloatingStartButton_button__Ncnrf:hover {
+  background-color: #7602FF !important;
+  color: #ffffff !important;
+}
+
+.FloatingStartButton_button__Ncnrf .FloatingStartButton_buttonArrow__re1eN {
+  color: #ffffff !important;
+}
